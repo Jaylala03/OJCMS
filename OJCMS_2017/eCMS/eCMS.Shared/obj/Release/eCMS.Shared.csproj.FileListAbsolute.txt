@@ -1,0 +1,23 @@
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.Shared\bin\Release\eCMS.Shared.dll
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.Shared\bin\Release\eCMS.Shared.pdb
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.Shared\bin\Release\EasySoft.Helper.dll
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.Shared\bin\Release\System.Web.Mvc.dll
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.Shared\bin\Release\Microsoft.Web.Infrastructure.dll
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.Shared\obj\Release\eCMS.Shared.csprojResolveAssemblyReference.cache
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.Shared\obj\Release\eCMS.Shared.dll
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.Shared\obj\Release\eCMS.Shared.pdb
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.Shared\bin\Release\System.Web.Razor.dll
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.Shared\bin\Release\System.Web.WebPages.Razor.dll
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.Shared\bin\Release\System.Web.WebPages.dll
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.Shared\bin\Release\System.Web.WebPages.Deployment.dll
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.Shared\bin\Release\eCMS.Shared.dll
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.Shared\bin\Release\eCMS.Shared.pdb
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.Shared\bin\Release\EasySoft.Helper.dll
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.Shared\bin\Release\System.Web.Mvc.dll
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.Shared\bin\Release\System.Web.Razor.dll
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.Shared\bin\Release\System.Web.WebPages.Razor.dll
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.Shared\bin\Release\System.Web.WebPages.dll
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.Shared\bin\Release\System.Web.WebPages.Deployment.dll
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.Shared\obj\Release\eCMS.Shared.csprojResolveAssemblyReference.cache
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.Shared\obj\Release\eCMS.Shared.dll
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.Shared\obj\Release\eCMS.Shared.pdb

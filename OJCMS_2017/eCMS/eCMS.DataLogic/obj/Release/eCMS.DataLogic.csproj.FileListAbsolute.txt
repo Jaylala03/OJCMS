@@ -1,0 +1,28 @@
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.DataLogic\bin\Release\eCMS.DataLogic.dll.config
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.DataLogic\bin\Release\eCMS.DataLogic.dll
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.DataLogic\bin\Release\eCMS.DataLogic.pdb
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.DataLogic\bin\Release\EasySoft.Helper.dll
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.DataLogic\bin\Release\eCMS.Shared.dll
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.DataLogic\bin\Release\EntityFramework.dll
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.DataLogic\bin\Release\EntityFramework.SqlServer.dll
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.DataLogic\bin\Release\System.Web.Mvc.dll
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.DataLogic\bin\Release\Microsoft.Web.Infrastructure.dll
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.DataLogic\bin\Release\eCMS.Shared.pdb
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.DataLogic\obj\Release\eCMS.DataLogic.csprojResolveAssemblyReference.cache
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.DataLogic\obj\Release\eCMS.DataLogic.dll
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.DataLogic\obj\Release\eCMS.DataLogic.pdb
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.DataLogic\bin\Release\EntityFramework.xml
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.DataLogic\bin\Release\EntityFramework.SqlServer.xml
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.DataLogic\bin\Release\System.Web.Mvc.xml
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.DataLogic\bin\Release\eCMS.DataLogic.dll.config
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.DataLogic\bin\Release\eCMS.DataLogic.dll
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.DataLogic\bin\Release\eCMS.DataLogic.pdb
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.DataLogic\bin\Release\EasySoft.Helper.dll
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.DataLogic\bin\Release\eCMS.Shared.dll
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.DataLogic\bin\Release\EntityFramework.dll
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.DataLogic\bin\Release\EntityFramework.SqlServer.dll
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.DataLogic\bin\Release\System.Web.Mvc.dll
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.DataLogic\bin\Release\eCMS.Shared.pdb
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.DataLogic\obj\Release\eCMS.DataLogic.csprojResolveAssemblyReference.cache
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.DataLogic\obj\Release\eCMS.DataLogic.dll
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.DataLogic\obj\Release\eCMS.DataLogic.pdb

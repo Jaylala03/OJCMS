@@ -1,0 +1,72 @@
+@model eCMS.DataLogic.Models.PermissionRegion
+@using eCMS.BusinessLogic.Helpers
+@using eCMS.DataLogic.Models
+@using eCMS.Shared
+@using (Html.BeginForm("SaveAjax", "PermissionRegion", new { area = "WorkerManagement" }, FormMethod.Post, new { id = "frmEditorPermissionRegion" }))
+{
+    @Html.HiddenFor(model => model.PermissionID)
+    <div class="row">
+        <div class="col-md-4">
+            @Html.LabelFor(model => model.ProgramID)
+            <div class="input-group width-100">
+                @(Html.Kendo().DropDownListFor(model => model.ProgramID)
+                            .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                            .Events(e => e.Change("PermissionProgramDropDownList_OnChanged"))
+                        .DataTextField("Text")
+                        .DataValueField("Value")
+                        .DataSource(source =>
+                        {
+                            source.Read(read =>
+                            {
+                                read.Action("LoadProgramAjax", "Permission");
+                            });
+                        })
+                        )
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            @Html.LabelFor(model => model.RegionID)
+            <div class="input-group width-100">
+                @(Html.Kendo().DropDownListFor(model => model.RegionID)
+                            .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                    .Events(e => e.Change("PermissionRegionDropDownList_OnChanged"))
+                        .DataTextField("Text")
+                        .DataValueField("Value")
+                        .DataSource(source =>
+                        {
+                            source.Read(read =>
+                            {
+                                read.Action("LoadRegionWithAllOptionAjax", "Permission");
+                            });
+                        })
+                        )
+            </div>
+        </div>
+    </div>
+    <div class="row margin-top-10">
+        <div class="col-md-12">
+            @Html.LabelFor(model => model.SubProgramIDs)
+            <div class="input-group width-100">
+                <div id="divSubProgram">
+                    @Html.Partial("~/Areas/WorkerManagement/Views/Permission/_SubProgram.cshtml")
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row margin-top-10">
+        <div class="col-md-12">
+            @Html.LabelFor(model => model.JamatkhanaIDs)
+            <div class="input-group width-100">
+                <div id="divJamatkhana">
+                    @Html.Partial("~/Areas/WorkerManagement/Views/Permission/_Jamatkhana.cshtml")
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row margin-top-10">
+        <div class="col-md-2 margin-top-20">
+            <button class="btn btn-primary" id="btnSaveAndRefresh" name="btnSaveAndRefreshPermissionRegion"><i class="fa fa-save"></i>Save</button>
+        </div>
+    </div>                
+}

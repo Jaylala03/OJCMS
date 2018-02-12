@@ -1,0 +1,86 @@
+@model eCMS.DataLogic.Models.CaseMemberContact
+@using eCMS.BusinessLogic.Helpers
+@using eCMS.DataLogic.Models
+@using eCMS.Shared
+@Html.HiddenFor(model => model.ID)
+@Html.HiddenFor(model => model.CaseMemberID)
+@Html.HiddenFor(model => model.CreateDate)
+@Html.HiddenFor(model => model.CreatedByWorkerID)
+<div class="row">
+    <div class="col-md-6 ">
+        <div class="form-group02">
+            <label class="col-sm-4 control-label labe-text">@Html.LabelFor(model => model.ContactMediaID)</label>
+            <div class="col-sm-8">
+                @(Html.Kendo().DropDownListFor(model => model.ContactMediaID)
+                            .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                            .DataTextField("Text")
+                            .DataValueField("Value")
+                            .DataSource(source =>
+                            {
+                                source.Read(read =>
+                                {
+                                    read.Action("LoadContactMediaAjax", "CaseMemberContact");
+                                });
+                            })
+                         )
+            </div>
+        </div>
+        
+    </div>
+    <div class="col-md-6">
+        <div class="form-group02">
+            <label class="col-sm-4 control-label labe-text">@Html.LabelFor(model => model.Contact)</label>
+            <div class="col-sm-8">
+                @Html.EditorFor(model => model.Contact)
+            </div>
+        </div>
+        
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+    <fieldset>
+        <legend>Emergency Contact Details</legend>
+        <div class="col-md-6">
+            <div class="form-group02">
+                <label class="col-sm-4 control-label labe-text">@Html.LabelFor(model => model.EmergencyContactName)</label>
+                <div class="col-sm-8">
+                    @Html.EditorFor(model => model.EmergencyContactName)
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-6">
+             <div class="form-group02">
+                <label class="col-sm-4 control-label labe-text">@Html.LabelFor(model => model.EmergencyContactNumber)</label>
+                <div class="col-sm-8">
+                    @Html.EditorFor(model => model.EmergencyContactNumber)
+                </div>
+            </div>
+        </div>
+    </fieldset>
+        </div>
+</div>
+<div class="row">
+      <div class="col-md-6 ">
+        
+        <div class="form-group02">
+            <label class="col-sm-4 control-label labe-text">@Html.LabelFor(model => model.Comments)</label>
+            <div class="col-sm-8">
+                @Html.EditorFor(model => model.Comments)
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        
+        <div class="form-group02">
+            <div class="col-sm-4 col-sm-offset-8">
+                <div id="btnSaveAndRefresh" name="btnSaveAndRefreshCaseMemberContact">
+                    <div class="customButton">
+                        &nbsp;SAVE&nbsp;&nbsp;<i class="fa fa-plus"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

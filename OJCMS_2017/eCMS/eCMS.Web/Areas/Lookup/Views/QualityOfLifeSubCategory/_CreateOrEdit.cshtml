@@ -1,0 +1,54 @@
+@model eCMS.DataLogic.Models.Lookup.QualityOfLifeSubCategory
+@using eCMS.BusinessLogic.Helpers
+@using eCMS.DataLogic.Models
+@using eCMS.Shared
+@Html.HiddenFor(model => model.ID)
+@Html.HiddenFor(model => model.CreateDate)
+<div id="row hr-line">
+    <div class="row">        
+        <div class="col-md-12">
+            <label class="col-sm-4 control-label labe-text">@Html.LabelFor(model => model.QualityOfLifeCategoryID)</label>
+            <div class="col-sm-8">
+                @(Html.Kendo().DropDownListFor(model => model.QualityOfLifeCategoryID)
+                            .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                        .DataTextField("Text")
+                        .DataValueField("Value")
+                        .DataSource(source =>
+                        {
+                            source.Read(read =>
+                            {
+                                read.Action("LoadQualityOfLifeCategoryAjax", "QualityOfLifeSubCategory");
+                            });
+                        })
+                        )
+            </div>
+        </div>
+        <div class="col-md-12">
+            <label class="col-sm-4 control-label labe-text">@Html.LabelFor(model => model.Name)</label>
+            <div class="col-sm-8">
+                @Html.TextBoxFor(model => model.Name, new { @class = "form-control popup-text-box" })
+            </div>
+        </div>
+        <div class="col-md-12">
+            <label class="col-sm-4 control-label labe-text">@Html.LabelFor(model => model.Description)</label>
+            <div class="col-sm-8">
+                @Html.TextBoxFor(model => model.Description, new { @class = "form-control popup-text-box" })
+            </div>
+        </div>
+        <div class="col-md-12">
+            <label class="col-sm-4 control-label labe-text">@Html.LabelFor(model => model.IsActive)</label>
+            <div class="col-sm-8">
+                @Html.EditorFor(model => model.IsActive)
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            &nbsp;
+        </div>
+        <div class="col-md-8 margin-top-10">
+            <button type="button" id="btnSaveAndRefresh" name="btnSaveAndRefreshQualityOfLifeSubCategory" class="col-sm-2 createsource00">Save</button>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>

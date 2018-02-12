@@ -1,0 +1,137 @@
+@model eCMS.DataLogic.Models.CaseGoal
+@using eCMS.BusinessLogic.Helpers
+@using eCMS.DataLogic.Models
+@using eCMS.DataLogic.Models.Lookup
+@using eCMS.Shared
+@* This partial view defines form fields that will appear when creating and editing entities *@
+@Html.Partial(Constants.PartialViews.Alert)
+@Html.HiddenFor(model => model.ID)
+@Html.HiddenFor(model => model.CaseID)
+@Html.HiddenFor(model => model.CreateDate)
+@Html.HiddenFor(model => model.CreatedByWorkerID)
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group02">
+            <label class="col-sm-6 control-label labe-text">@Html.LabelRequiredFor(model => model.CaseMemberID)</label>
+            <div class="col-sm-6">
+                 @(Html.Kendo().DropDownListFor(model => model.CaseMemberID)    
+                        .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                        .Events(e=>e.Change("CaseMemberDropDownList_OnChanged"))
+                        .DataTextField("Text")
+                        .DataValueField("Value")
+                        .DataSource(source =>
+                        {
+                            source.Read(read =>
+                            {
+                                read.Action("LoadCaseMemberListAjax", "CaseGoal", new { caseID=Model.CaseID });
+                            });
+                        })
+                    )
+            </div>
+        </div>
+    </div>    
+    <div class="col-md-4">
+        <div class="form-group02">
+            <label class="col-sm-6 control-label labe-text">@Html.LabelRequiredFor(model => model.StartDate)</label>
+            <div class="col-sm-6">
+                @Html.EditorFor(model => model.StartDate)
+            </div>
+        </div>
+    </div>    
+    <div class="col-md-4">
+        <div class="form-group02">
+            <label class="col-sm-6 control-label labe-text">@Html.LabelRequiredFor(model => model.EndDate)</label>
+            <div class="col-sm-6">
+                @Html.EditorFor(model => model.EndDate)
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group02">
+            <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.WishInLife)</label>
+            <div class="col-sm-8">
+                @Html.TextAreaFor(model => model.WishInLife, new { @class = "form-control", style = "width:95%; height: 50px;", rows = "3" })
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group02">
+            <label class="col-sm-2 control-label labe-text">@Html.LabelFor(model => model.Comments)</label>
+            <div class="col-sm-10">
+                @Html.TextAreaFor(model => model.Comments, new { @class = "form-control ckeditor", style = "width:95%; height: 50px;", rows = "3" })
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="content-box">
+            <span class="section-title" style="width:350px!important;">@Html.LabelRequiredFor(model => model.QualityOfLifeCategoryIDs)</span>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            @if (ViewBag.QualityOfLifeCategory != null)
+                            {
+                                foreach (CaseGoalLivingCondition item in ViewBag.QualityOfLifeCategory)
+                                {
+                                    <div class="col-sm-3">
+                                        @if(item.ID>0)
+                                        {
+                                            <input type="checkbox" checked="checked" name="QualityOfLifeCategoryIDs" id="chkQualityOfLifeCategoryIDs_@item.QualityOfLifeCategoryID" value="@item.QualityOfLifeCategoryID" /> @item.QualityOfLifeCategoryName
+                                        }
+                                        else
+                                        {
+                                            <input type="checkbox" name="QualityOfLifeCategoryIDs" id="chkQualityOfLifeCategoryIDs_@item.QualityOfLifeCategoryID" value="@item.QualityOfLifeCategoryID" /> @item.QualityOfLifeCategoryName
+                                        }
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+@if (ViewBag.QualityOfLifeCategory != null)
+{
+    foreach (CaseGoalLivingCondition item in ViewBag.QualityOfLifeCategory)
+    {
+        string style = "display:none;";
+        if (item.ID > 0)
+        {
+            style = string.Empty;
+        }
+        if (item.Note == null)
+        {
+            item.Note = string.Empty;
+        }
+        <div class="row" id="divQualityOfLifeCategoryIDs_@item.QualityOfLifeCategoryID" style="@style">
+            <div class="col-md-12">
+                <div class="content-box">
+                    <span class="section-title" style="width:350px!important;">@item.QualityOfLifeCategoryName</span>
+                    <textarea class="form-control" cols="22" id="txtQualityOfLifeCategoryIDs_@item.QualityOfLifeCategoryID" name="txtQualityOfLifeCategoryIDs_@item.QualityOfLifeCategoryID" rows="3" style="width:98%; height: 50px;">@item.Note</textarea>
+                </div>
+            </div>
+        </div>
+    }
+}
+<div id="add_candidate3">
+    @if (Model.IsAjax)
+    {
+        <button class="btn btn-primary btnSaveAndRefresh" data-formid="frmEditorWorker" name="btnSaveAndRefreshWorker"><i class="fa fa-save"></i> Update</button>
+    }
+    else
+    {
+        <button type="submit" class="btn btn-primary btnSaveAndRefresh" data-formid="frmEditorWorker" name="btnSave"><i class="fa fa-save"></i> Save <i class="fa fa-long-arrow-right"></i></button>
+    }
+    <a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.CaseGoal, new { CaseID=Model.CaseID,CaseMemberID=Model.CaseMemberID })" class="btn btn-primary"><i class="fa fa-long-arrow-left"></i> Back to Goal List</a>
+</div>
+<br class="clear" />

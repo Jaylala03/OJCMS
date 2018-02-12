@@ -1,0 +1,34 @@
+﻿@using EasySoft.Helper;
+@using System.Web.Optimization;
+@using eCMS.Shared;
+@using eCMS.DataLogic.Models;
+@{
+}
+<!DOCTYPE html>
+<html lang="en">
+<!-- BEGIN HEAD -->
+<head>
+    @Html.Partial("_HtmlHead")
+    @RenderSection("headsection", false)
+</head>
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
+<body>
+    <!-- Begin: Header Partial -->
+    @Html.Partial("_Header")
+    <!-- End: Header Partial -->
+    @*@Html.Partial("_LayoutCase")*@
+    <!-- Begin: Main RenderBody -->   
+    <div id="main-body">
+        @RenderBody()
+    </div>
+    <!-- End: Main RenderBody -->
+    <!-- Begin: Header Partial -->
+    @Html.Partial("_Footer")
+    <!-- End: Header Partial -->
+    <!-- Begin: feedback -->
+    @RenderSection("scripts", required: false)
+    <!-- End: feedback -->
+</body>
+<!-- END BODY -->
+</html>

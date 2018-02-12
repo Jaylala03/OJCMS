@@ -1,0 +1,147 @@
+@model eCMS.DataLogic.Models.CaseProgressNote
+@using eCMS.BusinessLogic.Helpers
+@using eCMS.DataLogic.Models
+@using eCMS.Shared
+@Html.HiddenFor(model => model.ID)
+@Html.HiddenFor(model => model.CaseID)
+@Html.HiddenFor(model => model.CreateDate)
+@Html.HiddenFor(model => model.CreatedByWorkerID)
+@Html.HiddenFor(model => model.IsInitialContact)
+<div class="row">
+    <div class="col-md-12">
+        @Html.Partial(Constants.PartialViews.Alert)
+    </div>    
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group02">
+            <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.CaseMembersIds)</label>
+            @if (Model.IsInitialContact)
+            {
+                <div class="col-sm-8">
+                    @(Html.Kendo().MultiSelectFor(model => model.CaseMembersIds)
+                                
+                                .DataTextField("Text")
+                                .DataValueField("Value")
+                                .DataSource(source =>
+                                {
+                                    source.Read(read =>
+                                    {
+                                        read.Action("LoadCaseMemberListAjax", "CaseProgressNote", new { caseID = Model.CaseID });
+                                    });
+                                })
+                             )
+                </div>
+            }
+            else
+            {
+                <div class="col-sm-8">
+                      @(Html.Kendo().DropDownListFor(model => model.CaseMemberID)
+                                .Events(e => e
+                                .Change("CaseMemberDropDownList_OnChanged"))
+                                .DataTextField("Text")
+                                .DataValueField("Value")
+                                .DataSource(source =>
+                                {
+                                    source.Read(read =>
+                                    {
+                                        read.Action("LoadCaseMemberListAjax", "CaseProgressNote", new { caseID = Model.CaseID });
+                                    });
+                                })
+                             )
+                </div>
+            }
+        </div>
+        <div class="form-group02">
+            <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.Note)</label>
+            <div class="col-sm-8">
+                @Html.TextAreaFor(model => model.Note, new { @class = "form-control", rows = 4, cols = 100 })
+            </div>
+        </div>
+    </div>
+    @if(!Model.IsInitialContact)
+    {
+    <div class="col-md-6 ">
+        <div class="form-group02">
+            <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.ActivityTypeID)</label>
+            <div class="col-sm-8">
+                @(Html.Kendo().DropDownListFor(model => model.ActivityTypeID)
+                            .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                            .DataTextField("Text")
+                            .DataValueField("Value")
+                            .DataSource(source =>
+                            {
+                                source.Read(read =>
+                                {
+                                    read.Action("LoadActivityTypeAjax", "CaseProgressNote");
+                                });
+                            })
+                         )
+            </div>
+        </div>
+        <div class="form-group02">
+            <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.ContactMethodID)</label>
+            <div class="col-sm-8">
+                @(Html.Kendo().DropDownListFor(model => model.ContactMethodID)
+                            .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                            .DataTextField("Text")
+                            .DataValueField("Value")
+                            .DataSource(source =>
+                            {
+                                source.Read(read =>
+                                {
+                                    read.Action("LoadContactMethodAjax", "CaseProgressNote");
+                                });
+                            })
+                         )
+            </div>
+        </div>
+    </div>
+    }
+    else
+    {
+        @Html.HiddenFor(model => model.ActivityTypeID)
+        @Html.HiddenFor(model => model.ContactMethodID)
+    }
+    <div class="col-md-6">
+        <div class="form-group02">
+            <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.NoteDate)</label>
+            <div class="col-sm-8">
+                @Html.EditorFor(model => model.NoteDate)
+            </div>
+        </div>
+        <div class="form-group02">
+            <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.TimeSpentID)</label>
+            <div class="col-sm-8">
+                @(Html.Kendo().DropDownListFor(model => model.TimeSpentID)
+                            .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                            .HtmlAttributes(new { @class = "drop_down_list" })
+                            .Events(e => e
+                                    .Change("DropDownList_OnChanged"))
+                            .DataTextField("Text")
+                            .DataValueField("Value")
+                            .DataSource(source =>
+                            {
+                                source.Read(read =>
+                                {
+                                    read.Action("LoadTimeSpentListAjax", "CaseProgressNote");
+                                });
+                            })
+                         )
+            </div>
+        </div>
+        <div class="form-group02">
+            <div class="col-sm-6 col-sm-offset-6">
+                @if (Model.IsInitialContact)
+                {
+                    <input type="submit" class="customButton col-sm-11" value="Save Initial Contact" style="margin-left: 5px !important;" />
+                }
+                else
+                {
+                    <input type="submit" class="customButton col-sm-11" value="Save Progress Note" style="margin-left: 5px !important;" />
+                }
+            </div>
+        </div>
+    </div>
+</div>
+

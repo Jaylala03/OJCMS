@@ -1,0 +1,7 @@
+@model DateTime?
+
+@(Html.Kendo().TimePicker()
+        .Name(ViewData.TemplateInfo.GetFullHtmlFieldName(string.Empty))
+        .HtmlAttributes(new { id = ViewData.TemplateInfo.GetFullHtmlFieldName(string.Empty) + "_wrapper",style = "width:200px;" })
+        .Value(Model > DateTime.MinValue? Model : DateTime.Today)
+)

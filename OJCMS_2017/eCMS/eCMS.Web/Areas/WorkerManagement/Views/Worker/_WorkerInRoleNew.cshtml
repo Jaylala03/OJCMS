@@ -1,0 +1,63 @@
+@model eCMS.DataLogic.Models.WorkerInRoleNew
+@using eCMS.BusinessLogic.Helpers
+@using eCMS.DataLogic.Models
+@using eCMS.Shared
+@using (Html.BeginForm("SaveAjax", "WorkerInRoleNew", new { area = "WorkerManagement" }, FormMethod.Post, new { id = "frmEditorWorkerInRoleNew" }))
+{
+    @Html.HiddenFor(model => model.WorkerID)
+    <div class="row">
+        
+        <div class="col-md-4">
+            @Html.LabelFor(model => model.WorkerRoleID)
+            <div class="input-group width-100">
+                @(Html.Kendo().DropDownListFor(model => model.WorkerRoleID)
+                                .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                        .Events(e => e.Change("WorkerRoleForPermissionDropDownList_OnChanged"))
+                            .DataTextField("Text")
+                            .DataValueField("Value")
+                            .DataSource(source =>
+                            {
+                                source.Read(read =>
+                                {
+                                    read.Action("LoadWorkerRoleAjax", "Worker");
+                                });
+                            })
+                         )
+            </div>
+        </div>
+        <div class="col-md-3">
+            @Html.LabelFor(model => model.EffectiveFrom)
+            <div class="input-group">
+                @(Html.Kendo().DatePicker()
+                                    .Name("WorkerInRole_EffectiveFrom")
+                                    .HtmlAttributes(new { id = "WorkerInRole_EffectiveFrom", style = "width:94%;" })
+                                    .Value(Model.EffectiveFrom)
+                )
+            </div>
+        </div>
+        <div class="col-md-3">
+            @Html.LabelFor(model => model.EffectiveTo)
+            <div class="input-group">
+                @(Html.Kendo().DatePicker()
+                                    .Name("WorkerInRole_EffectiveTo")
+                                    .HtmlAttributes(new { id = "WorkerInRole_EffectiveTo", style = "width:94%;" })
+                                    .Value(Model.EffectiveTo)
+                )
+            </div>
+        </div>
+        <div class="col-md-2 margin-top-20">
+            <button class="btn btn-primary" id="btnSaveAndRefresh" name="btnSaveAndRefreshWorkerInRoleNew"><i class="fa fa-save"></i>Save</button>
+        </div>
+       
+    </div>
+    <div class="row margin-top-10">
+        <div class="col-md-12">
+            @Html.LabelFor(model => model.RolePermission)
+            <div class="input-group width-100">
+                <div id="divRolePermissions">
+                    @Html.Partial("~/Areas/WorkerManagement/Views/Worker/_RolePermissions.cshtml")
+                </div>
+            </div>
+        </div>
+    </div>
+}

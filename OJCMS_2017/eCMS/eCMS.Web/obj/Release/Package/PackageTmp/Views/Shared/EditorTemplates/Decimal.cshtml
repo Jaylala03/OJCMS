@@ -1,0 +1,9 @@
+@using EasySoft.Helper
+@model decimal?
+
+@(Html.Kendo().NumericTextBox()
+        .Name(ViewData.TemplateInfo.GetFullHtmlFieldName(string.Empty))
+        .HtmlAttributes(new { style = "width:94%;" })
+        .Value(Convert.ToDouble(Model))
+)
+

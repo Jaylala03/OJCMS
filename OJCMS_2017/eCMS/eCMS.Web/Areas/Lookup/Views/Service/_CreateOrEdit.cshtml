@@ -1,0 +1,98 @@
+@model eCMS.DataLogic.Models.Lookup.Service
+@using eCMS.BusinessLogic.Helpers
+@using eCMS.DataLogic.Models
+@using eCMS.Shared
+@Html.HiddenFor(model => model.ID)
+@Html.HiddenFor(model => model.CreateDate)
+<div id="row hr-line">
+    <div class="row">
+        <div class="col-md-12">
+            <label class="col-sm-4 control-label labe-text">@Html.LabelFor(model => model.RegionID)</label>
+            <div class="col-sm-8">
+                @(Html.Kendo().DropDownListFor(model => model.RegionID)
+                                .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                                 .Events(e => e.Change("ServiceRegionDropDownList_OnChanged"))       
+                            .DataTextField("Text")
+                            .DataValueField("Value")
+                            .DataSource(source =>
+                            {
+                                source.Read(read =>
+                                {
+                                    read.Action("LoadWorkerRegionsAjax", "ServiceProvider");
+                                })
+                                .ServerFiltering(true);
+                            })
+
+
+                         )
+            </div>
+            </div>
+         <div class="col-md-12">
+            <label class="col-sm-4 control-label labe-text">@Html.LabelFor(model => model.ServiceTypeID)</label>
+            <div class="col-sm-8">
+                @(Html.Kendo().DropDownListFor(model=>model.ServiceTypeID)
+               .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+          .DataTextField("Text")
+          .DataValueField("Value")
+          .BindTo(new List<SelectListItem>() {
+              new SelectListItem() {
+                  Text = "Internal",
+                  Value = "1"
+              },
+              new SelectListItem() {
+                  Text = "External",
+                  Value = "2"
+              }
+          }))
+            </div>
+        </div>
+        <div class="col-md-12">
+            <label class="col-sm-4 control-label labe-text">@Html.LabelFor(model => model.ServiceProviderID)</label>
+            <div class="col-sm-8">
+                @(Html.Kendo().DropDownListFor(model => model.ServiceProviderID)
+                                .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                            .DataTextField("Text")
+                            .DataValueField("Value")
+                            .DataSource(source =>
+                            {
+                                source.Read(read =>
+                                {
+                                    read.Action("LoadServiceProviderAjax", "Service").Data("RegionAndServiceTypeDropDownList_OnSelect");
+                                })
+                                .ServerFiltering(true);
+                            })
+                            .Enable(false)
+                            .AutoBind(false)
+                            .CascadeFrom("ServiceTypeID")
+                         )
+            </div>
+        </div>
+        <div class="col-md-12">
+            <label class="col-sm-4 control-label labe-text">@Html.LabelFor(model => model.Name)</label>
+            <div class="col-sm-8">
+                @Html.TextBoxFor(model => model.Name, new { @class = "form-control popup-text-box" })
+            </div>
+        </div>
+        <div class="col-md-12">
+            <label class="col-sm-4 control-label labe-text">@Html.LabelFor(model => model.Description)</label>
+            <div class="col-sm-8">
+                @Html.TextBoxFor(model => model.Description, new { @class = "form-control popup-text-box" })
+            </div>
+        </div>
+        <div class="col-md-12">
+            <label class="col-sm-4 control-label labe-text">@Html.LabelFor(model => model.IsActive)</label>
+            <div class="col-sm-8">
+                @Html.EditorFor(model => model.IsActive)
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            &nbsp;
+        </div>
+        <div class="col-md-8 margin-top-10">
+            <button type="button" id="btnSaveAndRefresh" name="btnSaveAndRefreshService" class="col-sm-2 createsource00">Save</button>
+             <button type="button" id="btnServiceSearch" name="btnServiceSearch" class="col-sm-2 createsource00"> &nbsp;Search&nbsp;&nbsp;<i class="fa fa-search"></i></button>
+        </div>
+    </div>
+</div>

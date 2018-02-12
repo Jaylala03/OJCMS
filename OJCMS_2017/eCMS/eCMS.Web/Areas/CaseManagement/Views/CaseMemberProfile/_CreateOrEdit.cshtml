@@ -1,0 +1,368 @@
+@model eCMS.DataLogic.Models.CaseMemberProfile
+@using eCMS.BusinessLogic.Helpers
+@using eCMS.DataLogic.Models
+@using eCMS.Shared
+@using EasySoft.Helper
+@* This partial view defines form fields that will appear when creating and editing entities *@
+<div id="dvAlertContainer">
+    @Html.Partial(Constants.PartialViews.Alert)
+</div>
+@Html.HiddenFor(model => model.ID)
+@Html.HiddenFor(model => model.CaseID)
+@Html.HiddenFor(model => model.CreateDate)
+@Html.HiddenFor(model => model.CreatedByWorkerID)
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group02">
+            <label class="col-sm-6 control-label labe-text">@Html.LabelRequiredFor(model => model.CaseMemberID)</label>
+            <div class="col-sm-6">
+                @(Html.Kendo().DropDownListFor(model => model.CaseMemberID)
+                        .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                        .Events(e => e.Change("CaseMemberDropDownList_OnChanged"))
+                        .DataTextField("Text")
+                        .DataValueField("Value")
+                        .DataSource(source =>
+                        {
+                            source.Read(read =>
+                            {
+                                read.Action("LoadCaseMemberListAjax", "CaseMemberProfile", new { caseID = Model.CaseID });
+                            });
+                        })
+                )
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group02">
+            <label class="col-sm-6 control-label labe-text">@Html.LabelFor(model => model.ProfileDate)</label>
+            <div class="col-sm-6">
+                @Html.EditorFor(model => model.ProfileDate)
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group02">
+            <label class="col-sm-6 control-label labe-text">@Html.LabelRequiredFor(model => model.ProfileTypeID)</label>
+            <div class="col-sm-6">
+                @(Html.Kendo().DropDownListFor(model => model.ProfileTypeID)
+                        .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                        .DataTextField("Text")
+                        .DataValueField("Value")
+                        .DataSource(source =>
+                        {
+                            source.Read(read =>
+                            {
+                                read.Action("LoadProfileTypeAjax", "CaseMemberProfile");
+                            });
+                        })
+                )
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="content-box">
+            <span class="section-title">Education</span>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <label class="col-sm-7 control-label labe-text">@Html.LabelFor(model => model.HighestLevelOfEducationID)</label>
+                            @if (Model.HighestLevelOfEducationOther.IsNotNullOrEmpty())
+                            {
+                                <div class="col-sm-4" id="divHighestLevelOfEducation">
+                                    @(Html.Kendo().DropDownListFor(model => model.HighestLevelOfEducationID)
+                                                    .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                                                    .Events(e => e.Change("DropDownListOther_OnChange"))
+                                                .DataTextField("Text")
+                                                .DataValueField("Value")
+                                                .DataSource(source =>
+                                                {
+                                                    source.Read(read =>
+                                                    {
+                                                        read.Action("LoadHighestLevelOfEducationAjax", "CaseMemberProfile");
+                                                    });
+                                                })
+                                    )
+                                </div>
+                                <div class="col-sm-4" id="divHighestLevelOfEducationOther">
+                                    @Html.EditorFor(model => model.HighestLevelOfEducationOther)
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="col-sm-8" id="divEthnicity">
+                                    @(Html.Kendo().DropDownListFor(model => model.HighestLevelOfEducationID)
+                                                    .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                                                    .Events(e => e.Change("DropDownListOther_OnChange"))
+                                                .DataTextField("Text")
+                                                .DataValueField("Value")
+                                                .DataSource(source =>
+                                                {
+                                                    source.Read(read =>
+                                                    {
+                                                        read.Action("LoadHighestLevelOfEducationAjax", "CaseMemberProfile");
+                                                    });
+                                                })
+                                    )
+                                </div>
+                                <div class="col-sm-4 hide" id="divHighestLevelOfEducationOther">
+                                    @Html.EditorFor(model => model.HighestLevelOfEducationOther)
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <label class="col-sm-5 control-label labe-text">@Html.LabelFor(model => model.GPAID)</label>
+                            @(Html.Kendo().DropDownListFor(model => model.GPAID)
+                        .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                        .DataTextField("Text")
+                        .DataValueField("Value")
+                        .DataSource(source =>
+                        {
+                            source.Read(read =>
+                            {
+                                read.Action("LoadGPAAjax", "CaseMemberProfile");
+                            });
+                        })
+                            )
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="content-box">
+            <span class="section-title">Income / Livelihood</span>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <label class="col-sm-7 control-label labe-text">@Html.LabelFor(model => model.Occupation)</label>
+                            @Html.EditorFor(model => model.Occupation)
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <label class="col-sm-12 control-label labe-text">@Html.LabelFor(model => model.AnnualIncomeID)</label>
+                            @*@(Html.Kendo().DropDownListFor(model => model.AnnualIncomeID)
+                                    .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                                    .DataTextField("Text")
+                                    .DataValueField("Value")
+                                    .DataSource(source =>
+                                    {
+                                        source.Read(read =>
+                                        {
+                                            read.Action("LoadAnnualIncomeAjax", "CaseMemberProfile");
+                                        });
+                                    })
+                                )*@
+                            @Html.TextBoxFor(model => model.Income, new {@class="form-control", placeholder = "Individual Income",  })
+                            <span id="errmsg" class="text-danger" style="display:none"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="content-box">
+            <span class="section-title">Assets & Production Skills</span>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <label class="col-sm-7 control-label labe-text">@Html.LabelFor(model => model.SavingsID)</label>
+                            @(Html.Kendo().DropDownListFor(model => model.SavingsID)
+                        .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                        .DataTextField("Text")
+                        .DataValueField("Value")
+                        .DataSource(source =>
+                        {
+                            source.Read(read =>
+                            {
+                                read.Action("LoadSavingsAjax", "CaseMemberProfile");
+                            });
+                        })
+                            )
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    &nbsp;
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="content-box">
+            <span class="section-title">Housing</span>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <label class="col-sm-7 control-label labe-text">@Html.LabelFor(model => model.HousingQualityID)</label>
+                            @(Html.Kendo().DropDownListFor(model => model.HousingQualityID)
+                        .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                        .DataTextField("Text")
+                        .DataValueField("Value")
+                        .DataSource(source =>
+                        {
+                            source.Read(read =>
+                            {
+                                read.Action("LoadHousingQualityAjax", "CaseMemberProfile");
+                            });
+                        })
+                            )
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <label class="col-sm-12 control-label labe-text">@Html.LabelFor(model => model.HousingQualityNote)</label>
+                              <div class="col-sm-12">
+                            @Html.TextAreaFor(model => model.HousingQualityNote, new { @class = "form-control ckeditor",  rows = 4, cols = 100 })
+                                  </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="content-box">
+            <span class="section-title">Social Support</span>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <label class="col-sm-12 control-label labe-text">@Html.LabelFor(model => model.SocialAssistance)</label>
+                            @Html.TextAreaFor(model => model.SocialAssistance, new { @class = "form-control", style = "width:95%; height: 50px;", rows = "3" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <label class="col-sm-12 control-label labe-text">@Html.LabelFor(model => model.ExternalRelationship)</label>
+                            @Html.TextAreaFor(model => model.ExternalRelationship, new { @class = "form-control", style = "width:95%; height: 50px;", rows = "3" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <label class="col-sm-12 control-label labe-text">@Html.LabelFor(model => model.ImmigrationCitizenshipStatusID)</label>
+                            @(Html.Kendo().DropDownListFor(model => model.ImmigrationCitizenshipStatusID)
+                        .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                        .DataTextField("Text")
+                        .DataValueField("Value")
+                        .DataSource(source =>
+                        {
+                            source.Read(read =>
+                            {
+                                read.Action("LoadImmigrationCitizenshipStatusAjax", "CaseMemberProfile");
+                            });
+                        })
+                            )
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <label class="col-sm-12 control-label labe-text">@Html.LabelFor(model => model.ImmigrationCitizenshipStatusNote)</label>
+                             <div class="col-sm-12">
+                            @Html.TextAreaFor(model => model.ImmigrationCitizenshipStatusNote, new { @class = "form-control ckeditor",  rows = "3" })
+                                 </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="content-box">
+            <span class="section-title">Dignity & Self Respect</span>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <label class="col-sm-7 control-label labe-text">@Html.LabelFor(model => model.FuturePlan)</label>
+                            @Html.TextAreaFor(model => model.FuturePlan, new { @class = "form-control", style = "width:95%; height: 50px;", rows = "3" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="content-box">
+            <span class="section-title">Health</span>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <label class="col-sm-7 control-label labe-text">@Html.LabelFor(model => model.HealthCondition)</label>
+                            @Html.TextAreaFor(model => model.HealthCondition, new { @class = "form-control", style = "width:95%; height: 50px;", rows = "3" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<div id="add_candidate3">
+    @if (Model.IsAjax)
+    {
+        <button class="btn btn-primary btnSaveAndRefresh" data-formid="frmEditorWorker" name="btnSaveAndRefreshWorker"><i class="fa fa-save"></i> Update</button>
+    }
+    else
+    {
+        <button type="submit" class="btn btn-primary btnSaveAndRefresh" data-formid="frmEditorWorker" name="btnSave"><i class="fa fa-save"></i> Save <i class="fa fa-long-arrow-right"></i></button>
+    }
+    <a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.CaseMemberProfile, new { CaseID=Model.CaseID, CaseMemberID=Model.CaseMemberID })" class="btn btn-primary"><i class="fa fa-long-arrow-left"></i> Back to Profile List</a>
+</div>
+<br class="clear" />
+<script>
+    $(document).ready(function () {
+        //called when key is pressed in textbox
+        $("#Income").keypress(function (e) {
+            //if the letter is not digit then display error and don't type anything
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                //display error message
+                $("#errmsg").html("Digits Only").show().fadeOut("slow");
+                return false;
+            }
+        });
+    });
+ </script>

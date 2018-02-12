@@ -1,0 +1,34 @@
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.ExceptionLoging\bin\Release\eCMS.ExceptionLoging.dll
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.ExceptionLoging\bin\Release\eCMS.ExceptionLoging.pdb
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.ExceptionLoging\bin\Release\EasySoft.Helper.dll
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.ExceptionLoging\bin\Release\eCMS.Shared.dll
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.ExceptionLoging\bin\Release\Microsoft.Practices.EnterpriseLibrary.Common.dll
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.ExceptionLoging\bin\Release\Microsoft.Practices.EnterpriseLibrary.Logging.dll
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.ExceptionLoging\bin\Release\System.Web.Mvc.dll
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.ExceptionLoging\bin\Release\Microsoft.Web.Infrastructure.dll
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.ExceptionLoging\bin\Release\eCMS.Shared.pdb
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.ExceptionLoging\obj\Release\eCMS.ExceptionLoging.csprojResolveAssemblyReference.cache
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.ExceptionLoging\obj\Release\eCMS.ExceptionLoging.dll
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.ExceptionLoging\obj\Release\eCMS.ExceptionLoging.pdb
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.ExceptionLoging\bin\Release\System.Web.Razor.dll
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.ExceptionLoging\bin\Release\System.Web.WebPages.Razor.dll
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.ExceptionLoging\bin\Release\System.Web.WebPages.dll
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.ExceptionLoging\bin\Release\System.Web.WebPages.Deployment.dll
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.ExceptionLoging\bin\Release\Microsoft.Practices.EnterpriseLibrary.Common.xml
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.ExceptionLoging\bin\Release\Microsoft.Practices.EnterpriseLibrary.Logging.xml
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.ExceptionLoging\bin\Release\eCMS.ExceptionLoging.dll
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.ExceptionLoging\bin\Release\eCMS.ExceptionLoging.pdb
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.ExceptionLoging\bin\Release\EasySoft.Helper.dll
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.ExceptionLoging\bin\Release\eCMS.Shared.dll
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.ExceptionLoging\bin\Release\Microsoft.Practices.EnterpriseLibrary.Common.dll
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.ExceptionLoging\bin\Release\Microsoft.Practices.EnterpriseLibrary.Logging.dll
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.ExceptionLoging\bin\Release\System.Web.Mvc.dll
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.ExceptionLoging\bin\Release\Newtonsoft.Json.dll
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.ExceptionLoging\bin\Release\System.Web.Razor.dll
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.ExceptionLoging\bin\Release\System.Web.WebPages.Razor.dll
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.ExceptionLoging\bin\Release\System.Web.WebPages.dll
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.ExceptionLoging\bin\Release\System.Web.WebPages.Deployment.dll
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.ExceptionLoging\bin\Release\eCMS.Shared.pdb
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.ExceptionLoging\obj\Release\eCMS.ExceptionLoging.csprojResolveAssemblyReference.cache
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.ExceptionLoging\obj\Release\eCMS.ExceptionLoging.dll
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.ExceptionLoging\obj\Release\eCMS.ExceptionLoging.pdb

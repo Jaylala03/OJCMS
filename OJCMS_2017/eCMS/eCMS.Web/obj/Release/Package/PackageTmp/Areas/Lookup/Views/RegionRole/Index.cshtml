@@ -1,0 +1,73 @@
+@model eCMS.DataLogic.ViewModels.RegionRoleModel
+@using EasySoft.Helper;
+@using eCMS.Shared;
+@using eCMS.DataLogic.Models.Lookup;
+@using eCMS.DataLogic.ViewModels;
+@{
+    ViewBag.Title = "Region Assigned To Role";
+}
+@section headsection
+{
+    @Styles.Render("~/assets/plugins/kendo/css")
+    @Scripts.Render("~/assets/plugins/kendo/js")
+}
+<div class="container candidate-list-main-container">
+    <div class="row">
+        <div class="col-lg-12 col-md-11 candidate-table-bg">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 candidate-on-map">
+                    <div class="row">
+                        <div class="col-md-12 font-13 text-uppercase" style="padding-top: 6px; padding-right: 0;">
+                            <label>
+                                <img src="@Url.Content("~/Assets/images/lavel-side-icon.png")">
+                                <span>Assign Region To Role</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @using (Html.BeginForm("SaveAjax", "RegionRole", new { area = "Lookup" }, FormMethod.Post, new { id = "frmEditorRegionRole" }))
+            {
+                <div id="pvContainer">
+                    @Html.Partial("_CreateOrEdit", Model)
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<div class="container candidate-list-main-container">
+    <div class="row">
+        <div class="col-lg-12 col-md-11 candidate-table-bg">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 candidate-on-map">
+                    <div class="row">
+                        <div class="col-md-12 font-13 text-uppercase" style="padding-top: 6px; padding-right: 0;">
+                            <label>
+                                <img src="@Url.Content("~/Assets/images/lavel-side-icon.png")">
+                                <span>Assigned Region List</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                @(Html.Kendo().Grid<RegionRoleModel>()
+        .Name("GridRegionRole")
+        .Columns(columns =>
+        {
+            columns.Bound(c => c.WorkerRoleName).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(c => c.RegionNames).Sortable(true).Groupable(false).Filterable(false);
+        })
+        .DataSource(dataSource => dataSource
+        .Ajax()
+        .Read(read => read.Action("IndexAjax", "RegionRole"))
+        .PageSize(50)
+        )
+        .Pageable()
+        .Sortable()
+)
+            </div>
+        </div>
+    </div>
+</div>
+

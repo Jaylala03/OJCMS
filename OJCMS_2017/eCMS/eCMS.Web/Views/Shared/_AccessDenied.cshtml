@@ -1,0 +1,26 @@
+﻿@model eCMS.DataLogic.Models.BaseModel
+
+@{
+    ViewBag.Title = "Error";
+}
+<div class="container bulk-import min-height">
+    <!-- begin: mainpage -->
+    <div class="row padding-top-15">
+        <div class="col-md-12">
+        <!--landing_left-->
+            <div class="row margin-bottom-10">
+                <div class="col-md-2">
+                    &nbsp;
+                </div>
+                <div class="col-md-10 font-18">
+                   <h3>@Model.ErrorMessage Please <a href="@Model.FancyBoxLink" class="orange-color">click here</a> to go back to previous page.</h3>
+                </div>
+            </div>
+            <div class="row">
+                <img src="~/Assets/images/accessdenied.jpg" width="100%" />
+            </div>
+        <!--landing_right-->
+        </div>
+    </div>
+    <!--wrapper-->
+</div>

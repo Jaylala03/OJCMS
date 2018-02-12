@@ -1,0 +1,147 @@
+@model eCMS.DataLogic.Models.CaseGoal
+@using EasySoft.Helper;
+@using eCMS.Shared;
+@using eCMS.DataLogic.Models;
+@{
+    ViewBag.Title = "Case Goal";
+    Layout = "~/Areas/CaseManagement/Views/Shared/_LayoutCase2.cshtml";
+}
+@section headsection
+{
+    @Styles.Render("~/assets/plugins/kendo/css")
+    @Scripts.Render("~/assets/plugins/kendo/js")
+}
+<div class="container candidate-list-main-container">
+    <div class="row">
+        <div class="col-lg-12 col-md-11 candidate-table-bg">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 candidate-on-map">
+                    <div class="row">
+                        <div class="col-md-12 font-13 text-uppercase" style="padding-top: 6px; padding-right: 0;">
+                            <label>
+                                <img src="@Url.Content("~/Assets/images/lavel-side-icon.png")">
+                                <span>Goals</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row margin-bottom-10">
+                @using (Html.BeginForm(Constants.Actions.IndexAjax, Constants.Controllers.CaseGoal, new { area = Constants.Areas.CaseManagement }, FormMethod.Post, new { id = "frmSearch" }))
+                {
+                    @Html.HiddenFor(model=>model.CaseID)
+                    <div class="col-md-5">
+                        @(Html.Kendo().DropDownListFor(model => model.CaseMemberID)
+                                .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                                .Events(e=>e.Change("CaseMemberDropDownList_OnChanged"))
+                                .DataTextField("Text")
+                                .DataValueField("Value")
+                                .DataSource(source =>
+                                {
+                                    source.Read(read =>
+                                    {
+                                        read.Action("LoadCaseMemberListAjax", "CaseGoal", new { caseID = Model.CaseID });
+                                    });
+                                })
+                            )
+                    </div>
+                }
+                <div class="col-md-2">
+                    @if(Model.HasPermissionToCreate)
+                    {
+                        <a class="customButton col-sm-11 link-button" href="@Url.Action(Constants.Actions.Create, Constants.Controllers.CaseGoal, new { CaseID = Model.CaseID, CaseMemberID=Model.CaseMemberID })" style="margin-left: 5px !important;">IDENTIFY GOALS</a>
+                    }
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="content-box">
+                        <span class="section-title" style="width:350px!important;">Identified Goals</span>
+                        @(Html.Kendo().Grid<CaseGoal>()
+                            .Name("GridCaseGoal")
+                            .HtmlAttributes(new { style="width:98%;" })
+                            .Columns(columns =>
+                            {
+                                columns.Bound(c => c.CaseMemberName).Sortable(true).Groupable(false).Filterable(false);
+                                columns.Bound(c => c.WishInLife).Title("Goal").Sortable(true).Groupable(false).Filterable(false);
+                                columns.Bound(c => c.QualityOfLifeCategoryNames).Title("QOL").Sortable(true).Groupable(false).Filterable(false);
+                                columns.Bound(c => c.StartDate).Sortable(true).Groupable(false).Filterable(false);
+                                columns.Bound(c => c.EndDate).Sortable(true).Groupable(false).Filterable(false);
+                                columns.Bound(p => p.ErrorMessage).ClientTemplate("<center><a href='/CaseManagement/CaseGoal/Read/#= ID #?CaseID=#= CaseID #&CaseMemberID=#= CaseMemberID #' class='fa fa-eye' style='#= HasPermissionToRead #' title='Read'></a>&nbsp;<a href='/CaseManagement/CaseGoal/Edit/#= ID #?CaseID=#= CaseID #&CaseMemberID=#= CaseMemberID #' class='fa fa-edit' style='#= HasPermissionToEdit #' title='Edit'></a>&nbsp;<a name='lnkDelete' id='lnkDeleteCaseGoal' href='/CaseManagement/CaseGoal/DeleteAjax/#= ID #' class='fa fa-times' style='#= HasPermissionToDelete #' title='Delete'></a><a href='/CaseManagement/CaseSmartGoal/Create?CaseGoalID=#= ID #&CaseID=#= CaseID #&CaseMemberID=#= CaseMemberID #' style='#= HasPermissionToCreateSmartGoal #' title='Set Goal'>Set Goal</a></center>").Width("10%").HeaderTemplate("<center>Actions</center>");
+                            })
+                            .DataSource(dataSource => dataSource
+                            .Ajax()
+                            .Read(read => read.Action("IndexAjax", "CaseGoal").Data("PassSearchParameter"))
+                            .PageSize(50)
+                            )
+                            .Pageable()
+                            .Sortable()
+                        )
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="content-box">
+                        <span class="section-title" style="width:350px!important;">Open Measurable Goals</span>
+                        @(Html.Kendo().Grid<CaseSmartGoal>()
+                                        .Name("GridCaseSmartGoalOpen")
+                                        .HtmlAttributes(new { style="width:98%;" })
+                                        .Columns(columns =>
+                                        {
+                                            columns.Bound(c => c.CaseMemberName).Sortable(true).Groupable(false).Filterable(false);
+                                            columns.Bound(c => c.SmartGoalName).Sortable(true).Groupable(false).Filterable(false);
+                                            columns.Bound(c => c.ServiceLevelOutcomeName).Sortable(true).Groupable(false).Filterable(false);
+                                            columns.Bound(c => c.CloseActionCount).Sortable(true).Groupable(false).Filterable(false).ClientTemplate("<center>#= CloseActionCount #&nbsp;&nbsp;|&nbsp;&nbsp;#= TotalActionCount #</center>");
+                                            columns.Bound(c => c.StartDate).Sortable(true).Groupable(false).Filterable(false);
+                                            columns.Bound(c => c.EndDate).Sortable(true).Groupable(false).Filterable(false);
+                                            columns.Bound(c => c.QualityOfLifeCategoryName).Sortable(true).Groupable(false).Filterable(false);
+                                            columns.Bound(p => p.ErrorMessage).ClientTemplate("<center><a href='/CaseManagement/CaseSmartGoal/Read?casesmartgoalId=#= ID #&CaseID=#= CaseID #&CaseMemberID=#= CaseMemberID #' class='fa fa-eye' style='#= HasPermissionToRead #' title='Read'></a>&nbsp;<a href='/CaseManagement/CaseSmartGoal/Edit?casesmartgoalId=#= ID #&CaseID=#= CaseID #&CaseMemberID=#= CaseMemberID #' class='fa fa-edit' style='#= HasPermissionToEdit #' title='Edit'></a>&nbsp;<a name='lnkDelete' id='lnkDeleteCaseSmartGoalOpen' href='/CaseManagement/CaseSmartGoal/DeleteAjax/#= ID #' class='fa fa-times' style='#= HasPermissionToDelete #' title='Delete'></a>&nbsp;&nbsp;<a href='/CaseManagement/CaseSmartGoalProgress/Index?casesmartgoalId=#= ID #&CaseID=#= CaseID #&CaseMemberID=#= CaseMemberID #' style='#= HasPermissionToTrackGoal #' title='Track Goal'>Track Outcome</a></center>").Width("10%").HeaderTemplate("<center>Actions</center>");
+                                        })
+                                        .DataSource(dataSource => dataSource
+                                        .Ajax()
+                                        .Read(read => read.Action("IndexAjax", "CaseSmartGoal", new { isClosed=false }).Data("PassSearchParameter"))
+                                        .PageSize(50)
+                                        )
+                                        .Pageable()
+                                        .Sortable()
+                                    )
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="content-box">
+                        <span class="section-title" style="width:350px!important;">Closed Measurable Goals</span>
+                        @(Html.Kendo().Grid<CaseSmartGoal>()
+                                        .Name("GridCaseSmartGoalClose")
+                                        .HtmlAttributes(new { style = "width:98%;" })
+                                        .Columns(columns =>
+                                        {
+                                            columns.Bound(c => c.CaseMemberName).Sortable(true).Groupable(false).Filterable(false);
+                                            columns.Bound(c => c.SmartGoalName).Sortable(true).Groupable(false).Filterable(false);
+                                            columns.Bound(c => c.ServiceLevelOutcomeName).Sortable(true).Groupable(false).Filterable(false);
+                                            columns.Bound(c => c.OpenActionCount).Sortable(true).Groupable(false).Filterable(false).ClientTemplate("<center>#= CloseActionCount #&nbsp;&nbsp;|&nbsp;&nbsp;#= TotalActionCount #</center>");
+                                            columns.Bound(c => c.StartDate).Sortable(true).Groupable(false).Filterable(false);
+                                            columns.Bound(c => c.EndDate).Sortable(true).Groupable(false).Filterable(false);
+                                            columns.Bound(c => c.QualityOfLifeCategoryName).Sortable(true).Groupable(false).Filterable(false);
+                                            columns.Bound(p => p.ErrorMessage).ClientTemplate("<center><a href='/CaseManagement/CaseSmartGoal/Read?casesmartgoalId=#= ID #&CaseID=#= CaseID #&CaseMemberID=#= CaseMemberID #' class='fa fa-eye' style='#= HasPermissionToRead #' title='Read'></a>&nbsp;<a href='/CaseManagement/CaseSmartGoal/Edit?casesmartgoalId=#= ID #&CaseID=#= CaseID #&CaseMemberID=#= CaseMemberID #' class='fa fa-edit' style='#= HasPermissionToEdit #' title='Edit'></a>&nbsp;<a name='lnkDelete' id='lnkDeleteCaseSmartGoalClose' href='/CaseManagement/CaseSmartGoal/DeleteAjax/#= ID #' style='#= HasPermissionToDelete #' class='fa fa-times' title='Delete'></a></center>").Width("10%").HeaderTemplate("<center>Actions</center>");
+                                        })
+                                        .DataSource(dataSource => dataSource
+                                        .Ajax()
+                                        .Read(read => read.Action("IndexAjax", "CaseSmartGoal", new { isClosed=true }).Data("PassSearchParameter"))
+                                        .PageSize(50)
+                                        )
+                                        .Pageable()
+                                        .Sortable()
+                                    )
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

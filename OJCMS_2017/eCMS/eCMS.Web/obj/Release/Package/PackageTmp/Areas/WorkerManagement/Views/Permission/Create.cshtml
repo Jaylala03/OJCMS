@@ -1,0 +1,17 @@
+@model eCMS.DataLogic.Models.Permission
+@using eCMS.Shared
+@{
+    ViewBag.Title = "Create New Permission";
+    Model.IsAjax = true;
+}
+@section headsection
+{
+    @Styles.Render("~/assets/plugins/kendo/css")
+    @Scripts.Render("~/assets/plugins/kendo/js")
+}
+
+@using (Html.BeginForm(Constants.Actions.Create, Constants.Controllers.Permission, new { area = Constants.Areas.WorkerManagement }, FormMethod.Post, new { id = "frmEditorPermission" }))
+{
+    @Html.Partial(eCMS.Shared.Constants.PartialViews.Alert)
+    @Html.Partial(Constants.PartialViews.CreateOrEdit, Model)
+}

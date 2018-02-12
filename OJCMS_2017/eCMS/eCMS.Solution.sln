@@ -1,0 +1,92 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{35E20210-581B-4B5D-8714-D263394B3FDF}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eCMS.BusinessLogic", "eCMS.BusinessLogic\eCMS.BusinessLogic.csproj", "{4117896E-46BB-4C65-A022-D01E305D8A83}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eCMS.DataLogic", "eCMS.DataLogic\eCMS.DataLogic.csproj", "{3DFF1058-3CC9-4295-B3AF-7EC26F3F5539}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eCMS.ExceptionLoging", "eCMS.ExceptionLoging\eCMS.ExceptionLoging.csproj", "{9E0B448F-D5E5-44E4-B323-12B08E136B1A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eCMS.Shared", "eCMS.Shared\eCMS.Shared.csproj", "{8603CF12-C5A6-4BE7-9196-BDD0DB8B5E5B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eCMS.Web", "eCMS.Web\eCMS.Web.csproj", "{A69FF0E9-A631-4623-98B2-7B3DFBFC034B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQL Changes", "SQL Changes", "{4F0CD8C2-62EB-497C-993D-AA0947F971E8}"
+	ProjectSection(SolutionItems) = preProject
+		SQL Changes\23-Jan-2017_Changes.sql = SQL Changes\23-Jan-2017_Changes.sql
+		SQL Changes\23-Jan-2017_Changes_New.sql = SQL Changes\23-Jan-2017_Changes_New.sql
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4117896E-46BB-4C65-A022-D01E305D8A83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4117896E-46BB-4C65-A022-D01E305D8A83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4117896E-46BB-4C65-A022-D01E305D8A83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4117896E-46BB-4C65-A022-D01E305D8A83}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3DFF1058-3CC9-4295-B3AF-7EC26F3F5539}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DFF1058-3CC9-4295-B3AF-7EC26F3F5539}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DFF1058-3CC9-4295-B3AF-7EC26F3F5539}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DFF1058-3CC9-4295-B3AF-7EC26F3F5539}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E0B448F-D5E5-44E4-B323-12B08E136B1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E0B448F-D5E5-44E4-B323-12B08E136B1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E0B448F-D5E5-44E4-B323-12B08E136B1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E0B448F-D5E5-44E4-B323-12B08E136B1A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8603CF12-C5A6-4BE7-9196-BDD0DB8B5E5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8603CF12-C5A6-4BE7-9196-BDD0DB8B5E5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8603CF12-C5A6-4BE7-9196-BDD0DB8B5E5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8603CF12-C5A6-4BE7-9196-BDD0DB8B5E5B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A69FF0E9-A631-4623-98B2-7B3DFBFC034B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A69FF0E9-A631-4623-98B2-7B3DFBFC034B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A69FF0E9-A631-4623-98B2-7B3DFBFC034B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A69FF0E9-A631-4623-98B2-7B3DFBFC034B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Logging.6.0.1304.0\lib\NET45
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 5
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://rahimprojects.visualstudio.com/
+		SccProjectUniqueName0 = eCMS.Shared\\eCMS.Shared.csproj
+		SccProjectName0 = eCMS.Shared
+		SccAuxPath0 = https://rahimprojects.visualstudio.com
+		SccLocalPath0 = eCMS.Shared
+		SccProvider0 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName1 = eCMS.DataLogic\\eCMS.DataLogic.csproj
+		SccProjectName1 = eCMS.DataLogic
+		SccAuxPath1 = https://rahimprojects.visualstudio.com
+		SccLocalPath1 = eCMS.DataLogic
+		SccProvider1 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName2 = eCMS.ExceptionLoging\\eCMS.ExceptionLoging.csproj
+		SccProjectName2 = eCMS.ExceptionLoging
+		SccAuxPath2 = https://rahimprojects.visualstudio.com
+		SccLocalPath2 = eCMS.ExceptionLoging
+		SccProvider2 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName3 = eCMS.BusinessLogic\\eCMS.BusinessLogic.csproj
+		SccProjectName3 = eCMS.BusinessLogic
+		SccAuxPath3 = https://rahimprojects.visualstudio.com
+		SccLocalPath3 = eCMS.BusinessLogic
+		SccProvider3 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName4 = eCMS.Web\\eCMS.Web.csproj
+		SccProjectName4 = eCMS.Web
+		SccAuxPath4 = https://rahimprojects.visualstudio.com
+		SccLocalPath4 = eCMS.Web
+		SccProvider4 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+	EndGlobalSection
+EndGlobal

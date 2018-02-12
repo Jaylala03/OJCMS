@@ -1,0 +1,10 @@
+@model eCMS.DataLogic.Models.CaseAction
+
+@{
+    ViewBag.Title = "Create New Case Progress Note Action";
+}
+@using (Html.BeginForm("Edit", "CaseAction", new { area = "CaseManagement" }, FormMethod.Post, new { id="frmEditor", @class="horizontal-form" }))
+{
+    @Html.Partial(eCMS.Shared.Constants.PartialViews.Alert)
+    @Html.Partial("_CreateOrEdit", Model)
+}

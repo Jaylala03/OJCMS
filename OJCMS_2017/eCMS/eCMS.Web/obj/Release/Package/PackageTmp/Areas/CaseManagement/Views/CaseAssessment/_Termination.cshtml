@@ -1,0 +1,426 @@
+@model eCMS.DataLogic.Models.CaseAssessment
+@using eCMS.BusinessLogic.Helpers
+@using eCMS.DataLogic.Models
+@using eCMS.DataLogic.Models.Lookup
+@using eCMS.Shared
+@using EasySoft.Helper
+@* This partial view defines form fields that will appear when creating and editing entities *@
+@Html.Partial(Constants.PartialViews.Alert)
+@Html.HiddenFor(model => model.ID)
+@Html.HiddenFor(model => model.CaseID)
+@Html.HiddenFor(model => model.CreateDate)
+@Html.HiddenFor(model => model.CreatedByWorkerID)
+@Html.HiddenFor(model => model.NextAssessmentDate)
+@Html.HiddenFor(model => model.RiskTypeID)
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group02">
+            <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.CaseMemberID)</label>
+            <div class="col-sm-8">
+                 @(Html.Kendo().DropDownListFor(model => model.CaseMemberID)    
+                        .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                        .DataTextField("Text")
+                        .DataValueField("Value")
+                        .Events(e=>e.Change("CaseMemberDropDownList_OnChanged"))
+                        .DataSource(source =>
+                        {
+                            source.Read(read =>
+                            {
+                                read.Action("LoadCaseMemberListForTerminationAjax", "CaseAssessment", new { caseID = Model.CaseID });
+                            });
+                        })
+                    )
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group02">
+            <label class="col-sm-4 control-label labe-text">@Html.LabelFor(model => model.AssessmentTypeID)</label>
+            <div class="col-sm-8">
+                @(Html.Kendo().DropDownListFor(model => model.AssessmentTypeID)    
+                        .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                        .DataTextField("Text")
+                        .DataValueField("Value")
+                        .Enable(false)
+                        .DataSource(source =>
+                        {
+                            source.Read(read =>
+                            {
+                                read.Action("LoadAssessmentTypeAjax", "CaseAssessment");
+                            });
+                        })
+                    )
+            </div>
+        </div>
+    </div>       
+    <div class="col-md-4">
+        <div class="form-group02">
+            <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.DocumentedByID)</label>
+            <div class="col-sm-8">
+                @(Html.Kendo().DropDownListFor(model => model.DocumentedByID)    
+                        .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                        .DataTextField("Text")
+                        .DataValueField("Value")
+                        .DataSource(source =>
+                        {
+                            source.Read(read =>
+                            {
+                                read.Action("LoadCaseWorkerListAjax", "CaseAssessment", new { caseID = Model.CaseID });
+                            });
+                        })
+                    )
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group02">
+            <label class="col-sm-4 control-label labe-text">@Html.LabelFor(model => model.StartDate)</label>
+            <div class="col-sm-8">
+                @Html.EditorFor(model => model.StartDate)
+            </div>
+        </div>
+    </div>    
+    <div class="col-md-4">
+        <div class="form-group02">
+            <label class="col-sm-4 control-label labe-text">@Html.LabelFor(model => model.EndDate)</label>
+            <div class="col-sm-8">
+                @Html.EditorFor(model => model.EndDate)
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group02">
+            <label class="col-sm-4 control-label labe-text">@Html.LabelFor(model => model.DischargeDate)</label>
+            <div class="col-sm-8">
+                @Html.EditorFor(model => model.DischargeDate)
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group02">
+            <label class="col-sm-4 control-label labe-text">@Html.LabelFor(model => model.ReasonsForDischargeID)</label>
+            @if (Model.ReasonsForDischargeOther.IsNotNullOrEmpty())
+            {
+                <div class="col-sm-4" id="divReasonsForDischarge">
+                    @(Html.Kendo().DropDownListFor(model => model.ReasonsForDischargeID)
+                                    .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                                    .Events(e=>e.Change("DropDownListOther_OnChange"))
+                                .DataTextField("Text")
+                                .DataValueField("Value")
+                                .DataSource(source =>
+                                {
+                                    source.Read(read =>
+                                    {
+                                        read.Action("LoadReasonsForDischargeAjax", "CaseAssessment");
+                                    });
+                                })
+                             )
+                </div>
+                <div class="col-sm-4" id="divReasonsForDischargeOther">
+                    @Html.EditorFor(model => model.ReasonsForDischargeOther)
+                </div>
+            }
+            else
+            {
+                <div class="col-sm-8" id="divEthnicity">
+                    @(Html.Kendo().DropDownListFor(model => model.ReasonsForDischargeID)
+                                    .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                                    .Events(e=>e.Change("DropDownListOther_OnChange"))
+                                .DataTextField("Text")
+                                .DataValueField("Value")
+                                .DataSource(source =>
+                                {
+                                    source.Read(read =>
+                                    {
+                                        read.Action("LoadReasonsForDischargeAjax", "CaseAssessment");
+                                    });
+                                })
+                             )
+                </div>
+                <div class="col-sm-4 hide" id="divReasonsForDischargeOther">
+                    @Html.EditorFor(model => model.ReasonsForDischargeOther)
+                </div>
+            }
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group02">
+            <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.MemberStatusID)</label>
+            <div class="col-sm-8">
+                @(Html.Kendo().DropDownListFor(model => model.MemberStatusID)    
+                        .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                        .DataTextField("Text")
+                        .DataValueField("Value")
+                        .DataSource(source =>
+                        {
+                            source.Read(read =>
+                            {
+                                read.Action("LoadIndividualCompletedStatusAjax", "CaseAssessment");
+                            });
+                        })
+                    )
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="content-box">
+            <span class="section-title" style="width:350px!important;">@Html.LabelFor(model => model.ClinicalSummary)</span>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            @Html.TextAreaFor(model => model.ClinicalSummary, new { @class = "form-control", style = "width:95%; height: 50px;", rows = "3" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="content-box">
+            <span class="section-title" style="width:350px!important;">@Html.LabelFor(model => model.Recommendation)</span>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            @Html.TextAreaFor(model => model.Recommendation, new { @class = "form-control", style = "width:95%; height: 50px;", rows = "3" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="content-box">
+            <span class="section-title" style="width:350px!important;">@Html.LabelFor(model => model.PresentingProblem)</span>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            @(Html.Kendo().Grid<LookupBaseModel>()
+                                .Name("GridPresentingProblem").HtmlAttributes(new { style="width:98%;" })
+                                .Columns(columns =>
+                                {
+                                    columns.Bound(c => c.CreateDate).Title("Assessment Date").Width("10%").Sortable(true).Groupable(false).Filterable(false);
+                                    columns.Bound(c => c.Name).Title("Note").Width("90%").Sortable(true).Groupable(false).Filterable(false);                            
+                                })
+                                .BindTo(ViewBag.PresentingProblem))
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="content-box">
+            <span class="section-title" style="width:350px!important;">@Html.LabelFor(model => model.UnderlyingProblem)</span>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            @(Html.Kendo().Grid<LookupBaseModel>()
+                                .Name("GridUnderlyingProblem").HtmlAttributes(new { style="width:98%;" })
+                                .Columns(columns =>
+                                {
+                                    columns.Bound(c => c.CreateDate).Title("Assessment Date").Width("10%").Sortable(true).Groupable(false).Filterable(false);
+                                    columns.Bound(c => c.Name).Title("Note").Width("90%").Sortable(true).Groupable(false).Filterable(false);                            
+                                })
+                                .BindTo(ViewBag.UnderlyingProblem))
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="content-box">
+            <span class="section-title" style="width:350px!important;">@Html.LabelFor(model => model.GeneralComments)</span>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            @(Html.Kendo().Grid<LookupBaseModel>()
+                                .Name("GridGeneralComments").HtmlAttributes(new { style="width:98%;" })
+                                .Columns(columns =>
+                                {
+                                    columns.Bound(c => c.CreateDate).Title("Assessment Date").Width("10%").Sortable(true).Groupable(false).Filterable(false);
+                                    columns.Bound(c => c.Name).Title("Note").Width("90%").Sortable(true).Groupable(false).Filterable(false);                            
+                                })
+                                .BindTo(ViewBag.GeneralComments))
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<div class="sub-menu margin-top-30">
+    <div class="container">
+        <div class="row">
+            <div class="text-center font-11 col-md-12">
+                <ul class="candidate-list-sub-menu">
+                    <li style="width:160px;" class="menu-item active"><a id="lnkImmediateNeeds" name="lnkLivingSituation" href="#" title="Goals">Immediate Needs</a></li>
+                    <li style="width:140px;" class="menu-item"><a id="lnkEducation" name="lnkLivingSituation" href="#" title="Services">Education</a></li>
+                    <li style="width:130px;" class="menu-item"><a id="lnkHealth" name="lnkLivingSituation" href="#" title="Actions">Health</a></li>
+                    <li style="width:130px;" class="menu-item"><a id="lnkHousing" name="lnkLivingSituation" href="#" title="Progress Notes">Housing</a></li>
+                    <li style="width:190px;" class="menu-item"><a id="lnkIncomeLivelihood" name="lnkLivingSituation" href="#" title="Termination">Income/Livelihood</a></li>
+                    <li style="width:210px;" class="menu-item"><a id="lnkAssetsProduction" name="lnkLivingSituation" href="#" title="Termination">Assets & Production</a></li>
+                    <li style="width:220px;" class="menu-item"><a id="lnkDignitySelfRespect" name="lnkLivingSituation" href="#" title="Termination">Dignity & Self Respect</a></li>
+                    <li style="width:190px;" class="menu-item"><a id="lnkSocialSupport" name="lnkLivingSituation" href="#" title="Termination">Social Support</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" id="divImmediateNeeds">
+    <div class="col-md-12">
+        <div class="content-box">
+             @(Html.Kendo().Grid<CaseAssessmentLivingCondition>()
+                .Name("GridImmediateNeeds").HtmlAttributes(new { style="width:98%;" })
+                .Columns(columns =>
+                {
+                    columns.Bound(c => c.AssessmentStartDate).Width("5%").Sortable(true).Groupable(false).Filterable(false);
+                    columns.Bound(c => c.QualityOfLifeName).Width("20%").Sortable(true).Groupable(false).Filterable(false);
+                    columns.Bound(c => c.Note).Width("75%").Sortable(true).Groupable(false).Filterable(false);                            
+                })
+                .BindTo(ViewBag.ImmediateNeeds))
+        </div>
+    </div>
+</div>
+<div class="row hide" id="divEducation">
+    <div class="col-md-12">
+        <div class="content-box">
+             @(Html.Kendo().Grid<CaseAssessmentLivingCondition>()
+                .Name("GridEducation").HtmlAttributes(new { style="width:98%;" })
+                .Columns(columns =>
+                {
+                    columns.Bound(c => c.AssessmentStartDate).Width("5%").Sortable(true).Groupable(false).Filterable(false);
+                    columns.Bound(c => c.QualityOfLifeName).Width("20%").Sortable(true).Groupable(false).Filterable(false);
+                    columns.Bound(c => c.Note).Width("75%").Sortable(true).Groupable(false).Filterable(false);                            
+                })
+                .BindTo(ViewBag.Education))
+        </div>
+    </div>
+</div>
+<div class="row hide" id="divHealth">
+    <div class="col-md-12">
+        <div class="content-box">
+             @(Html.Kendo().Grid<CaseAssessmentLivingCondition>()
+                .Name("GridHealth").HtmlAttributes(new { style="width:98%;" })
+                .Columns(columns =>
+                {
+                    columns.Bound(c => c.AssessmentStartDate).Width("5%").Sortable(true).Groupable(false).Filterable(false);
+                    columns.Bound(c => c.QualityOfLifeName).Width("20%").Sortable(true).Groupable(false).Filterable(false);
+                    columns.Bound(c => c.Note).Width("75%").Sortable(true).Groupable(false).Filterable(false);                            
+                })
+                .BindTo(ViewBag.Health))
+        </div>
+    </div>
+</div>
+<div class="row hide" id="divHousing">
+    <div class="col-md-12">
+        <div class="content-box">
+             @(Html.Kendo().Grid<CaseAssessmentLivingCondition>()
+                .Name("GridHousing").HtmlAttributes(new { style="width:98%;" })
+                .Columns(columns =>
+                {
+                    columns.Bound(c => c.AssessmentStartDate).Width("5%").Sortable(true).Groupable(false).Filterable(false);
+                    columns.Bound(c => c.QualityOfLifeName).Width("20%").Sortable(true).Groupable(false).Filterable(false);
+                    columns.Bound(c => c.Note).Width("75%").Sortable(true).Groupable(false).Filterable(false);                            
+                })
+                .BindTo(ViewBag.Housing))
+        </div>
+    </div>
+</div>
+<div class="row hide" id="divIncomeLivelihood">
+    <div class="col-md-12">
+        <div class="content-box">
+             @(Html.Kendo().Grid<CaseAssessmentLivingCondition>()
+                .Name("GridIncomeLivelihood").HtmlAttributes(new { style="width:98%;" })
+                .Columns(columns =>
+                {
+                    columns.Bound(c => c.AssessmentStartDate).Width("5%").Sortable(true).Groupable(false).Filterable(false);
+                    columns.Bound(c => c.QualityOfLifeName).Width("20%").Sortable(true).Groupable(false).Filterable(false);
+                    columns.Bound(c => c.Note).Width("75%").Sortable(true).Groupable(false).Filterable(false);                            
+                })
+                .BindTo(ViewBag.IncomeLivelihood))
+        </div>
+    </div>
+</div>
+<div class="row hide" id="divAssetsProduction">
+    <div class="col-md-12">
+        <div class="content-box">
+             @(Html.Kendo().Grid<CaseAssessmentLivingCondition>()
+                .Name("GridAssetsProduction").HtmlAttributes(new { style="width:98%;" })
+                .Columns(columns =>
+                {
+                    columns.Bound(c => c.AssessmentStartDate).Width("5%").Sortable(true).Groupable(false).Filterable(false);
+                    columns.Bound(c => c.QualityOfLifeName).Width("20%").Sortable(true).Groupable(false).Filterable(false);
+                    columns.Bound(c => c.Note).Width("75%").Sortable(true).Groupable(false).Filterable(false);                            
+                })
+                .BindTo(ViewBag.AssetsProduction))
+        </div>
+    </div>
+</div>
+<div class="row hide" id="divDignitySelfRespect">
+    <div class="col-md-12">
+        <div class="content-box">
+             @(Html.Kendo().Grid<CaseAssessmentLivingCondition>()
+                .Name("GridDignitySelfRespect").HtmlAttributes(new { style="width:98%;" })
+                .Columns(columns =>
+                {
+                    columns.Bound(c => c.AssessmentStartDate).Width("5%").Sortable(true).Groupable(false).Filterable(false);
+                    columns.Bound(c => c.QualityOfLifeName).Width("20%").Sortable(true).Groupable(false).Filterable(false);
+                    columns.Bound(c => c.Note).Width("75%").Sortable(true).Groupable(false).Filterable(false);                            
+                })
+                .BindTo(ViewBag.DignitySelfRespect))
+        </div>
+    </div>
+</div>
+<div class="row hide" id="divSocialSupport">
+    <div class="col-md-12">
+        <div class="content-box">
+             @(Html.Kendo().Grid<CaseAssessmentLivingCondition>()
+                .Name("GridSocialSupport").HtmlAttributes(new { style="width:98%;" })
+                .Columns(columns =>
+                {
+                    columns.Bound(c => c.AssessmentStartDate).Width("5%").Sortable(true).Groupable(false).Filterable(false);
+                    columns.Bound(c => c.QualityOfLifeName).Width("20%").Sortable(true).Groupable(false).Filterable(false);
+                    columns.Bound(c => c.Note).Width("75%").Sortable(true).Groupable(false).Filterable(false);                            
+                })
+                .BindTo(ViewBag.SocialSupport))
+        </div>
+    </div>
+</div>
+
+<div id="add_candidate3">
+    @if (Model.IsAjax)
+    {
+        <button class="btn btn-primary btnSaveAndRefresh" data-formid="frmEditorWorker" name="btnSaveAndRefreshWorker"><i class="fa fa-save"></i> Update</button>
+    }
+    else
+    {
+        <button type="submit" class="btn btn-primary btnSaveAndRefresh" data-formid="frmEditorWorker" name="btnSave"><i class="fa fa-save"></i> Save <i class="fa fa-long-arrow-right"></i></button>
+    }
+    <a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.CaseAssessment, new { CaseID=Model.CaseID })" class="btn btn-primary"><i class="fa fa-long-arrow-left"></i> Back to Assessment List</a>
+</div>
+<br class="clear" />

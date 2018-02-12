@@ -1,0 +1,49 @@
+@model eCMS.DataLogic.Models.CaseSupportCircle
+@using eCMS.BusinessLogic.Helpers
+@using eCMS.DataLogic.Models
+@using eCMS.Shared
+@* This partial view defines form fields that will appear when creating and editing entities *@
+
+@Html.HiddenFor(model => model.ID)
+@Html.HiddenFor(model => model.CaseID)
+@Html.HiddenFor(model => model.CreateDate)
+@Html.HiddenFor(model => model.CreatedByWorkerID)
+
+<div class="col-md-6 ">
+    <div class="form-group02">
+        <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model =>model.Institution)</label>
+        <div class="col-sm-8">
+            @Html.EditorFor(model =>model.Institution)
+        </div>
+    </div>
+    <div class="form-group02">
+        <label class="col-sm-4 control-label labe-text">@Html.LabelFor(model =>model.Comments)</label>
+        <div class="col-sm-8">
+            @Html.TextAreaFor(model =>model.Comments, new { @class = "form-control", rows = 4, cols = 100 })
+        </div>
+    </div>
+</div>
+<div class="col-md-6">
+    <div class="form-group02">
+        <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model =>model.Resource)</label>
+        <div class="col-sm-8">
+            @Html.EditorFor(model =>model.Resource)
+        </div>
+    </div>
+    <div class="form-group02">
+        <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model =>model.Relationship)</label>
+        <div class="col-sm-8">
+            @Html.EditorFor(model =>model.Relationship)
+        </div>
+    </div>
+    <div class="form-group02">
+        <label class="col-sm-4 control-label labe-text">@Html.LabelFor(model =>model.ContactInformation)</label>
+        <div class="col-sm-8">
+            @Html.EditorFor(model =>model.ContactInformation)
+        </div>
+    </div>
+</div>
+<div class="row margin-right-20 margin-top-10" style="float: right;">
+    <button id="btnClearForm" type="reset" name="btnClearFormCaseWorker" class="btn btn-primary btnClear"><i class="fa fa-plus"></i>RESET</button>
+    <button id="btnSaveAndRefresh" name="btnSaveAndRefreshCaseSupportCircle" class="btn btn-primary"><i class="fa fa-plus"></i>SAVE</button>
+</div>

@@ -1,0 +1,198 @@
+@model eCMS.DataLogic.Models.CaseSmartGoalServiceProvider
+@using EasySoft.Helper;
+@using eCMS.Shared;
+@using eCMS.DataLogic.Models;
+@{
+    ViewBag.Title = "Case Smart Goal Service Provider";
+    Layout = "~/Areas/CaseManagement/Views/Shared/_LayoutCase2.cshtml";
+    CaseAction caseAction = new CaseAction();
+    caseAction.CaseSmartGoalID = Model.CaseSmartGoalID;
+    caseAction.CaseID = Model.CaseID;
+    caseAction.CaseProgressNoteID = 0;
+    caseAction.CaseSmartGoalServiceProviderID = 0;
+    caseAction.IsActionTakenByServiceProvider = true;
+    caseAction.CaseMemberID = Model.CaseMemberID;
+}
+@section headsection
+{
+    @Styles.Render("~/assets/plugins/kendo/css")
+    @Scripts.Render("~/assets/plugins/kendo/js")
+}
+<div class="container bulk-import">
+    <div class="row margin-top-20">
+        <div class="col-md-12">
+            <div class="content-box">
+                <span class="section-title" style="width: 350px!important;">Issues</span>
+               @* <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <h3>@Model.CaseSmartGoal.SmartGoalName</h3>
+                            @Html.HiddenFor(model => model.CaseMemberID)
+                            @Html.HiddenFor(model => model.QualityOfLifeCategoryID)
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <b>Family or Family Member :</b> @Model.CaseSmartGoal.CaseMemberName
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <b>Target Start Date :</b> @Model.CaseSmartGoal.StartDate.ToShortDateString()
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <b>Target End Date :</b> @Model.CaseSmartGoal.EndDate.ToShortDateString()
+                        </div>
+                    </div>
+                </div>*@
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row margin-top-20">
+        <div class="col-md-12">
+            <div class="content-box">
+                <span class="section-title" style="width: 350px!important;">Service Provider</span>
+                @Html.Partial("EditorPopUp")
+                <div class="clearfix"></div>
+                @(Html.Kendo().Grid<CaseSmartGoalServiceProvider>()
+        .Name("GridCaseSmartGoalServiceProvider")
+        .Columns(columns =>
+        {
+            columns.Bound(c => c.ServiceProviderType).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(c => c.ServiceProviderUsedProposed).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(c => c.ServiceProviderName).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(c => c.ServiceName).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(c => c.FinancialAssistanceSubCategoryName).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(c => c.WorkerName).Title("Service Provider Name").Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(c => c.IsWorkerActive).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(c => c.IsNotificationEnabled).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(p => p.ErrorMessage).ClientTemplate("<center><a id='lnkEditCaseSmartGoalServiceProvider' name='lnkEdit' href='/CaseManagement/CaseSmartGoalServiceProvider/EditorAjax/#= ID #?caseId=#= CaseID #&casememberId=#= CaseMemberID #' class='fa fa-edit' title='Edit'></a>&nbsp;<a name='lnkDelete' id='lnkDeleteCaseSmartGoalServiceProvider' href='/CaseManagement/CaseSmartGoalProgress/DeleteAjax/#= ID #' class='fa fa-times' title='Delete'></a></center>").Width("10%").HeaderTemplate("<center>Actions</center>");
+        })
+        .DataSource(dataSource => dataSource
+        .Ajax()
+        .Read(read => read.Action("IndexAjax", "CaseSmartGoalServiceProvider", new { casesmartgoalId = Model.CaseSmartGoalID, caseId = Model.CaseID, caseMemberId = Model.CaseMemberID }))
+        .PageSize(50)
+        )
+        .Pageable()
+        .Sortable()
+)
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row margin-top-20">
+        <div class="col-md-12">
+            <div class="content-box">
+                <span class="section-title" style="width: 350px!important;">Service Level Outcome</span>
+                @(Html.Kendo().Grid<CaseAssessmentLivingCondition>()
+        .Name("GridCaseAssessmentLivingCondition")
+        .HtmlAttributes(new { style = "width:98%;" })
+        .Columns(columns =>
+        {
+            columns.Bound(c => c.Note).Title("Issue").Width("90%").Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(c => c.LastUpdateDate).Title("Issued On").Width("10%").Sortable(true).Groupable(false).Filterable(false);
+        })
+        .DataSource(dataSource => dataSource
+        .Ajax()
+        .Read(read => read.Action("CaseAssessmentLivingConditionIndexAjax", "CaseSmartGoal").Data("GridCaseAssessmentLivingConditionParameter"))
+        .PageSize(50)
+        )
+        .Pageable()
+        .Sortable()
+)
+                <div class="clearfix"></div>
+                <div class="row margin-top-20">
+                    @using (Html.BeginForm("SaveCaseSmartGoalServiceLevelOutcomeAjax", "CaseSmartGoalServiceProvider", new { area = "CaseManagement", CaseSmartGoalID = Model.CaseSmartGoalID, CaseID = Model.CaseID, CaseMemberID = Model.CaseMemberID }, FormMethod.Post, new { id = "frmEditorCaseSmartGoalServiceLevelOutcome" }))
+                    {
+                        @Html.HiddenFor(model => model.CaseSmartGoalServiceLevelOutcome.CaseSmartGoalID)
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group02">
+                                    <label class="col-sm-6 control-label labe-text">@Html.LabelFor(model => model.CaseSmartGoalServiceLevelOutcome.ServiceLevelOutcomeID)</label>
+                                    <div class="col-sm-6">
+                                        @(Html.Kendo().DropDownListFor(model => model.CaseSmartGoalServiceLevelOutcome.ServiceLevelOutcomeID)
+                        .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                        .DataTextField("Text")
+                        .DataValueField("Value")
+                        .DataSource(source =>
+                        {
+                            source.Read(read =>
+                            {
+                                read.Action("LoadServiceLevelOutcomeListAjax", "CaseSmartGoalServiceProvider");
+                            });
+                        })
+                    )
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group02">
+                                    <button class="btn btn-primary" id="btnSaveAndRefresh" name="btnSaveAndRefreshCaseSmartGoalServiceLevelOutcome"><i class="fa fa-save"></i>Add</button>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                <div class="clearfix"></div>
+                @(Html.Kendo().Grid<CaseSmartGoalServiceLevelOutcome>()
+                .Name("GridCaseSmartGoalServiceLevelOutcome")
+                .Columns(columns =>
+                {
+                    columns.Bound(c => c.ServiceLevelOutcomeName).Sortable(true).Groupable(false).Filterable(false);
+                    columns.Bound(p => p.ErrorMessage).ClientTemplate("<center><a name='lnkDelete' id='lnkDeleteCaseSmartGoalServiceLevelOutcome' href='/CaseManagement/CaseSmartGoalServiceProvider/DeleteCaseSmartGoalServiceLevelOutcomeAjax/#= ID #' class='fa fa-times' title='Delete'></a></center>").Width("10%").HeaderTemplate("<center>Actions</center>");
+                })
+                .DataSource(dataSource => dataSource
+                .Ajax()
+                .Read(read => read.Action("CaseSmartGoalServiceLevelOutcomeIndexAjax", "CaseSmartGoalServiceProvider", new { casesmartgoalId = Model.CaseSmartGoalID }))
+                .PageSize(50)
+                )
+                .Pageable()
+                .Sortable()
+        )
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row margin-top-20">
+        <div class="col-md-12">
+            <div class="content-box">
+                <span class="section-title" style="width: 350px!important;">Actions Related to Services</span>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group02">
+                            <label class="col-sm-6 control-label labe-text">@Html.LabelFor(model => model.ServiceProviderID)</label>
+                            <div class="col-sm-6">
+                                @(Html.Kendo().DropDownList()
+                                .Name("CaseActionServiceProviderID")
+                .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                .Events(e=>e.Change("CaseActionServiceProviderDropDownList_OnChanged"))
+                .DataTextField("ServiceProviderName")
+                .DataValueField("ID")
+                .DataSource(source =>
+                {
+                    source.Read(read =>
+                    {
+                        read.Action("LoadCaseSmartGoalServiceLevelAjax", "CaseSmartGoalServiceProvider", new { casesmartgoalId = Model.CaseSmartGoalID });
+                    });
+                }).Value(ViewBag.ServiceProviderID)
+            )
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @Html.Partial("~/Areas/CaseManagement/Views/CaseAction/EditorPopUp.cshtml", caseAction)
+                <div class="clearfix"></div>
+                @Html.Partial("~/Areas/CaseManagement/Views/CaseAction/_List.cshtml", caseAction)
+            </div>
+        </div>
+    </div>
+</div>
+

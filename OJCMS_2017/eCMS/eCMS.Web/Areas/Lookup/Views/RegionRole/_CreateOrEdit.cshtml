@@ -1,0 +1,64 @@
+@model eCMS.DataLogic.ViewModels.RegionRoleModel
+@using eCMS.BusinessLogic.Helpers
+@using eCMS.DataLogic.Models.Lookup
+@using eCMS.Shared
+<div id="row hr-line">
+    <div class="row">
+        <div class="col-md-12">
+            <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.WorkerRoleID)</label>
+            <div class="col-sm-8">
+                @(Html.Kendo().DropDownListFor(model => model.WorkerRoleID)
+                                .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                                .Events(e => e.Change("WorkerRoleDropDownList_OnChanged"))
+                            .DataTextField("Text")
+                            .DataValueField("Value")
+                            .DataSource(source =>
+                            {
+                                source.Read(read =>
+                                {
+                                    read.Action("LoadWorkerRoleAjax", "RegionRole");
+                                });
+                            })
+                         )
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group02">
+                <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.RegionNames)</label>
+                <div class="col-sm-8">
+                    @if (Model.AllRegions != null)
+                    {
+                        foreach (Region region in Model.AllRegions)
+                        {
+                            string strChecked = "";
+                            if (Model.AssignedRegions != null)
+                            {
+                                foreach (RegionRole assignedRegion in Model.AssignedRegions)
+                                {
+                                    if (region.ID == assignedRegion.RegionID)
+                                    {
+                                        strChecked = "checked='checked'";
+                                        break;
+                                    }
+                                }
+                            }
+                            <div class="col-sm-3">
+                                <input type="checkbox" name="SelectedRegion" value="@region.ID" @strChecked />
+                                @region.Name
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            &nbsp;
+        </div>
+        <div class="col-md-8 margin-top-10">
+            <button type="button" id="btnSaveAndRefresh" name="btnSaveAndRefreshRegionRole" class="col-sm-2 createsource00">Save</button>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>

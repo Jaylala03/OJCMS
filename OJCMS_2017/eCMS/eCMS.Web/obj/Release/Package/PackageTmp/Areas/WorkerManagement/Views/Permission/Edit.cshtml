@@ -1,0 +1,74 @@
+@model eCMS.DataLogic.Models.Permission
+@using eCMS.BusinessLogic.Helpers
+@using eCMS.DataLogic.Models.Lookup
+@using eCMS.DataLogic.Models
+@using eCMS.Shared
+
+@section headsection
+{
+    @Styles.Render("~/assets/plugins/kendo/css")
+    @Scripts.Render("~/assets/plugins/kendo/js")
+}
+@{
+    ViewBag.Title = "Update Permission";
+    Model.IsAjax = true;
+    PermissionRegion permissionRegion = Model.PermissionRegion;
+}
+<script>
+    function getPermissionId() {
+        var id = $('#ID').val();
+        return {
+            permissionId: id
+        }
+    }
+</script>
+
+@using (Html.BeginForm(Constants.Actions.SaveAjax, Constants.Controllers.Permission, new { area = Constants.Areas.WorkerManagement }, FormMethod.Post, new { id = "frmEditorPermission" }))
+{
+    @Html.Partial(Constants.PartialViews.CreateOrEdit, Model)
+}
+
+<div class="container candidate-list-main-container">
+    <div id="row">
+        <div class="col-lg-12 col-md-12 candidate-table-bg">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 candidate-on-map">
+                    <div class="row">
+                        <div class="col-md-12 font-13 text-uppercase" style="padding-top: 6px; padding-right: 0;">
+                            <label>
+                                <i class="fa fa-user"></i>ADD REGION
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="divPermissionRegionContainer">
+                @Html.Partial(Constants.PartialViews.PermissionRegion, permissionRegion)
+            </div>
+            <div class="row margin-top-10">
+                @(Html.Kendo().Grid<PermissionRegion>()
+        .Name("GridPermissionRegion")
+        .Columns(columns =>
+        {
+            columns.Bound(c => c.ProgramName).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(c => c.RegionName).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(c => c.SubProgramNames).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(c => c.JamatkhanaNames).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(p => p.ErrorMessage).ClientTemplate("<a id='lnkEditPermissionRegion' name='lnkEditor' data-container='divPermissionRegionContainer' href='/WorkerManagement/PermissionRegion/EditorAjax/#= ID #' class='fa fa-edit' title='Edit'></a>&nbsp;<a name='lnkDelete' id='lnkDeletePermissionRegion' href='/WorkerManagement/PermissionRegion/DeleteAjax/#= ID #' class='fa fa-times' title='Delete'></a>").Width("10%").HtmlAttributes(new { @class = "grid-actions-content" }).HeaderTemplate("<center>Actions</center>").HeaderHtmlAttributes(new { @class = "grid-actions-content" });
+        })
+        .DataSource(dataSource => dataSource
+        .Ajax()
+        .Read(read => read.Action("IndexAjax", "PermissionRegion").Data("getPermissionId"))
+        .PageSize(50)
+        )
+        .Pageable()
+        .Sortable()
+)
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+<div id="add_candidate3" style="margin-left: 90px">
+    <a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.Permission)" class="btn btn-primary"><i class="fa fa-long-arrow-left"></i>Back to Permission List</a>
+</div>

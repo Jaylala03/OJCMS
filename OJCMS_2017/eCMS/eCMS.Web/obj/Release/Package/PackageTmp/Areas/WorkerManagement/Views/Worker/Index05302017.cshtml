@@ -1,0 +1,207 @@
+@model eCMS.DataLogic.Models.Worker
+@using EasySoft.Helper;
+@using eCMS.Shared;
+@using eCMS.DataLogic.Models;
+@using eCMS.DataLogic.ViewModels;
+@{
+    Model.IsAjax = true;
+    ViewBag.Title = "Worker";
+    WorkerSearchViewModel workerSearchViewModel = new WorkerSearchViewModel();
+}
+@section headsection
+{
+    @Styles.Render("~/assets/plugins/kendo/css")
+    @Scripts.Render("~/assets/plugins/kendo/js")
+}
+
+<script>
+    function getRoleList(obj)
+    {
+        var tr = '';
+        var html = '';
+        for (var i = 0; i < obj.length; i++) {
+            var fo = obj[i].EffectiveFrom.split("(")[1];
+            var to = obj[i].EffectiveTo.split("(")[1];
+            var fstr = fo.split(")")[0];
+            var tstr = to.split(")")[0];
+            var dateFromStr = JSON.parse(fstr);
+            var dateFrom = new Date(dateFromStr);
+            var formatedFromDate = dateFrom.getDate() + '/' + dateFrom.getMonth() + '/' + dateFrom.getFullYear();
+            var dateToStr = JSON.parse(tstr);
+            var dateTo = new Date(dateToStr);
+            var formatedToDate = dateTo.getDate() + '/' + dateTo.getMonth() + '/' + dateTo.getFullYear();
+            tr = tr + '<tr><td>' + obj[i].ProgramName + '</td><td>' + obj[i].WorkerRoleName + '</td><td>' + obj[i].RegionName + '</td><td>' + obj[i].SubProgramNames + '</td><td>' + formatedFromDate + '</td><td>' + formatedToDate + '</td></tr>';
+        }//<td>'+ obj[i].ID +'</td>
+        if (tr != '') {
+            html = '<table class="table table-bordered"><thead><tr><th>Program</th><th>Role</th><th>Region</th><th>Sub-Program</th><th>From</th><th>To</th></tr></thead><tbody>' + tr + '</tbody></table>';
+        }
+        return html;
+    }
+</script>
+
+<div class="container candidate-list-main-container">
+    <div class="row">
+        <div class="col-lg-12 col-md-11 candidate-table-bg">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 candidate-on-map">
+                    <div class="row">
+                        <div class="col-md-12 font-13 text-uppercase" style="padding-top: 6px; padding-right: 0;">
+                            <label>
+                                <i class="fa fa-user"></i>Filter Worker
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @using (Html.BeginForm("IndexAjax", "Worker", new { area = "WorkerManagement" }, FormMethod.Post, new { id = "frmSearch", @class = "horizontal-form" }))
+            {
+                <div class="row">
+                   
+                    <div class="col-lg-3">
+                        @Html.LabelFor(model => model.FirstName)
+                        <div class="input-group">
+                            @Html.EditorFor(model => model.FirstName)
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3">
+                        @Html.LabelFor(model => model.LastName)
+                        <div class="input-group">
+                            @Html.EditorFor(model => model.LastName)
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3">
+                        @Html.LabelFor(model => model.RoleID)
+                        <div class="input-group width-100">
+                            @(Html.Kendo().DropDownListFor(model => model.RoleID)
+                                .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                            .DataTextField("Text")
+                            .DataValueField("Value")
+                            .DataSource(source =>
+                            {
+                                source.Read(read =>
+                                {
+                                    read.Action("LoadWorkerRoleAjax", "Worker");
+                                });
+                            })
+                         )
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3">
+                        @Html.LabelFor(model => model.StatusID)
+                        <div class="input-group width-100">
+                            @(Html.Kendo().DropDownListFor(model => model.StatusID)
+                                .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                            .DataTextField("Name")
+                            .DataValueField("ID")
+                            .DataSource(source =>
+                            {
+                                source.Read(read =>
+                                {
+                                    read.Action("LoadWorkerStatusToFilterAjax", "Worker");
+                                });
+                            })
+                         )
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3">
+                        @Html.LabelFor(model => model.ProgramID)
+            <div class="input-group width-100">
+                 @(Html.Kendo().DropDownListFor(model => model.ProgramID)    
+                        .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                        .HtmlAttributes(new { @class = "drop_down_list" })
+                        .Events(e => e.Change("ProgramDropDownList_OnChanged"))                        
+                        .DataTextField("Text")
+                        .DataValueField("Value")
+                        .DataSource(source =>
+                        {
+                            source.Read(read =>
+                            {
+                                read.Action("LoadWorkerProgramsAjax", "Worker");
+                            });
+                        })
+                    )
+            </div>
+                    </div>
+
+
+
+
+
+
+                    <div class="col-lg-3">
+                        @Html.LabelFor(model => model.RegionID)
+            <div class="input-group width-100" id="divRegion">
+                @(Html.Kendo().DropDownListFor(model => model.RegionID)
+                                .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                            .DataTextField("Text")
+                            .DataValueField("Value")
+                            .DataSource(source =>
+                            {
+                                source.Read(read =>
+                                {
+                                    read.Action("LoadWorkerRegionsAjax", "Worker").Data("ProgramDropDownList_OnSelect");
+                                })
+                                .ServerFiltering(true);
+                            })
+                            .Enable(false)
+                            .AutoBind(false)
+                            .CascadeFrom("ProgramID")
+                         )
+            </div>
+                    </div>
+
+                </div>
+
+                <div class="row margin_left_2 margin-top-10">
+                    <button id="btnSearch" name="btnSearchWorker" class="btn btn-primary"><i class="fa fa-search"></i> Search</button>
+                    <a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.Case, new { Area=Constants.Areas.CaseManagement })" class="btn btn-primary"><i class="fa fa-times"></i> Cancel</a>
+                    <a href="@Url.Action(Constants.Actions.Create, Constants.Controllers.Worker, new { Area=Constants.Areas.WorkerManagement })" class="btn btn-primary"><i class="fa fa-plus"></i> Create Profile</a>
+                </div>
+            }
+            
+            <br class="clear" />
+        </div>
+    </div>
+</div>
+
+<div class="container candidate-list-main-container">
+    <div class="row">
+        <div class="col-lg-12 col-md-11 candidate-table-bg">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 candidate-on-map">
+                    <div class="row">
+                        <div class="col-md-12 font-13 text-uppercase" style="padding-top: 6px; padding-right: 0;">
+                            <label>
+                                <i class="fa fa-user"></i>Worker List
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @(Html.Kendo().Grid<WorkerListViewModel>()
+        .Name("GridWorker")
+        .Columns(columns =>
+        {
+            columns.Bound(c => c.ID).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(c => c.Name).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(c => c.EmailAddress).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(c => c.IsActive).ClientTemplate("# if (IsActive == true) { # Yes # } else { # No # } #"
+                ).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(c => c.WorkerRoles).Sortable(true).Groupable(false).Filterable(false).ClientTemplate("#= getRoleList(WorkerInRoleList) #");
+            columns.Bound(p => p.Options).ClientTemplate("<a href='/WorkerManagement/Worker/Edit/#= ID #' class='fa fa-edit' title='Edit'></a>&nbsp;<a name='lnkDelete' id='lnkDeleteWorker' href='/WorkerManagement/Worker/DeleteAjax/#= ID #' class='fa fa-times lnkDelete' title='Delete'></a>").Width("10%").HtmlAttributes(new { @class = "grid-actions-content" }).HeaderTemplate("<center>Actions</center>").HeaderHtmlAttributes(new { @class = "grid-actions-content" });
+        })
+        .DataSource(dataSource => dataSource
+        .Ajax()
+        .Read(read => read.Action("IndexAjax", "Worker").Data("PassSearchParameterWorker"))
+        .PageSize(50)
+        )
+        .Pageable()
+        .Sortable()
+)
+        </div>
+    </div>
+</div>

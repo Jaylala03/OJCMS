@@ -1,0 +1,73 @@
+@model eCMS.DataLogic.Models.CaseProgressNote
+@using EasySoft.Helper;
+@using eCMS.Shared;
+@using eCMS.DataLogic.Models;
+@using eCMS.DataLogic.ViewModels;
+@{
+    ViewBag.Title = "Case Progress Note";
+    Layout = "~/Areas/CaseManagement/Views/Shared/_LayoutCase2.cshtml";
+}
+
+@section headsection
+{
+    @Styles.Render("~/assets/plugins/kendo/css")
+    @Scripts.Render("~/assets/plugins/kendo/js")
+}
+@{
+    CaseAction caseAction = new CaseAction();
+    caseAction.CaseID = Model.CaseID;
+    caseAction.CaseProgressNoteID = Model.ID;
+    //caseAction.CaseMemberIds = (Model.CaseMembersIds!=null && Model.CaseMembersIds.Count()>0?string.Join(",",Model.CaseMembersIds):Model.CaseMemberID.ToString());
+}
+
+<div class="bulk-import" style="margin: 20px;">
+    <!-- begin: mainpage -->
+    <div class="row" style="margin: 20px;">
+        <div class="col-md-3" style="border: 1px solid gray;">
+            @Html.Partial(eCMS.Shared.Constants.PartialViews.Alert)
+            @if (Model.IsInitialContact)
+            {
+                @Html.Partial("_CreateOrEditInitialContact", Model)
+            }
+            else
+            {
+                @Html.Partial("_CreateOrEditNote", Model)
+            }
+        </div>
+        <div class="col-md-9" style="border: 1px solid gray;">
+            <div class="row" style="margin: 20px; padding-top: 20px;">
+                @Html.Partial("~/Areas/CaseManagement/Views/CaseAction/EditorPopUp.cshtml", caseAction)
+                <h4>Open Actions</h4>
+                <div class="col-md-12" style="padding-top: 20px;">
+                    @Html.Partial("~/Areas/CaseManagement/Views/CaseAction/_List.cshtml", caseAction)
+                </div>
+            </div>
+              
+            <div class="row" style="margin: 20px; padding-top: 20px;">
+                <h4>Closed Actions</h4>
+                <div class="col-md-12" style="padding-top: 20px;">
+                    @(Html.Kendo().Grid<CaseAction>()
+                            .Name("GridCaseActionCompleted")
+                            .Columns(columns =>
+                            {
+                                //columns.Bound(c => c.CaseMemberName).Sortable(true).Groupable(false).Filterable(false);
+                                columns.Bound(c => c.Action).Sortable(true).Groupable(false).Filterable(false);
+                                columns.Bound(c => c.CaseWorkerName).Sortable(true).Groupable(false).Filterable(false);
+                                columns.Bound(c => c.ActionStartTime).Sortable(true).Groupable(false).Filterable(false);
+                                columns.Bound(c => c.ActionEndTime).Sortable(true).Groupable(false).Filterable(false);
+                                columns.Bound(p => p.ErrorMessage).ClientTemplate("<a name='lnkDelete' id='lnkDeleteCaseAction' href='/CaseManagement/CaseAction/DeleteAjax/#= ID #' class='fa fa-times' title='Delete'></a>").Width("10%").HtmlAttributes(new { @class = "grid-actions-content" }).HeaderTemplate("<center>Actions</center>").HeaderHtmlAttributes(new { @class = "grid-actions-content" });
+                            })
+                            .DataSource(dataSource => dataSource
+                            .Ajax()
+                            .Read(read => read.Action("IndexAjax", "CaseAction", new { isCompleted = true, noteId = Model.ID }).Data("PassSearchParameter"))
+                            .PageSize(50)
+                            )
+                            .Pageable()
+                            .Sortable()
+                    )
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

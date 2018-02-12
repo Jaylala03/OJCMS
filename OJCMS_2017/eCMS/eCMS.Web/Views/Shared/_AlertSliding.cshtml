@@ -1,0 +1,13 @@
+﻿@model eCMS.DataLogic.Models.IBaseModel
+@if (Model != null && Model.SuccessMessage != null && Model.SuccessMessage != string.Empty)
+{
+    <div class="alert alert-success" id="divAlertSuccess">
+         @Html.Raw(Model.SuccessMessage)
+    </div>
+}
+@if (Model != null && Model.ErrorMessage != null && Model.ErrorMessage != string.Empty)
+{
+    <div class="alert alert-error" id="divAlertError">
+        @Html.Raw(Model.ErrorMessage)
+    </div>
+}

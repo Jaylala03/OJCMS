@@ -1,0 +1,77 @@
+@model eCMS.DataLogic.Models.Lookup.Program
+@using EasySoft.Helper;
+@using eCMS.Shared;
+@using eCMS.DataLogic.Models.Lookup;
+@{
+    Model.IsAjax = true;
+    ViewBag.Title = "Program";
+}
+@section headsection
+{
+    @Styles.Render("~/assets/plugins/kendo/css")
+    @Scripts.Render("~/assets/plugins/kendo/js")
+}
+<div class="container candidate-list-main-container">
+    <div class="row">
+        <div class="col-lg-12 col-md-11 candidate-table-bg">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 candidate-on-map">
+                    <div class="row">
+                        <div class="col-md-12 font-13 text-uppercase" style="padding-top: 6px; padding-right: 0;">
+                            <label>
+                                <img src="@Url.Content("~/Assets/images/lavel-side-icon.png")">
+                                <span>Program Editor</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @using (Html.BeginForm("SaveAjax", "Program", new { area = "Lookup" }, FormMethod.Post, new { id = "frmEditorProgram" }))
+            {
+                <div id="divProgram">
+                    @Html.Partial("_CreateOrEdit", Model)
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<div class="container candidate-list-main-container">
+    <div class="row">
+        <div class="col-lg-12 col-md-11 candidate-table-bg">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 candidate-on-map">
+                    <div class="row">
+                        <div class="col-md-12 font-13 text-uppercase" style="padding-top: 6px; padding-right: 0;">
+                            <label>
+                                <img src="@Url.Content("~/Assets/images/lavel-side-icon.png")">
+                                <span>Program List</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                @(Html.Kendo().Grid<Program>()
+        .Name("GridProgram")
+        .Columns(columns =>
+        {
+            columns.Bound(c => c.Name).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(c => c.Description).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(c => c.IsActive).ClientTemplate("# if (IsActive == true) { # Yes # } else { # No # } #"
+                ).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(c => c.CreateDate).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(p => p.ErrorMessage).ClientTemplate("<a id='lnkEditProgram' name='lnkEdit' href='/Lookup/Program/EditorAjax/#= ID #' class='fa fa-edit' title='Edit'></a>&nbsp;<a name='lnkDelete' id='lnkDeleteProgram' href='/Lookup/Program/DeleteAjax/#= ID #' class='fa fa-times' title='Delete'></a>").Width("10%").HtmlAttributes(new { @class = "grid-actions-content" }).HeaderTemplate("<center>Actions</center>").HeaderHtmlAttributes(new { @class = "grid-actions-content" });
+        })
+        .DataSource(dataSource => dataSource
+        .Ajax()
+        .Read(read => read.Action("IndexAjax", "Program"))
+        .PageSize(50)
+        )
+        .Pageable()
+        .Sortable()
+)
+            </div>
+        </div>
+    </div>
+</div>
+

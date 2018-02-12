@@ -1,0 +1,73 @@
+﻿
+@using EasySoft.Helper;
+@using eCMS.Shared;
+@using eCMS.DataLogic.Models;
+@using eCMS.DataLogic.ViewModels;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutInternal.cshtml";
+}
+@*<link href="http://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+
+<script src="/assets/plugins/jquery-ui/jquery-ui.js"></script>*@
+
+<div class="container candidate-list-main-container">
+    <div class="row">
+        <div class="col-lg-12 col-md-11 candidate-table-bg">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 candidate-on-map">
+                    <div class="row">
+                        <div class="col-md-12 font-13 text-uppercase" style="padding-top: 6px; padding-right: 0;">
+                            <label>
+                                <img src="@Url.Content("~/Assets/images/lavel-side-icon.png")">
+                                <span>Data dump</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @using (Html.BeginForm("GenerateCSV", "Report", new { area = "Reporting" }, FormMethod.Post))
+{
+                 @*<div class="col-md-4 padding_left_5" >
+                     <label>Start From</label>
+                     <input type="number" name="offset" id="offset" placeholder="Start From" style="width:100%" />
+</div>
+                 <div class="col-md-4 padding_left_5">
+                     <label>Number of records</label>
+                     <input type="number" name="limit" id="limit" placeholder="Number of Records" style="width:100%" />
+                     </div>*@
+                <div class="col-md-2 padding_left_5">
+                        <button type="submit" class="customButton" id="generateCSV">
+                            &nbsp;Generate CSV &nbsp;&nbsp;
+                        </button>
+                </div>
+}
+            @using (Html.BeginForm("CaseDashboardExcel", "Report", new { area = "Reporting" }, FormMethod.Post))
+            {
+                
+                <div class="col-md-2 padding_left_5">
+                    <button type="submit" class="customButton" id="btnCaseDashboardExcel">
+                        &nbsp;Case Dashboard (Excel) &nbsp;&nbsp;
+                    </button>
+                </div>
+            }
+            @using (Html.BeginForm("CaseDashboardPDF", "Report", new { area = "Reporting" }, FormMethod.Post))
+            {
+
+                <div class="col-md-2 padding_left_5">
+                    <button type="submit" class="customButton" id="btnCaseDashboardPDF">
+                        &nbsp;Case Dashboard (PDF) &nbsp;&nbsp;
+                    </button>
+                </div>
+            }
+            @using (Html.BeginForm("ListOfIssues", "Report", new { area = "Reporting" }, FormMethod.Post))
+            {
+                <div class="col-md-2 padding_left_5">
+                    <button type="submit" class="customButton" id="btnCaseDashboardPDF">
+                        &nbsp;List Of Issues &nbsp;&nbsp;
+                    </button>
+                </div>
+            }
+        </div>
+    </div>
+</div>

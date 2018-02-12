@@ -1,0 +1,33 @@
+@model eCMS.DataLogic.Models.Case
+@using eCMS.Shared
+@{
+    ViewBag.Title = "View Case";
+    Layout = "~/Areas/CaseManagement/Views/Shared/_LayoutCaseRead.cshtml";
+}
+
+@section headsection
+{
+    @Styles.Render("~/assets/plugins/kendo/css")
+    @Scripts.Render("~/assets/plugins/kendo/js")
+    @*<script src="http://malsup.github.io/jquery.blockUI.js" type="text/javascript"></script>*@
+    <script type="text/javascript">
+        $(document).ready(function ()
+        {
+            //$('#divCaseEditor').block({ message: '<span>You have read only access to this page</span>', css: { backgroundColor: '#0c5fad', color: '#fff' } });
+            //$('#layoutcontainer').block({ css: { backgroundColor: '#0c5fad', color: '#fff' } });
+            //$("#layoutcontainer").children().attr("disabled", "disabled");
+            //$("#layoutcontainer").addClass("disableddiiv");
+            //$("#divCaseEditor").addClass("disableddiiv");
+            $('#divCaseEditor :input').attr('disabled', true);
+           
+        });
+    </script>
+}
+<div class="container bulk-import" id="divCaseEditor">
+    <!-- begin: mainpage -->
+    <div class="row margin-top-40">
+         <div class="col-md-12">
+            @Html.Partial("_CreateOrEdit", Model)
+        </div>
+    </div>
+</div>

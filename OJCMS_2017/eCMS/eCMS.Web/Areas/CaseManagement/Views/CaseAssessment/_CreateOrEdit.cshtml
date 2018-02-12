@@ -1,0 +1,389 @@
+@model eCMS.DataLogic.Models.CaseAssessment
+@using eCMS.BusinessLogic.Helpers
+@using eCMS.DataLogic.Models
+@using eCMS.DataLogic.Models.Lookup
+@using eCMS.Shared
+@* This partial view defines form fields that will appear when creating and editing entities *@
+@Html.Partial(Constants.PartialViews.Alert)
+@Html.HiddenFor(model => model.ID)
+@Html.HiddenFor(model => model.CaseID)
+@Html.HiddenFor(model => model.CreateDate)
+@Html.HiddenFor(model => model.CreatedByWorkerID)
+@Html.HiddenFor(model => model.DischargeDate)
+@Html.HiddenFor(model => model.ReasonsForDischargeID)
+@Html.HiddenFor(model => model.Recommendation)
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group02">
+            <label class="col-sm-6 control-label labe-text">@Html.LabelRequiredFor(model => model.CaseMemberID)</label>
+            <div class="col-sm-6">
+                 @(Html.Kendo().DropDownListFor(model => model.CaseMemberID)    
+                        .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                        .Events(e=>e.Change("CaseMemberDropDownList_OnChanged"))
+                        .DataTextField("Text")
+                        .DataValueField("Value")
+                        .DataSource(source =>
+                        {
+                            source.Read(read =>
+                            {
+                                read.Action("LoadCaseMemberListAjax", "CaseAssessment", new { caseID=Model.CaseID });
+                            });
+                        })
+                    )
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group02">
+            <label class="col-sm-6 control-label labe-text">@Html.LabelRequiredFor(model => model.AssessmentTypeID)</label>
+            <div class="col-sm-6">
+                @(Html.Kendo().DropDownListFor(model => model.AssessmentTypeID)    
+                        .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                        .DataTextField("Text")
+                        .DataValueField("Value")
+                        .DataSource(source =>
+                        {
+                            source.Read(read =>
+                            {
+                                read.Action("LoadAssessmentTypeAjax", "CaseAssessment");
+                            });
+                        })
+                        .Events(e=>e.Change("AssessmentTypeDropDownList_OnChange"))
+                    )
+            </div>
+        </div>
+    </div>    
+    <div class="col-md-4">
+        <div class="form-group02">
+            <label class="col-sm-6 control-label labe-text">@Html.LabelRequiredFor(model => model.RiskTypeID)</label>
+            <div class="col-sm-6">
+                 @(Html.Kendo().DropDownListFor(model => model.RiskTypeID)    
+                        .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                        .DataTextField("Text")
+                        .DataValueField("Value")
+                        .DataSource(source =>
+                        {
+                            source.Read(read =>
+                            {
+                                read.Action("LoadRiskTypeAjax", "CaseAssessment");
+                            });
+                        })
+                    )
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group02">
+            <label class="col-sm-6 control-label labe-text">@Html.LabelRequiredFor(model => model.StartDate)</label>
+            <div class="col-sm-6">
+                @Html.EditorFor(model => model.StartDate)
+            </div>
+        </div>
+    </div>    
+    <div class="col-md-4">
+        <div class="form-group02">
+            <label class="col-sm-6 control-label labe-text">@Html.LabelFor(model => model.EndDate)</label>
+            <div class="col-sm-6">
+                @Html.EditorFor(model => model.EndDate)
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group02">
+            <label class="col-sm-6 control-label labe-text">@Html.LabelRequiredFor(model => model.NextAssessmentDate)</label>
+            <div class="col-sm-6">
+                @Html.EditorFor(model => model.NextAssessmentDate)
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">    
+    <div class="col-md-4">
+        <div class="form-group02">
+            <label class="col-sm-6 control-label labe-text">@Html.LabelRequiredFor(model => model.DocumentedByID)</label>
+            <div class="col-sm-6">
+                @(Html.Kendo().DropDownListFor(model => model.DocumentedByID)    
+                        .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                        .DataTextField("Text")
+                        .DataValueField("Value")
+                        .DataSource(source =>
+                        {
+                            source.Read(read =>
+                            {
+                                read.Action("LoadCaseWorkerListAjax", "CaseAssessment", new { caseID = Model.CaseID });
+                            });
+                        })
+                    )
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group02">
+            <label class="col-sm-6 control-label labe-text">@Html.LabelRequiredFor(model => model.MemberStatusID)</label>
+            <div class="col-sm-6">
+                @(Html.Kendo().DropDownListFor(model => model.MemberStatusID)    
+                        .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                        .DataTextField("Text")
+                        .DataValueField("Value")
+                        .DataSource(source =>
+                        {
+                            source.Read(read =>
+                            {
+                                read.Action("LoadIndividualOpenStatusAjax", "CaseAssessment");
+                            });
+                        })
+                    )
+            </div>
+        </div>
+    </div>
+</div>
+<div class="sub-menu margin-top-30">
+    <div class="container">
+        <div class="row">
+            <div class="text-center font-11 col-md-12">
+                <ul class="candidate-list-sub-menu active">
+                    <li style="width:140px;" class="menu-item active"><a id="lnkEducation" name="lnkLivingSituation" href="#" title="Services">Education</a></li>
+                    <li style="width:130px;" class="menu-item"><a id="lnkHealth" name="lnkLivingSituation" href="#" title="Actions">Health</a></li>
+                    <li style="width:130px;" class="menu-item"><a id="lnkHousing" name="lnkLivingSituation" href="#" title="Progress Notes">Housing</a></li>
+                    <li style="width:190px;" class="menu-item"><a id="lnkIncomeLivelihood" name="lnkLivingSituation" href="#" title="Termination">Income/Livelihood</a></li>
+                    <li style="width:210px;" class="menu-item"><a id="lnkAssetsProduction" name="lnkLivingSituation" href="#" title="Termination">Assets & Production</a></li>
+                    <li style="width:220px;" class="menu-item"><a id="lnkDignitySelfRespect" name="lnkLivingSituation" href="#" title="Termination">Dignity & Self Respect</a></li>
+                    <li style="width:190px;" class="menu-item"><a id="lnkSocialSupport" name="lnkLivingSituation" href="#" title="Termination">Social Support</a></li>
+                    <li style="width:160px;" class="menu-item"><a id="lnkImmediateNeeds" name="lnkLivingSituation" href="#" title="Goals">Crisis</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" id="divEducation">
+    <div class="col-md-12">
+        <div class="content-box">
+             @(Html.Kendo().ListView<QualityOfLifeSubCategory>()
+                      .Name("ListViewEducation")
+                      .TagName("div")
+                      .ClientTemplateId("LivingSituationTemplate")
+                      .DataSource(dataSource => dataSource
+                          .Read(read => read.Action("LoadQualityOfLifeAjax", "CaseAssessment", new { qolCategoryID = (int)QualityOfLifeType.Education }))
+                      )
+                      .Pageable(paging => paging.Enabled(false))
+                        )
+        </div>
+    </div>
+</div>
+<div class="row hide" id="divHealth">
+    <div class="col-md-12">
+        <div class="content-box">
+             @(Html.Kendo().ListView<QualityOfLifeSubCategory>()
+                      .Name("ListViewHealth")
+                      .TagName("div")
+                      .ClientTemplateId("LivingSituationTemplate")
+                      .DataSource(dataSource => dataSource
+                          .Read(read => read.Action("LoadQualityOfLifeAjax", "CaseAssessment", new { qolCategoryID = (int)QualityOfLifeType.Health }))
+                      )
+                      .Pageable(paging => paging.Enabled(false))
+                        )
+        </div>
+    </div>
+</div>
+<div class="row hide" id="divHousing">
+    <div class="col-md-12">
+        <div class="content-box">
+             @(Html.Kendo().ListView<QualityOfLifeSubCategory>()
+                      .Name("ListViewHousing")
+                      .TagName("div")
+                      .ClientTemplateId("LivingSituationTemplate")
+                      .DataSource(dataSource => dataSource
+                          .Read(read => read.Action("LoadQualityOfLifeAjax", "CaseAssessment", new { qolCategoryID = (int)QualityOfLifeType.Housing }))
+                      )
+                      .Pageable(paging => paging.Enabled(false))
+                        )
+        </div>
+    </div>
+</div>
+<div class="row hide" id="divIncomeLivelihood">
+    <div class="col-md-12">
+        <div class="content-box">
+             @(Html.Kendo().ListView<QualityOfLifeSubCategory>()
+                      .Name("ListViewIncomeLivelihood")
+                      .TagName("div")
+                      .ClientTemplateId("LivingSituationTemplate")
+                      .DataSource(dataSource => dataSource
+                          .Read(read => read.Action("LoadQualityOfLifeAjax", "CaseAssessment", new { qolCategoryID = (int)QualityOfLifeType.IncomeAndLivelihood }))
+                      )
+                      .Pageable(paging => paging.Enabled(false))
+                        )
+        </div>
+    </div>
+</div>
+<div class="row hide" id="divAssetsProduction">
+    <div class="col-md-12">
+        <div class="content-box">
+             @(Html.Kendo().ListView<QualityOfLifeSubCategory>()
+                      .Name("ListViewAssetsProduction")
+                      .TagName("div")
+                      .ClientTemplateId("LivingSituationTemplate")
+                      .DataSource(dataSource => dataSource
+                          .Read(read => read.Action("LoadQualityOfLifeAjax", "CaseAssessment", new { qolCategoryID = (int)QualityOfLifeType.AssetsAndProduction }))
+                      )
+                      .Pageable(paging => paging.Enabled(false))
+                        )
+        </div>
+    </div>
+</div>
+<div class="row hide" id="divDignitySelfRespect">
+    <div class="col-md-12">
+        <div class="content-box">
+             @(Html.Kendo().ListView<QualityOfLifeSubCategory>()
+                      .Name("ListViewDignitySelfRespect")
+                      .TagName("div")
+                      .ClientTemplateId("LivingSituationTemplate")
+                      .DataSource(dataSource => dataSource
+                          .Read(read => read.Action("LoadQualityOfLifeAjax", "CaseAssessment", new { qolCategoryID = (int)QualityOfLifeType.DignityAndSelfRespect }))
+                      )
+                      .Pageable(paging => paging.Enabled(false))
+                        )
+        </div>
+    </div>
+</div>
+<div class="row hide" id="divSocialSupport">
+    <div class="col-md-12">
+        <div class="content-box">
+             @(Html.Kendo().ListView<QualityOfLifeSubCategory>()
+                      .Name("ListViewSocialSupport")
+                      .TagName("div")
+                      .ClientTemplateId("LivingSituationTemplate")
+                      .DataSource(dataSource => dataSource
+                          .Read(read => read.Action("LoadQualityOfLifeAjax", "CaseAssessment", new { qolCategoryID = (int)QualityOfLifeType.SocialSupport }))
+                      )
+                      .Pageable(paging => paging.Enabled(false))
+                        )
+        </div>
+    </div>
+</div>
+<div class="row hide" id="divImmediateNeeds">
+    <div class="col-md-12">
+        <div class="content-box">
+             @(Html.Kendo().ListView<QualityOfLifeSubCategory>()
+                      .Name("ListViewImmediateNeeds")
+                      .TagName("div")
+                      .ClientTemplateId("LivingSituationTemplate")
+                      .DataSource(dataSource => dataSource
+                          .Read(read => read.Action("LoadQualityOfLifeAjax", "CaseAssessment", new { qolCategoryID = (int)QualityOfLifeType.ImmediateNeeds }))
+                      )
+                      .Pageable(paging => paging.Enabled(false))
+                        )
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="content-box">
+            <span class="section-title" style="width:350px!important;">Presenting problem (Reason of seeking support)</span>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            @Html.TextAreaFor(model => model.PresentingProblem, new { @class = "form-control", style = "width:95%; height: 50px;", rows = "3" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="content-box">
+            <span class="section-title" style="width:350px!important;">Underlying Problem</span>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            @Html.TextAreaFor(model => model.UnderlyingProblem, new { @class = "form-control", style = "width:95%; height: 50px;", rows = "3" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="content-box">
+            <span class="section-title" style="width:350px!important;">General Comments and Risk Assessment</span>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            @Html.TextAreaFor(model => model.GeneralComments, new { @class = "form-control", style = "width:95%; height: 50px;", rows = "3" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group02">
+            <label class="col-sm-11 control-label labe-text">@Html.LabelFor(model => model.IsAgreedToConferencing)</label>
+            <div class="col-sm-1">
+                @Html.EditorFor(model => model.IsAgreedToConferencing)
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group02">
+            <label class="col-sm-8 control-label labe-text">@Html.LabelFor(model => model.HasFilledForm)</label>
+            <div class="col-sm-4">
+                @Html.EditorFor(model => model.HasFilledForm)
+            </div>
+        </div>
+    </div>
+</div>
+<div id="add_candidate3">
+    @if (Model.IsAjax)
+    {
+        <button class="btn btn-primary btnSaveAndRefresh" data-formid="frmEditorWorker" name="btnSaveAndRefreshWorker"><i class="fa fa-save"></i> Update</button>
+    }
+    else
+    {
+        <button type="submit" class="btn btn-primary btnSaveAndRefresh" data-formid="frmEditorWorker" name="btnSave"><i class="fa fa-save"></i> Save <i class="fa fa-long-arrow-right"></i></button>
+    }
+    <a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.CaseAssessment, new { CaseID=Model.CaseID, CaseMemberID=Model.CaseMemberID })" class="btn btn-primary"><i class="fa fa-long-arrow-left"></i> Back to Assessment List</a>
+</div>
+<br class="clear" />
+<script type="text/x-kendo-tmpl" id="LivingSituationTemplate">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="content-box">
+                <span class="section-title"> #= Name #</span>
+                <div class="form-group">
+                    #for (var i=0, l = QualityOfLifeList.length; i < l; i++){#
+                        <div class="col-sm-3">
+                            <input type="checkbox" name="QualityOfLifeIDs" id="chkQualityOfLifeIDs#= QualityOfLifeList[i].ID #" #= QualityOfLifeList[i].ErrorMessage # value="#= QualityOfLifeList[i].ID #" /> #= QualityOfLifeList[i].Name #
+                        </div>
+                    # } #
+                </div>
+                <div class="clearfix"></div>
+                #for (var i=0, l = QualityOfLifeList.length; i < l; i++){#
+                    <div class="form-group" id="divQualityOfLife#= QualityOfLifeList[i].ID #" style="#= QualityOfLifeList[i].SuccessMessage #">
+                        <label class="control-label labe-text">#= QualityOfLifeList[i].Name #</label>
+                        <textarea class="form-control" cols="22" id="txtQualityOfLifeIDs#= QualityOfLifeList[i].ID #" name="txtQualityOfLifeIDs#= QualityOfLifeList[i].ID #" rows="3" style="width:100%; height: 50px;">#= QualityOfLifeList[i].Description #</textarea>
+                    </div>
+                    # } #            
+                <div class="clearfix"></div>
+                </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">            
+                
+        </div>
+    </div>
+</script>

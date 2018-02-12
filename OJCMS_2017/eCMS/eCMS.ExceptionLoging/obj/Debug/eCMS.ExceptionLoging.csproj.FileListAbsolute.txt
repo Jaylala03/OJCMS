@@ -1,0 +1,33 @@
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.ExceptionLoging\bin\Debug\eCMS.ExceptionLoging.dll
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.ExceptionLoging\bin\Debug\eCMS.ExceptionLoging.pdb
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.ExceptionLoging\bin\Debug\eCMS.Shared.dll
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.ExceptionLoging\bin\Debug\System.Web.Mvc.dll
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.ExceptionLoging\bin\Debug\Microsoft.Web.Infrastructure.dll
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.ExceptionLoging\bin\Debug\eCMS.Shared.pdb
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.ExceptionLoging\obj\Debug\eCMS.ExceptionLoging.csprojResolveAssemblyReference.cache
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.ExceptionLoging\obj\Debug\eCMS.ExceptionLoging.dll
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.ExceptionLoging\obj\Debug\eCMS.ExceptionLoging.pdb
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.ExceptionLoging\bin\Debug\System.Web.Razor.dll
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.ExceptionLoging\bin\Debug\System.Web.WebPages.Razor.dll
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.ExceptionLoging\bin\Debug\System.Web.WebPages.dll
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.ExceptionLoging\bin\Debug\System.Web.WebPages.Deployment.dll
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.ExceptionLoging\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.xml
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.ExceptionLoging\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.xml
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.ExceptionLoging\bin\Debug\eCMS.ExceptionLoging.dll
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.ExceptionLoging\bin\Debug\eCMS.ExceptionLoging.pdb
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.ExceptionLoging\bin\Debug\eCMS.Shared.dll
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.ExceptionLoging\bin\Debug\System.Web.Mvc.dll
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.ExceptionLoging\bin\Debug\Newtonsoft.Json.dll
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.ExceptionLoging\bin\Debug\eCMS.Shared.pdb
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.ExceptionLoging\obj\Debug\eCMS.ExceptionLoging.csprojResolveAssemblyReference.cache
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.ExceptionLoging\obj\Debug\eCMS.ExceptionLoging.dll
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.ExceptionLoging\obj\Debug\eCMS.ExceptionLoging.pdb
+D:\OJCMS\OJCMS_2017\eCMS\eCMS.ExceptionLoging\bin\Debug\eCMS.ExceptionLoging.dll
+D:\OJCMS\OJCMS_2017\eCMS\eCMS.ExceptionLoging\bin\Debug\eCMS.ExceptionLoging.pdb
+D:\OJCMS\OJCMS_2017\eCMS\eCMS.ExceptionLoging\bin\Debug\eCMS.Shared.dll
+D:\OJCMS\OJCMS_2017\eCMS\eCMS.ExceptionLoging\bin\Debug\System.Web.Mvc.dll
+D:\OJCMS\OJCMS_2017\eCMS\eCMS.ExceptionLoging\bin\Debug\Newtonsoft.Json.dll
+D:\OJCMS\OJCMS_2017\eCMS\eCMS.ExceptionLoging\bin\Debug\eCMS.Shared.pdb
+D:\OJCMS\OJCMS_2017\eCMS\eCMS.ExceptionLoging\obj\Debug\eCMS.ExceptionLoging.csprojResolveAssemblyReference.cache
+D:\OJCMS\OJCMS_2017\eCMS\eCMS.ExceptionLoging\obj\Debug\eCMS.ExceptionLoging.dll
+D:\OJCMS\OJCMS_2017\eCMS\eCMS.ExceptionLoging\obj\Debug\eCMS.ExceptionLoging.pdb

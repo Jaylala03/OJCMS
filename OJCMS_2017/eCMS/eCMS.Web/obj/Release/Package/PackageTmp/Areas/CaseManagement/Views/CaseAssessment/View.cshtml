@@ -1,0 +1,24 @@
+@model eCMS.DataLogic.Models.CaseAssessment
+@using eCMS.Shared
+@{
+    ViewBag.Title = "Create New Assessment & Issues";
+    Layout = "~/Areas/CaseManagement/Views/Shared/_LayoutCase2.cshtml";
+}
+@section headsection
+{
+    @Styles.Render("~/assets/plugins/kendo/css")
+    @Scripts.Render("~/assets/plugins/kendo/js")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#divContainer :input').attr('disabled', true);
+        });
+    </script>
+}
+<div class="container bulk-import">
+    <!-- begin: mainpage -->
+    <div class="row margin-top-40">
+         <div class="col-md-12" id="divContainer">
+            @Html.Partial("_View", Model)
+        </div>
+    </div>
+</div>

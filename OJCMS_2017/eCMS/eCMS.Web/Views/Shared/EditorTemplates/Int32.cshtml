@@ -1,0 +1,9 @@
+@model Int32?
+@(Html.Kendo().IntegerTextBox()
+        .Name(ViewData.TemplateInfo.GetFullHtmlFieldName(string.Empty))
+        .HtmlAttributes(new { style = "width:94%;" })
+        .Max(Int32.MaxValue)
+        .Min(0)
+        .Value(Model) 
+)
+

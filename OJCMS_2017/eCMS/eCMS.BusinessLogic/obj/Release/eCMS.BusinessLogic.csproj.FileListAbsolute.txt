@@ -1,0 +1,57 @@
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.BusinessLogic\bin\Release\eCMS.BusinessLogic.dll.config
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.BusinessLogic\bin\Release\eCMS.BusinessLogic.dll
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.BusinessLogic\bin\Release\eCMS.BusinessLogic.pdb
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.BusinessLogic\bin\Release\DocumentFormat.OpenXml.dll
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.BusinessLogic\bin\Release\EasySoft.Helper.dll
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.BusinessLogic\bin\Release\eCMS.DataLogic.dll
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.BusinessLogic\bin\Release\eCMS.ExceptionLoging.dll
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.BusinessLogic\bin\Release\eCMS.Shared.dll
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.BusinessLogic\bin\Release\EntityFramework.dll
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.BusinessLogic\bin\Release\EntityFramework.SqlServer.dll
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.BusinessLogic\bin\Release\FontBox-0.1.0-dev.dll
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.BusinessLogic\bin\Release\Kendo.Mvc.dll
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.BusinessLogic\bin\Release\Newtonsoft.Json.dll
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.BusinessLogic\bin\Release\System.Web.Mvc.dll
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.BusinessLogic\bin\Release\Microsoft.Practices.EnterpriseLibrary.Logging.dll
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.BusinessLogic\bin\Release\Microsoft.Web.Infrastructure.dll
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.BusinessLogic\bin\Release\Microsoft.Practices.EnterpriseLibrary.Common.dll
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.BusinessLogic\bin\Release\eCMS.DataLogic.pdb
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.BusinessLogic\bin\Release\eCMS.ExceptionLoging.pdb
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.BusinessLogic\bin\Release\eCMS.Shared.pdb
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.BusinessLogic\obj\Release\eCMS.BusinessLogic.csprojResolveAssemblyReference.cache
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.BusinessLogic\obj\Release\eCMS.BusinessLogic.Migrations.db_update.resources
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.BusinessLogic\obj\Release\eCMS.BusinessLogic.csproj.GenerateResource.Cache
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.BusinessLogic\obj\Release\eCMS.BusinessLogic.dll
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.BusinessLogic\obj\Release\eCMS.BusinessLogic.pdb
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.BusinessLogic\bin\Release\EntityFramework.xml
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.BusinessLogic\bin\Release\EntityFramework.SqlServer.xml
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.BusinessLogic\bin\Release\Newtonsoft.Json.xml
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.BusinessLogic\bin\Release\System.Web.Mvc.xml
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.BusinessLogic\bin\Release\Microsoft.Practices.EnterpriseLibrary.Logging.xml
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.BusinessLogic\bin\Release\Microsoft.Practices.EnterpriseLibrary.Common.xml
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.BusinessLogic\bin\Release\eCMS.BusinessLogic.dll.config
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.BusinessLogic\bin\Release\eCMS.BusinessLogic.dll
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.BusinessLogic\bin\Release\eCMS.BusinessLogic.pdb
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.BusinessLogic\bin\Release\DocumentFormat.OpenXml.dll
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.BusinessLogic\bin\Release\EasySoft.Helper.dll
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.BusinessLogic\bin\Release\eCMS.DataLogic.dll
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.BusinessLogic\bin\Release\eCMS.ExceptionLoging.dll
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.BusinessLogic\bin\Release\eCMS.Shared.dll
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.BusinessLogic\bin\Release\EntityFramework.dll
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.BusinessLogic\bin\Release\EntityFramework.SqlServer.dll
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.BusinessLogic\bin\Release\FontBox-0.1.0-dev.dll
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.BusinessLogic\bin\Release\Kendo.Mvc.dll
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.BusinessLogic\bin\Release\Newtonsoft.Json.dll
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.BusinessLogic\bin\Release\System.Web.Mvc.dll
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.BusinessLogic\bin\Release\Microsoft.Practices.EnterpriseLibrary.Logging.dll
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.BusinessLogic\bin\Release\Microsoft.Practices.EnterpriseLibrary.Common.dll
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.BusinessLogic\bin\Release\eCMS.DataLogic.pdb
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.BusinessLogic\bin\Release\eCMS.ExceptionLoging.pdb
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.BusinessLogic\bin\Release\eCMS.Shared.pdb
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.BusinessLogic\bin\Release\Microsoft.Practices.EnterpriseLibrary.Logging.xml
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.BusinessLogic\bin\Release\Microsoft.Practices.EnterpriseLibrary.Common.xml
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.BusinessLogic\obj\Release\eCMS.BusinessLogic.csprojResolveAssemblyReference.cache
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.BusinessLogic\obj\Release\eCMS.BusinessLogic.Migrations.db_update.resources
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.BusinessLogic\obj\Release\eCMS.BusinessLogic.csproj.GenerateResource.Cache
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.BusinessLogic\obj\Release\eCMS.BusinessLogic.dll
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.BusinessLogic\obj\Release\eCMS.BusinessLogic.pdb

@@ -1,0 +1,140 @@
+﻿<style>
+        .feedback-panel {
+            padding: 20px;
+            width: 300px;
+            background: none repeat scroll 0 0 #fff;
+            border-top: 1px solid #eeeeee;
+            box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.2);
+            position: absolute;
+            top: 200px;
+            left: -298px;
+            height: 350px;
+            z-index:1000;
+        }
+
+        .feedback-panel a.feedback-tab {
+            background: transparent url(/Images/feedbacktab.png) no-repeat scroll 0 0;
+            border-width: 1px 1px 1px 0;
+            display: block;
+            height: 200px;
+            left: 105px;
+            bottom: 21px;
+            position: relative;
+            float: right;
+            text-indent: -9999px;
+            width: 86px;
+            outline: none;
+            cursor:pointer;
+        }
+
+        textarea {
+        width:90%;
+        padding:5px;
+    }
+
+    #response-message {
+        background: #ccc;
+        border: 1px solid #999;
+        padding:50px;
+    }
+</style>
+
+<div class="feedback-panel">
+    <a class="feedback-tab">Feedback</a>
+    <!--
+
+        -->
+    <div id="feedbackHeader"></div>
+    <div id="row hr-line">
+        @using (Html.BeginForm("FeedbackAjax", "Feedback"))
+        {
+            <div style="margin-top:-5px;">
+                @(Html.Kendo().DropDownList()
+                      .Name("FeedbackCategoryID")
+                      .OptionLabel("Category")
+                      .HtmlAttributes(new { style = "width:260px!important;" })
+                      .DataTextField("Text")
+                      .DataValueField("Value")
+                      .DataSource(source => source.Read(read => read.Action("LoadFeedbackCategoryAjax", ViewBag.CurrentControllerName))))
+            </div>
+            <div style="margin-top:5px; ">
+                @Html.TextBox("Title", "", new { @class = "form-control", placeholder = "Subject" })
+            </div>
+            <div style="margin-top:5px;">
+                @Html.TextArea("Description", "", new { @class = "form-control", placeholder = "Message" })
+            </div>
+            <div style="margin-top:5px;">
+                @(Html.Kendo().Upload()
+                      .Name("Attachment")
+                      .Async(async => async
+                          .Save("UploadFile", "Feedback")
+                          .Remove("RemoveFile", "Feedback"))
+                      .Events(c => c
+                          .Success("UploadFile_OnSuccess")
+                          .Select("OnPictureFileSelect")))
+            </div>
+            <div style="margin-top:5px;">
+                <button type="button" id="sendFeedback" class="col-sm-2 createsource00"><i class="icon-ok"></i>Send</button>
+            </div>
+        }
+    </div>
+</div>
+<script>
+    var feedbackTab = {
+
+        speed: 300,
+        containerWidth: $('.feedback-panel').outerWidth(),
+        containerHeight: $('.feedback-panel').outerHeight(),
+        tabWidth: $('.feedback-tab').outerWidth(),
+
+
+        init: function () {
+            console.log("Call");
+            $('.feedback-panel').css('height', feedbackTab.containerHeight + 'px');
+
+            $('a.feedback-tab').click(function (event) {
+                if ($('.feedback-panel').hasClass('open')) {
+                    $('.feedback-panel')
+                    .animate({ left: '-' + feedbackTab.containerWidth }, feedbackTab.speed)
+                    .removeClass('open');
+                } else {
+                    $('.feedback-panel')
+                    .animate({ left: '0' }, feedbackTab.speed)
+                    .addClass('open');
+                }
+                event.preventDefault();
+            });
+        }
+    };
+
+    feedbackTab.init();
+
+
+    //$(".button").click(function () {
+    //    var email = $("input#email").val();
+    //    var message = $("textarea#message").val();
+    //    var response_message = "Thank you for your comment, see ya!";
+
+    //    var dataString = 'email=' + email + '&message=' + message;
+
+    //    $.ajax({
+    //        type: "POST",
+    //        url: "sendmail.php",
+    //        data: dataString,
+    //        success: function () {
+    //            $('#form-wrap').html("<div id='response-message'></div>");
+    //            $('#response-message').html("<p>" + response_message + "</p>")
+    //                .hide()
+    //                .fadeIn(500)
+    //                .animate({ opacity: 1.0 }, 1000)
+    //                .fadeIn(0, function() {
+    //                    $('.feedback-panel')
+    //                        .animate({ left: '-' + (feedbackTab.containerWidth + feedbackTab.tabWidth) },
+    //                        (feedbackTab.speed))
+    //                        .removeClass('open');
+    //                });
+    //        }
+    //    });
+    //    return false;
+    //});
+</script>

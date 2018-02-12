@@ -1,0 +1,31 @@
+@model eCMS.DataLogic.Models.CaseProgressNote
+@using EasySoft.Helper;
+@using eCMS.Shared;
+@using eCMS.DataLogic.Models;
+@{
+    ViewBag.Title = "Create Initial Contact";
+    Layout = "~/Areas/CaseManagement/Views/Shared/_LayoutCaseRead.cshtml";
+    Model.IsInitialContact = true;
+}
+@section headsection
+{
+    @Styles.Render("~/assets/plugins/kendo/css")
+    @Scripts.Render("~/assets/plugins/kendo/js")
+    <script type="text/javascript">
+            $(document).ready(function ()
+            {
+                $('#divCaseEditor :input').attr('disabled', true);
+            });
+    </script>
+}
+<div class="container bulk-import" id="divCaseEditor">
+    <!-- begin: mainpage -->
+    <div class="row margin-top-40">
+        <div class="col-md-12">
+            @using (Html.BeginForm(Constants.Actions.Create, Constants.Controllers.CaseProgressNote, new { area = Constants.Areas.CaseManagement }, FormMethod.Post, new { id = "frmEditor", @class = "horizontal-form" }))
+            {
+                @Html.Partial(Constants.PartialViews.CreateOrEdit, Model)
+            }
+        </div>
+    </div>
+</div>

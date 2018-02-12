@@ -1,0 +1,275 @@
+@model eCMS.DataLogic.Models.CaseSmartGoalServiceProvider
+@using eCMS.BusinessLogic.Helpers
+@using eCMS.DataLogic.Models
+@using eCMS.DataLogic.Models.Lookup
+@using eCMS.Shared
+@* This partial view defines form fields that will appear when creating and editing entities *@
+@Html.Partial(Constants.PartialViews.Alert)
+@Html.HiddenFor(model => model.ID)
+@Html.HiddenFor(model => model.CaseID)
+@Html.HiddenFor(model => model.CreateDate)
+@Html.HiddenFor(model => model.CreatedByWorkerID)
+@Html.HiddenFor(model => model.CaseMemberID)
+@Html.HiddenFor(model => model.CaseSmartGoalID)
+@Html.HiddenFor(model => model.IsWorkerActive)
+@Html.HiddenFor(model => model.IsNotificationEnabled)
+@Html.HiddenFor(model => model.RegionID)
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group02">
+            <label class="col-sm-6 control-label labe-text">@Html.LabelFor(model => model.StartDate)</label>
+            <div class="col-sm-6">
+                @Html.EditorFor(model => model.StartDate)
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group02">
+            <label class="col-sm-6 control-label labe-text">@Html.LabelFor(model => model.EndDate)</label>
+            <div class="col-sm-6">
+                @Html.EditorFor(model => model.EndDate)
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group02">
+            <label class="col-sm-6 control-label labe-text">@Html.LabelFor(model => model.FinancialAssistanceCategoryID)</label>
+            <div class="col-sm-6">
+                @(Html.Kendo().DropDownListFor(model => model.FinancialAssistanceCategoryID)
+                        .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                        .DataTextField("Text")
+                        .DataValueField("Value")
+                        .DataSource(source =>
+                        {
+                            source.Read(read =>
+                            {
+                                read.Action("LoadFinancialAssistanceCategoryAjax", "CaseSmartGoalServiceProvider");
+                            });
+                        })
+                    )
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group02">
+            <label class="col-sm-6 control-label labe-text">@Html.LabelFor(model => model.FinancialAssistanceSubCategoryID)</label>
+            <div class="col-sm-6">
+                @(Html.Kendo().DropDownListFor(model => model.FinancialAssistanceSubCategoryID)
+                            .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                            .DataTextField("Text")
+                            .DataValueField("Value")
+                            .DataSource(source =>
+                            {
+                                source.Read(read =>
+                                {
+                                    read.Action("LoadFinancialAssistanceSubCategoryAjax", "CaseSmartGoalServiceProvider").Data("FinancialAssistanceCategoryDropDownList_OnSelect");
+                                })
+                                .ServerFiltering(true);
+                            })
+                            .Enable(false)
+                            .AutoBind(false)
+                            .CascadeFrom("FinancialAssistanceCategoryID")
+                         )
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group02">
+            <label class="col-sm-6 control-label labe-text">@Html.LabelFor(model => model.Amount)</label>
+            <div class="col-sm-6">
+                @Html.EditorFor(model => model.Amount)
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group02">
+            <label class="col-sm-6 control-label labe-text">@Html.LabelFor(model => model.ServiceTypeID)</label>
+            <div class="col-sm-6">
+                @(Html.Kendo().DropDownListFor(model => model.ServiceTypeID)
+               .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+               .Events(e => e.Change("ServiceTypeDropDownList_OnChanged"))
+          .DataTextField("Text")
+          .DataValueField("Value")
+          .BindTo(new List<SelectListItem>() {
+              new SelectListItem() {
+                  Text = "Internal",
+                  Value = "1"
+              },
+              new SelectListItem() {
+                  Text = "External",
+                  Value = "2"
+              }
+          }))
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group02">
+            <label class="col-sm-6 control-label labe-text">@Html.LabelRequiredFor(model => model.ServiceProviderID)</label>
+
+            @if (!string.IsNullOrEmpty(Model.ServiceProviderOther))
+            {
+                <div class="col-sm-6">
+                    @(Html.Kendo().DropDownListFor(model => model.ServiceProviderID)
+                                .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                                .Events(e => e.Change("DropDownListOther_OnChange"))
+                            .DataTextField("Text")
+                            .DataValueField("Value")
+                            .DataSource(source =>
+                            {
+                                source.Read(read =>
+                                {
+                                    read.Action("LoadServiceProviderAjax", "CaseSmartGoalServiceProvider", new { RegionID = Model.RegionID }).Data("ServiceTypeDropDownList_OnSelect");
+                                })
+                                .ServerFiltering(true);
+                            })
+                            .Enable(false)
+                            .AutoBind(false)
+                            .CascadeFrom("ServiceTypeID")
+                         )
+                     <div class="" id="divServiceProviderOther" style="margin-top:10px">
+                    @Html.EditorFor(model => model.ServiceProviderOther)
+                </div>
+                </div>
+               
+            }
+            else
+            {
+                     
+                <div class="col-sm-6">
+                    @(Html.Kendo().DropDownListFor(model => model.ServiceProviderID)
+                                .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                                .Events(e => e.Change("DropDownListOther_OnChange"))
+                            .DataTextField("Text")
+                            .DataValueField("Value")
+                            .DataSource(source =>
+                            {
+                                source.Read(read =>
+                                {
+                                    read.Action("LoadServiceProviderAjax", "CaseSmartGoalServiceProvider", new { RegionID = Model.RegionID }).Data("ServiceTypeDropDownList_OnSelect");
+                                })
+                                .ServerFiltering(true);
+                            })
+                            .Enable(false)
+                            .AutoBind(false)
+                            .CascadeFrom("ServiceTypeID")
+                         )
+                    <div class="hide" id="divServiceProviderOther" style="margin-top:10px">
+                    @Html.EditorFor(model => model.ServiceProviderOther)
+                </div>
+                </div>
+                
+            }
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group02">
+            <label class="col-sm-6 control-label labe-text">@Html.LabelFor(model => model.ServiceID)</label>
+            <div class="col-sm-6">
+                @(Html.Kendo().DropDownListFor(model => model.ServiceID)
+                            .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                            .DataTextField("Text")
+                            .DataValueField("Value")
+                            .DataSource(source =>
+                            {
+                                source.Read(read =>
+                                {
+                                    read.Action("LoadServiceAjax", "CaseSmartGoalServiceProvider").Data("ServiceProviderDropDownList_OnSelect");
+                                })
+                                .ServerFiltering(true);
+                            })
+                            .Enable(false)
+                            .AutoBind(false)
+                            .CascadeFrom("ServiceProviderID")
+                         )
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group02">
+            <label class="col-sm-6 control-label labe-text">Is Service</label>
+            <div class="col-sm-6">
+                @Html.RadioButton("IsUsed", true, Model.IsUsed) Used &nbsp;&nbsp;
+                @Html.RadioButton("IsUsed", false, !Model.IsUsed) Proposed
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group02">
+            <label class="col-sm-6 control-label labe-text">@Html.LabelFor(model => model.WorkerID)</label>
+            <div class="col-sm-6">
+                @(Html.Kendo().DropDownListFor(model => model.WorkerID)
+                        .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                        .Events(e => e.Change("CaseSmartWorkerDropDownList_OnChanged"))
+                        .DataTextField("Text")
+                        .DataValueField("Value")
+                        .DataSource(source =>
+                        {
+                            source.Read(read =>
+                            {
+                                read.Action("LoadWorkerByRoleIDAjax", "CaseSmartGoalServiceProvider").Data("ServiceTypeDropDownList_OnSelect");
+                            });
+                        })
+                    )
+            </div>
+        </div>
+    </div>
+   
+    <div class="col-md-4" id="divOtherWorker" style="display: none;">
+        <div class="form-group02">
+            <label class="col-sm-6 control-label labe-text">@Html.LabelFor(model => model.WorkerName)</label>
+            <div class="col-sm-6">
+                @Html.EditorFor(model => model.WorkerName)
+            </div>
+        </div>
+    </div>
+    @*<div class="col-md-4">
+        <div class="form-group02">
+            <label class="col-sm-6 control-label labe-text">@Html.LabelFor(model => model.IsWorkerActive)</label>
+            <div class="col-sm-6">
+                @Html.EditorFor(model => model.IsWorkerActive)
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group02">
+            <label class="col-sm-6 control-label labe-text">@Html.LabelFor(model => model.IsNotificationEnabled)</label>
+            <div class="col-sm-6">
+                @Html.EditorFor(model => model.IsNotificationEnabled)
+            </div>
+        </div>
+    </div>*@
+</div> 
+<div class="row">
+    <div class="col-md-4">
+        <div class="form-group02">
+            
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group02">
+            
+        </div>
+    </div>
+   <div class="col-md-4" id="divOtherProviderLink" style="display:none">
+        <div class="form-group02">
+            
+            <div class="col-sm-6">
+                <a href="http://www.211.ca/"><b>211.C A</b></a>
+            </div>
+        </div>
+    </div>
+   
+</div>
+
+<div id="add_candidate3">
+    <button class="btn btn-primary" id="btnSaveAndRefresh" name="btnSaveAndRefreshCaseSmartGoalServiceProvider"><i class="fa fa-save"></i>Save</button>
+    <a href="@Url.Action(Constants.Actions.ServiceProvider, Constants.Controllers.CaseSmartGoal, new { CaseID = Model.CaseID, CaseMemberID = Model.CaseMemberID })" class="btn btn-primary"><i class="fa fa-long-arrow-left"></i>Back to List</a>
+</div>
+<br class="clear" />

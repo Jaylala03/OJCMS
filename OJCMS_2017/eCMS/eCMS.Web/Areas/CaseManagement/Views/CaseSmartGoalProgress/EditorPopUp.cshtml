@@ -1,0 +1,11 @@
+@model eCMS.DataLogic.Models.CaseSmartGoalProgress
+@{
+    Layout = null;
+    Model.IsAjax = true;
+}
+@using (Html.BeginForm("SaveAjax", "CaseSmartGoalProgress", new { area = "CaseManagement",CaseSmartGoalID=Model.CaseSmartGoalID }, FormMethod.Post, new { id = "frmEditorCaseSmartGoalProgress" }))
+{
+    <div id="dvAjaxAlertContainer">
+    </div>
+    @Html.Partial("_CreateOrEdit", Model)
+}

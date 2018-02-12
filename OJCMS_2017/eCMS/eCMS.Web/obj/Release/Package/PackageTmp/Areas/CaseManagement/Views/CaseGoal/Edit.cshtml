@@ -1,0 +1,22 @@
+@model eCMS.DataLogic.Models.CaseGoal
+@using eCMS.Shared
+@{
+    ViewBag.Title = "Update Goal";
+    Layout = "~/Areas/CaseManagement/Views/Shared/_LayoutCase2.cshtml";
+}
+@section headsection
+{
+    @Styles.Render("~/assets/plugins/kendo/css")
+    @Scripts.Render("~/assets/plugins/kendo/js")
+}
+<div class="container bulk-import">
+    <!-- begin: mainpage -->
+    <div class="row margin-top-40">
+         <div class="col-md-12">
+            @using (Html.BeginForm(Constants.Actions.Edit, Constants.Controllers.CaseGoal, new { area = Constants.Areas.CaseManagement, CaseID = Model.CaseID, CaseMemberID = Model.CaseMemberID }, FormMethod.Post, new { id = "frmEditor", role = "form" }))
+            {
+                @Html.Partial("_CreateOrEdit", Model)
+            }
+        </div>
+    </div>
+</div>

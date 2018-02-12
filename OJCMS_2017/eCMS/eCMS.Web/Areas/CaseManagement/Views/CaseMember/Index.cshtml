@@ -1,0 +1,71 @@
+@model eCMS.DataLogic.Models.CaseMember
+@using EasySoft.Helper;
+@using eCMS.Shared;
+@using eCMS.DataLogic.Models;
+
+@{
+    ViewBag.Title = "Case Individuals";
+    Layout = "~/Areas/CaseManagement/Views/Shared/_LayoutCase.cshtml";
+}
+
+@section headsection
+{
+    @Styles.Render("~/assets/plugins/kendo/css")
+    @Scripts.Render("~/assets/plugins/kendo/js")
+}
+<div class="container bulk-import">
+    <!-- begin: mainpage -->
+    <div class="row margin-top-40">
+        <div class="col-md-12">
+            @using (Html.BeginForm("SaveAjax", "CaseMember", new { area = "CaseManagement", caseId = Model.CaseID }, FormMethod.Post, new { id = "frmEditorCaseMember", @class = "horizontal-form" }))
+            { 
+                <div id="divEditorCaseMember">                    
+                    @Html.Partial("_CreateOrEdit", Model)
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="form-group02">
+                            <div class="col-sm-5">
+                                <button class="btn btn-primary" id="btnSaveAndRefresh" name="btnSaveAndRefreshCaseMember"><i class="fa fa-save"></i> Save Individual</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="form-group02">
+                            <div class="col-sm-5 col-sm-offset-7" style="text-align: right;">
+                                <button class="btn btn-primary" id="btnSave" name="btnSaveCaseMember"><i class="fa fa-save"></i> Save & Continue <i class="fa fa-arrow-right"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>                           
+            }
+        </div>
+        <div class="col-md-12">
+            @(Html.Kendo().Grid<CaseMember>()
+                .Name("GridCaseMember")
+                .Columns(columns =>
+                {
+                    columns.Bound(c => c.LastName).Sortable(true).Groupable(false).Filterable(false);
+                    columns.Bound(c => c.FirstName).Sortable(true).Groupable(false).Filterable(false);
+                    columns.Bound(c => c.IsPrimary).ClientTemplate("# if (IsPrimary == true) { # Yes # } else { # No # } #"
+                ).Title("OC").Sortable(true).Groupable(false).Filterable(false);
+                    columns.Bound(c => c.GenderName).Sortable(true).Groupable(false).Filterable(false);
+                    columns.Bound(c => c.EthnicityName).Sortable(true).Groupable(false).Filterable(false);
+                    columns.Bound(c => c.RelationshipStatusName).Sortable(true).Groupable(false).Filterable(false);
+                    columns.Bound(c => c.MaritalStatusName).Sortable(true).Groupable(false).Filterable(false);
+                    columns.Bound(c => c.EnrollDate).Sortable(true).Groupable(false).Filterable(false);
+                    columns.Bound(c => c.MemberStatusName).Sortable(true).Groupable(false).Filterable(false);
+                    columns.Bound(p => p.FancyBoxLink).ClientTemplate("<center><a id='lnkRead' name='lnkReadCaseMember' href='/CaseManagement/CaseMember/Read/#= ID #?caseId=#= CaseID #' style='#= HasPermissionToRead #' class='fa fa-eye' title='Read'></a>&nbsp;<a id='lnkEditor_#= ID #' name='lnkEditor' data-container='divEditorCaseMember' href='/CaseManagement/CaseMember/EditorAjax/#= ID #?caseId=#= CaseID #' style='#= HasPermissionToEdit #' class='fa fa-edit' title='Edit'></a>&nbsp;<a name='lnkDelete' id='lnkDeleteCaseMember' href='/CaseManagement/CaseMember/DeleteAjax/#= ID #' style='#= HasPermissionToDelete #' class='fa fa-times' title='Delete'></a>&nbsp;<a id='lnkContact_#= ID #' name='lnkAddContact' href='/CaseManagement/CaseMemberContact/ListAjax?caseMemberID=#= ID #' class='fa fa-phone-square fancybox fancybox.ajax' title='Add Individual Contact'></a></center>").Width("10%").HtmlAttributes(new { @class = "grid-actions-content" }).HeaderTemplate("<center>Actions</center>").HeaderHtmlAttributes(new { @class = "grid-actions-content" });
+
+                })
+                .DataSource(dataSource => dataSource
+                .Ajax()
+                .Read(read => read.Action("IndexAjax", "CaseMember", new { caseId=Model.CaseID }))
+                .PageSize(50)
+                )
+                .Pageable()
+                .Sortable()
+            )
+        </div>
+    </div>
+</div>

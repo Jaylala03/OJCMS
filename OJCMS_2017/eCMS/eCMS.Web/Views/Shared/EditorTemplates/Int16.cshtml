@@ -1,0 +1,10 @@
+@model Int16?
+
+@(Html.Kendo().IntegerTextBox()
+        .Name(ViewData.TemplateInfo.GetFullHtmlFieldName(string.Empty))
+        .HtmlAttributes(new { style = "width:94%;" })
+        .Max(Int16.MaxValue)
+        .Min(0)
+        .Value(Model) 
+)
+

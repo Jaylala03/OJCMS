@@ -1,0 +1,87 @@
+﻿@model eCMS.DataLogic.Models.Report.ListOfIssuesVM
+@using EasySoft.Helper;
+@using eCMS.Shared;
+@using eCMS.DataLogic.Models;
+@using eCMS.DataLogic.ViewModels;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutInternal.cshtml";
+}
+@section headsection
+{
+
+    @Styles.Render("~/assets/plugins/kendo/css")
+    @Scripts.Render("~/assets/plugins/kendo/js")
+   <script src="~/Assets/scripts/jquery.validate.min.js"></script>
+<script src="~/Assets/scripts/jquery.validate.unobtrusive.min.js"></script>
+}
+@*<link href="http://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+        <script src="/assets/plugins/jquery-ui/jquery-ui.js"></script>*@
+<div id="dvAjaxAlertContainer">
+    @Html.Partial(Constants.PartialViews.Alert)
+</div>
+<div class="container candidate-list-main-container">
+    <div class="row">
+        <div class="col-lg-12 col-md-11 candidate-table-bg">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 candidate-on-map">
+                    <div class="row">
+                        <div class="col-md-12 font-13 text-uppercase" style="padding-top: 6px; padding-right: 0;">
+                            <label>
+                                <span>List Of Issues</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @using (Html.BeginForm("ListOfIssues", "Report", new { area = "Reporting" }, FormMethod.Post, new { id = "frmListOfIssues", role = "form" }))
+            {
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group02" title="StartDate">
+                            <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.StartDate)</label>
+                            <div class="col-sm-8">
+                                @Html.EditorFor(model => model.StartDate)
+                            </div>
+                        </div>
+                        <div class="form-group02" title="EndDate">
+                            <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.EndDate)</label>
+                            <div class="col-sm-8">
+                                @Html.EditorFor(model => model.EndDate)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 padding_left_5">
+                    <button type="submit" class="customButton" id="btnIssueList">
+                        &nbsp;List Of Issues &nbsp;&nbsp;
+                    </button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<script>
+    //$(document).ready(function () {
+    //    $('#frmListOfIssues').validate({
+    //        ignore: [],
+    //        rules: {
+
+    //            FromDate: {
+    //                required: true
+    //            }
+    //        },
+    //        messages: {
+
+    //            StartDate: {
+    //                required: "Please choose Date and Time."
+    //            }
+    //        },
+    //        errorPlacement: ValidatorErrorPlacement,
+    //        success: ValidatorSuccess
+    //    }
+    //);
+
+    //});
+</script>

@@ -1,0 +1,49 @@
+@using EasySoft.Helper;
+@using eCMS.Shared;
+@using eCMS.DataLogic.Models.Lookup;
+@{
+    ViewBag.Title = "Configuration Data";
+}
+@section headsection
+{
+    @Styles.Render("~/assets/plugins/kendo/css")
+    @Scripts.Render("~/assets/plugins/kendo/js")
+}
+<div class="container candidate-list-main-container">
+    <div class="row">
+        <div class="col-lg-12 col-md-11 candidate-table-bg">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 candidate-on-map">
+                    <div class="row">
+                        <div class="col-md-12 font-13 text-uppercase" style="padding-top: 6px; padding-right: 0;">
+                            <label>
+                                <img src="@Url.Content("~/Assets/images/lavel-side-icon.png")">
+                                <span>Configuration Data</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    @if (ViewBag.HasAccessToAdminModule)
+                    {
+                        <a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.Program)">Program</a><br />
+                        <a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.QualityOfLifeCategory)">Quality Of Life Category</a><br />
+                        <a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.QualityOfLifeSubCategory)">Quality Of Life Sub-Category</a><br />
+                        <a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.QualityOfLife)">Quality Of Life</a><br />
+                    }
+                    <a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.ServiceProvider)">Service Provider</a><br />
+                    <a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.Service)">Service</a><br />
+                </div>
+                <div class="col-md-6">
+                    @if (ViewBag.HasAccessToAdminModule)
+                    {
+                        <a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.SubProgram)">Sub-Program</a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

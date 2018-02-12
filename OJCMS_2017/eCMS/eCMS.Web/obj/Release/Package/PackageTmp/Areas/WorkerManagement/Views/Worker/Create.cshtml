@@ -1,0 +1,16 @@
+@model eCMS.DataLogic.Models.Worker
+@using eCMS.Shared
+@{
+    ViewBag.Title = "Create New Worker";
+    Model.IsAjax = true;
+}
+@section headsection
+{
+    @Styles.Render("~/assets/plugins/kendo/css")
+    @Scripts.Render("~/assets/plugins/kendo/js")
+}
+@using (Html.BeginForm(Constants.Actions.Create, Constants.Controllers.Worker, new { area = Constants.Areas.WorkerManagement }, FormMethod.Post, new { id = "frmEditorWorker" }))
+{
+    @Html.Partial(eCMS.Shared.Constants.PartialViews.Alert)
+    @Html.Partial(Constants.PartialViews.CreateOrEdit, Model)
+}

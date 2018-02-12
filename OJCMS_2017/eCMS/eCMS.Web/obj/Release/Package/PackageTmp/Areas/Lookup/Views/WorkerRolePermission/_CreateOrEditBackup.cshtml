@@ -1,0 +1,63 @@
+@model eCMS.DataLogic.Models.Lookup.WorkerRolePermissionNew
+@using eCMS.BusinessLogic.Helpers
+@using eCMS.DataLogic.Models
+@using eCMS.Shared
+@Html.HiddenFor(model => model.ID)
+@*@Html.HiddenFor(model => model.WorkerRoleID)
+@Html.HiddenFor(model => model.PermissionID)*@
+@Html.HiddenFor(model => model.CreateDate)
+<div id="row hr-line">
+    <div class="row">
+        <div class="col-md-12">
+            <label class="col-sm-2 control-label labe-text">@Html.LabelRequiredFor(model => model.WorkerRoleID)</label>
+            <div class="col-sm-4">
+                @(Html.Kendo().DropDownListFor(model => model.WorkerRoleID)
+                                .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                            .DataTextField("Text")
+                            .DataValueField("Value")
+                            .DataSource(source =>
+                            {
+                                source.Read(read =>
+                                {
+                                    read.Action("LoadWorkerRoleAjax", "WorkerRolePermission");
+                                })
+                                .ServerFiltering(true);
+                            })
+
+
+                         )
+            </div>
+            @*</div>
+         
+        <div class="col-md-12">*@
+            <label class="col-sm-2 control-label labe-text">@Html.LabelRequiredFor(model => model.PermissionID)</label>
+            <div class="col-sm-4">
+                @(Html.Kendo().DropDownListFor(model => model.PermissionID)
+                                .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                            .DataTextField("Text")
+                            .DataValueField("Value")
+                            .DataSource(source =>
+                            {
+                                source.Read(read =>
+                                {
+                                    read.Action("LoadPermissionAjax", "WorkerRolePermission");
+                                })
+                                .ServerFiltering(true);
+                            })
+                            
+
+
+                )
+            </div>
+        </div>
+       
+    </div>
+    <div class="row">
+        @*<div class="col-md-4">
+            &nbsp;
+        </div>*@
+        <div class="col-md-8 margin-top-10">
+            <button type="button" id="btnSaveAndRefresh" name="btnSaveAndRefreshWorkerRolePermission" class="col-sm-2 createsource00">Save</button>
+        </div>
+    </div>
+</div>

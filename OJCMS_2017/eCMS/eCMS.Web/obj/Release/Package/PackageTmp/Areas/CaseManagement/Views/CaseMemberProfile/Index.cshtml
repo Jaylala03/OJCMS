@@ -1,0 +1,98 @@
+@model eCMS.DataLogic.Models.CaseMemberProfile
+@using EasySoft.Helper;
+@using eCMS.Shared;
+@using eCMS.DataLogic.Models;
+@{
+    ViewBag.Title = "Case Member Profile";
+    Layout = "~/Areas/CaseManagement/Views/Shared/_LayoutCase2.cshtml";
+}
+@section headsection
+{
+    @Styles.Render("~/assets/plugins/kendo/css")
+    @Scripts.Render("~/assets/plugins/kendo/js")
+}
+
+@if(Model.HasPermissionToList)
+{
+<div class="container candidate-list-main-container">
+    <div class="row">
+        <div class="col-lg-12 col-md-11 candidate-table-bg">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 candidate-on-map">
+                    <div class="row">
+                        <div class="col-md-12 font-13 text-uppercase" style="padding-top: 6px; padding-right: 0;">
+                            <label>
+                                <img src="@Url.Content("~/Assets/images/lavel-side-icon.png")">
+                                <span>Profile List</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row margin-bottom-10">
+                @using (Html.BeginForm(Constants.Actions.IndexAjax, Constants.Controllers.CaseMemberProfile, new { area = Constants.Areas.CaseManagement }, FormMethod.Post, new { id = "frmSearch" }))
+                {
+                    @Html.HiddenFor(model=>model.CaseID)
+                    <div class="col-md-5">
+                        @(Html.Kendo().DropDownListFor(model => model.CaseMemberID)
+                                .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                                .Events(e=>e.Change("CaseMemberDropDownList_OnChanged"))
+                                .DataTextField("Text")
+                                .DataValueField("Value")
+                                .DataSource(source =>
+                                {
+                                    source.Read(read =>
+                                    {
+                                        read.Action("LoadCaseMemberListAjax", "CaseMemberProfile", new { caseID = Model.CaseID });
+                                    });
+                                })
+                            )
+                    </div>
+                }
+                <div class="col-md-2">
+                    @if(Model.HasPermissionToCreate)
+                    {
+                        if(Model.CaseMemberID>0)
+                        {
+                            <a class="customButton col-sm-11 link-button" id="lnkNewProfile" href="@Url.Action(Constants.Actions.Create, Constants.Controllers.CaseMemberProfile, new { CaseID = Model.CaseID, CaseMemberID=Model.CaseMemberID })" style="margin-left: 5px !important;">NEW PROFILE</a>
+                        }
+                        else
+                        {
+                            <a class="customButton col-sm-11 link-button" onclick="javascript:alert('Please select a Family or Family Member first to create a profile'); return false;" id="lnkNewProfile" href="#" style="margin-left: 5px !important;">NEW PROFILE</a>
+                        }
+                    }
+                </div>
+            </div>
+            <div class="row">
+                @(Html.Kendo().Grid<CaseMemberProfile>()
+                        .Name("GridCaseMemberProfile")
+                        .Columns(columns =>
+                        {
+                            columns.Bound(c => c.ProfileTypeName).Width("10%").Sortable(true).Groupable(false).Filterable(false);
+                            columns.Bound(c => c.ProfileDate).Width("10%").Sortable(true).Groupable(false).Filterable(false);
+                            columns.Bound(c => c.CreatedByWorkerName).Width("10%").Sortable(true).Groupable(false).Filterable(false);
+                            columns.Bound(c => c.HighestLevelOfEducationName).Width("10%").Sortable(true).Groupable(false).Filterable(false);
+                            columns.Bound(c => c.AnnualIncomeName).Width("15%").Sortable(true).Groupable(false).Filterable(false);
+                            columns.Bound(c => c.HousingQualityName).Width("15%").Sortable(true).Groupable(false).Filterable(false);
+                            columns.Bound(c => c.HealthCondition).Width("15%").Sortable(true).Groupable(false).Filterable(false);
+                            columns.Bound(c => c.Occupation).Width("15%").Sortable(true).Groupable(false).Filterable(false);
+                            columns.Bound(p => p.ErrorMessage).Width("10px").ClientTemplate("<center><a href='/CaseManagement/CaseMemberProfile/Read?ID=#= ID #&CaseID=#= CaseID #&CaseMemberID=#= CaseMemberID #' style='#= HasPermissionToRead #' class='fa fa-eye' title='Read'></a>&nbsp;<a href='/CaseManagement/CaseMemberProfile/Edit?ID=#= ID #&CaseID=#= CaseID #&CaseMemberID=#= CaseMemberID #' style='#= HasPermissionToEdit #' class='fa fa-edit' title='Edit'></a>&nbsp;<a name='lnkDelete' style='#= HasPermissionToDelete #' id='lnkDeleteCaseMemberProfile' href='/CaseManagement/CaseMemberProfile/DeleteAjax/#= ID #' class='fa fa-times' title='Delete'></a></center>").Width("10%").HeaderTemplate("<center>Actions</center>");
+                        })
+                        .DataSource(dataSource => dataSource
+                        .Ajax()
+                        .Read(read => read.Action("IndexAjax", "CaseMemberProfile").Data("PassSearchParameter"))
+                        .PageSize(50)
+                        )
+                        .Pageable()
+                        .Sortable()
+                  )
+            </div>
+        </div>
+    </div>
+</div>
+}
+else
+{
+    @Html.Partial("_AccessDenied")
+}
+

@@ -1,0 +1,27 @@
+@model eCMS.DataLogic.Models.CaseMember
+@using eCMS.Shared
+@{
+    Layout = "~/Areas/CaseManagement/Views/Shared/_LayoutCaseRead.cshtml";
+    ViewBag.Title = "View Case Member";
+}
+
+@section headsection
+{
+    @Styles.Render("~/assets/plugins/kendo/css")
+    @Scripts.Render("~/assets/plugins/kendo/js")
+    <script type="text/javascript">
+        $(document).ready(function ()
+        {
+            //$("#divCaseEditor").addClass("disableddiiv");
+            $('#divCaseEditor :input').attr('disabled', true);
+        });
+    </script>
+}
+<div class="container bulk-import" id="divCaseEditor">
+    <!-- begin: mainpage -->
+    <div class="row margin-top-40">
+         <div class="col-md-12">
+            @Html.Partial("_CreateOrEdit", Model)
+        </div>
+    </div>
+</div>

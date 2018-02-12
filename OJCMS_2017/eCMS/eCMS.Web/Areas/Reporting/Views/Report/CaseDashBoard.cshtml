@@ -1,0 +1,180 @@
+﻿@model eCMS.DataLogic.Models.Report.CaseDashboardRptInput
+@using EasySoft.Helper;
+@using eCMS.Shared;
+@using eCMS.DataLogic.Models;
+@using eCMS.DataLogic.ViewModels;
+@using Kendo.Mvc.UI;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutInternal.cshtml";
+}
+@section headsection
+{
+    @Styles.Render("~/assets/plugins/kendo/css")
+    @Scripts.Render("~/assets/plugins/kendo/js")
+}
+@*<link href="http://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+
+    <script src="/assets/plugins/jquery-ui/jquery-ui.js"></script>*@
+<div id="dvAjaxAlertContainer">
+    @Html.Partial(Constants.PartialViews.Alert)
+</div>
+<div class="container candidate-list-main-container">
+    <div class="row">
+        <div class="col-lg-12 col-md-11 candidate-table-bg">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 candidate-on-map">
+                    <div class="row">
+                        <div class="col-md-12 font-13 text-uppercase" style="padding-top: 6px; padding-right: 0;">
+                            <label>
+                                <span>Case Dashboard</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @using (Html.BeginForm("CaseDashboard", "Report", new { area = "Reporting" }, FormMethod.Post))
+            {
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group02" title="StartDate">
+                            <label class="col-sm-2 control-label labe-text">@Html.LabelRequiredFor(model => model.StartDate)</label>
+                            <div class="col-sm-2">
+                                @Html.EditorFor(model => model.StartDate)
+                            </div>
+                        </div>
+                        <div class="form-group02" title="EndDate">
+                            <label class="col-sm-2 control-label labe-text">@Html.LabelRequiredFor(model => model.EndDate)</label>
+                            <div class="col-sm-2">
+                                @Html.EditorFor(model => model.EndDate)
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group02">
+                            <label class="col-sm-2 control-label labe-text">@Html.LabelRequiredFor(model => model.ProgramID)</label>
+                            <div class="col-sm-8">
+                                @(Html.Kendo().MultiSelectFor(model => model.ProgramID)
+                    //.OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                        .HtmlAttributes(new { @class = "drop_down_list" })
+            .Events(e => e.Change("MultipleProgramDropDownList_OnChanged"))
+                        .DataTextField("Text")
+                        .DataValueField("Value")
+                        .DataSource(source =>
+                        {
+                            source.Read(read =>
+                            {
+                                read.Action("LoadWorkerProgramsAjax", "Report");
+                            });
+                        })
+                                )
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group02">
+                            <label class="col-sm-2 control-label labe-text">@Html.LabelRequiredFor(model => model.RegionID)</label>
+                            <div class="col-sm-8" id="divRegion">
+                                @(Html.Kendo().MultiSelectFor(model => model.RegionID)
+                    //.OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+               .Events(e => e.Change("MultipleRegionDropDownList_OnChanged"))
+                    .DataTextField("Text")
+                    .DataValueField("Value")
+                    .DataSource(source =>
+                    {
+                        source.Read(read =>
+                        {
+                            read.Action("LoadMultiRegionByPermission", "Report").Data("MultipleProgramDDL_OnSelect");
+                        })
+                        .ServerFiltering(true);
+                    })
+                    //.Enable(false)
+                    .AutoBind(false)
+                    //.CascadeFrom("ProgramID")
+                                )
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group02">
+                            <label class="col-sm-2 control-label labe-text">@Html.LabelRequiredFor(model => model.SubProgramID)</label>
+                            <div class="col-sm-8" id="divSubProgram">
+                                @(Html.Kendo().MultiSelectFor(model => model.SubProgramID)
+                    //.OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+            .DataTextField("Text")
+            .DataValueField("Value")
+            .DataSource(source =>
+            {
+                source.Read(read =>
+                {
+                    read.Action("LoadMultiSubProgramByPermission", "Report").Data("MultiRegionAndProgramDDL_OnSelect");
+                })
+                .ServerFiltering(true);
+            })
+                    //.Enable(false)
+            .AutoBind(false)
+                    //.CascadeFrom("RegionID")
+                                )
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group02">
+                            <label class="col-sm-2 control-label labe-text">@Html.LabelRequiredFor(model => model.JamatkhanaID)</label>
+                            <div class="col-sm-8" id="divJamatkhana">
+                                @(Html.Kendo().MultiSelectFor(model => model.JamatkhanaID)
+                    //.OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+            .DataTextField("Text")
+            .DataValueField("Value")
+            .DataSource(source =>
+            {
+                source.Read(read =>
+                {
+                    read.Action("LoadMultiJamatkhanasAjax", "Report")
+                        .Data("MultiRegionAndProgramDDL_OnSelect"); ;
+                })
+                .ServerFiltering(true);
+            })
+                    //.Enable(false)
+            .AutoBind(false)
+                    //.CascadeFrom("RegionID")
+                                )
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 padding_left_5">
+                    <button type="submit" class="customButton" id="btnCaseDashboardExcel" name="Command" value="CaseDashboardExcel">
+                        &nbsp;Case Dashboard (Excel) &nbsp;&nbsp;
+                    </button>
+                </div>
+                <div class="col-md-2 padding_left_5">
+                    <button type="submit" class="customButton" id="btnCaseDashboardPDF" name="Command" value="CaseDashboardPDF">
+                        &nbsp;Case Dashboard (PDF) &nbsp;&nbsp;
+                    </button>
+                </div>
+            }
+            @*@using (Html.BeginForm("CaseDashboardPDF", "Report", new { area = "Reporting" }, FormMethod.Post))
+                {
+
+                    <div class="col-md-2 padding_left_5">
+                        <button type="submit" class="customButton" id="btnCaseDashboardPDF">
+                            &nbsp;Case Dashboard (PDF) &nbsp;&nbsp;
+                        </button>
+                    </div>
+                }*@
+
+        </div>
+
+    </div>
+</div>

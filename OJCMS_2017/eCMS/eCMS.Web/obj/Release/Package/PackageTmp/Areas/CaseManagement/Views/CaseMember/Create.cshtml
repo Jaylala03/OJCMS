@@ -1,0 +1,22 @@
+@model eCMS.DataLogic.Models.CaseMember
+@using eCMS.Shared
+@{
+    Layout = "~/Views/Shared/_LayoutInternal.cshtml";
+    ViewBag.Title = "Create New Case Member";
+}
+@section headsection
+{
+    @Styles.Render("~/assets/plugins/kendo/css")
+    @Scripts.Render("~/assets/plugins/kendo/js")
+}
+<div class="container bulk-import">
+    <!-- begin: mainpage -->
+    <div class="row margin-top-40">
+        <div class="col-md-12">
+            @using (Html.BeginForm("Create", "CaseMember", new { area = "CaseManagement", caseId=Model.CaseID }, FormMethod.Post, new { id = "frmEditor", @class = "horizontal-form" }))
+            {
+                @Html.Partial("_CreateOrEdit", Model) 
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="@Url.Content("~/assets/images/favicon.ico")" type="image/x-icon">
+    <link rel="icon" href="@Url.Content("~/assets/images/favicon.ico")" type="image/x-icon">
+
+    @*<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>*@
+
+    <title>OneJamat Case Management System : @ViewBag.Title</title>
+
+    <!-- Bootstrap core CSS -->
+    @Styles.Render("~/assets/styles/external")
+    @RenderSection("headsection", false)
+
+    <!-- Just for debugging purposes. Don't actually copy this line! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+    <div class="row">
+        <div class="top_strip"></div>
+        <div class="container">
+            <div class="sign_up_form">
+                <div class="left_block col-md-4 col-sm-4">
+                    <div class="logo">
+                        <a href="#">
+                            @if (eCMS.Shared.SiteMode.mode() == "Test System")
+                            {<img src="@Url.Content("~/assets/images/ttlogo.png")" />
+
+                            }
+                            else
+                            { <img src="@Url.Content("~/assets/images/logo.png")" />
+                            }
+                        </a>
+                    </div>
+                    <div class="login" style="padding-top:0px;">
+                        @*<div style="color:red"> @eCMS.Shared.SiteMode.mode() </div>*@
+                        
+                        @RenderSection("hintsection", false)
+                    </div>
+                </div>
+                <div class="right_block col-md-8 col-sm-8">
+                    @RenderBody()
+                </div>
+            </div>
+            <div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    @*@Scripts.Render("~/Scripts/Custom")*@
+</body>
+</html>

@@ -1,0 +1,88 @@
+@model eCMS.DataLogic.Models.CaseSmartGoalProgress
+@using eCMS.BusinessLogic.Helpers
+@using eCMS.DataLogic.Models
+@using eCMS.Shared
+@Html.HiddenFor(model => model.ID)
+@Html.HiddenFor(model => model.CreateDate)
+@Html.HiddenFor(model => model.CreatedByWorkerID)
+@Html.HiddenFor(model => model.CaseSmartGoalID)
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group02">
+            <label class="col-sm-5 control-label labe-text">@Html.LabelRequiredFor(model => model.SmartGoalID)</label>
+            <div class="col-sm-7">
+                 @(Html.Kendo().DropDownListFor(model => model.SmartGoalID)
+            .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+            .DataTextField("Text")
+            .DataValueField("Value")
+            .Events(e => e.Change("SmartGoalDropDownList_OnChanged"))
+            .DataSource(source =>
+            {
+                source.Read(read =>
+                {
+                    read.Action("LoadSmartGoalListAjax", "CaseSmartGoalProgress", new { caseSmartGoalID=Model.CaseSmartGoalID });
+                });
+            })
+            )
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group02">
+            <label class="col-sm-6 control-label labe-text">@Html.LabelFor(model => model.SmartGoalStartDate)</label>
+            <div class="col-sm-6">
+                @Html.TextBoxFor(model => model.SmartGoalStartDate, new { disabled="disabled", @class="form-control" })
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group02">
+            <label class="col-sm-6 control-label labe-text">@Html.LabelFor(model => model.SmartGoalEndDate)</label>
+            <div class="col-sm-6">
+                @Html.TextBoxFor(model => model.SmartGoalEndDate, new { disabled="disabled", @class="form-control" })
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group02">
+            <label class="col-sm-5 control-label labe-text">@Html.LabelRequiredFor(model => model.ServiceLevelOutcomeID)</label>
+            <div class="col-sm-7">
+                 @(Html.Kendo().DropDownListFor(model => model.ServiceLevelOutcomeID)
+            .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+            .DataTextField("Text")
+            .DataValueField("Value")
+            .DataSource(source =>
+            {
+                source.Read(read =>
+                {
+                    read.Action("LoadServiceLevelOutcomeListAjax", "CaseSmartGoalProgress");
+                });
+            })
+            )
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group02">
+            <label class="col-sm-6 control-label labe-text">@Html.LabelRequiredFor(model => model.ProgressDate)</label>
+            <div class="col-sm-6">
+                @Html.EditorFor(model => model.ProgressDate)
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-10">
+        <div class="form-group02">
+            <label class="col-sm-3 control-label labe-text">@Html.LabelRequiredFor(model => model.Comment)</label>
+            <div class="col-sm-8">
+                 @Html.TextAreaFor(model => model.Comment, new { @class = "form-control ckeditor" })
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <button class="btn btn-primary" id="btnSaveAndRefresh" name="btnSaveAndRefreshCaseSmartGoalProgress"><i class="fa fa-save"></i> Save</button>
+    </div>
+</div>

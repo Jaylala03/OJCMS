@@ -1,0 +1,50 @@
+@model eCMS.DataLogic.Models.Permission
+@using eCMS.BusinessLogic.Helpers
+@using eCMS.DataLogic.Models.Lookup
+@using eCMS.DataLogic.Models
+@using eCMS.Shared
+
+<div>Notting Hill</div>
+@if (Model.AllActionMethods != null)
+{
+    string strChecked = "";
+    string lastaction = "";
+    foreach (ActionMethod actionMethod in Model.AllActionMethods)
+    {
+        strChecked = "";
+        if (lastaction == "" || lastaction != @actionMethod.DisplayName)
+        {
+            @:<div class="col-md-12 controllerTable">
+            @:<div class="col-md-12 padding-left0 controllerField">
+            @:<label class="col-sm-12 control-label labe-text padding-left0 labelmargin">@actionMethod.DisplayName</label>
+            @:</div>
+            @:<div class="col-md-12">
+        }
+        if (lastaction == "" && lastaction != @actionMethod.DisplayName)
+        {
+            @:</div></div>
+        }
+        if (Model.AssignedPermissionActions != null)
+        {
+            foreach (PermissionAction assignedPermissionAction in Model.AssignedPermissionActions)
+            {
+                if (actionMethod.ID == assignedPermissionAction.ActionMethodID)
+                {
+                    strChecked = "checked='checked'";
+                    break;
+                }
+            }
+        }
+
+        <div class="col-sm-3">
+            <input type="checkbox" name="chkAssignedPermissionAction" value="@actionMethod.ID" @strChecked onclick="SetPermission('AssignedPermissionAction');" />
+            @actionMethod.Name
+        </div>
+
+        lastaction != @actionMethod.DisplayName;
+    }
+    if (lastaction == "" )
+    {
+        
+    }
+}

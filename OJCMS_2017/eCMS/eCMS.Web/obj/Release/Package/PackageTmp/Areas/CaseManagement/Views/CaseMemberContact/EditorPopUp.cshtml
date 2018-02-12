@@ -1,0 +1,40 @@
+@model eCMS.DataLogic.Models.CaseMemberContact
+@using EasySoft.Helper;
+@using eCMS.Shared;
+@using eCMS.DataLogic.Models;
+@{
+    Layout = null;
+    Model.IsAjax = true;
+}
+<div class="widget">
+    <div class="widget-body form">
+        @using (Html.BeginForm("SaveAjax", "CaseMemberContact", new { area = "CaseManagement" }, FormMethod.Post, new { id = "frmEditorCaseMemberContact" }))
+        {
+            <div id="divEditorCaseMemberContact">                    
+                @Html.Partial("_CreateOrEdit", Model)
+            </div>
+        }
+    </div>
+    <div class="col-md-12">
+        @(Html.Kendo().Grid<CaseMemberContact>()
+        .Name("GridCaseMemberContact")
+		.Columns(columns =>
+        {
+            columns.Bound(c => c.ContactMediaName).Sortable(true).Groupable(false).Filterable(false);  
+            columns.Bound(c => c.Contact).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(c => c.EmergencyContactName).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(c => c.EmergencyContactNumber).Sortable(true).Groupable(false).Filterable(false);        
+            columns.Bound(c => c.Comments).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(p => p.ErrorMessage).ClientTemplate("<center><a id='lnkEditor_#= ID #' data-container='divEditorCaseMemberContact' name='lnkEditor' href='/CaseManagement/CaseMemberContact/EditorAjax/#= ID #?caseMemberID=#= CaseMemberID #' class='fa fa-edit'  title='Edit'></a>&nbsp;<a name='lnkDelete' id='lnkDeleteCaseMemberContact' href='/CaseManagement/CaseMemberContact/DeleteAjax/#= ID #' class='fa fa-times' title='Delete'></a><center>").Width("10%").HtmlAttributes(new { @class = "grid-actions-content" }).HeaderTemplate("<center>Actions</center>").HeaderHtmlAttributes(new { @class = "grid-actions-content" });
+		})
+		.DataSource(dataSource => dataSource
+        .Ajax()
+        .Read(read => read.Action("IndexAjax", "CaseMemberContact", new { caseMemberID = Model.CaseMemberID }).Data("PassSearchParameter"))
+        .PageSize(50)
+        )
+        .Pageable()
+        .Sortable()
+)
+    </div>
+</div>
+

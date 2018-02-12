@@ -1,0 +1,128 @@
+﻿@using eCMS.Shared
+<!-- Begin: header top -->
+@*<div class="header-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="logo">
+                        <h1>
+                            <a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.Home)">
+                                <img src="@Url.Content(SiteConfigurationReader.ImageLocation + "logo.png")" alt="logo"></a>
+                        </h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+<!-- End: header top -->
+<!-- Begin: header -->
+<div class="header">
+    <!-- Begin: header -->
+    <div class="container">
+        <div class="row" id="navMenu">
+            <div class="col-xs-1 col-md-6 col-sm-1 col-lg-6">
+                <a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.Case, new { Area=Constants.Areas.CaseManagement })">
+                    <img src="~/assets/images/logo.png" alt="logo">
+                </a>
+            </div>
+
+
+            <div class="col-md-6 col-sm-5 col-lg-6 col-xs-7" style="text-align:right; color:orange;">
+                <div class="alfa-item">
+                    @*<a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.Worker, new { area=Constants.Areas.WorkerManagement })">
+                        <img src="@Url.Content("~/Assets/images/interface/icon_13.png")" alt="icon" title="Settings" /></a>*@
+                    <a href="@Url.Action(Constants.Actions.Logout, Constants.Controllers.Account, new { area=string.Empty })" id="btnLogout">
+                        <img src="@Url.Content("~/Assets/images/interface/logout_icon.png")" alt="icon" title="Logout" />
+                    </a>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="float-right margin-top-10">
+                    <a class="welcome-text">WELCOME @ViewBag.CurrentWorkerName</a>
+                </div>
+            </div>
+            <div class="col-xs-4 col-md-12 col-sm-6 col-lg-12 ">
+                <div class="menuWrapper navbar navbar-static-top bs-docs-nav">
+                    <!-- Begin: menuWrapper -->
+                    <div class="navbar-header">
+                        <button data-target=".bs-navbar-collapse" data-toggle="collapse" type="button" class="navbar-toggle">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <nav role="navigation" class="collapse navbar-collapse bs-navbar-collapse">
+                        <ul class="nav navbar-nav main_menu">
+                            @if (ViewBag.HasAccessToCaseManagementModule)
+                            {
+                                <li class="current"><a class="bottomBar" href="@Url.Action(Constants.Actions.Index, Constants.Controllers.Case, new { area = Constants.Areas.CaseManagement })">Case Manager</a></li>
+                            }
+                            @if (ViewBag.HasAccessToWorkerModule)
+                            {
+                                <li><a class="bottomBar" href="@Url.Action(Constants.Actions.Index, Constants.Controllers.Worker, new { area = Constants.Areas.WorkerManagement })">Worker Manager</a></li>
+                            }
+                            <li class="dropdown bottomBar">
+                                <a class="bottomBar" href="#">My Profile</a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="@Url.Action(Constants.Actions.MyToDo, Constants.Controllers.CaseAction, new { Area=Constants.Areas.CaseManagement })">My To Do</a></li>
+                                    <li class="subMenuDivider"></li>
+                                    <li><a href="@Url.Action(Constants.Actions.MyNotification, Constants.Controllers.CaseProgressNote, new { Area=Constants.Areas.CaseManagement })">My Notification</a></li>
+                                    <li class="subMenuDivider"></li>
+                                    <li><a href="@Url.Action(Constants.Actions.ChangePassword, Constants.Controllers.Account, new { Area=String.Empty })">Change Password</a></li>
+                                    <li class="subMenuDivider"></li>
+                                    <li><a href="@Url.Action(Constants.Actions.Logout, Constants.Controllers.Account, new { Area=String.Empty })">Logout</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown bottomBar">
+                                <a class="bottomBar" href="@Url.Action(Constants.Actions.Index, Constants.Controllers.CaseTraining, new { Area= Constants.Areas.CaseManagement })">Support</a>
+                            </li>
+                            @if (ViewBag.HasAccessToAdminModule || ViewBag.HasAccessToOtherConfigurationData)
+                            {
+                                <li class="dropdown bottomBar">
+                                    <a class="bottomBar" href="#">Administration</a>
+                                    <ul class="dropdown-menu">
+                                        @if (ViewBag.HasAccessToAdminModule)
+                                        {
+                                            <li><a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.WorkerRole, new { Area=Constants.Areas.Lookup })">MANAGE ROLE</a></li>
+                                            <li class="subMenuDivider"></li>
+                                            <li><a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.Permission, new { Area=Constants.Areas.WorkerManagement })">MANAGE PERMISSION</a></li>
+                                            <li class="subMenuDivider"></li>
+                                            <li><a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.WorkerRolePermission, new { Area = Constants.Areas.Lookup })">MANAGE ROLE-PERMISSION</a></li>
+                                            <li class="subMenuDivider"></li>
+                                            <li><a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.Program, new { Area=Constants.Areas.Lookup })">Manage Program</a></li>
+                                            <li class="subMenuDivider"></li>
+                                            <li><a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.SubProgram, new { Area=Constants.Areas.Lookup })">Manage Sub-Program</a></li>
+                                            <li class="subMenuDivider"></li>
+                                            <li><a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.Region, new { Area=Constants.Areas.Lookup })">Manage Region</a></li>
+                                            <li class="subMenuDivider"></li>
+                                        }
+
+                                        <li><a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.Home, new { Area=Constants.Areas.Lookup })">Other Configuration Data</a></li>
+
+                                    </ul>
+                                </li>
+                            }
+                            @if (ViewBag.HasAccessToReportModule)
+                            {
+                                <li class="dropdown bottomBar">
+                                    <a class="bottomBar" href="#">Reports</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.Report, new { area = Constants.Areas.Reporting })">All Reports CSV</a></li>
+                                        <li class="subMenuDivider"></li>
+                                        <li><a href="@Url.Action("CaseDashBoard", Constants.Controllers.Report, new { Area = Constants.Areas.Reporting })">Case Dashboard</a></li>
+                                        <li class="subMenuDivider"></li>
+                                        <li><a href="@Url.Action("ListOfIssues", Constants.Controllers.Report, new { Area = Constants.Areas.Reporting })">List Of Issues</a></li>
+                                    </ul>
+                                </li>
+                            }
+                        </ul>
+                    </nav>
+                </div>
+                <!-- End: menuWrapper -->
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- End: header -->

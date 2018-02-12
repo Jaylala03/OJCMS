@@ -1,0 +1,68 @@
+﻿@model eCMS.DataLogic.Models.Case
+@using EasySoft.Helper;
+@using eCMS.Shared;
+@using eCMS.DataLogic.Models;
+@using eCMS.DataLogic.ViewModels;
+@{
+
+    ViewBag.Title = "Case Audit Log";
+    Layout = "~/Areas/CaseManagement/Views/Shared/_LayoutCase.cshtml";
+
+}
+@section headsection
+{
+    @Styles.Render("~/assets/plugins/kendo/css")
+    @Scripts.Render("~/assets/plugins/kendo/js")
+}
+
+<div class="container bulk-import">
+    <!-- begin: mainpage -->
+    <div class="row margin-top-10">
+        <div class="col-md-12">
+            <div class="col-lg-12 col-md-11 candidate-table-bg">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 candidate-on-map">
+                        <div class="row">
+                            <div class="col-md-12 font-13 text-uppercase" style="padding-top: 6px; padding-right: 0;">
+                                <label>
+                                    <img src="@Url.Content("~/Assets/images/lavel-side-icon.png")">
+                                    <span>Case Audit Log</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-lg-12 col-md-11 candidate-table-bg margin-top-20">
+                @(Html.Kendo().Grid<CaseAuditLog>()
+        .Name("GridAuitLog")
+        .Columns(columns =>
+        {
+
+            columns.Bound(c => c.ActionID).Title("Case Audit Log").ClientTemplate(
+                 "# if (EventType == 'M') { #" +
+                    " #=Created_by# - Changes #=TableName# #=ColumnName# from #=OriginalValue# to #=NewValue# on #=Date# ." +
+                "# } else if (EventType == 'A'){ #" + "#=Created_by# - added a new record to #=TableName# on #=Date# " +
+                                 "# } else{#"+
+            "#=Created_by# - deleted a record from #=TableName# on #=Date# ." +
+            "#}#");
+
+
+
+        })
+        .DataSource(dataSource => dataSource
+        .Ajax()
+                        .Sort(sort => sort.Add("Created_date").Descending())
+                        .Read(read => read.Action("LogAjax", "Case", new { caseId = Model.ID.ToString(), tableName = "Case,CaseMember,CaseProgressNote,CaseWorker,CaseSupportCircle" }))
+        .PageSize(50)
+        )
+        .Pageable()
+        .Sortable()
+                )
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,15 @@
+@model eCMS.DataLogic.Models.CaseGoal
+@{
+    Layout = null;
+    Model.IsAjax = true;
+}
+<div class="widget">
+    <div class="widget-body form">        
+        @using (Html.BeginForm("SaveAjax", "CaseGoal", new { area = "CaseManagement" }, FormMethod.Post, new { id = "frmEditor", @class = "horizontal-form" }))
+        {
+            <div id="dvAjaxAlertContainer">
+            </div>
+            @Html.Partial("_CreateOrEdit", Model)
+        }
+    </div>
+</div>

@@ -1,0 +1,251 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3DFF1058-3CC9-4295-B3AF-7EC26F3F5539}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>eCMS.DataLogic</RootNamespace>
+    <AssemblyName>eCMS.DataLogic</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EasySoft.Helper">
+      <HintPath>..\packages\EasySoft.Helper.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Attributes\IncludeInList.cs" />
+    <Compile Include="Models\Base\BaseModel.cs" />
+    <Compile Include="Models\Base\LookupBaseModel.cs" />
+    <Compile Include="Models\Base\ILookupBaseModel.cs" />
+    <Compile Include="Models\Base\IEntityBaseModel.cs" />
+    <Compile Include="Models\Base\EntityBaseModel.cs" />
+    <Compile Include="Models\Base\IBaseModel.cs" />
+    <Compile Include="Models\CaseManagement\Case.cs" />
+    <Compile Include="Models\CaseManagement\CaseAuditLog.cs" />
+    <Compile Include="Models\CaseManagement\CaseGoal.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\CaseManagement\CaseGoalLivingCondition.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\CaseManagement\CaseMember.cs" />
+    <Compile Include="Models\CaseManagement\CaseMemberContact.cs" />
+    <Compile Include="Models\CaseManagement\CaseMemberEthinicity.cs" />
+    <Compile Include="Models\CaseManagement\CaseSmartGoal.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\CaseManagement\CaseSmartGoalProgress.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\CaseManagement\CaseSmartGoalServiceLevelOutcome.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\CaseManagement\CaseSmartGoalServiceProvider.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\CaseManagement\CaseWorker.cs" />
+    <Compile Include="Models\CaseManagement\CaseWorkerMemberAssignment.cs" />
+    <Compile Include="Models\CaseManagement\CaseSupportCircle.cs" />
+    <Compile Include="Models\CaseManagement\CaseProgressNote.cs" />
+    <Compile Include="Models\CaseManagement\CaseMemberProfile.cs" />
+    <Compile Include="Models\CaseManagement\CaseAssessment.cs" />
+    <Compile Include="Models\CaseManagement\CaseAssessmentLivingCondition.cs" />
+    <Compile Include="Models\CaseManagement\CaseAction.cs" />
+    <Compile Include="Models\CaseManagement\CaseSmartGoalAssignment.cs" />
+    <Compile Include="Models\CaseManagement\CaseProgressNoteMembers.cs" />
+    <Compile Include="Models\Lookup\Service.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\Lookup\ServiceProvider.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\Lookup\SmartGoal.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\CaseManagement\TrainingModule.cs" />
+    <Compile Include="Models\Lookup\WorkerRolePermissionNew.cs" />
+    <Compile Include="Models\Report\CaseDashboardrpt.cs" />
+    <Compile Include="Models\Report\CaseDashboardRptInput.cs" />
+    <Compile Include="Models\Report\ListOfIssuesVM.cs" />
+    <Compile Include="Models\WorkerManagement\Permission.cs" />
+    <Compile Include="Models\WorkerManagement\PermissionAction.cs" />
+    <Compile Include="Models\WorkerManagement\PermissionRegion.cs" />
+    <Compile Include="Models\WorkerManagement\PermissionJamatkhana.cs" />
+    <Compile Include="Models\WorkerManagement\PermissionSubProgram.cs" />
+    <Compile Include="Models\WorkerManagement\ActionMethod.cs" />
+    <Compile Include="Models\WorkerManagement\WorkerInRoleNew.cs" />
+    <Compile Include="Models\WorkerManagement\WorkerRoleActionPermissionNew.cs" />
+    <Compile Include="Models\WorkerManagement\WorkerToDo.cs" />
+    <Compile Include="Models\WorkerManagement\WorkerNotification.cs" />
+    <Compile Include="Models\WorkerManagement\EmailTemplate.cs" />
+    <Compile Include="Models\Lookup\AnnualIncome.cs" />
+    <Compile Include="Models\Lookup\RegionSubProgram.cs" />
+    <Compile Include="Models\Lookup\QualityOfLife.cs" />
+    <Compile Include="Models\Lookup\QualityOfLifeCategory.cs" />
+    <Compile Include="Models\Lookup\QualityOfLifeSubCategory.cs" />
+    <Compile Include="Models\Lookup\FinancialAssistanceSubCategory.cs" />
+    <Compile Include="Models\Lookup\HousingQuality.cs" />
+    <Compile Include="Models\Lookup\ServiceLevelOutcome.cs" />
+    <Compile Include="Models\Lookup\ImmigrationCitizenshipStatus.cs" />
+    <Compile Include="Models\Lookup\IndividualStatus.cs" />
+    <Compile Include="Models\Lookup\AssessmentType.cs" />
+    <Compile Include="Models\Lookup\ProfileType.cs" />
+    <Compile Include="Models\Lookup\RiskType.cs" />
+    <Compile Include="Models\Lookup\FinancialAssistanceCategory.cs" />
+    <Compile Include="Models\Lookup\ReasonsForDischarge.cs" />
+    <Compile Include="Models\Lookup\EmailTemplateCategory.cs" />
+    <Compile Include="Models\Lookup\GPA.cs" />
+    <Compile Include="Models\Lookup\HighestLevelOfEducation.cs" />
+    <Compile Include="Models\Lookup\Savings.cs" />
+    <Compile Include="Models\Lookup\RegionRole.cs" />
+    <Compile Include="Models\WorkerManagement\WorkerRoleActionPermission.cs" />
+    <Compile Include="Models\Lookup\WorkerRolePermission.cs" />
+    <Compile Include="Models\WorkerManagement\WorkerSubProgram.cs" />
+    <Compile Include="Models\Lookup\ActionStatus.cs" />
+    <Compile Include="Models\Lookup\ActivityType.cs" />
+    <Compile Include="Models\Lookup\SubProgram.cs" />
+    <Compile Include="Models\Lookup\IntakeMethod.cs" />
+    <Compile Include="Models\Lookup\WorkerRole.cs" />
+    <Compile Include="Models\WorkerManagement\Worker.cs" />
+    <Compile Include="Models\WorkerManagement\WorkerInRole.cs" />
+    <Compile Include="Models\Lookup\ContactMethod.cs" />
+    <Compile Include="Models\Lookup\ContactMedia.cs" />
+    <Compile Include="Models\Lookup\Language.cs" />
+    <Compile Include="Models\Lookup\HearingSource.cs" />
+    <Compile Include="Models\Lookup\CaseStatus.cs" />
+    <Compile Include="Models\Lookup\Ethnicity.cs" />
+    <Compile Include="Models\Lookup\City.cs" />
+    <Compile Include="Models\Lookup\Gender.cs" />
+    <Compile Include="Models\Lookup\Country.cs" />
+    <Compile Include="Models\Lookup\Currency.cs" />
+    <Compile Include="Models\Lookup\MaritalStatus.cs" />
+    <Compile Include="Models\Lookup\MemberStatus.cs" />
+    <Compile Include="Models\Lookup\Program.cs" />
+    <Compile Include="Models\Lookup\ReferralSource.cs" />
+    <Compile Include="Models\Lookup\Region.cs" />
+    <Compile Include="Models\Lookup\RelationshipStatus.cs" />
+    <Compile Include="Models\Lookup\State.cs" />
+    <Compile Include="Models\Lookup\Jamatkhana.cs" />
+    <Compile Include="Models\Lookup\TimeSpent.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SeedData\LookupSeed.cs" />
+    <Compile Include="SeedData\WorkerSeed.cs" />
+    <Compile Include="ViewModels\CaseListViewModel.cs" />
+    <Compile Include="ViewModels\ChangePasswordModel.cs" />
+    <Compile Include="ViewModels\AssignmentModel.cs" />
+    <Compile Include="ViewModels\CaseProgressModel.cs" />
+    <Compile Include="ViewModels\CaseActionListViewModel.cs" />
+    <Compile Include="ViewModels\CaseProgressNoteModel.cs" />
+    <Compile Include="ViewModels\EthnicityViewModel.cs" />
+    <Compile Include="ViewModels\DropDownViewModel.cs" />
+    <Compile Include="ViewModels\WorkerInRoleNewLVM.cs" />
+    <Compile Include="ViewModels\WorkRolePermissionNewViewModel.cs" />
+    <Compile Include="ViewModels\ServiceProviderListViewModel.cs" />
+    <Compile Include="ViewModels\ServiceListViewModel.cs" />
+    <Compile Include="ViewModels\RegionSubProgramModel.cs" />
+    <Compile Include="ViewModels\CustomSelectedItems.cs" />
+    <Compile Include="ViewModels\RegionRoleModel.cs" />
+    <Compile Include="ViewModels\PermissionListViewModel.cs" />
+    <Compile Include="ViewModels\WorkerListViewModel.cs" />
+    <Compile Include="ViewModels\WorkerSearchViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="bin\Debug\eCMS.DataLogic.dll.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\eCMS.Shared\eCMS.Shared.csproj">
+      <Project>{8603cf12-c5a6-4be7-9196-bdd0db8b5e5b}</Project>
+      <Name>eCMS.Shared</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Debug\EasySoft.Helper.dll" />
+    <Content Include="bin\Debug\eCMS.DataLogic.dll" />
+    <Content Include="bin\Debug\eCMS.DataLogic.pdb" />
+    <Content Include="bin\Debug\eCMS.Shared.dll" />
+    <Content Include="bin\Debug\eCMS.Shared.pdb" />
+    <Content Include="bin\Debug\EntityFramework.dll" />
+    <Content Include="bin\Debug\EntityFramework.SqlServer.dll" />
+    <Content Include="bin\Debug\EntityFramework.SqlServer.xml" />
+    <Content Include="bin\Debug\EntityFramework.xml" />
+    <Content Include="bin\Debug\System.Web.Mvc.dll" />
+    <Content Include="bin\Debug\System.Web.Mvc.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

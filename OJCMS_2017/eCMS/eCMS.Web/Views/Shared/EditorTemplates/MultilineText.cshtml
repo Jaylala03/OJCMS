@@ -1,0 +1,12 @@
+@model String
+@if(ViewData.ModelMetadata.IsRequired)
+{
+@(Html.TextArea("", ViewData.TemplateInfo.FormattedModelValue.ToString(), new { @class = "span6 m-wrap", row=3, placeholder = ViewData.ModelMetadata.Watermark,required="true" })
+)
+}
+else
+{
+    @(Html.TextArea("", ViewData.TemplateInfo.FormattedModelValue.ToString(), new { @class = "span6 m-wrap", row=3, placeholder = ViewData.ModelMetadata.Watermark })
+)
+}
+

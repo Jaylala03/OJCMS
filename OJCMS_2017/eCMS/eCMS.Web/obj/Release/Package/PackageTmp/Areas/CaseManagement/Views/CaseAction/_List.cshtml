@@ -1,0 +1,55 @@
+@model eCMS.DataLogic.Models.CaseAction
+@using EasySoft.Helper;
+@using eCMS.Shared;
+@using eCMS.DataLogic.ViewModels;
+@if (Model.IsActionTakenByServiceProvider)
+{
+    <div>
+        @(Html.Kendo().Grid<CaseActionListViewModel>()
+        .Name("GridCaseAction")
+        .Columns(columns =>
+        {
+
+            //columns.Bound(c => c.CaseMemberName).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(c => c.Action).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(c => c.CaseWorkerName).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(c => c.ServiceProviderName).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(c => c.ActionStartTime).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(c => c.ActionEndTime).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(p => p.ErrorMessage).ClientTemplate("<a id='lnkEditCaseAction' name='lnkEdit' href='/CaseManagement/CaseAction/EditorAjax/#= ID #?CaseID=#= CaseID #' class='fa fa-edit' title='Edit'></a>&nbsp;<a name='lnkDelete' id='lnkDeleteCaseAction' href='/CaseManagement/CaseAction/DeleteAjax/#= ID #' class='fa fa-times' title='Delete'></a>").Width("10%").HtmlAttributes(new { @class = "grid-actions-content" }).HeaderTemplate("<center>Actions</center>").HeaderHtmlAttributes(new { @class = "grid-actions-content" });
+        })
+        .DataSource(dataSource => dataSource
+        .Ajax()
+        .Read(read => read.Action("IndexAjax", "CaseAction", new { isCompleted = false, noteId = Model.CaseProgressNoteID, casesmartgoalId = Model.CaseSmartGoalID, caseId = Model.CaseID, includeServiceProviderAction=Model.IsActionTakenByServiceProvider, isProviderAction=Model.IsActionTakenByServiceProvider }).Data("GridCaseActionParameter"))
+        .PageSize(50)
+        )
+        .Pageable()
+        .Sortable()
+        )
+    </div>
+}
+else
+{
+    <div>
+        @(Html.Kendo().Grid<CaseActionListViewModel>()
+        .Name("GridCaseAction")
+        .Columns(columns =>
+        {
+            //columns.Bound(c => c.CaseMemberName).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(c => c.Action).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(c => c.CaseWorkerName).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(c => c.ActionStartTime).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(c => c.ActionEndTime).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(p => p.ErrorMessage).ClientTemplate("<a id='lnkEditCaseAction' name='lnkEdit' href='/CaseManagement/CaseAction/EditorAjax/#= ID #?CaseID=#= CaseID #' class='fa fa-edit' title='Edit'></a>&nbsp;<a name='lnkDelete' id='lnkDeleteCaseAction' href='/CaseManagement/CaseAction/DeleteAjax/#= ID #' class='fa fa-times' title='Delete'></a>").Width("10%").HtmlAttributes(new { @class = "grid-actions-content" }).HeaderTemplate("<center>Actions</center>").HeaderHtmlAttributes(new { @class = "grid-actions-content" });
+        })
+        .DataSource(dataSource => dataSource
+        .Ajax()
+        .Read(read => read.Action("IndexAjax", "CaseAction", new { isCompleted = false, noteId = Model.CaseProgressNoteID, casesmartgoalId = Model.CaseSmartGoalID, caseId = Model.CaseID }).Data("GridCaseActionParameter"))
+        .PageSize(50)
+        )
+        .Pageable()
+        .Sortable()
+        )
+    </div>
+}
+

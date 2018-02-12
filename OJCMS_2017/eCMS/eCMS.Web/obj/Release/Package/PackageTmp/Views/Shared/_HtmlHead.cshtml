@@ -1,0 +1,63 @@
+﻿<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta content="" name="description" />
+<meta content="" name="author" />
+<title>OneJamat Case Management System : @ViewBag.Title</title>
+<link rel="shortcut icon" href="@Url.Content("~/assets/images/favicon.ico")" type="image/x-icon">
+<link rel="icon" href="@Url.Content("~/assets/images/favicon.ico")" type="image/x-icon">
+<!-- BEGIN THEME CSS AND JS -->
+<!-- google fonts -->
+<link href='http://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css' />
+@if (ViewBag.CurrentControllerName != "Candidate" || ViewBag.CurrentActionName != "Dashboard")
+{
+    <link href='http://fonts.googleapis.com/css?family=Noto+Sans:400,400italic,700' rel='stylesheet' type='text/css' />
+}
+
+<!-- Bootstrap core CSS -->
+<!-- Font Awsome -->
+<link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<!-- Custom styles for this template -->
+@Styles.Render("~/assets/css") 
+<!--JS of selcet all checkbox in table-->
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+<!-- Bootstrap -->
+<!-- END THEME CSS AND JS -->
+                                              
+<script src="/Assets/plugins/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
+<link href="/Assets/plugins/fancybox/jquery.fancybox.css?v=2.1.5" rel="stylesheet" />
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js" type="text/javascript"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCMp1LqvP3kXWxsezGnL1ZX_8RPZ_StEww&sensor=false" type="text/javascript"></script>
+@*@Styles.Render("~/assets/plugins/kendo/css")*@
+@*@Scripts.Render("~/UserInternalJSHeader")*@
+@*@Scripts.Render("~/assets/plugins/kendo/js")*@
+
+<link href="@Url.Content("~/assets/plugins/jquery-notific8/jquery.notific8.min.css")" rel="stylesheet" type="text/css" />
+<script src="@Url.Content("~/assets/plugins/jquery-notific8/jquery.notific8.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Assets/plugins/ckeditor/ckeditor.js")"></script>
+<script src="@Url.Content("~/Assets/plugins/ckeditor/adapters/jquery.js")"></script>
+@Scripts.Render("~/assets/scripts/js")
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.fancybox').fancybox({
+            //afterShow: function () {
+            //    $(".fancybox-wrap").draggable();
+            //}
+        });
+    });
+</script>
+<script src="@Url.Content("~/Assets/scripts/bootstrap.js")" type="text/javascript"></script>
+<style>
+    .cke_contents {
+    height:150px !important;
+    }
+</style>
+

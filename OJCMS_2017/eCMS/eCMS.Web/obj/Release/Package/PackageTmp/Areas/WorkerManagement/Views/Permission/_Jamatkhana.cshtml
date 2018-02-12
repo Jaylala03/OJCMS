@@ -1,0 +1,27 @@
+@model eCMS.DataLogic.Models.PermissionRegion
+@using eCMS.BusinessLogic.Helpers
+@using eCMS.DataLogic.Models.Lookup
+@using eCMS.DataLogic.Models
+@using eCMS.Shared
+@if (Model.AllJamatkhanas != null)
+{
+    foreach (Jamatkhana jamatkhana in Model.AllJamatkhanas)
+    {
+        string strCheckedjamatkhana = "";
+        if (Model.AssignedJamatkhanas != null)
+        {
+            foreach (PermissionJamatkhana assignedjamatkhana in Model.AssignedJamatkhanas)
+            {
+                if (jamatkhana.ID == assignedjamatkhana.JamatkhanaID)
+                {
+                    strCheckedjamatkhana = "checked='checked'";
+                    break;
+                }
+            }
+        }
+        <div class="col-sm-3">
+            <input type="checkbox" name="JamatkhanaIDs" value="@jamatkhana.ID" @strCheckedjamatkhana />
+            @jamatkhana.Name
+        </div>
+    }
+}

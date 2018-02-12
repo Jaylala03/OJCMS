@@ -1,0 +1,76 @@
+@model eCMS.DataLogic.Models.Worker
+@using eCMS.BusinessLogic.Helpers
+@using eCMS.DataLogic.Models.Lookup
+@using eCMS.DataLogic.Models
+@using eCMS.Shared
+
+@section headsection
+{
+    @Styles.Render("~/assets/plugins/kendo/css")
+    @Scripts.Render("~/assets/plugins/kendo/js")
+}
+@{
+    ViewBag.Title = "Update Worker";
+    Model.IsAjax = true;
+    WorkerInRole workerInRole = Model.WorkerInRole;
+}
+<script>
+    function getWorkerId() {
+        var id = $('#ID').val();
+        return {
+            workerId: id
+        }
+    }
+</script>
+
+@using (Html.BeginForm(Constants.Actions.SaveAjax, Constants.Controllers.Worker, new { area = Constants.Areas.WorkerManagement }, FormMethod.Post, new { id = "frmEditorWorker" }))
+{
+    @Html.Partial(Constants.PartialViews.CreateOrEdit, Model)
+}
+
+<div class="container candidate-list-main-container">
+    <div id="row">
+        <div class="col-lg-12 col-md-12 candidate-table-bg">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 candidate-on-map">
+                    <div class="row">
+                        <div class="col-md-12 font-13 text-uppercase" style="padding-top: 6px; padding-right: 0;">
+                            <label>
+                                <i class="fa fa-user"></i>Add Roles
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="divWorkerInRoleContainer">
+                @Html.Partial(Constants.PartialViews.WorkerInRole, workerInRole)
+            </div>
+            <div class="row margin-top-10">
+                @(Html.Kendo().Grid<WorkerInRole>()
+        .Name("GridWorkerInRole")
+        .Columns(columns =>
+        {
+            columns.Bound(c => c.ProgramName).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(c => c.WorkerRoleName).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(c => c.RegionName).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(c => c.SubProgramNames).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(c => c.EffectiveFrom).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(c => c.EffectiveTo).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(p => p.ErrorMessage).ClientTemplate("<a name='lnkEditor' data-container='divWorkerInRoleContainer' href='/WorkerManagement/WorkerInRole/EditorAjax/#= ID #' class='fa fa-edit' title='Edit'></a>&nbsp;<a name='lnkDelete' id='lnkDeleteWorkerInRole' href='/WorkerManagement/WorkerInRole/DeleteAjax/#= ID #' class='fa fa-times' title='Delete'></a>").Width("10%").HtmlAttributes(new { @class = "grid-actions-content" }).HeaderTemplate("<center>Actions</center>").HeaderHtmlAttributes(new { @class = "grid-actions-content" });
+        })
+        .DataSource(dataSource => dataSource
+        .Ajax()
+        .Read(read => read.Action("IndexAjax", "WorkerInRole").Data("getWorkerId"))
+        .PageSize(50)
+        )
+        .Pageable()
+        .Sortable()
+)
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+<div id="add_candidate3" style="margin-left: 90px">
+    <a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.Worker)" class="btn btn-primary"><i class="fa fa-long-arrow-left"></i>Back to Worker List</a>
+</div>

@@ -1,0 +1,10 @@
+@model eCMS.DataLogic.Models.CaseSmartGoalProgress
+
+@{
+    ViewBag.Title = "Create New Case Smart Goal Progress";
+}
+@using (Html.BeginForm("Create", "CaseSmartGoalProgress", new { area = "CaseManagement" }, FormMethod.Post, new { id="frmEditor", @class="horizontal-form" }))
+{
+    @Html.Partial(eCMS.Shared.Constants.PartialViews.Alert)
+    @Html.Partial("_CreateOrEdit", Model)
+}

@@ -1,0 +1,14 @@
+@model String
+@if(ViewData.ModelMetadata.IsRequired)
+{
+@(Html.TextArea("", ViewData.TemplateInfo.FormattedModelValue,
+                     new { @class = "form-control form-space", placeholder = ViewData.ModelMetadata.Watermark,required="true" })
+)
+}
+else
+{
+    @(Html.TextArea("", ViewData.TemplateInfo.FormattedModelValue,
+                     new { @class = "form-control form-space", placeholder = ViewData.ModelMetadata.Watermark })
+)
+}
+

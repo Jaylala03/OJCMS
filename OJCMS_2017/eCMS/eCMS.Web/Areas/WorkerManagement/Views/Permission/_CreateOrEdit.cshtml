@@ -1,0 +1,98 @@
+@model eCMS.DataLogic.Models.Permission
+@using eCMS.BusinessLogic.Helpers
+@using eCMS.DataLogic.Models
+@using eCMS.Shared
+@if (Model.ID > 0)
+{
+    Model.IsAjax = true;
+}
+else
+{
+    Model.IsAjax = false;
+}
+<div class="container candidate-list-main-container">
+    <div class="row">
+        <div class="col-lg-12 col-md-11 candidate-table-bg">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 candidate-on-map">
+                    <div class="row">
+                        <div class="col-md-12 font-13 text-uppercase" style="padding-top: 6px; padding-right: 0;">
+                            @if (Model.ID == 0)
+                            {
+                                <label>
+                                    <i class="fa fa-user"></i>Add Permission
+                                </label>
+                            }
+                            else
+                            {
+                                <label>
+                                    <i class="fa fa-user"></i>Update Permission
+                                </label>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @Html.HiddenFor(model => model.ID)
+            @Html.HiddenFor(model => model.CreateDate)
+            <div class="row">
+                <div class="col-md-12">
+                    <label class="col-sm-4 control-label labe-text">@Html.LabelFor(model => model.Name)</label>
+                    <div class="col-sm-8">
+                        @Html.EditorFor(model => model.Name, new { @class = "form-control popup-text-box" })
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <label class="col-sm-4 control-label labe-text">@Html.LabelFor(model => model.Description)</label>
+                    <div class="col-sm-8">
+                        @Html.EditorFor(model => model.Description, new { @class = "form-control popup-text-box" })
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <label class="col-sm-4 control-label labe-text">@Html.LabelFor(model => model.IsActive)</label>
+                    <div class="col-sm-2">
+                        @Html.EditorFor(model => model.IsActive)
+                    </div>
+                    <div class="col-sm-2 ">
+                        <div class="form-group02">
+                            <label class="control-label labe-text margin-right-10">@Html.LabelFor(model => model.IsAllCases)</label>
+                            @Html.EditorFor(model => model.IsAllCases)
+                        </div>
+                    </div>
+                    @*<div class="col-sm-2 ">
+                        <div class="form-group02">
+                            <label class="control-label labe-text margin-right-10">@Html.LabelFor(model => model.IsAllRegions)</label>
+                            @Html.EditorFor(model => model.IsAllRegions)
+                        </div>
+                    </div>*@
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <label class="col-sm-4 control-label labe-text">
+                        @Html.LabelFor(model => model.ActionMethodIDs)
+                    </label>
+                    <div class="col-sm-8">
+                        <input id="AssignedPermissionAction" name="AssignedPermissionAction" type="hidden" value="">
+                        @{Html.RenderPartial("~/Areas/WorkerManagement/Views/Permission/_PermissionAction.cshtml");}
+                    </div>
+                </div>
+                <div id="add_candidate3">
+                    @if (Model.IsAjax)
+                    {
+                        <button class="btn btn-primary" id="btnSave" name="btnSavePermission"><i class="fa fa-save"></i> Update</button>
+                        <a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.Permission)" class="btn btn-primary"><i class="fa fa-long-arrow-left"></i> Back to Permission List</a>
+                    }
+                    else
+                    {
+                        <button type="submit" class="btn btn-primary" name="btnSave"><i class="fa fa-save"></i> Save & Continue <i class="fa fa-long-arrow-right"></i></button>
+                        <a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.Permission)" class="btn btn-primary"><i class="fa fa-long-arrow-left"></i> Back to Permission List</a>
+                    }
+
+                </div>
+                <br class="clear" />
+            </div>
+        </div>
+    </div>
+</div>

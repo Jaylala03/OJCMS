@@ -1,0 +1,66 @@
+@model eCMS.DataLogic.Models.CaseAction
+@using EasySoft.Helper;
+@using eCMS.Shared;
+@using eCMS.DataLogic.Models;
+@{
+    ViewBag.Title = "Case Smart Goal Progress";
+    Layout = "~/Areas/CaseManagement/Views/Shared/_LayoutCase2.cshtml";
+}
+@section headsection
+{
+    @Styles.Render("~/assets/plugins/kendo/css")
+    @Scripts.Render("~/assets/plugins/kendo/js")
+}
+<div class="container bulk-import">
+    <div id="dvAjaxAlertContainer" class="margin-top-10">
+    </div>
+    <div class="row margin-top-20">
+        <div class="col-md-12">
+            <div class="content-box">
+                <span class="section-title" style="width: 350px!important;">Measurable Goal</span>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <h3>@Model.CaseSmartGoal.SmartGoalName</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row margin-top-20">
+        <div class="col-md-12">
+            <div class="content-box">
+                <span class="section-title" style="width: 350px!important;">Open Actions</span>
+                @(Html.Kendo().Grid<CaseAction>()
+        .Name("GridCaseAction")
+        .Columns(columns =>
+        {
+            columns.Bound(p => p.ErrorMessage).ClientTemplate("<input type='checkbox' name='chkCaseAction' id='chkCaseAction' value='#= ID #'>").Width("5%").Title("");
+            columns.Bound(c => c.Action).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(c => c.CaseWorkerName).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(c => c.ActionStartTime).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(c => c.ActionEndTime).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(p => p.ErrorMessage).ClientTemplate("<a name='lnkDelete' id='lnkDeleteCaseAction' href='/CaseManagement/CaseAction/DeleteAjax/#= ID #' class='fa fa-times' title='Delete'></a>").Width("10%").HtmlAttributes(new { @class = "grid-actions-content" }).HeaderTemplate("<center>Actions</center>").HeaderHtmlAttributes(new { @class = "grid-actions-content" });
+        })
+        .DataSource(dataSource => dataSource
+        .Ajax()
+        .Read(read => read.Action("IndexAjax", "CaseAction", new { isCompleted = false, noteId = 0,casesmartgoalId=Model.CaseSmartGoalID,caseId=Model.CaseID,includeServiceProviderAction=true }))
+        .PageSize(50)
+        )
+        .Pageable()
+        .Sortable()
+)
+                <div class="clearfix"></div>
+                <div class="row margin-top-20">
+                    <div class="col-md-12">
+                        <button class="btn btn-primary" id="btnCloseAction"> Close Action(s)</button>
+                        <a class="btn btn-primary" href="@Url.Action(Constants.Actions.Index, Constants.Controllers.CaseSmartGoalProgress, new { casesmartgoalId=Model.CaseSmartGoalID, CaseID=Model.CaseSmartGoal.CaseID, CaseMemberID=Model.CaseMemberID })"> Cancel</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

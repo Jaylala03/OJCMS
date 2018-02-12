@@ -1,0 +1,319 @@
+@model eCMS.DataLogic.Models.CaseMember
+@using eCMS.BusinessLogic.Helpers
+@using eCMS.DataLogic.Models
+@using eCMS.Shared
+@using EasySoft.Helper
+@*@{
+    string displaySelf = "display:none;";
+    if(Model.RelationshipStatusID==16)
+    {
+        displaySelf = String.Empty;
+    }
+}*@
+<div id="dvAjaxAlertContainer">
+    @Html.Partial(Constants.PartialViews.Alert)
+</div>
+@Html.HiddenFor(model => model.ID)
+@*@Html.HiddenFor(model => model.CaseID)*@
+@Html.HiddenFor(model => model.CreateDate)
+@Html.HiddenFor(model => model.CreatedByWorkerID)
+@Html.HiddenFor(model => model.IsActive)
+<div class="row">
+   
+    <div class="col-md-6">
+        <div class="form-group02">
+            <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.LastName)</label>
+            <div class="col-sm-8">
+                @Html.EditorFor(model => model.LastName)
+            </div>
+        </div>
+        <div class="form-group02">
+            <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.EnrollDate)</label>
+            <div class="col-sm-8">
+                @Html.EditorFor(model => model.EnrollDate)
+            </div>
+        </div>
+     @*   <div class="form-group02">
+            <label class="col-sm-4 control-label labe-text">@Html.LabelFor(model => model.IsPrimary)</label>
+            <div class="col-sm-8">
+                @Html.EditorFor(model => model.IsPrimary)
+            </div>
+        </div>*@
+
+    </div>
+    <div class="col-md-6">
+        <div class="form-group02">
+            <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.FirstName)</label>
+            <div class="col-sm-8">
+                @Html.EditorFor(model => model.FirstName)
+            </div>
+        </div>
+        <div class="form-group02">
+            <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.MemberStatusID)</label>
+            <div class="col-sm-8">
+                @(Html.Kendo().DropDownListFor(model => model.MemberStatusID)
+                                .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                            .DataTextField("Text")
+                            .DataValueField("Value")
+                            .DataSource(source =>
+                            {
+                                source.Read(read =>
+                                {
+                                    read.Action("LoadMemberStatusAjax", "CaseMember");
+                                });
+                            })
+                            .Events(e=>e.Open("onRequestEnd"))
+                         )
+            </div>
+        </div>
+        <div class="form-group02">
+            <label class="col-sm-4 control-label labe-text">@Html.LabelFor(model => model.RelationshipStatusID)</label>
+            @if (Model.RelationshipStatusOther.IsNotNullOrEmpty())
+            {
+                <div class="col-sm-4" id="divRelationshipStatus">
+                    @(Html.Kendo().DropDownListFor(model => model.RelationshipStatusID)
+                                    .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                                    .Events(e=>e.Change("DropDownListOther_OnChange"))
+                                .DataTextField("Text")
+                                .DataValueField("Value")
+                                .DataSource(source =>
+                                {
+                                    source.Read(read =>
+                                    {
+                                        read.Action("LoadRelationshipStatusAjax", "CaseMember");
+                                    });
+                                })
+                                .Events(e=>e.Open("onRequestEnd1"))
+                             )
+                </div>
+                <div class="col-sm-4" id="divRelationshipStatusOther">
+                    @Html.EditorFor(model => model.RelationshipStatusOther)
+                </div>
+            }
+            else
+            {
+                <div class="col-sm-8" id="divRelationshipStatus">
+                    @(Html.Kendo().DropDownListFor(model => model.RelationshipStatusID)
+                                    .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                                    .Events(e=>e.Change("DropDownListOther_OnChange"))
+                                .DataTextField("Text")
+                                .DataValueField("Value")
+                                .DataSource(source =>
+                                {
+                                    source.Read(read =>
+                                    {
+                                        read.Action("LoadRelationshipStatusAjax", "CaseMember");
+                                    });
+                                })
+                                .Events(e=>e.Open("onRequestEnd1"))
+                             )
+                </div>
+                <div class="col-sm-4 hide" id="divRelationshipStatusOther">
+                    @Html.EditorFor(model => model.RelationshipStatusOther)
+                </div>
+            }
+        </div>
+    </div>
+</div>
+@*<div class="row" id="selfDiv" style="@displaySelf">*@ 
+<div class="row" id="selfDiv">
+    <div class="col-md-6">
+        <div class="form-group02">
+            <label class="col-sm-4 control-label labe-text">@Html.LabelFor(model => model.LanguageID)</label>
+            @if (Model.LanguageOther.IsNotNullOrEmpty())
+            {
+                <div class="col-sm-4" id="divLanguage">
+                    @(Html.Kendo().DropDownListFor(model => model.LanguageID)
+                                    .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                                    .Events(e=>e.Change("DropDownListOther_OnChange"))
+                                .DataTextField("Text")
+                                .DataValueField("Value")
+                                .DataSource(source =>
+                                {
+                                    source.Read(read =>
+                                    {
+                                        read.Action("LoadLanguagesAjax", "CaseMember");
+                                    });
+                                })
+                                .Events(e=>e.Open("onRequestEnd2"))
+                             )
+                </div>
+                <div class="col-sm-4" id="divLanguageOther">
+                    @Html.EditorFor(model => model.LanguageOther)
+                </div>
+            }
+            else
+            {
+                <div class="col-sm-8" id="divLanguage">
+                    @(Html.Kendo().DropDownListFor(model => model.LanguageID)
+                                    .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                                    .Events(e=>e.Change("DropDownListOther_OnChange"))
+                                .DataTextField("Text")
+                                .DataValueField("Value")
+                                .DataSource(source =>
+                                {
+                                    source.Read(read =>
+                                    {
+                                        read.Action("LoadLanguagesAjax", "CaseMember");
+                                    });
+                                })
+                                .Events(e=>e.Open("onRequestEnd2"))
+                             )
+                </div>
+                <div class="col-sm-4 hide" id="divLanguageOther">
+                    @Html.EditorFor(model => model.LanguageOther)
+                </div>
+            }
+        </div>
+        <div class="form-group02">
+            <label class="col-sm-4 control-label labe-text">@Html.LabelFor(model => model.CommunicationLanguageID)</label>
+            @if (Model.CommunicationLanguageOther.IsNotNullOrEmpty())
+            {
+                <div class="col-sm-4" id="divCommunicationLanguage">
+                    @(Html.Kendo().DropDownListFor(model => model.CommunicationLanguageID)
+                                    .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                                    .Events(e=>e.Change("DropDownListOther_OnChange"))
+                                .DataTextField("Text")
+                                .DataValueField("Value")
+                                .DataSource(source =>
+                                {
+                                    source.Read(read =>
+                                    {
+                                        read.Action("LoadLanguagesAjax", "CaseMember");
+                                    });
+                                })
+                                .Events(e=>e.Open("onRequestEnd3"))
+                             )
+                </div>
+                <div class="col-sm-4" id="divCommunicationLanguageOther">
+                    @Html.EditorFor(model => model.CommunicationLanguageOther)
+                </div>
+            }
+            else
+            {
+                <div class="col-sm-8" id="divCommunicationLanguage">
+                    @(Html.Kendo().DropDownListFor(model => model.CommunicationLanguageID)
+                                    .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                                    .Events(e=>e.Change("DropDownListOther_OnChange"))
+                                .DataTextField("Text")
+                                .DataValueField("Value")
+                                .DataSource(source =>
+                                {
+                                    source.Read(read =>
+                                    {
+                                        read.Action("LoadLanguagesAjax", "CaseMember");
+                                    });
+                                })
+                                .Events(e=>e.Open("onRequestEnd3"))
+                             )
+                </div>
+                <div class="col-sm-4 hide" id="divCommunicationLanguageOther">
+                    @Html.EditorFor(model => model.CommunicationLanguageOther)
+                </div>
+            }
+        </div>
+        <div class="form-group02">
+            <label class="col-sm-4 control-label labe-text">@Html.LabelFor(model => model.DateOfBirth)</label>
+            <div class="col-sm-8">
+                @Html.EditorFor(model => model.DateOfBirth)
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group02">
+            <label class="col-sm-4 control-label labe-text">@Html.LabelFor(model => model.GenderID)</label>
+            <div class="col-sm-8">
+                @(Html.Kendo().DropDownListFor(model => model.GenderID)
+                                .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                            .DataTextField("Text")
+                            .DataValueField("Value")
+                            .DataSource(source =>
+                            {
+                                source.Read(read =>
+                                {
+                                    read.Action("LoadGendersAjax", "CaseMember");
+                                });
+                            })
+                            .Events(e=>e.Open("onRequestEnd4"))
+                         )
+            </div>
+        </div>
+        <div class="form-group02">
+            <label class="col-sm-4 control-label labe-text">@Html.LabelFor(model => model.CaseEthinicity)</label>
+            @if (Model.EthnicityOther.IsNotNullOrEmpty())
+            {
+                <div class="col-sm-4" id="divEthnicity">
+                    @(Html.Kendo().MultiSelectFor(model => model.CaseEthinicity)
+                                   // .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                                    .Events(e => e.Change("DropDownListEthnicity_OnChange"))
+                                     .MaxSelectedItems(5)
+                                .DataTextField("Text")
+                                .DataValueField("Value")
+                                .DataSource(source =>
+                                {
+                                    source.Read(read =>
+                                    {
+                                        read.Action("LoadEthnicityAjax", "CaseMember");
+                                    });
+                                })
+                                .Events(e=>e.Open("onRequestEnd5"))
+                             )
+                </div>
+                <div class="col-sm-4" id="divEthnicityOther">
+                    @Html.EditorFor(model => model.EthnicityOther)
+                </div>
+            }
+            else
+            {
+                <div class="col-sm-8" id="divEthnicity">
+                    @(Html.Kendo().MultiSelectFor(model => model.CaseEthinicity)
+                                  //  .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                                    .Events(e=>e.Change("DropDownListEthnicity_OnChange"))
+                                .DataTextField("Text")
+                                .DataValueField("Value")
+                                .DataSource(source =>
+                                {
+                                    source.Read(read =>
+                                    {
+                                        read.Action("LoadEthnicityAjax", "CaseMember");
+                                    });
+                                })
+                                .Events(e=>e.Open("onRequestEnd5"))
+                             )
+                </div>
+                <div class="col-sm-4 hide" id="divEthnicityOther">
+                    @Html.EditorFor(model => model.EthnicityOther)
+                </div>
+            }
+            
+        </div>        
+        <div class="form-group02">
+            <label class="col-sm-4 control-label labe-text">@Html.LabelFor(model => model.MaritalStatusID)</label>
+            <div class="col-sm-8">
+                @(Html.Kendo().DropDownListFor(model => model.MaritalStatusID)
+                                .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                            .DataTextField("Text")
+                            .DataValueField("Value")
+                            .DataSource(source =>
+                            {
+                                source.Read(read =>
+                                {
+                                    read.Action("LoadMaritalStatusAjax", "CaseMember");
+                                });
+                            })
+                            .Events(e=>e.Open("onRequestEnd5"))
+                         )
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group02">
+            <label class="col-sm-2 control-label labe-text">@Html.LabelFor(model => model.Comments)</label>
+            <div class="col-sm-10">
+                @Html.TextAreaFor(model => model.Comments, new { @class = "form-control ckeditor", style = "width:95%; height: 50px;", rows = "3" })
+            </div>
+        </div>
+    </div>
+</div>

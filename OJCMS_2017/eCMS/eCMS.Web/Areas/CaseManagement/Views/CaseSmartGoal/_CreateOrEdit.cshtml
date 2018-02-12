@@ -1,0 +1,342 @@
+@model eCMS.DataLogic.Models.CaseSmartGoal
+@using eCMS.BusinessLogic.Helpers
+@using eCMS.DataLogic.Models
+@using eCMS.DataLogic.Models.Lookup
+@using eCMS.Shared
+@* This partial view defines form fields that will appear when creating and editing entities *@
+@Html.Partial(Constants.PartialViews.Alert)
+@Html.HiddenFor(model => model.ID)
+@Html.HiddenFor(model => model.CaseID)
+@Html.HiddenFor(model => model.CreateDate)
+@Html.HiddenFor(model => model.CreatedByWorkerID)
+@Html.HiddenFor(model => model.CaseMemberID)
+@Html.HiddenFor(model => model.CaseGoalID)
+@Html.HiddenFor(model=>model.ServiceLevelOutcomeID)
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group02">
+            <label class="col-sm-6 control-label labe-text">@Html.LabelRequiredFor(model => model.QualityOfLifeCategoryID)</label>
+            @if (Model.ID > 0)
+            {
+                <div class="col-sm-6">
+                    @Html.HiddenFor(model => model.QualityOfLifeCategoryID)
+                    @(Html.Kendo().DropDownList()
+                            .Name("QualityOfLifeCategoryName")
+                            .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                            .DataTextField("Text")
+                            .DataValueField("Value")
+                            .Enable(false)
+                                    .Events(e => e.Change("SmartGoalQualityOfLifeCategoryDropDownList_OnChanged"))
+                            .DataSource(source =>
+                            {
+                                source.Read(read =>
+                                {
+                                    read.Action("LoadQualityOfLifeCategoryListForGoalAjax", "CaseSmartGoal", new { caseGoalID = Model.CaseGoalID });
+                                });
+                            })
+                            .Value(Model.QualityOfLifeCategoryID.ToString())
+                        )
+                </div>
+            }
+            else
+            {
+                <div class="col-sm-6">
+                    @(Html.Kendo().DropDownListFor(model => model.QualityOfLifeCategoryID)
+                            .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                            .DataTextField("Text")
+                            .DataValueField("Value")
+                                    .Events(e => e.Change("SmartGoalQualityOfLifeCategoryDropDownList_OnChanged"))
+                            .DataSource(source =>
+                            {
+                                source.Read(read =>
+                                {
+                                    read.Action("LoadQualityOfLifeCategoryListForGoalAjax", "CaseSmartGoal", new { caseGoalID = Model.CaseGoalID });
+                                });
+                            })
+                        )
+                </div>
+            }
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group02">
+            <label class="col-sm-6 control-label labe-text">@Html.LabelRequiredFor(model => model.StartDate)</label>
+            <div class="col-sm-6">
+                @Html.EditorFor(model => model.StartDate)
+            </div>
+        </div>
+    </div>
+    @*<div class="col-md-6">
+        <div class="form-group02">
+            <label class="col-sm-6 control-label labe-text">@Html.LabelRequiredFor(model => model.ServiceLevelOutcomeID)</label>
+            <div class="col-sm-6">
+                @(Html.Kendo().DropDownListFor(model => model.ServiceLevelOutcomeID)
+                        .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                        .DataTextField("Text")
+                        .DataValueField("Value")
+                        .DataSource(source =>
+                        {
+                            source.Read(read =>
+                            {
+                                read.Action("LoadServiceLevelOutcomeListAjax", "CaseSmartGoal");
+                            });
+                        })
+                    )
+            </div>
+        </div>
+    </div>*@
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group02">
+            <label class="col-sm-6 control-label labe-text">@Html.LabelRequiredFor(model => model.EndDate)</label>
+            <div class="col-sm-6">
+                @Html.EditorFor(model => model.EndDate)
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group02">
+            <label class="col-sm-6 control-label labe-text">@Html.LabelFor(model => model.IsCompleted)</label>
+            <div class="col-sm-6">
+                @Html.EditorFor(model => model.IsCompleted)
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="content-box">
+            <span class="section-title" style="width: 350px!important;">Issues</span>
+            @(Html.Kendo().Grid<CaseAssessmentLivingCondition>()
+        .Name("GridCaseAssessmentLivingCondition")
+        .HtmlAttributes(new { style = "width:98%;" })
+        .Columns(columns =>
+        {
+            columns.Bound(c => c.Note).Title("Issue").Width("90%").Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(c => c.LastUpdateDate).Title("Issued On").Width("10%").Sortable(true).Groupable(false).Filterable(false);
+        })
+        .DataSource(dataSource => dataSource
+        .Ajax()
+        .Read(read => read.Action("CaseAssessmentLivingConditionIndexAjax", "CaseSmartGoal").Data("GridCaseAssessmentLivingConditionParameter"))
+        .PageSize(50)
+        )
+        .Pageable()
+        .Sortable()
+)
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="content-box">
+            <span class="section-title" style="width: 350px!important;">Measurable Goals</span>
+            @if (ViewBag.SmartGoalList != null)
+            {
+                <div class="row margin-top-5 margin-bottom-10" style="font-weight:bolder;">
+                    <div class="col-md-5">
+                        Measurable Goal
+                    </div>
+                    <div class="col-md-2">
+                        Target Start Date
+                    </div>
+                    <div class="col-md-2">
+                        Target End Date
+                    </div>
+                    <div class="col-md-3">
+                        Comments
+                    </div>
+                </div>
+                foreach (CaseSmartGoalAssignment smartGoal in ViewBag.SmartGoalList)
+                {
+                    <div class="row margin-top-5 margin-bottom-5">
+                        <div class="col-md-5">
+                            @if (@smartGoal.SmartGoalName == "Other")
+                            {
+                                <input type="checkbox" @smartGoal.Checked name="SmartGoalIDs" onclick = 'CheckOtherClick(this);' id="chkSmartGoalIDs@(smartGoal.SmartGoalID)" value="@smartGoal.SmartGoalID" /> @smartGoal.SmartGoalName 
+                                if (@smartGoal.Checked == "checked")
+                                {
+                                    <div id="divSmartGoalOther" class="margin-top-10" >
+                                        @Html.TextBox("SmartGoalOther" + smartGoal.SmartGoalID, smartGoal.SmartGoalOther, new { @class = "form-control" })
+                                    </div>
+                                 }
+                                else
+                                {
+                                    <div id="divSmartGoalOther" class="margin-top-10 hide" >
+                                        @Html.TextBox("SmartGoalOther" + smartGoal.SmartGoalID, smartGoal.SmartGoalOther, new { @class = "form-control" })
+                                    </div>
+                                }                                        
+                            }
+                            else
+                            {
+                                <input type="checkbox" @smartGoal.Checked name="SmartGoalIDs" id="chkSmartGoalIDs@(smartGoal.SmartGoalID)" value="@smartGoal.SmartGoalID" /> @smartGoal.SmartGoalName
+                            }
+                        </div>
+                        <div class="col-md-2">
+                            @(Html.Kendo().DatePicker()
+        .Name("SmartGoalStartDate" + smartGoal.SmartGoalID)
+        .HtmlAttributes(new { id = "SmartGoalStartDate" + smartGoal.SmartGoalID, style = "width:94%;" })
+        .Value(smartGoal.StartDate)
+)
+                        </div>
+                        <div class="col-md-2">
+                            @(Html.Kendo().DatePicker()
+        .Name("SmartGoalEndDate" + smartGoal.SmartGoalID)
+        .HtmlAttributes(new { id = "SmartGoalEndDate" + smartGoal.SmartGoalID, style = "width:94%;" })
+        .Value(smartGoal.EndDate)
+)
+                        </div>
+                        <div class="col-md-3">
+                            @Html.TextBox("Comment" + smartGoal.SmartGoalID, smartGoal.Comment, new { @class = "form-control" })
+                        </div>
+                    </div>
+                }
+            }
+            @*@(Html.Kendo().ListView<SmartGoal>()
+                      .Name("ListViewSmartGoal")
+                      .TagName("div")
+                      .ClientTemplateId("SmartGoalTemplate")
+                      .DataSource(dataSource => dataSource
+                          .Read(read => read.Action("LoadSmartGoalAjax", "CaseSmartGoal", new { smartGoalID=Model.ID }).Data("ListViewSmartGoalParameter"))
+                      )
+                      .Pageable(paging => paging.Enabled(false))
+                        )*@
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+@*<div class="sub-menu margin-top-30">
+    <div class="container">
+        <div class="row">
+            <div class="text-center font-11 col-md-12">
+                <ul class="candidate-list-sub-menu">
+                    <li style="width: 250px;" class="menu-item active"><a id="lnkServicesCurrentyProposed" name="lnkServices" href="#" title="Services">Proposed New Services</a></li>
+                    <li style="width: 250px;" class="menu-item hide"><a id="lnkServicesCurrentyUsed" name="lnkServices" href="#" title="Goals">Services Currenty Used</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row hide" id="divServicesCurrentyUsed">
+    <div class="col-md-12">
+        <div class="content-box">
+            <div class="row">
+                <div class="col-md-6" style="overflow:scroll; height:250px;">
+                    <h5><strong>Internal Service</strong></h5>
+                    @if (ViewBag.UsedInternalService != null)
+                    {
+                        foreach (CaseSmartGoalServiceProvider item in ViewBag.UsedInternalService)
+                        {
+                        <div class="col-sm-12">
+                            @if (item.ID > 0 && item.IsUsed)
+                            {
+                                <input type="checkbox" checked="checked" name="UsedInternalServiceProviderIDs" id="chkUsedInternalServiceProviderIDs_@item.ServiceProviderID" value="@item.ServiceProviderID" /> @item.ServiceProviderName
+                            }
+                            else
+                            {
+                                <input type="checkbox" name="UsedInternalServiceProviderIDs" id="chkUsedInternalServiceProviderIDs_@item.ServiceProviderID" value="@item.ServiceProviderID" /> @item.ServiceProviderName
+                            }
+                        </div>
+                        }
+                    }
+                </div>
+                <div class="col-md-5" style="overflow:scroll; height:250px;">
+                    <h5><strong>External Service</strong></h5>
+                    @if (ViewBag.UsedExternalService != null)
+                    {
+                        foreach (CaseSmartGoalServiceProvider item in ViewBag.UsedExternalService)
+                        {
+                        <div class="col-sm-12">
+                            @if (item.ID > 0 && item.IsUsed)
+                            {
+                                <input type="checkbox" checked="checked" name="UsedExternalServiceProviderIDs" id="chkUsedExternalServiceProviderIDs_@item.ServiceProviderID" value="@item.ServiceProviderID" /> @item.ServiceProviderName
+                            }
+                            else
+                            {
+                                <input type="checkbox" name="UsedExternalServiceProviderIDs" id="chkUsedExternalServiceProviderIDs_@item.ServiceProviderID" value="@item.ServiceProviderID" /> @item.ServiceProviderName
+                            }
+                        </div>
+                        }
+                    }
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<div class="row" id="divServicesCurrentyProposed">
+    <div class="col-md-12">
+        <div class="content-box">
+            <div class="row">
+                <div class="col-md-6" style="overflow:scroll; height:250px;">
+                    <h5><strong>Internal Service</strong></h5>
+                    @if (ViewBag.UsedInternalService != null)
+                    {
+                        foreach (CaseSmartGoalServiceProvider item in ViewBag.UsedInternalService)
+                        {
+                        <div class="col-sm-12">
+                            @if (item.ID > 0 && !item.IsUsed)
+                            {
+                                <input type="checkbox" checked="checked" name="ProposedInternalServiceProviderIDs" id="chkProposedInternalServiceProviderIDs_@item.ServiceProviderID" value="@item.ServiceProviderID" /> @item.ServiceProviderName
+                            }
+                            else
+                            {
+                                <input type="checkbox" name="ProposedInternalServiceProviderIDs" id="chkProposedInternalServiceProviderIDs_@item.ServiceProviderID" value="@item.ServiceProviderID" /> @item.ServiceProviderName
+                            }
+                        </div>
+                        }
+                    }
+                </div>
+                <div class="col-md-6" style="overflow:scroll; height:250px;">
+                    <h5><strong>External Service</strong></h5>
+                    @if (ViewBag.UsedExternalService != null)
+                    {
+                        foreach (CaseSmartGoalServiceProvider item in ViewBag.UsedExternalService)
+                        {
+                        <div class="col-sm-12">
+                            @if (item.ID > 0 && !item.IsUsed)
+                            {
+                                <input type="checkbox" checked="checked" name="ProposedExternalServiceProviderIDs" id="chkProposedExternalServiceProviderIDs_@item.ServiceProviderID" value="@item.ServiceProviderID" /> @item.ServiceProviderName
+                            }
+                            else
+                            {
+                                <input type="checkbox" name="ProposedExternalServiceProviderIDs" id="chkProposedExternalServiceProviderIDs_@item.ServiceProviderID" value="@item.ServiceProviderID" /> @item.ServiceProviderName
+                            }
+                        </div>
+                        }
+                    }
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>*@
+<div id="add_candidate3">
+    @if (Model.ID == 0)
+    {
+        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Add & Continue <i class="fa fa-long-arrow-right"></i></button>
+    }
+    else
+    {
+        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Update & Continue <i class="fa fa-long-arrow-right"></i></button>
+    }
+    <a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.CaseGoal, new { CaseID = Model.CaseID })" class="btn btn-primary"><i class="fa fa-long-arrow-left"></i>Back to Goal List</a>
+</div>
+<br class="clear" />
+<script type="text/x-kendo-tmpl" id="SmartGoalTemplate">
+    <div class="row margin-top-5 margin-bottom-5">
+        <div class="col-md-6">
+            <input type="checkbox" #= Checked # name="SmartGoalIDs" id="chkSmartGoalIDs#= ID #" value="#= ID #" /> #= Name #
+        </div>
+        <div class="col-md-2">
+            <input id="txtSmartGoalStartDate#= ID #" name="SmartGoalStartDate" style="width:94%;" type="date" value="12/29/2015" /><script>
+        </div>
+        <div class="col-md-1">
+            <input id="txtSmartGoalEndDate#= ID #" name="SmartGoalEndDate" type="text" value="" class="form-control" />
+        </div>
+        <div class="col-md-3">
+            <input id="txtSmartGoalComment#= ID #" name="SmartGoalComment" type="text" value="" class="form-control" />
+        </div>
+    </div>
+</script>

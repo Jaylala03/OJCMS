@@ -1,0 +1,75 @@
+@model eCMS.DataLogic.Models.CaseAction
+@using eCMS.BusinessLogic.Helpers
+@using eCMS.DataLogic.Models
+@using eCMS.Shared
+@* This partial view defines form fields that will appear when creating and editing entities *@
+@Html.HiddenFor(model => model.ID)
+@Html.HiddenFor(model => model.CaseProgressNoteID)
+@Html.HiddenFor(model => model.CaseSmartGoalID)
+@Html.HiddenFor(model => model.CaseSmartGoalServiceProviderID)
+@*@Html.HiddenFor(model => model.CaseActionID)*@
+@Html.HiddenFor(model => model.CreateDate)
+@Html.HiddenFor(model => model.CreatedByWorkerID)
+@*@Html.HiddenFor(model=>model.CaseMemberIds)
+@Html.HiddenFor(model=>model.CaseMemberID)*@
+<div class="col-md-6 ">
+    
+    <div class="form-group02">
+        <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.CaseMemberWorkerID)</label>
+        <div class="col-sm-8">
+            @(Html.Kendo().DropDownListFor(model => model.CaseMemberWorkerID)
+            .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+            .DataTextField("Text")
+            .DataValueField("Value")
+            .DataSource(source =>
+            {
+                source.Read(read =>
+                {
+                    read.Action("LoadCaseWorkerMemberListAjax", "CaseProgressNote", new { caseID = Model.CaseID });
+                });
+            })
+           
+            )
+        </div>
+    </div>
+    <div class="form-group02">
+        <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.Action)</label>
+        <div class="col-sm-8">
+            @Html.TextAreaFor(model => model.Action, new { @class = "form-control",style = "width:95%; height: 100px;", rows = 4, cols = 100 })
+        </div>
+    </div>
+</div>
+<div class="col-md-6">
+    <div class="form-group02">
+        <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.ActionStartTime)</label>
+        <div class="col-sm-8">
+            @Html.EditorFor(model => model.ActionStartTime)
+        </div>
+    </div>
+    <div class="form-group02">
+        <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.ActionEndTime)</label>
+        <div class="col-sm-8">
+            @Html.EditorFor(model => model.ActionEndTime)
+        </div>
+    </div>
+    <div class="form-group02">
+        <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.IsCompleted)</label>
+        <div class="col-sm-8">
+            @Html.EditorFor(model => model.IsCompleted)
+        </div>
+    </div>
+    <div class="form-group02">
+        <div class="col-sm-3 col-sm-offset-3">
+            <div id="btnRefresh">
+                <a id="lnkEditCaseAction" name="lnkEdit" href="/CaseManagement/CaseAction/EditorAjax/0?CaseID=@Model.CaseID" class="btn btn-primary" title="RESET">&nbsp;&nbsp;RESET&nbsp;&nbsp;<i class="fa fa-refresh"></i></a>
+            </div>
+        </div>
+        <div class="col-sm-5">
+            <div id="btnSaveAndRefresh" name="btnSaveAndRefreshCaseAction">
+                <div class="customButton">
+                    <span>&nbsp;SAVE ACTION&nbsp;&nbsp;</span><i class="fa fa-plus"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

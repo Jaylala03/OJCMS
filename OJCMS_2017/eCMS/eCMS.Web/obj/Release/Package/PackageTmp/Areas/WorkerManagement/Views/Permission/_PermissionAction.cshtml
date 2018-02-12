@@ -1,0 +1,101 @@
+@model eCMS.DataLogic.Models.Permission
+@using eCMS.BusinessLogic.Helpers
+@using eCMS.DataLogic.Models.Lookup
+@using eCMS.DataLogic.Models
+@using eCMS.Shared
+<script type="text/javascript">
+    //function SetPermission(Module) {
+    //    var value = $("input[name=chk" + Module + "]").map(function () { return this.checked ? this.value : ""; }).get().join(",");
+    //    $('#' + Module).val(value);
+    //}
+</script>
+<style>
+    .padding-left0 {
+        padding-left: 0px !important;
+        text-transform: capitalize !important;
+    }
+
+    .controllerField {
+        padding: 0px;
+        background-color: #ddd;
+        border-bottom-right-radius: 5px;
+        border: 1px solid #ffffff;
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    .controllerTable {
+        background: #f0f0f0;
+        padding: 0px;
+        border: 1px solid #e6e6e6;
+        box-shadow: 0px 0px 8px 1px rgba(255, 255, 255, 0.75) inset;
+    }
+
+    .labelmargin {
+        margin: 0px;
+        margin-left: 10px;
+    }
+</style>
+<script>
+    $(function () {
+        $(document).on('click', '#btnCheckUnCheckAll', function () {
+            if ($(this).val() == 'Check All') {
+                $('.button input').prop('checked', true);
+                $(this).val('Uncheck All');
+            } else {
+                $('.button input').prop('checked', false);
+                $(this).val('Check All');
+            }
+        });
+    });
+</script>
+@if (Model.AllActionMethods != null)
+{
+    string strChecked = "";
+    var controllers = Model.AllActionMethods.Select(m => m.DisplayName).Distinct();
+
+    <div class="row margin-top-10">
+        <div class="col-md-2 margin-bottom-10">
+            <button class="btn btn-primary" id="btnCheckUnCheckAll" type="button" name="btnCheckUnCheckAll">Check/Uncheck All </button>
+        </div>
+    </div>
+
+    <div class="button">
+        @foreach (var controller in controllers)
+        {
+            var actions = Model.AllActionMethods.Where(a => a.DisplayName == @controller).OrderBy(a => a.ActionMethodName);
+
+            <div class="col-md-12 controllerTable">
+                <div class="col-md-12 padding-left0 controllerField">
+                    <label class="col-sm-12 control-label labe-text padding-left0 labelmargin">@controller</label>
+                </div>
+                <div class="col-md-12">
+
+                    @foreach (ActionMethod actionMethod in actions)
+                    {
+                        strChecked = "";
+                        if (Model.AssignedPermissionActions != null)
+                        {
+                            foreach (PermissionAction assignedPermissionAction in Model.AssignedPermissionActions)
+                            {
+                                if (actionMethod.ID == assignedPermissionAction.ActionMethodID)
+                                {
+                                    strChecked = "checked='checked'";
+                                    break;
+                                }
+                            }
+                        }
+                        @*<div class="col-sm-3">
+                                <input type="checkbox" name="chkAssignedPermissionAction" value="@actionMethod.ID" @strChecked onclick="SetPermission('AssignedPermissionAction');" />
+                                @actionMethod.ActionMethodName
+                            </div>*@
+                        <div class="col-sm-3">
+                            <input type="checkbox" name="ActionMethodIDs" value="@actionMethod.ID" @strChecked />
+                            @actionMethod.DisplayActionMethodName
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+
+}

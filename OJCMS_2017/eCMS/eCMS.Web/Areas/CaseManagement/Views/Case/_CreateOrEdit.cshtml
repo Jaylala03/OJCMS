@@ -1,0 +1,341 @@
+@model eCMS.DataLogic.Models.Case
+@using eCMS.BusinessLogic.Helpers
+@using eCMS.DataLogic.Models
+@using eCMS.Shared
+@using EasySoft.Helper
+<div id="dvAjaxAlertContainer">
+    @Html.Partial(Constants.PartialViews.Alert)
+</div>
+@Html.HiddenFor(model => model.ID)
+@Html.HiddenFor(model => model.DisplayID)
+@Html.HiddenFor(model => model.CreateDate)
+@Html.HiddenFor(model => model.CreatedByWorkerID)
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group02">
+            <label class="col-sm-4 control-label labe-text">@Html.LabelFor(model => model.CaseNumber)</label>
+            @if (Model.IsReadmit)
+            {
+                <div class="col-sm-8">
+                    @Html.TextBoxFor(model => model.CaseNumber, new { @class="form-control", disabled="disabled" })
+                </div>
+            }
+            else
+            {
+                <div class="col-sm-8">
+                    @Html.EditorFor(model => model.CaseNumber)
+                </div>
+            }
+        </div>
+        <div class="form-group02" title="Date the Confidentiality and Consent to Participate form signed">
+            <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.EnrollDate)</label>
+            <div class="col-sm-8">
+             
+                @Html.EditorFor(model => model.EnrollDate)
+            </div>
+        </div>
+        <div class="form-group02">
+            <label class="col-sm-4 control-label labe-text">@Html.LabelFor(model => model.ReferralDate)</label>
+            <div class="col-sm-8">
+                @Html.EditorFor(model => model.ReferralDate)
+            </div>
+        </div>
+        <div class="form-group02">
+            <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.ProgramID)</label>
+            <div class="col-sm-8">
+                 @(Html.Kendo().DropDownListFor(model => model.ProgramID)    
+                        .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                        .HtmlAttributes(new { @class = "drop_down_list" })
+                        .Events(e => e.Change("ProgramDropDownList_OnChanged"))                        
+                        .DataTextField("Text")
+                        .DataValueField("Value")
+                        .DataSource(source =>
+                        {
+                            source.Read(read =>
+                            {
+                                read.Action("LoadWorkerProgramsAjax", "Case");
+                            });
+                        })
+                    )
+            </div>
+        </div>        
+        <div class="form-group02">
+            <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.RegionID)</label>
+            <div class="col-sm-8" id="divRegion">
+                @(Html.Kendo().DropDownListFor(model => model.RegionID)
+                                .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                            .DataTextField("Text")
+                            .DataValueField("Value")
+                            .DataSource(source =>
+                            {
+                                source.Read(read =>
+                                {
+                                    read.Action("LoadWorkerRegionsAjax", "Case").Data("ProgramDropDownList_OnSelect");
+                                })
+                                .ServerFiltering(true);
+                            })
+                            .Enable(false)
+                            .AutoBind(false)
+                            .CascadeFrom("ProgramID")
+                            
+                         )
+            </div>
+        </div>
+        <div class="form-group02">
+            <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.SubProgramID)</label>
+            <div class="col-sm-8" id="divSubProgram">
+               @(Html.Kendo().DropDownListFor(model => model.SubProgramID)
+                    .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                    .DataTextField("Text")
+                    .DataValueField("Value")
+                    .DataSource(source =>
+                    {
+                        source.Read(read =>
+                        {
+                            read.Action("LoadWorkerSubProgramsAjax", "Case").Data("RegionAndProgramDropDownList_OnSelect");
+                        })
+                        .ServerFiltering(true);
+                    })
+                    .Enable(false)
+                    .AutoBind(false)
+                    .CascadeFrom("RegionID")
+                )
+            </div>
+        </div>
+        <div class="form-group02">
+            <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.JamatkhanaID)</label>
+            <div class="col-sm-8" id="divJamatkhana">
+                @(Html.Kendo().DropDownListFor(model => model.JamatkhanaID)    
+                    .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                    .DataTextField("Text")
+                    .DataValueField("Value")
+                    .DataSource(source =>
+                    {
+                        source.Read(read =>
+                        {
+                            read.Action("LoadJamatkhanasAjax", "Case") 
+                                .Data("RegionDropDownList_OnSelect"); ;
+                        })
+                        .ServerFiltering(true);
+                    })
+                    .Enable(false)
+                    .AutoBind(false)
+                    .CascadeFrom("RegionID")
+                )
+            </div>
+        </div>
+        <div class="form-group02">
+            <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.IntakeMethodID)</label>
+            @if (Model.IntakeMethodOther.IsNotNullOrEmpty())
+            {
+                <div class="col-sm-4" id="divIntakeMethod">
+                    @(Html.Kendo().DropDownListFor(model => model.IntakeMethodID)
+                                    .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                                    .Events(e=>e.Change("DropDownListOther_OnChange"))
+                                .DataTextField("Text")
+                                .DataValueField("Value")
+                                .DataSource(source =>
+                                {
+                                    source.Read(read =>
+                                    {
+                                        read.Action("LoadIntakeMethodsAjax", "Case");
+                                    });
+                                })
+                             )
+                </div>
+                <div class="col-sm-4" id="divIntakeMethodOther">
+                    @Html.EditorFor(model => model.IntakeMethodOther)
+                </div>
+            }
+            else
+            {
+                <div class="col-sm-8" id="divIntakeMethod">
+                    @(Html.Kendo().DropDownListFor(model => model.IntakeMethodID)
+                                    .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                                    .Events(e=>e.Change("DropDownListOther_OnChange"))
+                                .DataTextField("Text")
+                                .DataValueField("Value")
+                                .DataSource(source =>
+                                {
+                                    source.Read(read =>
+                                    {
+                                        read.Action("LoadIntakeMethodsAjax", "Case");
+                                    });
+                                })
+                             )
+                </div>
+                <div class="col-sm-4 hide" id="divIntakeMethodOther">
+                    @Html.EditorFor(model => model.IntakeMethodOther)
+                </div>
+            }
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group02">
+            <label class="col-sm-4 control-label labe-text">@Html.LabelFor(model => model.Address)</label>
+            <div class="col-sm-8">
+               @Html.EditorFor(model => model.Address)
+            </div>
+        </div>
+        <div class="form-group02">
+            <label class="col-sm-4 control-label labe-text">@Html.LabelFor(model => model.City)</label>
+            <div class="col-sm-8">
+                @Html.EditorFor(model => model.City)
+            </div>
+        </div>
+        <div class="form-group02">
+            <label class="col-sm-4 control-label labe-text">@Html.LabelFor(model => model.PostalCode)</label>
+            <div class="col-sm-8">
+                @Html.EditorFor(model => model.PostalCode)
+            </div>
+        </div>
+        <div class="form-group02">
+            <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.ReferralSourceID)</label>
+            @if (Model.ReferralSourceOther.IsNotNullOrEmpty())
+            {
+                <div class="col-sm-4" id="divReferralSource">
+                    @(Html.Kendo().DropDownListFor(model => model.ReferralSourceID)
+                                    .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                                    .Events(e=>e.Change("DropDownListOther_OnChange"))
+                                .DataTextField("Text")
+                                .DataValueField("Value")
+                                .DataSource(source =>
+                                {
+                                    source.Read(read =>
+                                    {
+                                        read.Action("LoadReferralSourcesAjax", "Case");
+                                    });
+                                })
+                             )
+                </div>
+                <div class="col-sm-4" id="divReferralSourceOther">
+                    @Html.EditorFor(model => model.ReferralSourceOther)
+                </div>
+            }
+            else
+            {
+                <div class="col-sm-8" id="divReferralSource">
+                    @(Html.Kendo().DropDownListFor(model => model.ReferralSourceID)
+                                    .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                                    .Events(e=>e.Change("DropDownListOther_OnChange"))
+                                .DataTextField("Text")
+                                .DataValueField("Value")
+                                .DataSource(source =>
+                                {
+                                    source.Read(read =>
+                                    {
+                                        read.Action("LoadReferralSourcesAjax", "Case");
+                                    });
+                                })
+                             )
+                </div>
+                <div class="col-sm-4 hide" id="divReferralSourceOther">
+                    @Html.EditorFor(model => model.ReferralSourceOther)
+                </div>
+            }
+        </div>
+        <div class="form-group02">
+            <label class="col-sm-4 control-label labe-text">@Html.LabelFor(model => model.ReferralSourceComments)</label>
+            <div class="col-sm-8">
+                @Html.EditorFor(model => model.ReferralSourceComments)
+            </div>
+        </div>
+        @*<div class="form-group02">
+            <label class="col-sm-4 control-label labe-text">@Html.LabelFor(model => model.HearingSourceID)</label>
+            @if (Model.HearingSourceOther.IsNotNullOrEmpty())
+            {
+                <div class="col-sm-4" id="divHearingSource">
+                    @(Html.Kendo().DropDownListFor(model => model.HearingSourceID)
+                                    .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                                    .Events(e=>e.Change("DropDownListOther_OnChange"))
+                                .DataTextField("Text")
+                                .DataValueField("Value")
+                                .DataSource(source =>
+                                {
+                                    source.Read(read =>
+                                    {
+                                        read.Action("LoadHearingSourcesAjax", "Case");
+                                    });
+                                })
+                             )
+                </div>
+                <div class="col-sm-4" id="divHearingSourceOther">
+                    @Html.EditorFor(model => model.HearingSourceOther)
+                </div>
+            }
+            else
+            {
+                <div class="col-sm-8" id="divHearingSource">
+                    @(Html.Kendo().DropDownListFor(model => model.HearingSourceID)
+                                    .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                                    .Events(e=>e.Change("DropDownListOther_OnChange"))
+                                .DataTextField("Text")
+                                .DataValueField("Value")
+                                .DataSource(source =>
+                                {
+                                    source.Read(read =>
+                                    {
+                                        read.Action("LoadHearingSourcesAjax", "Case");
+                                    });
+                                })
+                             )
+                </div>
+                <div class="col-sm-4 hide" id="divHearingSourceOther">
+                    @Html.EditorFor(model => model.HearingSourceOther)
+                </div>
+            }
+        </div>*@
+        <div class="form-group02">
+            <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.CaseStatusID)</label>
+            <div class="col-sm-8">
+                @(Html.Kendo().DropDownListFor(model => model.CaseStatusID)  
+                            .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                            .HtmlAttributes(new { @class = "drop_down_list" })
+                            .Events(e => e
+                                    .Change("DropDownList_OnChanged"))
+                            .DataTextField("Text") 
+                            .DataValueField("Value")
+                            .DataSource(source =>
+                            {
+                                source.Read(read =>
+                                {
+                                    read.Action("LoadCaseStatusAjax", "Case");
+                                });
+                            })
+                         )
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group02">
+            <label class="col-sm-2 control-label labe-text">@Html.LabelFor(model => model.Comments)</label>
+            <div class="col-sm-10">
+                @Html.TextAreaFor(model => model.Comments, new { @class = "form-control ckeditor", style = "width:95%; height: 50px;", rows = "3" })
+            </div>
+        </div>
+    </div>
+</div>
+<div id="add_candidate3">
+    @if (Model.IsReadmit)
+    {
+        <button type="submit" class="btn btn-primary" data-formid="frmEditorWorker" name="btnSave"><i class="fa fa-save"></i> Create Case & Add Member <i class="fa fa-long-arrow-right"></i></button>
+        <a href="@Url.Action(Constants.Actions.Index,Constants.Controllers.Case)" class="btn btn-primary"><i class="fa fa-long-arrow-left"></i> Cancel</a>
+    }
+    else
+    {
+        if (Model.IsAjax)
+        {
+            <button class="btn btn-primary btnSaveAndRefresh" data-formid="frmEditorWorker" name="btnSaveAndRefreshWorker"><i class="fa fa-save"></i> Update</button>
+            <a href="@Url.Action(Constants.Actions.Index,Constants.Controllers.Case)" class="btn btn-primary"><i class="fa fa-long-arrow-left"></i> Back to Case List</a>
+        }
+        else
+        {
+            <button type="submit" class="btn btn-primary btnSaveAndRefresh" data-formid="frmEditorWorker" name="btnSave"><i class="fa fa-save"></i> Save & Continue <i class="fa fa-long-arrow-right"></i></button>
+            <a href="@Url.Action(Constants.Actions.Index,Constants.Controllers.Case)" class="btn btn-primary"><i class="fa fa-long-arrow-left"></i> Back to Case List</a>
+        }
+    }
+
+</div>
+<br class="clear" />

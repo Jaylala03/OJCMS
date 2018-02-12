@@ -1,0 +1,115 @@
+﻿@using eCMS.Shared
+<!DOCTYPE html>
+<html>
+<head>
+    @Html.Partial("_HtmlHead")
+    @RenderSection("headsection", false)
+</head>
+
+<body>
+    <!-- Begin: Header Partial -->
+    @Html.Partial("_Header")
+    <!-- End: Header Partial -->
+    <!-- Begin: sub menu -->
+    <div class="sub-menu">
+        <div class="container">
+            <div class="row caseDisplay">
+                <div class="col-md-3" style="float:right;" id="divDisplayID">
+                   @if(ViewBag.DisplayID!=null)
+                   {
+                       <a href="/CaseManagement/Case/Edit?caseId=@ViewBag.CaseID" style="color:red">@ViewBag.DisplayID</a>
+                           }
+                </div>
+            </div>
+            <div class="row">
+                <div class="float-right">
+
+                    @if (ViewBag.CurrentActionName == Constants.Actions.CaseAuditLogForMember && ViewBag.CurrentControllerName == Constants.Controllers.Case)
+                    {
+                        <a href="@Url.Action(Constants.Actions.CaseAuditLogForMember, Constants.Controllers.Case, new { caseID = ViewBag.CaseID })" title="CaseAuditLog">Case Audit Log</a>
+                    }
+                    else
+                    {
+                        <a href="@Url.Action(Constants.Actions.CaseAuditLogForMember, Constants.Controllers.Case, new { caseID = ViewBag.CaseID })" title="CaseAuditLog">Case Audit Log</a>
+                    }
+
+
+                </div>
+
+                <div class="text-center font-13 col-md-12">
+                 
+                    <ul class="candidate-list-sub-menu">
+                        @if (ViewBag.CurrentControllerName == Constants.Controllers.CaseMemberProfile)
+                        {
+                            <li style="width:170px;" class="active"><a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.CaseMemberProfile, new { CaseID=ViewBag.CaseID, CaseMemberID=ViewBag.CaseMemberID })" title="Profile">Profile</a></li>
+                        }                           
+                        else
+                        {
+                            <li style="width:170px;"><a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.CaseMemberProfile, new { CaseID=ViewBag.CaseID, CaseMemberID=ViewBag.CaseMemberID })" title="Profile">Profile</a></li>
+                        }
+                        @if (ViewBag.CurrentControllerName == Constants.Controllers.CaseAssessment && ViewBag.CurrentActionName != Constants.Actions.Termination)
+                        {
+                            <li style="width:240px;" class="active"><a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.CaseAssessment, new { CaseID=ViewBag.CaseID, CaseMemberID=ViewBag.CaseMemberID })" title="Presenting Problems">Presenting Problems</a></li>
+                        }                           
+                        else
+                        {
+                            <li style="width:240px;" ><a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.CaseAssessment, new { CaseID=ViewBag.CaseID, CaseMemberID=ViewBag.CaseMemberID })" title="Presenting Problems">Presenting Problems</a></li>
+                        }
+                        @if ((ViewBag.CurrentControllerName == Constants.Controllers.CaseGoal || ViewBag.CurrentControllerName == Constants.Controllers.CaseSmartGoal)  && ViewBag.CurrentActionName != Constants.Actions.ServiceProvider )
+                        {
+                            <li style="width:190px;" class="active"><a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.CaseGoal, new { CaseID=ViewBag.CaseID, CaseMemberID=ViewBag.CaseMemberID })" title="Goals">Goals</a></li>
+                        }                           
+                        else
+                        {
+                            <li style="width:190px;"><a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.CaseGoal, new { CaseID=ViewBag.CaseID, CaseMemberID=ViewBag.CaseMemberID })" title="Goals">Goals</a></li>
+                        }
+                        @if ((ViewBag.CurrentControllerName == Constants.Controllers.CaseSmartGoal && ViewBag.CurrentActionName == Constants.Actions.ServiceProvider) || (ViewBag.CurrentControllerName == Constants.Controllers.CaseSmartGoalServiceProvider && ViewBag.CurrentActionName == Constants.Actions.Index))
+                        {
+                            <li style="width:190px;" class="active"><a href="@Url.Action(Constants.Actions.ServiceProvider, Constants.Controllers.CaseSmartGoal, new { CaseID=ViewBag.CaseID, CaseMemberID=ViewBag.CaseMemberID })" title="Services">Services</a></li>
+                        }                           
+                        else
+                        {
+                            <li style="width:190px;"><a href="@Url.Action(Constants.Actions.ServiceProvider, Constants.Controllers.CaseSmartGoal, new { CaseID=ViewBag.CaseID, CaseMemberID=ViewBag.CaseMemberID })" title="Services">Services</a></li>
+                        }
+                        @if (ViewBag.CurrentControllerName == Constants.Controllers.CaseAction)
+                        {
+                            <li style="width:170px;" class="active"><a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.CaseAction, new { CaseID=ViewBag.CaseID, CaseMemberID=ViewBag.CaseMemberID })" title="Action">Action</a></li>
+                        }                           
+                        else
+                        {
+                            <li style="width:170px;"><a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.CaseAction, new { CaseID=ViewBag.CaseID, CaseMemberID=ViewBag.CaseMemberID })" title="Action">Action</a></li>
+                        }
+                        @if (ViewBag.CurrentControllerName == Constants.Controllers.CaseProgressNote)
+                        {
+                            <li style="width:210px;" class="active"><a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.CaseProgressNote, new { CaseID=ViewBag.CaseID, CaseMemberID=ViewBag.CaseMemberID })" title="Progress Notes">Progress Notes</a></li>
+                        }                           
+                        else
+                        {
+                            <li style="width:210px;"><a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.CaseProgressNote, new { CaseID=ViewBag.CaseID, CaseMemberID=ViewBag.CaseMemberID })" title="Action">Progress Notes</a></li>
+                        }
+                        @if (ViewBag.CurrentControllerName == Constants.Controllers.CaseAssessment && ViewBag.CurrentActionName == Constants.Actions.Termination)
+                        {
+                            <li style="width:190px;" class="active"><a href="@Url.Action(Constants.Actions.Termination, Constants.Controllers.CaseAssessment, new { CaseID=ViewBag.CaseID, CaseMemberID=ViewBag.CaseMemberID })" title="Case Closure">Case Closure</a></li>
+                        }                           
+                        else
+                        {
+                            <li style="width:190px;"><a href="@Url.Action(Constants.Actions.Termination, Constants.Controllers.CaseAssessment, new { CaseID=ViewBag.CaseID, CaseMemberID=ViewBag.CaseMemberID })" title="Case Closure">Case Closure</a></li>
+                        }
+                     
+                       
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End: Sub menu -->
+    <!-- Begin: Main RenderBody -->
+    <div id="main-body">
+        @RenderBody()
+    </div>
+    <!-- End: Main RenderBody -->
+    <!-- Begin: Header Partial -->
+    @Html.Partial("_Footer")
+    <!-- End: Header Partial -->
+</body>
+</html>

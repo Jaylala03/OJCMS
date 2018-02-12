@@ -1,0 +1,82 @@
+@model eCMS.DataLogic.Models.CaseProgressNote
+@using EasySoft.Helper;
+@using eCMS.Shared;
+@using eCMS.DataLogic.Models;
+@{
+    ViewBag.Title = "Case Progress Note";
+    Layout = "~/Areas/CaseManagement/Views/Shared/_LayoutCase2.cshtml";
+}
+@section headsection
+{
+    @Styles.Render("~/assets/plugins/kendo/css")
+    @Scripts.Render("~/assets/plugins/kendo/js")
+}
+<div class="container candidate-list-main-container">
+    <div class="row">
+        <div class="col-lg-12 col-md-11 candidate-table-bg">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 candidate-on-map">
+                    <div class="row">
+                        <div class="col-md-12 font-13 text-uppercase" style="padding-top: 6px; padding-right: 0;">
+                            <label>
+                                <img src="@Url.Content("~/Assets/images/lavel-side-icon.png")">
+                                <span>Case Progress Note</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="dvAjaxAlertContainer">
+                @Html.Partial(Constants.PartialViews.Alert)
+            </div>
+            <div class="row margin-bottom-10">
+                @using (Html.BeginForm(Constants.Actions.IndexAjax, Constants.Controllers.CaseProgressNote, new { area = Constants.Areas.CaseManagement }, FormMethod.Post, new { id = "frmSearch" }))
+                {
+                    @Html.HiddenFor(model=>model.CaseID)
+                    <div class="col-md-5">
+                        @(Html.Kendo().DropDownListFor(model => model.CaseMemberID)
+                                .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                                .Events(e=>e.Change("CaseMemberDropDownList_OnChanged"))
+                                .DataTextField("Text")
+                                .DataValueField("Value")
+                                .DataSource(source =>
+                                {
+                                    source.Read(read =>
+                                    {
+                                        read.Action("LoadCaseMemberListAjax", "CaseProgressNote", new { caseID = Model.CaseID });
+                                    });
+                                })
+                            )
+                    </div>
+                }
+                <div class="col-md-2">
+                    <a class="customButton col-sm-11 link-button" href="@Url.Action(Constants.Actions.Create, Constants.Controllers.CaseProgressNote, new { CaseID=Model.CaseID, CaseMemberID=Model.CaseMemberID })" style="margin-left: 5px !important;">ADD PROGRESS NOTE</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    @(Html.Kendo().Grid<CaseProgressNote>()
+                        .Name("GridCaseProgressNote")
+                        .Columns(columns =>
+                        {
+                            columns.Bound(p => p.ID).ClientTemplate("<a href='/CaseManagement/CaseProgressNote/Edit?noteID=#= ID #&CaseID=#= CaseID #' title='Edit'>#= ID #</a>").Width("10%");
+                            columns.Bound(c => c.CaseMemberName).Sortable(true).Groupable(false).Filterable(false);
+                            columns.Bound(c => c.NoteDate).Sortable(true).Groupable(false).Filterable(false);
+                            columns.Bound(c => c.ActivityTypeName).Sortable(true).Groupable(false).Filterable(false);
+                            columns.Bound(c => c.Note).Sortable(true).Groupable(false).Filterable(false);
+                            columns.Bound(p => p.ErrorMessage).ClientTemplate("<a href='/CaseManagement/CaseProgressNote/Read?noteID=#= ID #&CaseID=#= CaseID #' style='#= HasPermissionToRead #' class='fa fa-eye' title='Read'></a>&nbsp;<a href='/CaseManagement/CaseProgressNote/Edit?noteID=#= ID #&CaseID=#= CaseID #' style='#= HasPermissionToEdit #' class='fa fa-edit' title='Edit'></a>&nbsp;<a name='lnkDelete' id='lnkDeleteCaseProgressNote' href='/CaseManagement/CaseProgressNote/DeleteAjax/#= ID #' style='#= HasPermissionToDelete #' class='fa fa-times' title='Delete'></a>").Width("10%").HtmlAttributes(new { @class = "grid-actions-content" }).HeaderTemplate("<center>Actions</center>").HeaderHtmlAttributes(new { @class = "grid-actions-content" });
+                        })
+                        .DataSource(dataSource => dataSource
+                        .Ajax()
+                        .Read(read => read.Action("IndexAjax", "CaseProgressNote", new { caseID = Model.CaseID }))
+                        .PageSize(50)
+                        )
+                        .Pageable()
+                        .Sortable()
+                  )
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

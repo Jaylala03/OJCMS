@@ -1,0 +1,44 @@
+﻿@using System.Web.Mvc;
+@helper Script(string fileName, UrlHelper url)
+{
+    <script src="@url.Content("~/Assets/js/" + fileName)" type="text/javascript"></script>
+}
+
+@helper Css(string fileName, UrlHelper url)
+{
+    <link href="@url.Content("~/Assets/css/" + fileName)" type="text/css" rel="stylesheet" />
+}
+
+@helper Image(string fileName, UrlHelper url)
+{
+    <img alt="" src="@url.Content("~/Assets/Images/" + fileName)"/>
+}
+
+@helper Image(string fileName, string id, UrlHelper url)
+{
+    if (id != string.Empty)
+    {
+    <img id="@id" alt="" src="@url.Content("~/Assets/Images/" + fileName)"/>
+    }
+    else
+    {
+    <img id="@id" alt="" src="@url.Content("~/Assets/Images/" + fileName)"/>
+    }
+}
+
+@helper Image(string fileName, string id, string height, string width, string title, string cssClass, UrlHelper url)
+    {
+    if (height != string.Empty && width != string.Empty)
+    {    
+    <img id = "@id" height="@height" width="@width" alt="@title" class="@cssClass" src="@url.Content("~/Assets/Images/" + fileName)"/>
+    }
+    else
+    {
+    <img id = "@id" alt="@title" class="@cssClass" src="@url.Content("~/Assets/Images/" + fileName)"/>
+    }
+}
+
+@helper Image(string fileName, string height, string width, string title, UrlHelper url)
+{
+    <img height="@height" width="@width" alt="@title" src="@url.Content("~/Assets/Images/" + fileName)"/>
+}

@@ -1,0 +1,39 @@
+﻿@using (Html.BeginForm("AddModule", "CaseTraining", FormMethod.Post, new { enctype = "multipart/form-data", autocomplete = "off" }))
+{
+    <div class="row" style="min-width:500px">
+        <div class="col-md-12">
+          
+            <input type="radio" name="moduletype" value="1" checked="checked" /> Live
+            <input type="radio" name="moduletype" value="2" /> Local
+            <div id="live">
+                <div class="form-group">
+                    <label>File Name</label>
+                    <input type="text" class="form-control" name="fileName" />
+                    <span id="filenameError" style="color:red"></span>
+                </div>
+                <div class="form-group">
+                    <label>File Location</label>
+                    <input type="text" class="form-control" name="fileLocation" />
+                    <span id="fileLocationError" style="color:red"></span>
+                </div>
+            </div>
+            <div id="local" style="display:none">
+                <div class="form-group">
+                    <label>File Name</label>
+                    <input type="text" class="form-control" id="localFile" name="fileName1" />
+                    <span id="fileName1Error" style="color:red"></span>
+                </div>
+                <div class="form-group">
+                    <label>Select File</label>
+                    <input type="file" name="moduleFile" />
+                    <span id="moduleFileError" style="color:red"></span>
+                </div>
+            </div>
+
+
+            <input type="submit" value="Submit" class="btn btn-primary" id="submitModule" />
+
+
+        </div>
+    </div>
+}

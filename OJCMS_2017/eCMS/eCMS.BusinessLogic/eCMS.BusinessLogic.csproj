@@ -1,0 +1,303 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4117896E-46BB-4C65-A022-D01E305D8A83}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>eCMS.BusinessLogic</RootNamespace>
+    <AssemblyName>eCMS.BusinessLogic</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.5.5631.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\DocumentFormat.OpenXml.2.5\lib\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
+    <Reference Include="EasySoft.Helper">
+      <HintPath>..\packages\EasySoft.Helper.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="FontBox-0.1.0-dev">
+      <HintPath>..\packages\FontBox-0.1.0-dev.dll</HintPath>
+    </Reference>
+    <Reference Include="Kendo.Mvc">
+      <HintPath>..\packages\Kendo\Kendo.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Helpers\ApplicationHelper.cs" />
+    <Compile Include="Helpers\CookieHelper.cs" />
+    <Compile Include="Helpers\Email.cs" />
+    <Compile Include="Helpers\MiscUtility.cs" />
+    <Compile Include="Helpers\SessionHelper.cs" />
+    <Compile Include="Helpers\WebHelper.cs" />
+    <Compile Include="Managers\EmailManager.cs" />
+    <Compile Include="Managers\EmailMessageBuilder.cs" />
+    <Compile Include="Managers\EmailSender.cs" />
+    <Compile Include="Migrations\201603240734334_db_update.cs" />
+    <Compile Include="Migrations\201603240734334_db_update.Designer.cs">
+      <DependentUpon>201603240734334_db_update.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\Base\BaseRepository.cs" />
+    <Compile Include="Repositories\Base\ConnectionString.cs" />
+    <Compile Include="Repositories\Base\BaseLookupRepository.cs" />
+    <Compile Include="Repositories\Base\IBaseLookupRepository.cs" />
+    <Compile Include="Repositories\Base\IBaseRepository.cs" />
+    <Compile Include="Repositories\Base\IConnectionString.cs" />
+    <Compile Include="Repositories\CaseManagement\CaseActionRepository.cs" />
+    <Compile Include="Repositories\CaseManagement\CaseAssessmentLivingConditionRepository.cs" />
+    <Compile Include="Repositories\CaseManagement\CaseAssessmentRepository.cs" />
+    <Compile Include="Repositories\CaseManagement\CaseAuditLogRepository.cs" />
+    <Compile Include="Repositories\CaseManagement\CaseGoalLivingConditionRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Repositories\CaseManagement\CaseGoalRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Repositories\CaseManagement\CaseMemberContactRepository.cs" />
+    <Compile Include="Repositories\CaseManagement\CaseMemberEthinicityRepository.cs" />
+    <Compile Include="Repositories\CaseManagement\CaseMemberProfileRepository.cs" />
+    <Compile Include="Repositories\CaseManagement\CaseMemberRepository.cs" />
+    <Compile Include="Repositories\CaseManagement\CaseProgressNoteRepository.cs" />
+    <Compile Include="Repositories\CaseManagement\CaseRepository.cs" />
+    <Compile Include="Repositories\CaseManagement\CaseSmartGoalProgressRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Repositories\CaseManagement\CaseSmartGoalRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Repositories\CaseManagement\CaseSmartGoalServiceLevelOutcomeRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Repositories\CaseManagement\CaseSmartGoalServiceProviderRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Repositories\CaseManagement\CaseSupportCircleRepository.cs" />
+    <Compile Include="Repositories\CaseManagement\CaseWorkerMemberAssignmentRepository.cs" />
+    <Compile Include="Repositories\CaseManagement\CaseTrainingRepository.cs" />
+    <Compile Include="Repositories\CaseManagement\CaseWorkerRepository.cs" />
+    <Compile Include="Repositories\CaseManagement\CaseProgressNoteMembersRepository.cs" />
+    <Compile Include="Repositories\Context\IRepositoryContextInitializer.cs" />
+    <Compile Include="Repositories\Context\RepositoryContext.cs" />
+    <Compile Include="Repositories\Context\RepositoryContextInitializer.cs" />
+    <Compile Include="Repositories\Lookup\ActivityTypeRepository.cs" />
+    <Compile Include="Repositories\Lookup\AnnualIncomeRepository.cs" />
+    <Compile Include="Repositories\Lookup\AssessmentTypeRepository.cs" />
+    <Compile Include="Repositories\Lookup\ContactMediaRepository.cs" />
+    <Compile Include="Repositories\Lookup\ContactMethodRepository.cs" />
+    <Compile Include="Repositories\Lookup\ServiceRepository.cs" />
+    <Compile Include="Repositories\Lookup\ServiceProviderRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Repositories\Lookup\SmartGoalRepository.cs" />
+    <Compile Include="Repositories\Lookup\RegionSubProgramRepository.cs" />
+    <Compile Include="Repositories\Lookup\RegionRoleRepository.cs" />
+    <Compile Include="Repositories\Lookup\EmailTemplateCategoryRepository.cs" />
+    <Compile Include="Repositories\Lookup\FinancialAssistanceCategoryRepository.cs" />
+    <Compile Include="Repositories\Lookup\FinancialAssistanceSubCategoryRepository.cs" />
+    <Compile Include="Repositories\Lookup\GPARepository.cs" />
+    <Compile Include="Repositories\Lookup\HighestLevelOfEducationRepository.cs" />
+    <Compile Include="Repositories\Lookup\HousingQualityRepository.cs" />
+    <Compile Include="Repositories\Lookup\ImmigrationCitizenshipStatusRepository.cs" />
+    <Compile Include="Repositories\Lookup\IndividualStatusRepository.cs" />
+    <Compile Include="Repositories\Lookup\ProfileTypeRepository.cs" />
+    <Compile Include="Repositories\Lookup\QualityOfLifeCategoryRepository.cs" />
+    <Compile Include="Repositories\Lookup\QualityOfLifeRepository.cs" />
+    <Compile Include="Repositories\Lookup\QualityOfLifeSubCategoryRepository.cs" />
+    <Compile Include="Repositories\Lookup\ReasonsForDischargeRepository.cs" />
+    <Compile Include="Repositories\Lookup\RiskTypeRepository.cs" />
+    <Compile Include="Repositories\Lookup\SavingsRepository.cs" />
+    <Compile Include="Repositories\Lookup\ServiceLevelOutcomeRepository.cs" />
+    <Compile Include="Repositories\Lookup\WorkerRolePermissionNewRepository.cs" />
+    <Compile Include="Repositories\Report\ReportRepository.cs" />
+    <Compile Include="Repositories\WorkerManagement\PermissionRepository.cs" />
+    <Compile Include="Repositories\WorkerManagement\PermissionRegionRepository.cs" />
+    <Compile Include="Repositories\WorkerManagement\PermissionActionRepository.cs" />
+    <Compile Include="Repositories\WorkerManagement\PermissionJamatkhanaRepository.cs" />
+    <Compile Include="Repositories\WorkerManagement\PermissionSubProgramRepository.cs" />
+    <Compile Include="Repositories\WorkerManagement\ActionMethodRepository.cs" />
+    <Compile Include="Repositories\WorkerManagement\WorkerInRoleNewRepository.cs" />
+    <Compile Include="Repositories\WorkerManagement\WorkerRepository05302017.cs" />
+    <Compile Include="Repositories\WorkerManagement\WorkerRoleActionPermissionNewRepository.cs" />
+    <Compile Include="Repositories\WorkerManagement\WorkerToDoRepository.cs" />
+    <Compile Include="Repositories\WorkerManagement\WorkerNotificationRepository.cs" />
+    <Compile Include="Repositories\WorkerManagement\WorkerRoleActionPermissionRepository.cs" />
+    <Compile Include="Repositories\WorkerManagement\WorkerSubProgramRepository.cs" />
+    <Compile Include="Repositories\WorkerManagement\EmailTemplateRepository.cs" />
+    <Compile Include="Repositories\Lookup\WorkerRolePermissionRepository.cs" />
+    <Compile Include="Repositories\Lookup\SubProgramRepository.cs" />
+    <Compile Include="Repositories\Lookup\WorkerRoleRepository.cs" />
+    <Compile Include="Repositories\Lookup\RelationshipStatusRepository.cs" />
+    <Compile Include="Repositories\Lookup\LanguageRepository.cs" />
+    <Compile Include="Repositories\Lookup\EthnicityRepository.cs" />
+    <Compile Include="Repositories\Lookup\MaritalStatusRepository.cs" />
+    <Compile Include="Repositories\Lookup\MemberStatusRepository.cs" />
+    <Compile Include="Repositories\Lookup\TimeSpentRepository.cs" />
+    <Compile Include="Repositories\Lookup\JamatkhanaRepository.cs" />
+    <Compile Include="Repositories\Lookup\IntakeMethodRepository.cs" />
+    <Compile Include="Repositories\Lookup\ReferralSourceRepository.cs" />
+    <Compile Include="Repositories\Lookup\HearingSourceRepository.cs" />
+    <Compile Include="Repositories\Lookup\CaseStatusRepository.cs" />
+    <Compile Include="Repositories\Lookup\GenderRepository.cs" />
+    <Compile Include="Repositories\Lookup\CountryRepository.cs" />
+    <Compile Include="Repositories\Lookup\CurrencyRepository.cs" />
+    <Compile Include="Repositories\Lookup\ProgramRepository.cs" />
+    <Compile Include="Repositories\Lookup\RegionRepository.cs" />
+    <Compile Include="Repositories\Lookup\StateRepository.cs" />
+    <Compile Include="Repositories\WorkerManagement\WorkerInRoleRepository.cs" />
+    <Compile Include="Repositories\WorkerManagement\WorkerRepository.cs" />
+    <Compile Include="Managers\WorkerAuthenticationManager.cs" />
+    <Compile Include="Managers\UserAuthorize.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="bin\Debug\eCMS.BusinessLogic.dll.config" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\eCMS.DataLogic\eCMS.DataLogic.csproj">
+      <Project>{3dff1058-3cc9-4295-b3af-7ec26f3f5539}</Project>
+      <Name>eCMS.DataLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\eCMS.ExceptionLoging\eCMS.ExceptionLoging.csproj">
+      <Project>{9e0b448f-d5e5-44e4-b323-12b08e136b1a}</Project>
+      <Name>eCMS.ExceptionLoging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\eCMS.Shared\eCMS.Shared.csproj">
+      <Project>{8603cf12-c5a6-4be7-9196-bdd0db8b5e5b}</Project>
+      <Name>eCMS.Shared</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201603240734334_db_update.resx">
+      <DependentUpon>201603240734334_db_update.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Debug\DocumentFormat.OpenXml.dll" />
+    <Content Include="bin\Debug\EasySoft.Helper.dll" />
+    <Content Include="bin\Debug\eCMS.BusinessLogic.dll" />
+    <Content Include="bin\Debug\eCMS.BusinessLogic.pdb" />
+    <Content Include="bin\Debug\eCMS.DataLogic.dll" />
+    <Content Include="bin\Debug\eCMS.DataLogic.pdb" />
+    <Content Include="bin\Debug\eCMS.ExceptionLoging.dll" />
+    <Content Include="bin\Debug\eCMS.ExceptionLoging.pdb" />
+    <Content Include="bin\Debug\eCMS.Shared.dll" />
+    <Content Include="bin\Debug\eCMS.Shared.pdb" />
+    <Content Include="bin\Debug\EntityFramework.dll" />
+    <Content Include="bin\Debug\EntityFramework.SqlServer.dll" />
+    <Content Include="bin\Debug\EntityFramework.SqlServer.xml" />
+    <Content Include="bin\Debug\EntityFramework.xml" />
+    <Content Include="bin\Debug\FontBox-0.1.0-dev.dll" />
+    <Content Include="bin\Debug\Kendo.Mvc.dll" />
+    <Content Include="bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.dll" />
+    <Content Include="bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.xml" />
+    <Content Include="bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.dll" />
+    <Content Include="bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.xml" />
+    <Content Include="bin\Debug\Newtonsoft.Json.dll" />
+    <Content Include="bin\Debug\Newtonsoft.Json.xml" />
+    <Content Include="bin\Debug\System.Web.Mvc.dll" />
+    <Content Include="bin\Debug\System.Web.Mvc.xml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,108 @@
+@model eCMS.DataLogic.Models.CaseSmartGoal
+@using EasySoft.Helper;
+@using eCMS.Shared;
+@using eCMS.DataLogic.Models;
+@{
+    ViewBag.Title = "Case Goal";
+    Layout = "~/Areas/CaseManagement/Views/Shared/_LayoutCase2.cshtml";
+}
+@section headsection
+{
+    @Styles.Render("~/assets/plugins/kendo/css")
+    @Scripts.Render("~/assets/plugins/kendo/js")
+}
+<div class="container candidate-list-main-container">
+    <div class="row">
+        <div class="col-lg-12 col-md-11 candidate-table-bg">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 candidate-on-map">
+                    <div class="row">
+                        <div class="col-md-12 font-13 text-uppercase" style="padding-top: 6px; padding-right: 0;">
+                            <label>
+                                <img src="@Url.Content("~/Assets/images/lavel-side-icon.png")">
+                                <span>Goals</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row margin-bottom-10">
+                @using (Html.BeginForm(Constants.Actions.IndexAjax, Constants.Controllers.CaseSmartGoal, new { area = Constants.Areas.CaseManagement }, FormMethod.Post, new { id = "frmSearch" }))
+                {
+                    @Html.HiddenFor(model=>model.CaseID)
+                    <div class="col-md-5">
+                        @(Html.Kendo().DropDownListFor(model => model.CaseMemberID)
+                                .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                                .Events(e=>e.Change("CaseMemberDropDownList_OnChanged"))
+                                .DataTextField("Text")
+                                .DataValueField("Value")
+                                .DataSource(source =>
+                                {
+                                    source.Read(read =>
+                                    {
+                                        read.Action("LoadCaseMemberListAjax", "CaseGoal", new { caseID = Model.CaseID });
+                                    });
+                                })
+                            )
+                    </div>
+                }                
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="content-box">
+                        <span class="section-title" style="width:350px!important;">Open Measurable Goals With Assigned Services</span>
+                        @(Html.Kendo().Grid<CaseSmartGoal>()
+                                        .Name("GridCaseSmartGoalAssigned")
+                                        .HtmlAttributes(new { style="width:98%;" })
+                                        .Columns(columns =>
+                                        {
+                                            columns.Bound(c => c.SmartGoalName).Sortable(true).Groupable(false).Filterable(false);
+                                            columns.Bound(c => c.QualityOfLifeCategoryName).Sortable(true).Groupable(false).Filterable(false);
+                                            columns.Bound(c => c.InternalServiceProvider).Sortable(true).Groupable(false).Filterable(false);
+                                            columns.Bound(c => c.ExternalServiceProvider).Sortable(true).Groupable(false).Filterable(false);
+                                            columns.Bound(p => p.ErrorMessage).ClientTemplate("<center><a href='/CaseManagement/CaseSmartGoalServiceProvider/Index?casesmartgoalId=#= ID #&CaseID=#= CaseID #&CaseMemberID=#= CaseMemberID #' class='fa fa-edit' style='#= HasPermissionToEdit #' title='Edit'></a></center>").Width("10%").HeaderTemplate("<center>Service Provider Assignment</center>");
+                                        })
+                                        .DataSource(dataSource => dataSource
+                                        .Ajax()
+                                        .Read(read => read.Action("AssignedServiceProviderAjax", "CaseSmartGoal").Data("PassSearchParameter"))
+                                        .PageSize(50)
+                                        )
+                                        .Pageable()
+                                        .Sortable()
+                                    )
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="content-box">
+                        <span class="section-title" style="width:350px!important;">Open Measurable Goals With Un-Assigned Services</span>
+                        @(Html.Kendo().Grid<CaseSmartGoal>()
+                                        .Name("GridCaseSmartGoalUnAssigned")
+                                        .HtmlAttributes(new { style="width:98%;" })
+                                        .Columns(columns =>
+                                        {
+                                            columns.Bound(c => c.SmartGoalName).Sortable(true).Groupable(false).Filterable(false);
+                                            columns.Bound(c => c.QualityOfLifeCategoryName).Sortable(true).Groupable(false).Filterable(false);
+                                            columns.Bound(c => c.InternalServiceProvider).Sortable(true).Groupable(false).Filterable(false);
+                                            columns.Bound(c => c.ExternalServiceProvider).Sortable(true).Groupable(false).Filterable(false);
+                                            columns.Bound(p => p.ErrorMessage).ClientTemplate("<center><a href='/CaseManagement/CaseSmartGoalServiceProvider/Index?casesmartgoalId=#= ID #&CaseID=#= CaseID #&CaseMemberID=#= CaseMemberID #' class='fa fa-edit' style='#= HasPermissionToEdit #' title='Edit'></a></center>").Width("10%").HeaderTemplate("<center>Service Provider Assignment</center>");
+                                            
+                                        })
+                                        .DataSource(dataSource => dataSource
+                                        .Ajax()
+                                        .Read(read => read.Action("UnAssignedServiceProviderAjax", "CaseSmartGoal").Data("PassSearchParameter"))
+                                        .PageSize(50)
+                                        )
+                                        .Pageable()
+                                        .Sortable()
+                                    )
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

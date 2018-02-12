@@ -1,0 +1,98 @@
+﻿@using eCMS.Shared
+<!DOCTYPE html>
+<html>
+<head>
+    @Html.Partial("_HtmlHead")
+    @RenderSection("headsection", false)
+</head>
+
+<body>
+    <!-- Begin: Header Partial -->
+    @Html.Partial("_Header")
+    <!-- End: Header Partial -->
+    <!-- Begin: sub menu -->
+    <div class="sub-menu margin-top-30">
+        <div class="container" id="layoutcontainer">
+            <div class="row">
+                <div class="float-right">
+
+                    @if (ViewBag.HasAccessToCaseAuditLogModule)
+                    {
+                        if (ViewBag.CurrentActionName == Constants.Actions.CaseAuditLog && ViewBag.CurrentControllerName == Constants.Controllers.Case)
+                        {
+                            <a href="@Url.Action(Constants.Actions.CaseAuditLog, Constants.Controllers.Case, new { caseID=ViewBag.CaseID })" title="CaseAuditLog">Case Audit Log</a>
+                        }
+                        else
+                        {
+                            <a href="@Url.Action(Constants.Actions.CaseAuditLog, Constants.Controllers.Case, new { caseID=ViewBag.CaseID })" title="CaseAuditLog">Case Audit Log</a>
+                        }
+
+                    }
+
+                </div>
+
+                <div class="text-center font-13 col-md-9">
+                    
+                    <ul class="candidate-list-sub-menu">
+                        @if ((ViewBag.CurrentActionName == Constants.Actions.Edit || ViewBag.CurrentActionName == Constants.Actions.Read || ViewBag.CurrentActionName == Constants.Actions.Readmit) && ViewBag.CurrentControllerName == Constants.Controllers.Case)
+                        {
+                            <li class="active"><a href="@Url.Action(Constants.Actions.Read, Constants.Controllers.Case, new { caseID=ViewBag.CaseID })" title="Demographics">Demographics</a></li>
+                        }                           
+                        else
+                        {
+                            <li><a href="@Url.Action(Constants.Actions.Read, Constants.Controllers.Case, new { caseID=ViewBag.CaseID })" title="Demographics">Demographics</a></li>
+                        }
+                        @if(ViewBag.HasAccessToIndividualModule)
+                        {
+                            if (ViewBag.CurrentActionName == Constants.Actions.IndexRead && ViewBag.CurrentControllerName == Constants.Controllers.CaseMember)
+                            {
+                                <li class="active"><a href="@Url.Action(Constants.Actions.IndexRead, Constants.Controllers.CaseMember, new { caseID = ViewBag.CaseID })" title="Case Individuals">Case Individuals</a></li>
+                            }
+                            else
+                            {
+                                <li><a href="@Url.Action(Constants.Actions.IndexRead, Constants.Controllers.CaseMember, new { caseID = ViewBag.CaseID })" title="Case Individuals">Case Individuals</a></li>
+                            }
+                        }
+                        @if(ViewBag.HasAccessToInitialContactModule)
+                        {
+                            if ((ViewBag.CurrentActionName == Constants.Actions.InitialContactRead || ViewBag.CurrentActionName == Constants.Actions.CreateInitialContact) && ViewBag.CurrentControllerName == Constants.Controllers.CaseProgressNote)
+                            {
+                                <li class="active"><a href="@Url.Action(Constants.Actions.InitialContactRead, Constants.Controllers.CaseProgressNote, new { caseID = ViewBag.CaseID })" title="Initial Contact">Initial Contact</a></li>
+                            }
+                            else
+                            {
+                                <li><a href="@Url.Action(Constants.Actions.InitialContactRead, Constants.Controllers.CaseProgressNote, new { caseID = ViewBag.CaseID })" title="Initial Contact">Initial Contact</a></li>
+                            }
+                        }
+                        @if(ViewBag.HasAccessToAssignmentModule)
+                        {
+                            if (ViewBag.CurrentActionName == Constants.Actions.IndexRead && ViewBag.CurrentControllerName == Constants.Controllers.CaseWorker)
+                            {
+                                <li class="active"><a href="@Url.Action(Constants.Actions.IndexRead, Constants.Controllers.CaseWorker, new { caseID = ViewBag.CaseID })" title="Assignment">Assignment</a></li>
+                            }
+                            else
+                            {
+                                <li><a href="@Url.Action(Constants.Actions.IndexRead, Constants.Controllers.CaseWorker, new { caseID = ViewBag.CaseID })" title="Assignment">Assignment</a></li>
+                            }
+                        }
+                      
+                    </ul>
+                </div>
+                <div class="col-md-3 caseDisplay">
+                   @if(ViewBag.DisplayID!=null)
+                   {<a href="/CaseManagement/CaseMemberProfile/Index?caseId=@ViewBag.CaseID" style="color:red">@ViewBag.DisplayID</a>}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End: Sub menu -->
+    <!-- Begin: Main RenderBody -->
+    <div id="main-body">
+        @RenderBody()
+    </div>
+    <!-- End: Main RenderBody -->
+    <!-- Begin: Header Partial -->
+    @Html.Partial("_Footer")
+    <!-- End: Header Partial -->
+</body>
+</html>

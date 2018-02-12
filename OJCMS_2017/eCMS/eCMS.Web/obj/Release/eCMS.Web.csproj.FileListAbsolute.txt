@@ -1,0 +1,32 @@
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.Web\bin\eCMS.Web.dll.config
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.Web\bin\eCMS.Web.dll
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.Web\bin\eCMS.Web.pdb
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.Web\bin\eCMS.BusinessLogic.dll
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.Web\bin\eCMS.DataLogic.dll
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.Web\bin\eCMS.ExceptionLoging.dll
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.Web\bin\eCMS.Shared.dll
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.Web\bin\Microsoft.Practices.EnterpriseLibrary.Logging.dll
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.Web\bin\eCMS.BusinessLogic.pdb
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.Web\bin\eCMS.DataLogic.pdb
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.Web\bin\eCMS.ExceptionLoging.pdb
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.Web\bin\eCMS.Shared.pdb
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.Web\obj\Release\eCMS.Web.csprojResolveAssemblyReference.cache
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.Web\obj\Release\eCMS.Web.dll
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.Web\obj\Release\eCMS.Web.pdb
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.Web\bin\Microsoft.Practices.EnterpriseLibrary.Logging.xml
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.Web\bin\eCMS.Web.dll.config
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.Web\bin\eCMS.Web.dll
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.Web\bin\eCMS.Web.pdb
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.Web\bin\eCMS.BusinessLogic.dll
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.Web\bin\eCMS.DataLogic.dll
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.Web\bin\eCMS.ExceptionLoging.dll
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.Web\bin\eCMS.Shared.dll
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.Web\bin\Microsoft.Practices.EnterpriseLibrary.Logging.dll
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.Web\bin\eCMS.BusinessLogic.pdb
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.Web\bin\eCMS.DataLogic.pdb
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.Web\bin\eCMS.ExceptionLoging.pdb
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.Web\bin\eCMS.Shared.pdb
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.Web\bin\Microsoft.Practices.EnterpriseLibrary.Logging.xml
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.Web\obj\Release\eCMS.Web.csprojResolveAssemblyReference.cache
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.Web\obj\Release\eCMS.Web.dll
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.Web\obj\Release\eCMS.Web.pdb

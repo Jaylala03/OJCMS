@@ -1,0 +1,28 @@
+@model eCMS.DataLogic.Models.CaseSmartGoalProgress
+
+@{
+    ViewBag.Title = "CaseSmartGoalProgress";
+}
+<div class="alert alert-error">
+    Are you sure you want to delete the following CaseSmartGoalProgress record?
+</div>
+<div class="widget">
+    <div class="widget-title">
+        <h4><i class="icon-reorder"></i>Case Smart Goal Progress Details</h4>
+        <span class="tools">
+            <a href="javascript:;" class="icon-chevron-down"></a>
+            <a href="javascript:;" class="icon-refresh"></a>
+            <a href="javascript:;" class="icon-remove"></a>
+        </span>
+    </div>
+    <div class="widget-body form">
+		@Html.Partial("_Details", Model)
+					<div class="buttons">
+				<a href="@Url.Action("Delete", "CaseSmartGoalProgress", new { id = Model.ID, casesmartgoalId = ViewBag.CaseSmartGoalId } )" class="btn btn-primary"><i class="icon-remove"></i> Delete</a>
+			</div><br />
+			<div class="buttons">
+				<a href="@Url.Action("Index", "CaseSmartGoalProgress",new { casesmartgoalId = ViewBag.CaseSmartGoalId })" class="btn btn-primary"><i class="icon-list"></i> Back to List</a>
+			</div>
+		 
+	</div>
+</div>

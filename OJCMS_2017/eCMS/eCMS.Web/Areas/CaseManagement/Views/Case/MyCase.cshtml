@@ -1,0 +1,206 @@
+@model eCMS.DataLogic.Models.Case
+@using EasySoft.Helper;
+@using eCMS.Shared;
+@using eCMS.DataLogic.Models;
+@using eCMS.DataLogic.ViewModels;
+@{
+    ViewBag.Title = "Case";
+    Layout = "~/Views/Shared/_LayoutInternal.cshtml";
+}
+@section headsection
+{
+    @Styles.Render("~/assets/plugins/kendo/css")
+    @Scripts.Render("~/assets/plugins/kendo/js")
+}
+<div class="container candidate-list-main-container">
+    <div class="row">
+        <div class="col-lg-12 col-md-11 candidate-table-bg">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 candidate-on-map">
+                    <div class="row">
+                        <div class="col-md-12 font-13 text-uppercase" style="padding-top: 6px; padding-right: 0;">
+                            <label>
+                                <img src="@Url.Content("~/Assets/images/lavel-side-icon.png")">
+                                <span>Search</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @using (Html.BeginForm("IndexAjax", "Case", new { area = "CaseManagement" }, FormMethod.Post, new { id = "frmSearch" }))
+            {
+                @Html.HiddenFor(model=>model.HasPermissionToCreate)
+                @Html.HiddenFor(model=>model.HasPermissionToDelete)
+                @Html.HiddenFor(model=>model.HasPermissionToEdit)
+                @Html.HiddenFor(model=>model.HasPermissionToReadmit)
+                @Html.HiddenFor(model=>model.AssignedToWorkerID)
+                <div class="row">                    
+                    <div class="col-md-3">
+                        <label class="control-label labe-text">@Html.LabelFor(model => model.Program)</label>
+                        @(Html.Kendo().DropDownListFor(model => model.ProgramID)
+                            .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                        .DataTextField("Text")
+                        .DataValueField("Value")
+                        .DataSource(source =>
+                        {
+                            source.Read(read =>
+                            {
+                                read.Action("LoadWorkerProgramsAjax", "Case");
+                            });
+                        })
+                        )
+                    </div>
+                    
+                    <div class="col-md-3">
+                        <label class="control-label labe-text">@Html.LabelFor(model => model.RegionID)</label>
+                        @(Html.Kendo().DropDownListFor(model => model.RegionID)
+                                .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                            .DataTextField("Text")
+                            .DataValueField("Value")
+                            .DataSource(source =>
+                            {
+                                source.Read(read =>
+                                {
+                                    read.Action("LoadWorkerRegionsAjax", "Case");
+                                });
+                            })
+                         )
+                    </div>                    
+                    <div class="col-md-3">
+                        <label class="control-label labe-text">@Html.LabelFor(model => model.SubProgramID)</label>
+                        <div id="divSubProgram">
+                        @(Html.Kendo().DropDownListFor(model => model.SubProgramID)
+                                    .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                                    .DataTextField("Text")
+                                    .DataValueField("Value")
+                                    .DataSource(source =>
+                                    {
+                                        source.Read(read =>
+                                        {
+                                            read.Action("LoadWorkerSubProgramsAjax", "Case").Data("RegionAndProgramDropDownList_OnSelect");
+                                        })
+                                        .ServerFiltering(true);
+                                    })
+                                    .Enable(true)
+                                    .AutoBind(false)
+                                    .CascadeFrom("RegionID")
+                                )</div>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="control-label labe-text">@Html.LabelFor(model => model.CaseStatusID)</label>
+                       @(Html.Kendo().DropDownListFor(model => model.CaseStatusID)
+                                    .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                                    .DataTextField("Text")
+                                    .DataValueField("Value")
+                                    .DataSource(source =>
+                                    {
+                                        source.Read(read =>
+                                        {
+                                            read.Action("LoadCaseStatusAjax", "Case");
+                                        });
+                                    })
+                                 )
+                    </div>
+                </div>
+                <div class="row">                    
+                    <div class="col-md-3">
+                        <label class="control-label labe-text">@Html.LabelFor(model => model.LastName)</label>
+                        @Html.EditorFor(model => model.LastName)
+                    </div>
+                    <div class="col-md-3">
+                        <label class="control-label labe-text">@Html.LabelFor(model => model.FirstName)</label>
+                        @Html.EditorFor(model => model.FirstName)
+                    </div>
+                    <div class="col-md-3">
+                        <label class="control-label labe-text">@Html.LabelFor(model => model.DisplayID)</label>
+                        @Html.EditorFor(model => model.DisplayID)
+                    </div>
+                    <div class="col-md-3">
+                        <label class="control-label labe-text">@Html.LabelFor(model => model.CreatedByWorkerName)</label>
+                        @Html.EditorFor(model => model.CreatedByWorkerName)
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label class="control-label labe-text">@Html.LabelFor(model => model.PhoneNumber)</label>
+                        @Html.EditorFor(model => model.PhoneNumber)
+                    </div>
+                    <div class="col-md-6 col-md-offset-3 search-button-container">
+                        <div class="form-group02">
+                            @if(Model.HasPermissionToCreate)
+                            {
+                            <div class="col-md-3 padding_left_5">
+                                <a href="@Url.Action(Constants.Actions.Create, Constants.Controllers.Case, new { area = Constants.Areas.CaseManagement })" id="lnkNewCase">
+                                <div class="customButton ">
+                                    &nbsp;New Case&nbsp;&nbsp;<i class="fa fa-plus"></i>
+                                </div>
+                                </a>
+                            </div>
+                            }
+                            <div class="col-md-3 padding_left_5">
+                                <a href="javascript:;" id="lnkSearchCase" name="lnkSearch">
+                                    <div class="customButton "> 
+                                        &nbsp;Search&nbsp;&nbsp;<i class="fa fa-search"></i>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-md-6 padding_left_5">
+                                <a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.Case, new { area = Constants.Areas.CaseManagement })" id="lnkAllCase">
+                                <div class="customButton">
+                                    &nbsp;All Case Load&nbsp;&nbsp;<i class="fa fa-search"></i>
+                                </div>
+                                </a>
+                            </div>
+                        </div>                          
+                    </div>                                           
+                </div>             
+            }
+        </div>
+    </div>
+</div>
+<div class="container candidate-list-main-container">
+    <div class="row">
+        <div class="col-lg-12 col-md-11 candidate-table-bg">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 candidate-on-map">
+                    <div class="row">
+                        <div class="col-md-12 font-13 text-uppercase" style="padding-top: 6px; padding-right: 0;">
+                            <label>
+                                <img src="@Url.Content("~/Assets/images/lavel-side-icon.png")">
+                                <span>Search Result</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                @(Html.Kendo().Grid<CaseListViewModel>()
+        .Name("GridCase")
+        .Columns(columns =>
+        {
+            columns.Bound(c => c.ProgramName).Sortable(true).Groupable(false).Filterable(false).HeaderHtmlAttributes(new { title="Program the Family or Family Member is enrolled in" });
+            columns.Bound(c => c.RegionName).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(p => p.DisplayId).ClientTemplate("<a href='/CaseManagement/CaseMemberProfile/Index?caseId=#= ID #' title='#= AllCaseMemberWithContact #'>#= DisplayId #</a>").Width("10%").HtmlAttributes(new { @class = "grid-actions-content" }).HeaderHtmlAttributes(new { @class = "grid-actions-content" });
+            columns.Bound(c => c.EnrollDate).Format("{0:dd-MMM-yyyy}").Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(c => c.CaseMember).Sortable(true).Groupable(false).Filterable(false).HtmlAttributes(new { title = "#= AllCaseMember #" });
+            columns.Bound(c => c.StatusName).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(c => c.CaseWorker).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(c => c.JamatKhanaName).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(c => c.CaseNote).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(p => p.Actions).
+                ClientTemplate(
+                "<center><a href='/CaseManagement/CaseProgressNote/Index?caseID=#= ID #' class='fa fa-comments' title='Progress Note'></a>&nbsp;<a href='/CaseManagement/CaseProgressNote/Create?caseID=#= ID #' class='fa fa-plus' title='Add Progress Note'></a>&nbsp;<a href='/CaseManagement/Case/Edit?caseId=#= ID #' style='#= HasPermissionToEdit #' class='fa fa-edit' title='Edit'></a>&nbsp;<a name='lnkDelete' style='#= HasPermissionToDelete #' id='lnkDeleteCase' href='/CaseManagement/Case/DeleteAjax/#= ID #' class='fa fa-times' title='Delete'></a>&nbsp;<a style='#= HasPermissionToReadmit #' href='/CaseManagement/Case/Readmit?caseId=#= ID #' class='fa fa-reply' title='Readmit'></a><center>").Width("10%").HtmlAttributes(new { @class = "grid-actions-content" }).HeaderTemplate("<center>ACTIONS</center>").HeaderHtmlAttributes(new { @class = "grid-actions-content" });
+
+        })
+        .DataSource(dataSource => dataSource
+        .Ajax()
+        .Read(read => read.Action("IndexAjax", "Case").Data("PassSearchParameter"))
+        .PageSize(50)
+        )
+        .Pageable()
+        .Sortable()
+)
+            </div>
+        </div>
+    </div>
+</div>

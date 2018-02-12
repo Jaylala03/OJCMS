@@ -1,0 +1,26 @@
+﻿@model eCMS.DataLogic.Models.Worker
+@using eCMS.Shared
+@{
+    ViewBag.Title = "Log in";
+    Layout = "~/Views/Shared/_LayoutExternal.cshtml";
+}
+<div class="margin-top-20">
+<h2>Login to your account</h2>
+<div class="clearfix">&nbsp;</div>
+@using (Html.BeginForm(Constants.Actions.Login, Constants.Controllers.Account, FormMethod.Post, new { id = "frmLogin" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="row" id="divAlert">
+        @Html.Partial(Constants.PartialViews.Alert)
+    </div>
+    @Html.TextBoxFor(model => model.EmailAddress, new { placeholder = "User Name", required = "required" })
+    @Html.PasswordFor(model => model.Password, new { placeholder = "Password", required = "required" })
+    <div class="clearfix clearon">&nbsp;</div>
+    <p class="text-right">
+        <span class="text-left">
+            <a href="@Url.Action(Constants.Actions.ForgotPassword,Constants.Controllers.Account)">Forgot your password?</a>
+        </span>
+        <input type="submit" value="Sign in" />
+    </p>
+}
+</div>

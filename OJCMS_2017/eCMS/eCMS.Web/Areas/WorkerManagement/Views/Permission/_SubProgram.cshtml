@@ -1,0 +1,27 @@
+@model eCMS.DataLogic.Models.PermissionRegion
+@using eCMS.BusinessLogic.Helpers
+@using eCMS.DataLogic.Models.Lookup
+@using eCMS.DataLogic.Models
+@using eCMS.Shared
+@if (Model.AllSubPrograms != null)
+{
+    foreach (SubProgram subProgram in Model.AllSubPrograms)
+    {
+        string strCheckedSubProgram = "";
+        if (Model.AssignedSubPrograms != null)
+        {
+            foreach (PermissionSubProgram assignedSubProgram in Model.AssignedSubPrograms)
+            {
+                if (subProgram.ID == assignedSubProgram.SubProgramID)
+                {
+                    strCheckedSubProgram = "checked='checked'";
+                    break;
+                }
+            }
+        }
+        <div class="col-sm-3">
+            <input type="checkbox" name="SubProgramIDs" value="@subProgram.ID" @strCheckedSubProgram />
+            @subProgram.Name
+        </div>
+    }
+}

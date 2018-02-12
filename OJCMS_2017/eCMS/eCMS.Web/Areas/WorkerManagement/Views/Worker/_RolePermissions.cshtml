@@ -1,0 +1,31 @@
+@model eCMS.DataLogic.Models.WorkerInRoleNew
+@using eCMS.BusinessLogic.Helpers
+@using eCMS.DataLogic.Models.Lookup
+@using eCMS.DataLogic.Models
+@using eCMS.Shared
+@using eCMS.DataLogic.ViewModels
+
+@if (Model.RolePermissions != null)
+{
+    <div class="row margin-top-10">
+        @(Html.Kendo().Grid<WorkerInRoleNewLVM>()
+        .Name("GridRolePermissions")
+         .BindTo(Model.RolePermissions)
+        .Columns(columns =>
+        {
+            columns.Bound(c => c.PermissionName).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(c => c.RegionName).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(c => c.ProgramName).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(c => c.SubProgramNames).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(c => c.JamatkhanaNames).Sortable(true).Groupable(false).Filterable(false);
+        })
+         .DataSource(dataSource => dataSource
+        .Ajax()
+        .PageSize(50)
+        .ServerOperation(false)
+        )
+        .Pageable()
+        .Sortable()
+        )
+    </div>
+}

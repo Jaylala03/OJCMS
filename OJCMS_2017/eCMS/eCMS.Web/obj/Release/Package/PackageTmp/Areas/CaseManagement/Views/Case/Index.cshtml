@@ -1,0 +1,433 @@
+@model eCMS.DataLogic.Models.Case
+@using EasySoft.Helper;
+@using eCMS.Shared;
+@using eCMS.DataLogic.Models;
+@using eCMS.DataLogic.ViewModels;
+@{
+    ViewBag.Title = "Case";
+    Layout = "~/Views/Shared/_LayoutInternal.cshtml";
+}
+@section headsection
+{
+    @Styles.Render("~/assets/plugins/kendo/css")
+    @Scripts.Render("~/assets/plugins/kendo/js")
+}
+<div class="container candidate-list-main-container">
+    <div class="row">
+        <div class="col-lg-12 col-md-11 candidate-table-bg">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 candidate-on-map">
+                    <div class="row">
+                        <div class="col-md-12 font-13 text-uppercase" style="padding-top: 6px; padding-right: 0;">
+                            <label>
+                                <img src="@Url.Content("~/Assets/images/lavel-side-icon.png")">
+                                <span>Search</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @using (Html.BeginForm("IndexAjax", "Case", new { area = "CaseManagement" }, FormMethod.Post, new { id = "frmSearch" }))
+            {
+                @Html.HiddenFor(model => model.HasPermissionToCreate)
+                @Html.HiddenFor(model => model.HasPermissionToRead)
+                @Html.HiddenFor(model => model.HasPermissionToDelete)
+                @Html.HiddenFor(model => model.HasPermissionToEdit)
+                @Html.HiddenFor(model => model.HasPermissionToReadmit)
+                @Html.HiddenFor(model => model.AssignedToWorkerID)
+                <div class="row">
+                    <div class="col-md-3">
+                        <label class="control-label labe-text">@Html.LabelFor(model => model.Program)</label>
+                        @(Html.Kendo().DropDownListFor(model => model.ProgramID)
+                            .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                        .DataTextField("Text")
+                        .DataValueField("Value")
+                        .DataSource(source =>
+                        {
+                            source.Read(read =>
+                            {
+                                read.Action("LoadWorkerProgramsAjax", "Case");
+                            });
+                        })
+                        )
+                    </div>
+
+                    <div class="col-md-3">
+                        <label class="control-label labe-text">@Html.LabelFor(model => model.RegionID)</label>
+                        @(Html.Kendo().DropDownListFor(model => model.RegionID)
+                                .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                            .DataTextField("Text")
+                            .DataValueField("Value")
+                            .DataSource(source =>
+                            {
+                                source.Read(read =>
+                                {
+                                    read.Action("LoadWorkerRegionsAjax", "Case");
+                                });
+                            })
+                         )
+                    </div>
+                    <div class="col-md-3">
+                        <label class="control-label labe-text">@Html.LabelFor(model => model.SubProgramID)</label>
+                        <div id="divSubProgram">
+                            @(Html.Kendo().DropDownListFor(model => model.SubProgramID)
+                                    .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                                    .DataTextField("Text")
+                                    .DataValueField("Value")
+                                    .DataSource(source =>
+                                    {
+                                        source.Read(read =>
+                                        {
+                                            read.Action("LoadWorkerSubProgramsAjax", "Case").Data("RegionAndProgramDropDownList_OnSelect");
+                                        })
+                                        .ServerFiltering(true);
+                                    })
+                                    .Enable(false)
+                                    .AutoBind(false)
+                                    .CascadeFrom("RegionID")
+
+
+                                )
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="control-label labe-text">@Html.LabelFor(model => model.CaseStatusID)</label>
+                        @(Html.Kendo().DropDownListFor(model => model.CaseStatusID)
+                                    .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                                    .DataTextField("Text")
+                                    .DataValueField("Value")
+                                    .DataSource(source =>
+                                    {
+                                        source.Read(read =>
+                                        {
+                                            read.Action("LoadCaseStatusAjax", "Case");
+                                        });
+                                    })
+                                 )
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label class="control-label labe-text">@Html.LabelFor(model => model.LastName)</label>
+                        @Html.EditorFor(model => model.LastName)
+                    </div>
+                    <div class="col-md-3">
+                        <label class="control-label labe-text">@Html.LabelFor(model => model.FirstName)</label>
+                        @Html.EditorFor(model => model.FirstName)
+                    </div>
+                    <div class="col-md-3">
+                        <label class="control-label labe-text">@Html.LabelFor(model => model.DisplayID)</label>
+                        @Html.EditorFor(model => model.DisplayID)
+                    </div>
+                    <div class="col-md-3">
+                        <label class="control-label labe-text">@Html.LabelFor(model => model.CreatedByWorkerName)</label>
+                        @Html.EditorFor(model => model.CreatedByWorkerName)
+                    </div>
+                </div>
+                <div class="row">
+                <div class="col-md-3">
+                    <label class="control-label labe-text">@Html.LabelFor(model => model.PhoneNumber)</label>
+                    @Html.EditorFor(model => model.PhoneNumber)
+                </div>
+              
+
+                <div class="col-md-3">
+                    <label class="col-sm-4 control-label labe-text">@Html.LabelFor(model => model.JamatkhanaID)</label>
+                    @*<div class="col-sm-8" id="divJamatkhana">*@
+                    @(Html.Kendo().DropDownListFor(model => model.JamatkhanaID)
+                    .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                    .DataTextField("Text")
+                    .DataValueField("Value")
+                    .DataSource(source =>
+                    {
+                        source.Read(read =>
+                        {
+                            read.Action("LoadJamatkhanasAjax", "Case")
+                                .Data("RegionDropDownList_OnSelect"); ;
+                        })
+                        .ServerFiltering(true);
+                    })
+                    .Enable(false)
+                    .AutoBind(false)
+                    .CascadeFrom("RegionID")
+                )
+                    @*</div>*@
+                </div>
+                    <div class="col-md-3">
+                        <label class="control-label labe-text">@Html.LabelFor(model => model.CaseNumber)</label>
+                        @Html.EditorFor(model => model.CaseNumber)
+                    </div>
+                    </div>
+                <div class="row">
+
+                    <div class="col-md-6 col-md-offset-3 search-button-container">
+                        <div class="form-group02">
+                            @if (Model.HasPermissionToCreate)
+                            {
+                                <div class="col-md-3 padding_left_5">
+                                    <a href="@Url.Action(Constants.Actions.Create, Constants.Controllers.Case, new { area = Constants.Areas.CaseManagement })" id="lnkNewCase">
+                                        <div class="customButton ">
+                                            &nbsp;New Case&nbsp;&nbsp;<i class="fa fa-plus"></i>
+                                        </div>
+                                    </a>
+                                </div>
+                            }
+                            <div class="col-md-3 padding_left_5">
+                                <a href="javascript:;" id="lnkSearchCase" name="lnkSearch">
+                                    <div class="customButton ">
+                                        &nbsp;Search&nbsp;&nbsp;<i class="fa fa-search"></i>
+                                    </div>
+                                </a>
+                            </div>
+                            @*<div class="col-md-6 padding_left_5">
+                                <a href="@Url.Action(Constants.Actions.MyCase, Constants.Controllers.Case, new { area = Constants.Areas.CaseManagement })" id="lnkMyCase">
+                                <div class="customButton">
+                                    &nbsp;My Case Load&nbsp;&nbsp;<i class="fa fa-search"></i>
+                                </div>
+                                </a>
+                            </div>*@
+                        </div>
+                    </div>
+                </div>             
+            }
+        </div>
+    </div>
+</div>
+
+<div class="container candidate-list-main-container">
+    <div class="row">
+        <div class="col-lg-12 col-md-11 candidate-table-bg">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 candidate-on-map">
+                    <div class="row">
+                        <div class="col-md-12 font-13 text-uppercase" style="padding-top: 6px; padding-right: 0;">
+                            <label>
+                                <img src="@Url.Content("~/Assets/images/lavel-side-icon.png")">
+                                <span>Search Result</span>
+                            </label>
+                            <div>
+                                <dl class="dropdownCaseList">
+
+                                    <dt>
+                                        <a href="javascript:;">
+                                            <span class="hida">Filter Columns</span>
+                                            <p class=""></p>
+                                        </a>
+                                    </dt>
+
+                                    <dd>
+                                        <div class="mutliSelect">
+                                            <ul>
+                                                <li>
+                                                    <input type="checkbox" value="0" />SUB-PROGRAM</li>
+                                                <li>
+                                                    <input type="checkbox" value="1" />REGION</li>
+                                                <li>
+                                                    <input type="checkbox" value="2" />CASE SUMMARY</li>
+                                                <li>
+                                                    <input type="checkbox" value="3" />INITIATION</li>
+                                                <li>
+                                                    <input type="checkbox" value="4" />NAME</li>
+                                                <li>
+                                                    <input type="checkbox" value="5" />CURRENT STATUS</li>
+
+                                                <li>
+                                                    <input type="checkbox" value="6" />WORKER NAME</li>
+                                                <li>
+                                                    <input type="checkbox" value="7" />JK</li>
+                                                <li>
+                                                    <input type="checkbox" value="8" />LAST NOTE</li>
+
+                                            </ul>
+                                        </div>
+                                    </dd>
+
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                @(Html.Kendo().Grid<CaseListViewModel>()
+        .Name("GridCase")
+        .Columns(columns =>
+        {
+            columns.Bound(c => c.SubProgramName).Sortable(true).Groupable(false).Filterable(false).HeaderHtmlAttributes(new { title = "Program the Family or Family Member is enrolled in" });
+            columns.Bound(c => c.RegionName).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(p => p.DisplayId).ClientTemplate("<a href='/CaseManagement/CaseMemberProfile/Index?caseId=#= ID #' title='#= AllCaseMemberWithContact #'>#= DisplayId #</a>").Width("10%").HtmlAttributes(new { @class = "grid-actions-content" }).HeaderHtmlAttributes(new { @class = "grid-actions-content" });
+            columns.Bound(c => c.EnrollDate).Format("{0:yyyy-MM-dd}").Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(c => c.CaseMember).Sortable(true).Groupable(false).Filterable(false).HtmlAttributes(new { title = "#= AllCaseMember #" });
+            columns.Bound(c => c.StatusName).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(c => c.CaseWorker).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(c => c.JamatKhanaName).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(c => c.CaseNote).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(p => p.Actions).
+                ClientTemplate(
+                "<center><input type='hidden' value='#= ID #'/ ><a href='/CaseManagement/CaseProgressNote/Index?caseID=#= ID #' style='#= HasPermissionToCaseProgressNoteIndex #' class='fa fa-comments' title='Progress Note'></a>&nbsp;<a href='/CaseManagement/CaseProgressNote/Create?caseID=#= ID #' style='#= HasPermissionToCaseProgressNoteCreate #' class='fa fa-plus' title='Add Progress Note'></a>&nbsp;<a href='/CaseManagement/Case/Read?caseId=#= ID #' style='#= HasPermissionToRead #' class='fa fa-eye' title='Read'></a>&nbsp;<a href='/CaseManagement/Case/Edit?caseId=#= ID #' style='#= HasPermissionToEdit #' class='fa fa-edit' title='Edit'></a>&nbsp;<a name='lnkDelete' style='#= HasPermissionToDelete #' id='lnkDeleteCase' href='/CaseManagement/Case/DeleteAjax/#= ID #' class='fa fa-times' title='Delete'></a>&nbsp;<a style='#= HasPermissionToReadmit #' href='/CaseManagement/Case/Readmit?caseId=#= ID #' class='fa fa-reply' title='Readmit'></a><center>").Width("10%").HtmlAttributes(new { @class = "grid-actions-content" }).HeaderTemplate("<center>ACTIONS</center>").HeaderHtmlAttributes(new { @class = "grid-actions-content" });
+
+        })
+        .DataSource(dataSource => dataSource
+        .Ajax()
+        .Read(read => read.Action("IndexAjax", "Case").Data("PassSearchParameter"))
+        .PageSize(50)
+        )
+        .Pageable()
+        .Sortable().Events(m => m.DataBinding("setVisiblityFilter"))
+
+)
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(".dropdownCaseList dt a").on('click', function () {
+        $(".dropdownCaseList dd ul").slideToggle('fast');
+    });
+
+    $(".dropdownCaseList dd ul li a").on('click', function () {
+        $(".dropdownCaseList dd ul").hide();
+    });
+
+    function getSelectedValue(id) {
+        return $("#" + id).find("dt a span.value").html();
+    }
+
+    $(document).bind('click', function (e) {
+        var $clicked = $(e.target);
+        if (!$clicked.parents().hasClass("dropdownCaseList")) $(".dropdownCaseList dd ul").hide();
+    });
+
+    $('.mutliSelect input[type="checkbox"]').on('click', function () {
+        var grid = $("#GridCase").data("kendoGrid");
+
+
+        if ($(this).is(':checked')) {
+
+            grid.hideColumn(parseInt($(this).val()));
+
+        } else {
+            grid.showColumn(parseInt($(this).val()));
+
+
+        }
+        var filterArray = [];
+        $('.mutliSelect input[type="checkbox"]:checked').each(function () {
+            filterArray.push($(this).val());
+        });
+        localStorage.setItem('filterArray', filterArray);
+    });
+</script>
+<style>
+    /*body {
+  font: normal 14px/100% "Andale Mono", AndaleMono, monospace;
+  color: #fff;
+  padding: 50px;
+  width: 300px;
+  margin: 0 auto;
+  background-color: #374954;
+}*/
+
+    .dropdownCaseList {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    a {
+        /*color: #fff;*/
+    }
+
+    .dropdownCaseList dd,
+    .dropdownCaseList dt {
+        margin: 0px;
+        padding: 0px;
+    }
+
+    .dropdownCaseList ul {
+        margin: -1px 0 0 0;
+    }
+
+    .dropdownCaseList dd {
+        position: relative;
+    }
+
+    .dropdownCaseList a,
+    .dropdownCaseList a:visited {
+        color: #fff;
+        text-decoration: none;
+        outline: none;
+        font-size: 12px;
+    }
+
+    .dropdownCaseList dt a {
+        background-color: #2069b4;
+        display: block;
+        padding: 8px 20px 5px 10px;
+        min-height: 25px;
+        line-height: 24px;
+        overflow: hidden;
+        border: 0;
+        width: 272px;
+    }
+
+        .dropdownCaseList dt a span,
+        .multiSel span {
+            cursor: pointer;
+            display: inline-block;
+            padding: 0 3px 2px 0;
+        }
+
+    .dropdownCaseList dd ul {
+        background-color: #2069b4;
+        border: 0;
+        color: #fff;
+        display: none;
+        left: 0px;
+        padding: 2px 15px 2px 5px;
+        position: absolute;
+        top: 2px;
+        width: 272px;
+        list-style: none;
+        height: auto;
+        overflow: auto;
+    }
+
+    input[type="radio"], input[type="checkbox"] {
+        margin-right: 8px;
+    }
+
+    .dropdownCaseList span.value {
+        display: none;
+    }
+
+    .dropdownCaseList {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        float: right;
+        right: 14px;
+        z-index: 9;
+    }
+
+        .dropdownCaseList dd ul li a {
+            padding: 5px;
+            display: block;
+        }
+
+            .dropdownCaseList dd ul li a:hover {
+                background-color: #fff;
+            }
+
+    button {
+        background-color: #6BBE92;
+        width: 302px;
+        border: 0;
+        padding: 10px 0;
+        margin: 5px 0;
+        text-align: center;
+        color: #fff;
+        font-weight: bold;
+    }
+</style>

@@ -1,0 +1,12 @@
+@using EasySoft.Helper
+@model Double?
+@(Html.Kendo().PercentTextBox()
+        .Name(ViewData.TemplateInfo.GetFullHtmlFieldName(string.Empty))
+        .HtmlAttributes(new { style = "width:200px;" })
+        .Format("p0")
+        .Min(0)
+        .Max(1)
+        .Step(0.01)
+        .Value(Model)
+)
+

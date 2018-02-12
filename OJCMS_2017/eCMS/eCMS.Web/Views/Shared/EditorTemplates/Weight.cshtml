@@ -1,0 +1,9 @@
+@model Double?
+
+@(Html.Kendo().NumericTextBox<Double>()
+        .Name(ViewData.TemplateInfo.GetFullHtmlFieldName(string.Empty))
+        .HtmlAttributes(new { style = "width:200px;" })
+        .Format("#.00 kg")
+        .Value(Model)
+)
+

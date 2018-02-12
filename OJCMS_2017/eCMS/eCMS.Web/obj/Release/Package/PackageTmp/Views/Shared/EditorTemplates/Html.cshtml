@@ -1,0 +1,11 @@
+@model String
+
+@{ Html.Kendo().Editor()
+           .Name(ViewData.TemplateInfo.GetFullHtmlFieldName(string.Empty))
+           .HtmlAttributes(new { style = "height:400px;width:95%;", id = ViewData.TemplateInfo.GetFullHtmlFieldName(string.Empty) })
+           .Encode(false)
+           .Value(@<text> 
+                @Html.Raw(Model)
+             </text>)
+        .Render();
+    }

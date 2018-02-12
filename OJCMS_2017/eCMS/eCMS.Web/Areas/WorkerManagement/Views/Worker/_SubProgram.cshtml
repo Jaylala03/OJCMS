@@ -1,0 +1,27 @@
+@model eCMS.DataLogic.Models.WorkerInRole
+@using eCMS.BusinessLogic.Helpers
+@using eCMS.DataLogic.Models.Lookup
+@using eCMS.DataLogic.Models
+@using eCMS.Shared
+@if (Model.AllSubPrograms != null)
+{
+    foreach (SubProgram subProgram in Model.AllSubPrograms)
+    {
+        string strChecked = "";
+        if (Model.AssignedSubPrograms != null)
+        {
+            foreach (WorkerSubProgram assignedSubProgram in Model.AssignedSubPrograms)
+            {
+                if (subProgram.ID == assignedSubProgram.SubProgramID)
+                {
+                    strChecked = "checked='checked'";
+                    break;
+                }
+            }
+        }
+        <div class="col-sm-3">
+            <input type="checkbox" name="SubProgramIDs" value="@subProgram.ID" @strChecked />
+            @subProgram.Name
+        </div>
+    }
+}

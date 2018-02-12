@@ -1,0 +1,91 @@
+@using EasySoft.Helper;
+@using eCMS.Shared;
+@using eCMS.DataLogic.Models;
+@{
+    ViewBag.Title = "My To Do";
+}
+
+@section headsection
+{
+    @Styles.Render("~/assets/plugins/kendo/css")
+    @Scripts.Render("~/assets/plugins/kendo/js")
+}
+<div class="container candidate-list-main-container">
+    <div class="row">
+        <div class="col-lg-12 col-md-11 candidate-table-bg">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 candidate-on-map">
+                    <div class="row">
+                        <div class="col-md-12 font-13 text-uppercase" style="padding-top: 6px; padding-right: 0;">
+                            <label>
+                                <img src="@Url.Content("~/Assets/images/lavel-side-icon.png")">
+                                <span>MY TO DO LIST</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                @(Html.Kendo().Grid<CaseAction>()
+        .Name("Grid")
+        .Columns(columns =>
+        {
+            columns.Bound(c => c.CaseProgramName).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(c => c.CaseDisplayID).Sortable(true).Groupable(false).Filterable(false).ClientTemplate("<a href='/CaseManagement/CaseMemberProfile/Index?CaseID=#= CaseID #' title=''>#= CaseDisplayID #</a>").Width("10%");
+            columns.Bound(c => c.Action).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(c => c.ActionStartTime).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(c => c.ActionEndTime).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(c => c.CreatedByWorkerName).Sortable(true).Groupable(false).Filterable(false);
+        })
+        .DataSource(dataSource => dataSource
+        .Ajax()
+        .Read(read => read.Action("MyToDoAjax", "CaseAction"))
+        .PageSize(50)
+        )
+        .Pageable()
+        .Sortable()
+)
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12 col-md-11 candidate-table-bg">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 candidate-on-map">
+                    <div class="row">
+                        <div class="col-md-12 font-13 text-uppercase" style="padding-top: 6px; padding-right: 0;">
+                            <label>
+                                <img src="@Url.Content("~/Assets/images/lavel-side-icon.png")">
+                                <span>My TO DO Notifications</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">                
+                @(Html.Kendo().Grid<WorkerToDo>()
+        .Name("GridWorkerToDo")
+        .Columns(columns =>
+        {
+            columns.Bound(c => c.CreateDate).Width("10%").Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(c => c.Subject).Sortable(true).Groupable(false).Filterable(false).Encoded(false);
+        })
+        .DataSource(dataSource => dataSource
+        .Ajax()
+        .Read(read => read.Action("MyToDoNotificationAjax", "CaseAction"))
+        .PageSize(50)
+        )
+        .Pageable()
+        .Sortable()
+)
+            </div>
+            <div class="form-group02 margin-top-20">
+                <div class="col-sm-3 col-sm-offset-9">
+                    <a class="customButton col-sm-11 link-button" href="@Url.Action(Constants.Actions.Index, Constants.Controllers.Case)" style="margin-left: 5px !important;">RETURN TO PREVIOUS</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

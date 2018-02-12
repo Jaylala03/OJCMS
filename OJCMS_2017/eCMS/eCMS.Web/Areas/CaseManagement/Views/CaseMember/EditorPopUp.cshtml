@@ -1,0 +1,32 @@
+
+@model eCMS.DataLogic.Models.CaseMember
+@using EasySoft.Helper;
+@using eCMS.Shared;
+@using eCMS.DataLogic.Models;
+@{
+    Layout = null;
+    Model.IsAjax = true;
+}
+<div class="widget">
+    <div class="widget-body form">        
+        @using (Html.BeginForm("SaveAjax", "CaseMember", new { area = "CaseManagement", caseId=Model.CaseID }, FormMethod.Post, new { id = "frmEditorPopUpCaseMember", @class = "horizontal-form" }))
+        {
+            <div id="dvAjaxAlertContainer">
+            </div>
+            @Html.Partial("_CreateOrEdit", Model)
+            <div class="row">
+                <div class="col-md-7 col-sm-offset-5">
+                    <div class="form-group02">
+                        <div class="col-sm-5 col-sm-offset-7" style="text-align: right;">
+                            <div id="btnSaveAndRefreshPopUp" name="btnSaveAndRefreshPopUpCaseMember">
+                                <div class="customButton">
+                                    &nbsp;Save Individual&nbsp;&nbsp;<i class="fa fa-plus"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

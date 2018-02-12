@@ -1,0 +1,114 @@
+@model eCMS.DataLogic.Models.CaseWorker
+@using eCMS.BusinessLogic.Helpers
+@using eCMS.DataLogic.Models
+@using eCMS.Shared
+@* This partial view defines form fields that will appear when creating and editing entities *@
+@Html.HiddenFor(model => model.ID)
+@Html.HiddenFor(model => model.CaseID)
+@Html.HiddenFor(model => model.CreateDate)
+@Html.HiddenFor(model => model.CreatedByWorkerID)
+
+<div class="col-md-6">
+    <div class="form-group02">
+        <label class="col-sm-5 control-label labe-text">
+           <label>Case Worker Search Filter</label>
+        </label>
+        <div class="col-sm-7">
+            @(Html.Kendo().DropDownListFor(model => model.RoleID)
+                                .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                            .DataTextField("Text")
+                            .DataValueField("Value")
+                            .Events(e => e.Change("RoleDropDownList_OnChanged"))
+                            .DataSource(source =>
+                            {
+                                source.Read(read =>
+                                {
+                                    read.Action("LoadWorkerRoleByRegionProgram", "CaseWorker", new { caseID = Model.CaseID });
+                                });
+                            })
+                         )
+        </div>
+
+    </div>
+</div>
+<div class="col-md-6">
+    <div class="form-group02">
+        <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.WorkerID)</label>
+        <div class="col-sm-8">
+            @(Html.Kendo().DropDownListFor(model => model.WorkerID)
+                                        .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                                        .DataTextField("Text")
+                                        .DataValueField("Value")
+                                        .DataSource(source =>
+                                            {
+                                                source.Read(read =>
+                                                {
+                                                    read.Action("LoadWorkerAjax", "CaseWorker", new { caseID = Model.CaseID }).Data("CaswWorkerRoleDropDownList_OnSelect");
+                                                });
+                                            })
+
+
+
+                                    )
+        </div>
+    </div>
+
+
+</div>
+<div class="col-md-6 ">
+
+    <div class="form-group02">
+        <label class="col-sm-4 control-label labe-text">@Html.LabelFor(model => model.IsActive)</label>
+        <div class="col-sm-8">
+            @Html.EditorFor(model => model.IsActive)
+        </div>
+    </div>
+
+
+</div>
+<div class="col-md-6">
+    <div class="form-group02">
+        <label class="col-sm-4 control-label labe-text">@Html.LabelFor(model => model.IsPrimary)</label>
+        <div class="col-sm-8">
+            @Html.EditorFor(model => model.IsPrimary)
+        </div>
+    </div>
+</div>
+<div class="col-md-6">
+    <div class="form-group02">
+        <label class="col-sm-4 control-label labe-text">@Html.LabelFor(model => model.AllowNotification)</label>
+        <div class="col-sm-8">
+            @Html.EditorFor(model => model.AllowNotification)
+        </div>
+    </div>
+</div>
+
+<div class="col-md-12">
+    <div class="form-group02">
+        <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.CaseMemberList)</label>
+        <div class="col-sm-8">
+            @if (Model.CaseMemberList != null)
+            {
+                foreach (SelectListItem caseMember in Model.CaseMemberList)
+                {
+                    string strChecked = "";
+                    if (caseMember.Selected)
+                    {
+                        strChecked = "checked='checked'";
+                    }
+                <div class="row">
+                    <div class="col-sm-3">
+                        <input type="checkbox" name="SelectedCaseMember" value="@caseMember.Value" @strChecked />
+                        @caseMember.Text
+                    </div>
+                </div>
+                }
+            }
+        </div>
+    </div>
+</div>
+
+<div class="row margin-right-20 margin-top-10" style="float: right;">
+    <button id="btnClearForm" type="reset" name="btnClearFormCaseWorker" class="btn btn-primary btnClear"><i class="fa fa-plus"></i>RESET</button>
+    <button id="btnSaveAndRefresh" name="btnSaveAndRefreshCaseWorker" class="btn btn-primary"><i class="fa fa-plus"></i>SAVE</button>
+</div>

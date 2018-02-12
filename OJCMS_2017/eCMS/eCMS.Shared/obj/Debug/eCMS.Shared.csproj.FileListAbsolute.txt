@@ -1,0 +1,20 @@
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.Shared\bin\Debug\eCMS.Shared.dll
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.Shared\bin\Debug\eCMS.Shared.pdb
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.Shared\bin\Debug\Microsoft.Web.Infrastructure.dll
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.Shared\obj\Debug\eCMS.Shared.dll
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.Shared\obj\Debug\eCMS.Shared.pdb
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.Shared\bin\Debug\System.Web.Razor.dll
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.Shared\bin\Debug\System.Web.WebPages.Razor.dll
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.Shared\bin\Debug\System.Web.WebPages.dll
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.Shared\bin\Debug\System.Web.WebPages.Deployment.dll
+C:\TFS\Workspace\OJCMS_2017\eCMS\eCMS.Shared\obj\Debug\eCMS.Shared.csprojResolveAssemblyReference.cache
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.Shared\bin\Debug\eCMS.Shared.dll
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.Shared\bin\Debug\eCMS.Shared.pdb
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.Shared\obj\Debug\eCMS.Shared.dll
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.Shared\obj\Debug\eCMS.Shared.pdb
+D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.Shared\obj\Debug\eCMS.Shared.csprojResolveAssemblyReference.cache
+D:\OJCMS\OJCMS_2017\eCMS\eCMS.Shared\bin\Debug\eCMS.Shared.dll
+D:\OJCMS\OJCMS_2017\eCMS\eCMS.Shared\bin\Debug\eCMS.Shared.pdb
+D:\OJCMS\OJCMS_2017\eCMS\eCMS.Shared\obj\Debug\eCMS.Shared.csprojResolveAssemblyReference.cache
+D:\OJCMS\OJCMS_2017\eCMS\eCMS.Shared\obj\Debug\eCMS.Shared.dll
+D:\OJCMS\OJCMS_2017\eCMS\eCMS.Shared\obj\Debug\eCMS.Shared.pdb

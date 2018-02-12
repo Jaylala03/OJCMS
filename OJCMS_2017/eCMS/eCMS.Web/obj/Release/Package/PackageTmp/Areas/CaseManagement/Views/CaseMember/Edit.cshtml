@@ -1,0 +1,10 @@
+@model eCMS.DataLogic.Models.CaseMember
+
+@{
+    ViewBag.Title = "Create New Case Member";
+}
+@using (Html.BeginForm("Edit", "CaseMember", new { area = "CaseManagement", caseId=Model.CaseID }, FormMethod.Post, new { id="frmEditor", @class="horizontal-form" }))
+{
+    @Html.Partial(eCMS.Shared.Constants.PartialViews.Alert)
+    @Html.Partial("_CreateOrEdit", Model)
+}

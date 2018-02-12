@@ -1,0 +1,66 @@
+﻿@model eCMS.DataLogic.Models.CaseProgressNote
+@using EasySoft.Helper;
+@using eCMS.Shared;
+@using eCMS.DataLogic.Models;
+@using eCMS.DataLogic.ViewModels;
+
+@using (Html.BeginForm("SaveAjax", "CaseProgressNote", new { area = "CaseManagement" }, FormMethod.Post, new { id = "frmEditorCaseProgressNote", @class = "horizontal-form" }))
+{
+    @Html.HiddenFor(model => model.ID)
+    @Html.HiddenFor(model => model.CaseID)
+    @Html.HiddenFor(model => model.CreateDate)
+    @Html.HiddenFor(model => model.CreatedByWorkerID)
+    @Html.HiddenFor(model => model.ActivityTypeID)
+    @Html.HiddenFor(model => model.ContactMethodID)
+    <div class="row" style="padding-top: 20px;">
+        <div class="col-md-12">
+            <label class="control-label labe-text">@Html.LabelRequiredFor(model => model.CaseMembersIds)</label>
+            @(Html.Kendo().MultiSelectFor(model => model.CaseMembersIds)
+                            //.OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                            .DataTextField("Text")
+                            .DataValueField("Value")
+                            .DataSource(source =>
+                            {
+                                source.Read(read =>
+                                {
+                                    read.Action("LoadCaseMemberListAjax", "CaseProgressNote", new { caseID = Model.CaseID });
+                                });
+                            })
+                         )
+        </div>
+        <div class="col-md-12">
+            <label class="control-label labe-text">@Html.LabelRequiredFor(model => model.NoteDate)</label>
+            @Html.EditorFor(model => model.NoteDate)
+        </div>
+        <div class="col-md-12">
+            <label class="control-label labe-text">@Html.LabelRequiredFor(model => model.TimeSpentID)</label>
+            @(Html.Kendo().DropDownListFor(model => model.TimeSpentID)
+                    .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                    .DataTextField("Text")
+                    .DataValueField("Value")
+                    .DataSource(source =>
+                    {
+                        source.Read(read =>
+                        {
+                            read.Action("LoadTimeSpentListAjax", "CaseProgressNote");
+                        });
+                    })
+                    )
+        </div>
+        <div class="col-md-12">
+            <label class="control-label labe-text">@Html.LabelRequiredFor(model => model.Note)</label>
+            @Html.TextAreaFor(model => model.Note, new { @class = "form-control", rows = 4, cols = 100 })
+        </div>
+        <div class="col-md-12">
+            <div class="form-group02" style="margin-top: 10px;">
+                <div class="col-sm-12 col-sm-offset-1">
+                    <div id="btnSave" name="btnSaveCaseProgressNote" style="margin-right: 15px;">
+                        <div class="customButton">
+                            &nbsp;Update Initial Contact Details&nbsp;&nbsp;<i class="fa fa-plus"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}	
