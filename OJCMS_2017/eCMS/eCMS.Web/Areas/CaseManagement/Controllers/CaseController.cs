@@ -20,11 +20,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+
+
 namespace eCMS.Web.Areas.CaseManagement.Controllers
 {
     public class CaseController : BaseController
     {
         private readonly ICaseRepository caseRepository;
+        private readonly ICaseHouseholdIncomeRepository caseHouseholdIncomeRepository;
+        private readonly ICaseWorkerNoteRepository caseWorkerNoteRepository;
         public CaseController(IWorkerRepository workerRepository,
             IProgramRepository programRepository,
             ISubProgramRepository subprogramRepository,
@@ -35,6 +39,9 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
             IHearingSourceRepository hearingsourceRepository,
             ICaseStatusRepository casestatusRepository,
             ICaseRepository caseRepository,
+            IContactMethodRepository contactmethodRepository,
+            ICaseWorkerNoteRepository caseWorkerNoteRepository,
+            ICaseHouseholdIncomeRepository caseHouseholdIncomeRepository,
             IRelationshipStatusRepository relationshipStatusRepository,
             IWorkerRolePermissionRepository workerRolePermissionRepository,
             IWorkerInRoleRepository workerinroleRepository,
@@ -42,7 +49,8 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
             ICaseWorkerRepository caseworkerRepository,
             IWorkerRoleActionPermissionRepository workerroleactionpermissionRepository,
             IWorkerRoleActionPermissionNewRepository workerroleactionpermissionnewRepository,
-            ICaseAuditLogRepository caseAuditLogRepository)
+            ICaseAuditLogRepository caseAuditLogRepository
+            , IIncomeRangeRepository incomeRangeRepository)
             : base(workerroleactionpermissionRepository, workerroleactionpermissionnewRepository)
         {
             this.workerRepository = workerRepository;
@@ -54,6 +62,9 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
             this.hearingsourceRepository = hearingsourceRepository;
             this.casestatusRepository = casestatusRepository;
             this.caseRepository = caseRepository;
+            this.caseHouseholdIncomeRepository = caseHouseholdIncomeRepository;
+            this.caseWorkerNoteRepository = caseWorkerNoteRepository;
+            this.contactmethodRepository = contactmethodRepository;
             this.subprogramRepository = subprogramRepository;
             this.relationshipStatusRepository = relationshipStatusRepository;
             this.workerRolePermissionRepository = workerRolePermissionRepository;
@@ -61,6 +72,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
             this.workerinrolenewRepository = workerinrolenewRepository;
             this.caseworkerRepository = caseworkerRepository;
             this.caseAuditLogRepository = caseAuditLogRepository;
+            this.incomeRangeRepository = incomeRangeRepository;
         }
 
         /// <summary>
@@ -173,9 +185,9 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
                     ViewBag.HasAccessToCaseAuditLogModule = true;
                     if (CurrentLoggedInWorkerRoleIDs.IndexOf(1) == -1)
                     {
-                        ViewBag.HasAccessToAssignmentModule = workerroleactionpermissionnewRepository.HasPermission(CurrentLoggedInWorkerRoleIDs, CurrentLoggedInWorker.ID, varCase.ProgramID, varCase.RegionID, varCase.SubProgramID,varCase.JamatkhanaID, Constants.Areas.CaseManagement, Constants.Controllers.CaseWorker, Constants.Actions.Index, true);
-                        ViewBag.HasAccessToIndividualModule = workerroleactionpermissionnewRepository.HasPermission(CurrentLoggedInWorkerRoleIDs, CurrentLoggedInWorker.ID, varCase.ProgramID, varCase.RegionID, varCase.SubProgramID,varCase.JamatkhanaID, Constants.Areas.CaseManagement, Constants.Controllers.CaseMember, Constants.Actions.Index, true);
-                        ViewBag.HasAccessToInitialContactModule = workerroleactionpermissionnewRepository.HasPermission(CurrentLoggedInWorkerRoleIDs, CurrentLoggedInWorker.ID, varCase.ProgramID, varCase.RegionID, varCase.SubProgramID,varCase.JamatkhanaID, Constants.Areas.CaseManagement, Constants.Controllers.CaseProgressNote, Constants.Actions.InitialContact, true);
+                        ViewBag.HasAccessToAssignmentModule = workerroleactionpermissionnewRepository.HasPermission(CurrentLoggedInWorkerRoleIDs, CurrentLoggedInWorker.ID, varCase.ProgramID, varCase.RegionID, varCase.SubProgramID, varCase.JamatkhanaID, Constants.Areas.CaseManagement, Constants.Controllers.CaseWorker, Constants.Actions.Index, true);
+                        ViewBag.HasAccessToIndividualModule = workerroleactionpermissionnewRepository.HasPermission(CurrentLoggedInWorkerRoleIDs, CurrentLoggedInWorker.ID, varCase.ProgramID, varCase.RegionID, varCase.SubProgramID, varCase.JamatkhanaID, Constants.Areas.CaseManagement, Constants.Controllers.CaseMember, Constants.Actions.Index, true);
+                        ViewBag.HasAccessToInitialContactModule = workerroleactionpermissionnewRepository.HasPermission(CurrentLoggedInWorkerRoleIDs, CurrentLoggedInWorker.ID, varCase.ProgramID, varCase.RegionID, varCase.SubProgramID, varCase.JamatkhanaID, Constants.Areas.CaseManagement, Constants.Controllers.CaseProgressNote, Constants.Actions.InitialContact, true);
                     }
                     else
                     {
@@ -260,7 +272,10 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
                 return RedirectToAction(Constants.Actions.AccessDenied, Constants.Controllers.Home, new { Area = String.Empty });
             }
             Case varCase = new Case();
+            varCase.CaseHouseholdIncome = new CaseHouseholdIncome();
+            varCase.CaseHouseholdIncome.IncomeRanges = incomeRangeRepository.GetAll().ToList();
             varCase.CaseStatusID = 1;
+            varCase.CaseWorkerNote = new CaseWorkerNote();
             return View(varCase);
         }
 
@@ -280,23 +295,48 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
                 //validate data
                 if (ModelState.IsValid)
                 {
-                    //call the repository function to save in database
-                    caseRepository.InsertOrUpdate(varCase);
-                    caseRepository.Save();
-                    var caseWorker = new CaseWorker();
-                    //var workerRoleList = workerinroleRepository.FindAllByWorkerID(CurrentLoggedInWorker.ID);
-                    var workerRoleList = workerinrolenewRepository.FindAllByWorkerID(CurrentLoggedInWorker.ID);
-                    if (workerRoleList != null)
+                    if ((varCase.ProgramID == 3 && !string.IsNullOrEmpty(varCase.PresentingProblem))|| varCase.ProgramID != 3 ) 
                     {
-                        caseWorker.IsActive = true;
-                        caseWorker.LastUpdatedByWorkerID = CurrentLoggedInWorker.ID;
-                        caseWorker.CaseID = varCase.ID;
-                        caseWorker.WorkerID = CurrentLoggedInWorker.ID;
-                        caseworkerRepository.InsertOrUpdate(caseWorker);
-                        caseworkerRepository.Save();
+                        //call the repository function to save in database
+                        caseRepository.InsertOrUpdate(varCase);
+                        caseRepository.Save();
+
+                        if (varCase.CaseHouseholdIncome.IncomeRangeID > 0)
+                        {
+                            varCase.CaseHouseholdIncome.LastUpdatedByWorkerID = CurrentLoggedInWorker.ID;
+                            varCase.CaseHouseholdIncome.CaseID = varCase.ID;
+                            varCase.CaseHouseholdIncome.CaseStatusID = varCase.CaseStatusID;
+                            caseHouseholdIncomeRepository.InsertOrUpdate(varCase.CaseHouseholdIncome);
+                            caseHouseholdIncomeRepository.Save();
+                        }
+                        if (varCase.CaseWorkerNote.ContactMethodID > 0)
+                        {
+                            varCase.CaseWorkerNote.LastUpdatedByWorkerID = CurrentLoggedInWorker.ID;
+                            varCase.CaseWorkerNote.CaseID = varCase.ID;
+                            varCase.CaseWorkerNote.CaseStatusID = varCase.CaseStatusID;
+                            varCase.CaseWorkerNote.NoteDate = Convert.ToDateTime(varCase.ContactDate);
+                            caseWorkerNoteRepository.InsertOrUpdate(varCase.CaseWorkerNote);
+                            caseWorkerNoteRepository.Save();
+                        }
+                        var caseWorker = new CaseWorker();
+                        //var workerRoleList = workerinroleRepository.FindAllByWorkerID(CurrentLoggedInWorker.ID);
+                        var workerRoleList = workerinrolenewRepository.FindAllByWorkerID(CurrentLoggedInWorker.ID);
+                        if (workerRoleList != null)
+                        {
+                            caseWorker.IsActive = true;
+                            caseWorker.LastUpdatedByWorkerID = CurrentLoggedInWorker.ID;
+                            caseWorker.CaseID = varCase.ID;
+                            caseWorker.WorkerID = CurrentLoggedInWorker.ID;
+                            caseworkerRepository.InsertOrUpdate(caseWorker);
+                            caseworkerRepository.Save();
+                        }
+                        //redirect to list page after successful operation
+                        //return RedirectToAction(Constants.Actions.Index, Constants.Controllers.CaseMember, new { caseID = varCase.ID });
+                        return RedirectToAction(Constants.Actions.Index, Constants.Controllers.CaseSummary, new { caseID = varCase.ID });
                     }
-                    //redirect to list page after successful operation
-                    return RedirectToAction(Constants.Actions.Index, Constants.Controllers.CaseMember, new { caseID = varCase.ID });
+                    else {
+                        varCase.ErrorMessage = "Please enter presenting problem.";
+                    }
                 }
                 else
                 {
@@ -546,7 +586,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
             {
                 return Json("");
             }
-        } 
+        }
 
         /// <summary>
         /// delete varCase from database usign ajax operation
@@ -568,7 +608,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
             Case varCase = caseRepository.Find(id);
             //bool hasAccess = workerroleactionpermissionRepository.HasPermission(CurrentLoggedInWorkerRoleIDs, CurrentLoggedInWorker.ID, varCase.ProgramID, varCase.RegionID, varCase.SubProgramID, Constants.Areas.CaseManagement, Constants.Controllers.Case, Constants.Actions.Delete, true);
             var primaryWorkerID = GetPrimaryWorkerOfTheCase(varCase.ID);
-            if (varCase.CreatedByWorkerID != CurrentLoggedInWorker.ID && primaryWorkerID != CurrentLoggedInWorker.ID && CurrentLoggedInWorkerRoleIDs.IndexOf(1) == -1 && (CurrentLoggedInWorkerRoleIDs.IndexOf(SiteConfigurationReader.RegionalManagerRoleID) == -1 || CurrentLoggedInWorkerRegionIDs.IndexOf(varCase.RegionID) !=-1))
+            if (varCase.CreatedByWorkerID != CurrentLoggedInWorker.ID && primaryWorkerID != CurrentLoggedInWorker.ID && CurrentLoggedInWorkerRoleIDs.IndexOf(1) == -1 && (CurrentLoggedInWorkerRoleIDs.IndexOf(SiteConfigurationReader.RegionalManagerRoleID) == -1 || CurrentLoggedInWorkerRegionIDs.IndexOf(varCase.RegionID) != -1))
             {
                 statusModel.ErrorMessage = "You are not eligible to do this action";
                 return Json(new { success = false, data = this.RenderPartialViewToString(Constants.PartialViews.AlertSliding, statusModel) });
@@ -712,6 +752,102 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
             //}
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+
+        public List<Employee> GetAllEmployees()
+        {
+            List<Employee> employees = new List<Employee>();
+            employees.Add(new Employee()
+            {
+                Id = 1,
+                FirstName = "John",
+                LastName = "Smith",
+                CompanyId = 1,
+                CompanyName = "Microsoft"
+            }
+            );
+            employees.Add(new Employee()
+            {
+                Id = 2,
+                FirstName = "Tim",
+                LastName = "Smith",
+                CompanyId = 2,
+                CompanyName = "UbiSoft"
+            }
+            );
+            return employees;
+        }
+        public JsonResult ReadEmployees([DataSourceRequest] DataSourceRequest request)
+        {
+            List<Employee> employess = GetAllEmployees();
+            DataSourceResult result = employess.ToDataSourceResult(request);
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        public class Company
+        {
+            public int Id { get; set; }
+            public string Name { get; set; }
+        }
+        public List<Company> GetAllCompanies()
+        {
+            List<Company> companies = new List<Company>();
+            companies.Add(new Company()
+            {
+                Id = 1,
+                Name = "Microsoft"
+            }
+            );
+            companies.Add(new Company()
+            {
+                Id = 2,
+                Name = "UbiSoft"
+            }
+            );
+            return companies;
+        }
+
+        public ActionResult Employees()
+        {
+            ViewBag.Companies = GetAllCompanies();
+            return View();
+        }
+
+        public ActionResult Editing_Inline()
+        {
+            return View();
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult CreateEmployee([DataSourceRequest] DataSourceRequest request, Employee employee)
+        {
+            if (employee != null && ModelState.IsValid)
+            {
+            }
+
+            return Json(new[] { employee }.ToDataSourceResult(request, ModelState));
+        }
+
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult UpdateEmployees([DataSourceRequest] DataSourceRequest request, Employee employee)
+        {
+            if (employee != null && ModelState.IsValid)
+            {
+            }
+
+            return Json(new[] { employee }.ToDataSourceResult(request, ModelState));
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult DestroyEmployees([DataSourceRequest] DataSourceRequest request, Employee employee)
+        {
+            if (employee != null)
+            {
+            }
+
+            return Json(new[] { employee }.ToDataSourceResult(request, ModelState));
+        }
     }
+
+
 }
 

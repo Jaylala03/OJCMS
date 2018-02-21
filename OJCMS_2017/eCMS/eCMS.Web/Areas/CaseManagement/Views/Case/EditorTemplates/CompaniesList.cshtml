@@ -1,0 +1,20 @@
+﻿@using System.Collections
+@model System.Int32
+           
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>CompaniesList</title>
+</head>
+<body>
+    <div> 
+        @(Html.Kendo().DropDownList().BindTo((IEnumerable)ViewBag.Companies).OptionLabel("- Select Company - ").DataValueField("Id").DataTextField("Name").Name("CompanyId"))
+    </div>
+</body>
+</html>

@@ -3,6 +3,7 @@
 @using eCMS.DataLogic.Models
 @using eCMS.Shared
 @using EasySoft.Helper
+
 <div id="dvAjaxAlertContainer">
     @Html.Partial(Constants.PartialViews.Alert)
 </div>
@@ -12,41 +13,16 @@
 @Html.HiddenFor(model => model.CreatedByWorkerID)
 <div class="row">
     <div class="col-md-6">
-        <div class="form-group02">
-            <label class="col-sm-4 control-label labe-text">@Html.LabelFor(model => model.CaseNumber)</label>
-            @if (Model.IsReadmit)
-            {
-                <div class="col-sm-8">
-                    @Html.TextBoxFor(model => model.CaseNumber, new { @class="form-control", disabled="disabled" })
-                </div>
-            }
-            else
-            {
-                <div class="col-sm-8">
-                    @Html.EditorFor(model => model.CaseNumber)
-                </div>
-            }
-        </div>
-        <div class="form-group02" title="Date the Confidentiality and Consent to Participate form signed">
-            <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.EnrollDate)</label>
-            <div class="col-sm-8">
-             
-                @Html.EditorFor(model => model.EnrollDate)
-            </div>
-        </div>
-        <div class="form-group02">
-            <label class="col-sm-4 control-label labe-text">@Html.LabelFor(model => model.ReferralDate)</label>
-            <div class="col-sm-8">
-                @Html.EditorFor(model => model.ReferralDate)
-            </div>
-        </div>
+
+        @Html.ValidationSummary(true)
+
         <div class="form-group02">
             <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.ProgramID)</label>
             <div class="col-sm-8">
-                 @(Html.Kendo().DropDownListFor(model => model.ProgramID)    
+                @(Html.Kendo().DropDownListFor(model => model.ProgramID)
                         .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
                         .HtmlAttributes(new { @class = "drop_down_list" })
-                        .Events(e => e.Change("ProgramDropDownList_OnChanged"))                        
+                        .Events(e => e.Change("ProgramDropDownList_OnChanged"))
                         .DataTextField("Text")
                         .DataValueField("Value")
                         .DataSource(source =>
@@ -56,9 +32,12 @@
                                 read.Action("LoadWorkerProgramsAjax", "Case");
                             });
                         })
-                    )
+                )
             </div>
-        </div>        
+            <div class="col-sm-8">
+                @Html.ValidationMessageFor(model => model.ProgramID, "", new { @class = "text-danger" })
+            </div>
+        </div>
         <div class="form-group02">
             <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.RegionID)</label>
             <div class="col-sm-8" id="divRegion">
@@ -77,14 +56,17 @@
                             .Enable(false)
                             .AutoBind(false)
                             .CascadeFrom("ProgramID")
-                            
-                         )
+
+                )
+            </div>
+            <div class="col-sm-8">
+                @Html.ValidationMessageFor(model => model.RegionID, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group02">
             <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.SubProgramID)</label>
             <div class="col-sm-8" id="divSubProgram">
-               @(Html.Kendo().DropDownListFor(model => model.SubProgramID)
+                @(Html.Kendo().DropDownListFor(model => model.SubProgramID)
                     .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
                     .DataTextField("Text")
                     .DataValueField("Value")
@@ -101,11 +83,14 @@
                     .CascadeFrom("RegionID")
                 )
             </div>
+            <div class="col-sm-8">
+                @Html.ValidationMessageFor(model => model.SubProgramID, "", new { @class = "text-danger" })
+            </div>
         </div>
         <div class="form-group02">
             <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.JamatkhanaID)</label>
             <div class="col-sm-8" id="divJamatkhana">
-                @(Html.Kendo().DropDownListFor(model => model.JamatkhanaID)    
+                @(Html.Kendo().DropDownListFor(model => model.JamatkhanaID)
                     .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
                     .DataTextField("Text")
                     .DataValueField("Value")
@@ -113,7 +98,7 @@
                     {
                         source.Read(read =>
                         {
-                            read.Action("LoadJamatkhanasAjax", "Case") 
+                            read.Action("LoadJamatkhanasAjax", "Case")
                                 .Data("RegionDropDownList_OnSelect"); ;
                         })
                         .ServerFiltering(true);
@@ -123,7 +108,38 @@
                     .CascadeFrom("RegionID")
                 )
             </div>
+            <div class="col-sm-8">
+                @Html.ValidationMessageFor(model => model.JamatkhanaID, "", new { @class = "text-danger" })
+            </div>
         </div>
+
+        <div class="form-group02">
+            <label class="col-sm-4 control-label labe-text">@Html.LabelFor(model => model.CaseNumber)</label>
+            @if (Model.IsReadmit)
+            {
+                <div class="col-sm-8">
+                    @Html.TextBoxFor(model => model.CaseNumber, new { @class = "form-control", disabled = "disabled" })
+                </div>
+            }
+            else
+            {
+                <div class="col-sm-8">
+                    @Html.EditorFor(model => model.CaseNumber)
+                </div>
+            }
+        </div>
+        <div class="form-group02" title="Date the Confidentiality and Consent to Participate form signed">
+            <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.EnrollDate)</label>
+            <div class="col-sm-8">
+
+                @Html.EditorFor(model => model.EnrollDate)
+            </div>
+            <div class="col-sm-8">
+                @Html.ValidationMessageFor(model => model.EnrollDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
         <div class="form-group02">
             <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.IntakeMethodID)</label>
             @if (Model.IntakeMethodOther.IsNotNullOrEmpty())
@@ -131,7 +147,7 @@
                 <div class="col-sm-4" id="divIntakeMethod">
                     @(Html.Kendo().DropDownListFor(model => model.IntakeMethodID)
                                     .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
-                                    .Events(e=>e.Change("DropDownListOther_OnChange"))
+                                    .Events(e => e.Change("DropDownListOther_OnChange"))
                                 .DataTextField("Text")
                                 .DataValueField("Value")
                                 .DataSource(source =>
@@ -141,10 +157,13 @@
                                         read.Action("LoadIntakeMethodsAjax", "Case");
                                     });
                                 })
-                             )
+                    )
                 </div>
-                <div class="col-sm-4" id="divIntakeMethodOther">
-                    @Html.EditorFor(model => model.IntakeMethodOther)
+                @*<div class="col-sm-4" id="divIntakeMethodOther">
+                        @Html.EditorFor(model => model.IntakeMethodOther)
+                    </div>*@
+                <div class="col-sm-8">
+                    @Html.ValidationMessageFor(model => model.IntakeMethodID, "", new { @class = "text-danger" })
                 </div>
             }
             else
@@ -152,7 +171,7 @@
                 <div class="col-sm-8" id="divIntakeMethod">
                     @(Html.Kendo().DropDownListFor(model => model.IntakeMethodID)
                                     .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
-                                    .Events(e=>e.Change("DropDownListOther_OnChange"))
+                                    .Events(e => e.Change("DropDownListOther_OnChange"))
                                 .DataTextField("Text")
                                 .DataValueField("Value")
                                 .DataSource(source =>
@@ -162,19 +181,97 @@
                                         read.Action("LoadIntakeMethodsAjax", "Case");
                                     });
                                 })
-                             )
+                    )
                 </div>
-                <div class="col-sm-4 hide" id="divIntakeMethodOther">
-                    @Html.EditorFor(model => model.IntakeMethodOther)
+                <div class="col-sm-8">
+                    @Html.ValidationMessageFor(model => model.IntakeMethodID, "", new { @class = "text-danger" })
                 </div>
             }
         </div>
     </div>
     <div class="col-md-6">
         <div class="form-group02">
+            <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.ReferralSourceID)</label>
+            @if (Model.ReferralSourceOther.IsNotNullOrEmpty())
+            {
+                <div class="col-sm-4" id="divReferralSource">
+                    @(Html.Kendo().DropDownListFor(model => model.ReferralSourceID)
+                                    .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                                    .Events(e => e.Change("DropDownListOther_OnChange"))
+                                .DataTextField("Text")
+                                .DataValueField("Value")
+                                .DataSource(source =>
+                                {
+                                    source.Read(read =>
+                                    {
+                                        read.Action("LoadReferralSourcesAjax", "Case");
+                                    });
+                                })
+                    )
+                </div>
+                @*<div class="col-sm-4" id="divReferralSourceOther">
+                        @Html.EditorFor(model => model.ReferralSourceOther)
+                    </div>*@
+                <div class="col-sm-8">
+                    @Html.ValidationMessageFor(model => model.ReferralSourceID, "", new { @class = "text-danger" })
+                </div>
+            }
+            else
+            {
+                <div class="col-sm-8" id="divReferralSource">
+                    @(Html.Kendo().DropDownListFor(model => model.ReferralSourceID)
+                                    .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                                    .Events(e => e.Change("DropDownListOther_OnChange"))
+                                .DataTextField("Text")
+                                .DataValueField("Value")
+                                .DataSource(source =>
+                                {
+                                    source.Read(read =>
+                                    {
+                                        read.Action("LoadReferralSourcesAjax", "Case");
+                                    });
+                                })
+                    )
+                </div>
+                @*<div class="col-sm-4 hide" id="divReferralSourceOther">
+                        @Html.EditorFor(model => model.ReferralSourceOther)
+                    </div>*@
+                <div class="col-sm-8">
+                    @Html.ValidationMessageFor(model => model.ReferralSourceID, "", new { @class = "text-danger" })
+                </div>
+            }
+        </div>
+        <div class="form-group02">
+            <label class="col-sm-4 control-label labe-text">@Html.LabelFor(model => model.ReferralDate)</label>
+            <div class="col-sm-8">
+                @Html.EditorFor(model => model.ReferralDate)
+            </div>
+        </div>
+
+        <div class="form-group02">
+            <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.RiskTypeID)</label>
+            <div class="col-sm-8">
+                @(Html.Kendo().DropDownListFor(model => model.RiskTypeID)
+                        .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                        .DataTextField("Text")
+                        .DataValueField("Value")
+                        .DataSource(source =>
+                        {
+                            source.Read(read =>
+                            {
+                                read.Action("LoadRiskTypeAjax", "CaseAssessment");
+                            });
+                        })
+                )
+            </div>
+            <div class="col-sm-8">
+                @Html.ValidationMessageFor(model => model.RiskTypeID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group02">
             <label class="col-sm-4 control-label labe-text">@Html.LabelFor(model => model.Address)</label>
             <div class="col-sm-8">
-               @Html.EditorFor(model => model.Address)
+                @Html.EditorFor(model => model.Address)
             </div>
         </div>
         <div class="form-group02">
@@ -189,134 +286,167 @@
                 @Html.EditorFor(model => model.PostalCode)
             </div>
         </div>
+
         <div class="form-group02">
-            <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.ReferralSourceID)</label>
-            @if (Model.ReferralSourceOther.IsNotNullOrEmpty())
-            {
-                <div class="col-sm-4" id="divReferralSource">
-                    @(Html.Kendo().DropDownListFor(model => model.ReferralSourceID)
-                                    .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
-                                    .Events(e=>e.Change("DropDownListOther_OnChange"))
-                                .DataTextField("Text")
-                                .DataValueField("Value")
-                                .DataSource(source =>
-                                {
-                                    source.Read(read =>
-                                    {
-                                        read.Action("LoadReferralSourcesAjax", "Case");
-                                    });
-                                })
-                             )
-                </div>
-                <div class="col-sm-4" id="divReferralSourceOther">
-                    @Html.EditorFor(model => model.ReferralSourceOther)
-                </div>
-            }
-            else
-            {
-                <div class="col-sm-8" id="divReferralSource">
-                    @(Html.Kendo().DropDownListFor(model => model.ReferralSourceID)
-                                    .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
-                                    .Events(e=>e.Change("DropDownListOther_OnChange"))
-                                .DataTextField("Text")
-                                .DataValueField("Value")
-                                .DataSource(source =>
-                                {
-                                    source.Read(read =>
-                                    {
-                                        read.Action("LoadReferralSourcesAjax", "Case");
-                                    });
-                                })
-                             )
-                </div>
-                <div class="col-sm-4 hide" id="divReferralSourceOther">
-                    @Html.EditorFor(model => model.ReferralSourceOther)
-                </div>
-            }
-        </div>
-        <div class="form-group02">
-            <label class="col-sm-4 control-label labe-text">@Html.LabelFor(model => model.ReferralSourceComments)</label>
+            <label class="col-md-9 control-label labe-text">Presenting problem (Reason of seeking support)*</label>
+            <div class="col-sm-12">
+                @Html.TextAreaFor(model => model.PresentingProblem, new { @class = "form-control", style = "width:97%; height: 50px;", rows = "3" })
+            </div>
             <div class="col-sm-8">
-                @Html.EditorFor(model => model.ReferralSourceComments)
+                @*@Html.ValidationMessageFor(model => model.ErrorMessage, "", new { @class = "text-danger" })*@
+                @ViewBag.ErrorMessage
             </div>
         </div>
+
         @*<div class="form-group02">
-            <label class="col-sm-4 control-label labe-text">@Html.LabelFor(model => model.HearingSourceID)</label>
-            @if (Model.HearingSourceOther.IsNotNullOrEmpty())
-            {
-                <div class="col-sm-4" id="divHearingSource">
-                    @(Html.Kendo().DropDownListFor(model => model.HearingSourceID)
-                                    .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
-                                    .Events(e=>e.Change("DropDownListOther_OnChange"))
+                <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.CaseStatusID)</label>
+                <div class="col-sm-8">
+                    @(Html.Kendo().DropDownListFor(model => model.CaseStatusID)
+                                .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                                .HtmlAttributes(new { @class = "drop_down_list" })
+                                .Events(e => e
+                                        .Change("DropDownList_OnChanged"))
                                 .DataTextField("Text")
                                 .DataValueField("Value")
                                 .DataSource(source =>
                                 {
                                     source.Read(read =>
                                     {
-                                        read.Action("LoadHearingSourcesAjax", "Case");
+                                        read.Action("LoadCaseStatusAjax", "Case");
                                     });
                                 })
-                             )
+                    )
                 </div>
-                <div class="col-sm-4" id="divHearingSourceOther">
-                    @Html.EditorFor(model => model.HearingSourceOther)
+            </div>*@
+
+    </div>
+</div>
+@if (Model.CaseHouseholdIncome != null)
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group02">
+                <label class="col-sm-4 control-label labe-text" style="font-weight:bold;">Household Income: (Optional)</label>
+            </div>
+            <div class="form-group02">
+                <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.CaseHouseholdIncome.NoOfMembers)</label>
+                <div class="col-sm-2">
+                    @(Html.Kendo().NumericTextBoxFor<int>(model => model.CaseHouseholdIncome.NoOfMembers)
+                                .Placeholder("Enter numeric value")
+                                 .HtmlAttributes(new { title = "numeric" })
+                    )
                 </div>
-            }
-            else
+            </div>
+            <div class="form-group02">
+                <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.CaseHouseholdIncome.NoOfChild)</label>
+                <div class="col-sm-2">
+                    @(Html.Kendo().NumericTextBoxFor<int>(model => model.CaseHouseholdIncome.NoOfChild)
+                                .Placeholder("Enter numeric value")
+                                 .HtmlAttributes(new { title = "numeric" })
+                    )
+                </div>
+            </div>
+            <div class="form-group02">
+                <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.CaseHouseholdIncome.NoOfSeniors)</label>
+                <div class="col-sm-2">
+                    @(Html.Kendo().NumericTextBoxFor<int>(model => model.CaseHouseholdIncome.NoOfSeniors)
+                                .Placeholder("Enter numeric value")
+                                 .HtmlAttributes(new { title = "numeric" })
+                    )
+                </div>
+            </div>
+            <div class="form-group02">
+                <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.CaseHouseholdIncome.NoOfPhysicallyDisabled)</label>
+                <div class="col-sm-2">
+                    @(Html.Kendo().NumericTextBoxFor<int>(model => model.CaseHouseholdIncome.NoOfPhysicallyDisabled)
+                                .Placeholder("Enter numeric value")
+                                 .HtmlAttributes(new { title = "numeric" })
+                    )
+                </div>
+            </div>
+            <div class="form-group02">
+                <label class="col-sm-4 control-label labe-text">Household gross income range (annual):</label>
+            </div>
+            @foreach (var a in Model.CaseHouseholdIncome.IncomeRanges)
             {
-                <div class="col-sm-8" id="divHearingSource">
-                    @(Html.Kendo().DropDownListFor(model => model.HearingSourceID)
-                                    .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
-                                    .Events(e=>e.Change("DropDownListOther_OnChange"))
-                                .DataTextField("Text")
-                                .DataValueField("Value")
-                                .DataSource(source =>
-                                {
-                                    source.Read(read =>
-                                    {
-                                        read.Action("LoadHearingSourcesAjax", "Case");
-                                    });
-                                })
-                             )
-                </div>
-                <div class="col-sm-4 hide" id="divHearingSourceOther">
-                    @Html.EditorFor(model => model.HearingSourceOther)
+                <div class="form-group02">
+                    <label class="col-sm-4 control-label labe-text"></label>
+                    <div class="col-sm-6">
+                        @Html.RadioButtonFor(b => b.CaseHouseholdIncome.IncomeRangeID, a.ID)  @a.Name
+                    </div>
                 </div>
             }
-        </div>*@
+        </div>
+    </div>
+}
+<div class="row">
+    <div class="col-md-12">
         <div class="form-group02">
-            <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.CaseStatusID)</label>
-            <div class="col-sm-8">
-                @(Html.Kendo().DropDownListFor(model => model.CaseStatusID)  
+            <label class="col-sm-4 control-label labe-text" style="font-weight:bold;">Work Notes: (Optional)</label>
+        </div>
+        <div class="form-group02">
+            <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.CaseWorkerNote.Note)</label>
+            <div class="col-sm-4">
+                @Html.TextAreaFor(model => model.CaseWorkerNote.Note, new { @class = "form-control", rows = 4, cols = 100 })
+            </div>
+        </div>
+        <div class="form-group02">
+            <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.CaseWorkerNote.ContactMethodID)</label>
+            <div class="col-sm-4">
+                @(Html.Kendo().DropDownListFor(model => model.CaseWorkerNote.ContactMethodID)
                             .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
-                            .HtmlAttributes(new { @class = "drop_down_list" })
-                            .Events(e => e
-                                    .Change("DropDownList_OnChanged"))
-                            .DataTextField("Text") 
+                            .DataTextField("Text")
                             .DataValueField("Value")
                             .DataSource(source =>
                             {
                                 source.Read(read =>
                                 {
-                                    read.Action("LoadCaseStatusAjax", "Case");
+                                    read.Action("LoadContactMethodAjax", "CaseProgressNote");
                                 });
                             })
-                         )
+                )
             </div>
         </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-12">
         <div class="form-group02">
-            <label class="col-sm-2 control-label labe-text">@Html.LabelFor(model => model.Comments)</label>
-            <div class="col-sm-10">
-                @Html.TextAreaFor(model => model.Comments, new { @class = "form-control ckeditor", style = "width:95%; height: 50px;", rows = "3" })
+            <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.ContactDate)</label>
+            <div class="col-sm-4">
+                @Html.EditorFor(model => model.ContactDate)
+            </div>
+        </div>
+        <div class="form-group02">
+            <label class="col-sm-4 control-label labe-text">Time Spent</label>
+            <div class="col-sm-2">
+                @*@Html.EditorFor(m => m.CaseWorkerNote.TimeSpentHours, null, new { @class = "form-control" })*@
+                @(Html.Kendo().NumericTextBoxFor<int>(m => m.CaseWorkerNote.TimeSpentHours)
+                                            .Min(0)
+                                            .Max(59)
+                                            .HtmlAttributes(new { title = "Hours" })
+                )
+                @Html.ValidationMessageFor(m => m.CaseWorkerNote.TimeSpentHours, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-sm-2">
+                @*@Html.EditorFor(m => m.CaseWorkerNote.TimeSpentMinutes, null, new { @class = "form-control" })*@
+                @(Html.Kendo().NumericTextBoxFor<int>(m => m.CaseWorkerNote.TimeSpentMinutes)
+                                            .Min(0)
+                                            .Max(59)
+                                            .HtmlAttributes(new { title = "Minutes" })
+                )
+                @Html.ValidationMessageFor(m => m.CaseWorkerNote.TimeSpentMinutes, "", new { @class = "text-danger" })
             </div>
         </div>
     </div>
 </div>
+
+@*<div class="row">
+        <div class="col-md-12">
+            <div class="form-group02">
+                <label class="col-sm-2 control-label labe-text">@Html.LabelFor(model => model.Comments)</label>
+                <div class="col-sm-10">
+                    @Html.TextAreaFor(model => model.Comments, new { @class = "form-control ckeditor", style = "width:95%; height: 50px;", rows = "3" })
+                </div>
+            </div>
+        </div>
+    </div>*@
 <div id="add_candidate3">
     @if (Model.IsReadmit)
     {
@@ -339,3 +469,17 @@
 
 </div>
 <br class="clear" />
+<script>
+
+    //$(document).ready(function () {
+    //    $('#TimeSpent').timepicker({
+    //        autoclose: true,
+    //        defaultTime: 'value',
+    //    minuteStep: 1,
+    //    disableFocus: true,
+    //    template: 'dropdown',
+    //    showMeridian: false,
+    //    format: 'hh:mm'
+    //    });
+    //});
+</script>

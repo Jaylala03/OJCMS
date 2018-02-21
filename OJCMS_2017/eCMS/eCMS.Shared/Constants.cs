@@ -101,6 +101,7 @@ namespace eCMS.Shared
             public const string Worker = "Worker";
             public const string Feedback = "Feedback";
             public const string Case = "Case";
+            public const string CaseSummary = "CaseSummary";
             public const string CaseMember = "CaseMember";
             public const string CaseWorker = "CaseWorker";
             public const string CaseProgressNote = "CaseProgressNote";

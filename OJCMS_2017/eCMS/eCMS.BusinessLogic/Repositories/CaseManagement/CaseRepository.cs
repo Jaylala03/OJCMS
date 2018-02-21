@@ -24,8 +24,6 @@ using System.Text;
 using System.Web.Mvc;
 
 
-
-
 namespace eCMS.BusinessLogic.Repositories
 {
     /// <summary>
@@ -95,15 +93,15 @@ namespace eCMS.BusinessLogic.Repositories
                 }
                 string primaryCaseMemberFirstName = string.Empty;
                 string primaryCaseMemberLastName = string.Empty;
-                if (varCase.ID > 0)
-                {
-                    CaseMember primaryCaseMember = context.CaseMember.FirstOrDefault(item => item.CaseID == varCase.ID && item.IsPrimary == true);
-                    if (primaryCaseMember != null)
-                    {
-                        primaryCaseMemberFirstName = primaryCaseMember.FirstName;
-                        primaryCaseMemberLastName = primaryCaseMember.LastName;
-                    }
-                }
+                //if (varCase.ID > 0)
+                //{
+                //    CaseMember primaryCaseMember = context.CaseMember.FirstOrDefault(item => item.CaseID == varCase.ID && item.IsPrimary == true);
+                //    if (primaryCaseMember != null)
+                //    {
+                //        primaryCaseMemberFirstName = primaryCaseMember.FirstName;
+                //        primaryCaseMemberLastName = primaryCaseMember.LastName;
+                //    }
+                //}
                 varCase.DisplayID = MiscUtility.GetCasePersonalizedId(regionCode, primaryCaseMemberFirstName, primaryCaseMemberLastName, varCase.ID, varCase.DisplayID);
             }
             varCase.LastUpdateDate = DateTime.Now;

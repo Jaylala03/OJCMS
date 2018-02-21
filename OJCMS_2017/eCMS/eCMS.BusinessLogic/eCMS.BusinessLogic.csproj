@@ -131,7 +131,10 @@
     <Compile Include="Repositories\CaseManagement\CaseMemberEthinicityRepository.cs" />
     <Compile Include="Repositories\CaseManagement\CaseMemberProfileRepository.cs" />
     <Compile Include="Repositories\CaseManagement\CaseMemberRepository.cs" />
+    <Compile Include="Repositories\CaseManagement\CaseSummaryRepository.cs" />
+    <Compile Include="Repositories\CaseManagement\CaseWorkerNoteRepository.cs" />
     <Compile Include="Repositories\CaseManagement\CaseProgressNoteRepository.cs" />
+    <Compile Include="Repositories\CaseManagement\CaseHouseholdIncomeRepository.cs" />
     <Compile Include="Repositories\CaseManagement\CaseRepository.cs" />
     <Compile Include="Repositories\CaseManagement\CaseSmartGoalProgressRepository.cs">
       <SubType>Code</SubType>
@@ -153,11 +156,13 @@
     <Compile Include="Repositories\Context\IRepositoryContextInitializer.cs" />
     <Compile Include="Repositories\Context\RepositoryContext.cs" />
     <Compile Include="Repositories\Context\RepositoryContextInitializer.cs" />
+    <Compile Include="Repositories\Lookup\WorkerNoteActivityTypeRepository.cs" />
     <Compile Include="Repositories\Lookup\ActivityTypeRepository.cs" />
     <Compile Include="Repositories\Lookup\AnnualIncomeRepository.cs" />
     <Compile Include="Repositories\Lookup\AssessmentTypeRepository.cs" />
     <Compile Include="Repositories\Lookup\ContactMediaRepository.cs" />
     <Compile Include="Repositories\Lookup\ContactMethodRepository.cs" />
+    <Compile Include="Repositories\Lookup\IncomeRangeRepository.cs" />
     <Compile Include="Repositories\Lookup\ServiceRepository.cs" />
     <Compile Include="Repositories\Lookup\ServiceProviderRepository.cs">
       <SubType>Code</SubType>

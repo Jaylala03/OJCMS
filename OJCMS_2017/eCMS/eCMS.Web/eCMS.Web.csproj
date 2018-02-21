@@ -319,6 +319,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Areas\CaseManagement\Controllers\CaseSummaryController.cs" />
     <Compile Include="Reports\CaseDashboardNew.cs">
       <DependentUpon>CaseDashboardNew.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -408,6 +409,8 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="Assets\images\ttlogo.png" />
+    <Content Include="Assets\plugins\bootstrap-timepicker\bootstrap-timepicker.js" />
+    <Content Include="Assets\plugins\bootstrap-timepicker\timepicker.css" />
     <Content Include="Assets\plugins\ckeditor\adapters\jquery.js" />
     <Content Include="Assets\plugins\ckeditor\build-config.js" />
     <Content Include="Assets\plugins\ckeditor\ckeditor.js" />
@@ -1957,6 +1960,9 @@
     <Content Include="Areas\CaseManagement\Views\CaseWorker\IndexRead.cshtml" />
     <Content Include="Areas\Reporting\Views\Report\CaseDashBoard.cshtml" />
     <Content Include="Areas\Reporting\Views\Report\ListOfIssues.cshtml" />
+    <Content Include="Areas\CaseManagement\Views\Case\Employees.cshtml" />
+    <Content Include="Areas\CaseManagement\Views\Case\EditorTemplates\CompaniesList.cshtml" />
+    <Content Include="Areas\CaseManagement\Views\CaseSummary\Index.cshtml" />
     <None Include="bin\eCMS.Web.dll.config" />
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Properties\PublishProfiles\ecms.softwareravine.com.pubxml" />

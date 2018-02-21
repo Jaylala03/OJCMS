@@ -1,0 +1,72 @@
+﻿@model eCMS.DataLogic.Models.Employee
+@using EasySoft.Helper;
+@using eCMS.Shared;
+@using eCMS.DataLogic.Models;
+@using eCMS.DataLogic.ViewModels;
+@{
+    ViewBag.Title = "Employees";
+}
+@section headsection
+{
+    @Styles.Render("~/assets/plugins/kendo/css")
+    @Scripts.Render("~/assets/plugins/kendo/js")
+}
+<h2>Employees</h2>
+<div class="container candidate-list-main-container">
+    <div class="row">
+        <div class="col-lg-12 col-md-11 candidate-table-bg">
+            <div class="row">
+
+                @(Html.Kendo().Grid<Employee>().Name("EmployeesGrid").Columns(columns =>
+            {
+                columns.Bound(e => e.FirstName).Title("First Name");
+                columns.Bound(e => e.LastName).Title("Last Name");
+                columns.Bound(e => e.CompanyId).EditorTemplateName("CompaniesList").Title("Company").ClientTemplate("#:CompanyName#");
+                columns.Command(command =>
+                {
+                    command.Edit();
+                    command.Destroy();
+                }
+               );
+            }
+                ).ToolBar(toolbar => toolbar.Create()).
+                Editable(editable => editable.Mode(GridEditMode.InLine)).
+                //Nullable Model Properties – How to Take Care
+                //Events(events =>
+                //{
+                //    events.Save("EmployeesGrid_Save");
+                //}).
+                DataSource(dataSource => dataSource.Ajax().Events(events => events.Error("error_handler")).
+                Model(model => model.Id(e => e.Id)).
+                Create(update => update.Action("CreateEmployee", "Case")).
+                        Read(read => read.Action("ReadEmployees", "Case")).
+                        Update(update => update.Action("UpdateEmployees", "Case"))
+                        .Destroy(update => update.Action("DestroyEmployees", "Case"))
+                        ))
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function error_handler(e) {
+        if (e.errors) {
+            var message = "Errors:\n";
+            $.each(e.errors, function (key, value) {
+                if ('errors' in value) {
+                    $.each(value.errors, function () {
+                        message += this + "\n";
+                    }
+                   );
+                }
+            }
+           );
+            alert(message);
+        }
+    }
+    //Nullable Model Properties – How to Take Care
+    //function EmployeesGrid_Save(e) {
+    //    var companyId = $("#CompanyId").data().kendoDropDownList.value();
+    //    e.model.set("CompanyId", companyId);
+    //}
+</script>
+

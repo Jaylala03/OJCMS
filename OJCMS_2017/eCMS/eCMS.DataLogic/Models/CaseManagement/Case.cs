@@ -36,6 +36,14 @@ namespace eCMS.DataLogic.Models
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? ReferralDate { get; set; }
 
+        [NotMapped]
+        [Display(Name = "Contact Date")]
+        //[DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime? ContactDate { get; set; }
+
+        
+
         [Required(ErrorMessage = "Please select program")]
         [Display(Name = "Program")]
         [ForeignKey("Program")]
@@ -114,6 +122,18 @@ namespace eCMS.DataLogic.Models
         [AllowHtml]
         public String Comments { get; set; }
 
+        [Required(ErrorMessage = "Please select risk type")]
+        [Display(Name = "Risk Level")]
+        //[ForeignKey("RiskType")]
+        public Int32 RiskTypeID { get; set; }
+
+        //[Required(ErrorMessage = "Please enter presenting problem")]
+        [Display(Name = "Presenting Problem (Reason for seeking support)")]
+        [MaxLength]
+        [DataType(DataType.MultilineText)]
+        public String PresentingProblem { get; set; }
+
+        //public virtual RiskType RiskType { get; set; }
         public virtual Program Program { get; set; }
         public virtual SubProgram SubProgram { get; set; }
         public virtual Region Region { get; set; }
@@ -123,6 +143,13 @@ namespace eCMS.DataLogic.Models
         public virtual HearingSource HearingSource { get; set; }
         public virtual CaseStatus CaseStatus { get; set; }
         public virtual Case ReferenceCase { get; set; }
+
+        [NotMapped]
+        public CaseHouseholdIncome CaseHouseholdIncome { get; set; }
+
+        [NotMapped]
+        public CaseWorkerNote CaseWorkerNote { get; set; }
+
 
         [NotMapped]
         [Display(Name="Family or Family Member First Name",Prompt="First Name")]

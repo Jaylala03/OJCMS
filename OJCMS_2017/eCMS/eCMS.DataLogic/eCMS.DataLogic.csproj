@@ -86,9 +86,12 @@
     <Compile Include="Models\CaseManagement\CaseGoalLivingCondition.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Models\CaseManagement\CaseHouseholdIncome.cs" />
     <Compile Include="Models\CaseManagement\CaseMember.cs" />
     <Compile Include="Models\CaseManagement\CaseMemberContact.cs" />
     <Compile Include="Models\CaseManagement\CaseMemberEthinicity.cs" />
+    <Compile Include="Models\CaseManagement\CaseSummary.cs" />
+    <Compile Include="Models\CaseManagement\CaseWorkerNote.cs" />
     <Compile Include="Models\CaseManagement\CaseSmartGoal.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -111,6 +114,9 @@
     <Compile Include="Models\CaseManagement\CaseAction.cs" />
     <Compile Include="Models\CaseManagement\CaseSmartGoalAssignment.cs" />
     <Compile Include="Models\CaseManagement\CaseProgressNoteMembers.cs" />
+    <Compile Include="Models\CaseManagement\Employee.cs" />
+    <Compile Include="Models\Lookup\WorkerNoteActivityType.cs" />
+    <Compile Include="Models\Lookup\IncomeRange.cs" />
     <Compile Include="Models\Lookup\Service.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -189,6 +195,7 @@
     <Compile Include="SeedData\LookupSeed.cs" />
     <Compile Include="SeedData\WorkerSeed.cs" />
     <Compile Include="ViewModels\CaseListViewModel.cs" />
+    <Compile Include="ViewModels\CaseSummaryVM.cs" />
     <Compile Include="ViewModels\ChangePasswordModel.cs" />
     <Compile Include="ViewModels\AssignmentModel.cs" />
     <Compile Include="ViewModels\CaseProgressModel.cs" />

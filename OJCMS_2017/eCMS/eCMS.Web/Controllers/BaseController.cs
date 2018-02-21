@@ -90,7 +90,7 @@ namespace eCMS.Web.Controllers
         protected IPermissionActionRepository permissionactionRepository;
         protected IActionMethodRepository actionMethodRepository;
         protected IWorkerRolePermissionNewRepository wokerRolePermissionNewRepository;
-
+        protected IIncomeRangeRepository incomeRangeRepository;
         public BaseController(IWorkerRoleActionPermissionRepository workerroleactionpermissionRepository)
         {
             this.workerroleactionpermissionRepository = workerroleactionpermissionRepository;
@@ -909,7 +909,11 @@ namespace eCMS.Web.Controllers
         {
             return Json(qualityoflifesubcategoryRepository.FindAllByQualityOfLifeCategoryID(categoryId).ToList(), JsonRequestBehavior.AllowGet);
         }
-
+        public JsonResult LoadIncomeRangeAjax()
+        {
+            return Json(incomeRangeRepository.AllActiveForDropDownList, JsonRequestBehavior.AllowGet);
+        }
+        
         #endregion
     }
 }

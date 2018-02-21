@@ -479,6 +479,11 @@ namespace eCMS.BusinessLogic.Repositories.Context
 
         public DbSet<TrainingModule> TrainingModule { get; set; }
         public DbSet<CaseProgressNoteMembers> CaseProgressNoteMembers { get; set; }
+
+        public DbSet<IncomeRange> IncomeRange { get; set; }
+        public DbSet<CaseHouseholdIncome> CaseHouseholdIncome { get; set; }
+        public DbSet<WorkerNoteActivityType> WorkerNoteActivityType { get; set; }
+        public DbSet<CaseWorkerNote> CaseWorkerNote { get; set; }
     }
 
     public interface IDescribableEntity
