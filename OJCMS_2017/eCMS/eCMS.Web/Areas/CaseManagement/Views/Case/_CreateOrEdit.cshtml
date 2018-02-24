@@ -11,6 +11,7 @@
 @Html.HiddenFor(model => model.DisplayID)
 @Html.HiddenFor(model => model.CreateDate)
 @Html.HiddenFor(model => model.CreatedByWorkerID)
+
 <div class="row">
     <div class="col-md-6">
 
@@ -415,8 +416,9 @@
         </div>
         <div class="form-group02">
             <label class="col-sm-4 control-label labe-text">Time Spent</label>
-            <div class="col-sm-2">
+            <div class="col-sm-1" style="width:10%;">
                 @*@Html.EditorFor(m => m.CaseWorkerNote.TimeSpentHours, null, new { @class = "form-control" })*@
+                <span>Hours</span>
                 @(Html.Kendo().NumericTextBoxFor<int>(m => m.CaseWorkerNote.TimeSpentHours)
                                             .Min(0)
                                             .Max(59)
@@ -424,8 +426,9 @@
                 )
                 @Html.ValidationMessageFor(m => m.CaseWorkerNote.TimeSpentHours, "", new { @class = "text-danger" })
             </div>
-            <div class="col-sm-2">
+            <div class="col-sm-1" style="width:10%;">
                 @*@Html.EditorFor(m => m.CaseWorkerNote.TimeSpentMinutes, null, new { @class = "form-control" })*@
+                <span>Minutes</span>
                 @(Html.Kendo().NumericTextBoxFor<int>(m => m.CaseWorkerNote.TimeSpentMinutes)
                                             .Min(0)
                                             .Max(59)

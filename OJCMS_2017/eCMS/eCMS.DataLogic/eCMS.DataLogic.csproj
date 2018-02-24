@@ -54,6 +54,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -91,6 +95,7 @@
     <Compile Include="Models\CaseManagement\CaseMemberContact.cs" />
     <Compile Include="Models\CaseManagement\CaseMemberEthinicity.cs" />
     <Compile Include="Models\CaseManagement\CaseSummary.cs" />
+    <Compile Include="Models\CaseManagement\CaseSSSWorkerNote.cs" />
     <Compile Include="Models\CaseManagement\CaseWorkerNote.cs" />
     <Compile Include="Models\CaseManagement\CaseSmartGoal.cs">
       <SubType>Code</SubType>
@@ -195,6 +200,8 @@
     <Compile Include="SeedData\LookupSeed.cs" />
     <Compile Include="SeedData\WorkerSeed.cs" />
     <Compile Include="ViewModels\CaseListViewModel.cs" />
+    <Compile Include="ViewModels\CaseSSSWorkerNoteVM.cs" />
+    <Compile Include="ViewModels\CaseWorkerNoteVM.cs" />
     <Compile Include="ViewModels\CaseSummaryVM.cs" />
     <Compile Include="ViewModels\ChangePasswordModel.cs" />
     <Compile Include="ViewModels\AssignmentModel.cs" />
@@ -217,6 +224,7 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="bin\Debug\eCMS.DataLogic.dll.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\eCMS.Shared\eCMS.Shared.csproj">

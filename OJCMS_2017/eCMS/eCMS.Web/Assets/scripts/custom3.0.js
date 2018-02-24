@@ -74,6 +74,41 @@ $(document).ready(function () {
         return o;
     };
 
+    PassSearchParameterCaseWorkerNote = function () {
+        if (!buttonClicked) {
+            listViewLoadCount = 1;
+        }
+
+        var o = {};
+        try {
+            var frmSearch = $('#CaseID');
+            if (frmSearch != null && frmSearch != undefined)
+            {
+                var data = frmSearch.serializeArray();
+                $.each(data, function ()
+                {
+                    if (o[this.name] !== undefined) {
+                        if (!o[this.name].push) {
+                            o[this.name] = [o[this.name]];
+                        }
+                        o[this.name].push(this.value || '');
+                    } else {
+                        o[this.name] = this.value || '';
+                    }
+                });
+            }
+
+            var hfParantId = $("#hfParentId");
+            if (hfParantId) {
+                var name = $(hfParantId).attr('name');
+                o[name] = hfParantId.val();
+            }
+        }
+        catch (ex) {
+        }
+        console.log(o);
+        return o;
+    };
 
     PassSearchParameterWorker = function () {
         if (!buttonClicked) {
@@ -654,6 +689,7 @@ $(document).ready(function () {
     });
 
     $('a[name="lnkEditor"]').live("click", function (e) {
+        debugger
 
         var getUrl = $(this).attr('href');
 
@@ -667,7 +703,7 @@ $(document).ready(function () {
     });
 
     $('a[name="lnkEdit"]').live("click", function (e) {
-
+        debugger
         var getUrl = $(this).attr('href');
         var containerID = 'div' + $(this).attr('id').replace('lnkEdit', '');
         $.get(getUrl, function (res) {

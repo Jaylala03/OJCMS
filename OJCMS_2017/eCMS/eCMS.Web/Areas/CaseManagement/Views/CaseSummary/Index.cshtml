@@ -12,11 +12,16 @@
     @Styles.Render("~/assets/plugins/kendo/css")
     @Scripts.Render("~/assets/plugins/kendo/js")
 }
-
+@Html.HiddenFor(m=>m.ProgramID)
 @*<label class="control-label labe-text">Test</label>
     <label class="control-label labe-text">@Html.DisplayFor(model => model.EnrollDate)</label>*@
 <div class="container bulk-import">
     <div class="row margin-top-40">
+        <div class="align-right">
+            @Html.ActionLink("Add Work Note", "Index", "CaseWorkerNote", new { CaseID = Model.CaseID, ProgramID = Model.ProgramID }, null)
+
+            @Html.ActionLink("Add SSS Work Note", "Index", "CaseSSSWorkerNote", new { CaseID = Model.CaseID, ProgramID = Model.ProgramID }, null)
+        </div>
         <div class="center-block" style="align-items:center;">
             <table class="table table-striped text-align-center" align="center" style="width:100%;">
                 <thead>

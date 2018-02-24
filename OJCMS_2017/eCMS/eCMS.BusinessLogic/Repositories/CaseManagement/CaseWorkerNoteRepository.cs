@@ -54,13 +54,17 @@ namespace eCMS.BusinessLogic.Repositories
         /// <param name="CaseWorkerNote">data to save</param>
         public void InsertOrUpdate(CaseWorkerNote CaseWorkerNote)
         {
+            CaseWorkerNote.CaseStatusID = context.Case.Where(c => c.ID == CaseWorkerNote.CaseID).Select(c => c.CaseStatusID).SingleOrDefault();
+
             CaseWorkerNote.LastUpdateDate = DateTime.Now;
             if (CaseWorkerNote.ID == default(int))
             {
                 //set the date when this record was created
                 CaseWorkerNote.CreateDate = CaseWorkerNote.LastUpdateDate;
+                CaseWorkerNote.WorkerNoteActivityTypeID = (int)WorkerNoteActivityType.WorkNote;
                 //set the id of the worker who has created this record
                 CaseWorkerNote.CreatedByWorkerID = CaseWorkerNote.LastUpdatedByWorkerID;
+                //CaseWorkerNote.CreatedByWorkerID = CaseWorkerNote.CreatedByWorkerID;
                 //add a new record to database
                 context.CaseWorkerNote.Add(CaseWorkerNote);
             }
@@ -70,48 +74,46 @@ namespace eCMS.BusinessLogic.Repositories
                 context.Entry(CaseWorkerNote).State = System.Data.Entity.EntityState.Modified;
             }
             Save();
-            
-        }
-
-        public override void Delete(int id)
-        {
-            var entity = Find(id);
-            context.Entry(entity).State = System.Data.Entity.EntityState.Deleted;
-            string sqlQuery = @"delete from [CaseAction] where CaseWorkerNoteid=@id;
-delete from [CaseWorkerNote] where id=@id;";
-            sqlQuery = sqlQuery.Replace("@id", id.ToString());
-            context.Database.ExecuteSqlCommand(sqlQuery);
 
         }
 
-        public DataSourceResult Search(DataSourceRequest dsRequest, int caseId, int workerId, int? caseMemberId, List<int> workerRoleIDs)
+        //        public override void Delete(int id)
+        //        {
+        //            var entity = Find(id);
+        //            context.Entry(entity).State = System.Data.Entity.EntityState.Deleted;
+        //            string sqlQuery = @"delete from [CaseAction] where CaseWorkerNoteid=@id;
+        //delete from [CaseWorkerNote] where id=@id;";
+        //            sqlQuery = sqlQuery.Replace("@id", id.ToString());
+        //            context.Database.ExecuteSqlCommand(sqlQuery);
+
+        //        }
+
+
+        public DataSourceResult Search(DataSourceRequest dsRequest, int CaseId, int ProgramID)
         {
-            //if (dsRequest.Filters == null)
-            //{
-            //    dsRequest.Filters = new List<IFilterDescriptor>();
-            //}
-            //bool hasReadPermission = workerroleactionpermissionnewRepository.HasPermission(CurrentLoggedInWorkerRoleIDs, Constants.Areas.CaseManagement, Constants.Controllers.CaseWorkerNote, Constants.Actions.Read, true);
-            //bool hasEditPermission = workerroleactionpermissionnewRepository.HasPermission(CurrentLoggedInWorkerRoleIDs, Constants.Areas.CaseManagement, Constants.Controllers.CaseWorkerNote, Constants.Actions.Edit, true);
-            //bool hasDeletePermission = workerroleactionpermissionnewRepository.HasPermission(CurrentLoggedInWorkerRoleIDs, Constants.Areas.CaseManagement, Constants.Controllers.CaseWorkerNote, Constants.Actions.Delete, true);
+            if (dsRequest.Filters == null)
+            {
+                dsRequest.Filters = new List<IFilterDescriptor>();
+            }
 
-            //string sqlQuery = "";
-            //sqlQuery += "DECLARE @WorkerIds nvarchar(max) ; ";
-            //sqlQuery += " SET @WorkerIds='" + workerRoleIDs + "' ;";
-            //sqlQuery += " SELECT " + caseId + " AS CaseID,cpn.ID,(SELECT STUFF((SELECT ', ' + (cm1.FirstName+' '+cm1.LastName) from CaseWorkerNote cpn1 left join CaseWorkerNoteMembers cpm1 on cpn1.ID=cpm1.CaseWorkerNoteID left join CaseMember cm1 on cm1.ID=cpm1.CaseMemberID or cm1.ID=cpn1.CaseMemberID where cm1.CaseID=" + caseId + " and cpn1.ID=cpn.ID ";
-            //sqlQuery += " ";
-            //sqlQuery += "" + (caseMemberId.HasValue && caseMemberId > 0 ? " and cm1.ID=" + caseMemberId + "" : "") + "";
-            //sqlQuery += " FOR XML PATH('')), 1, 2, '')) as CaseMemberName";
-            //sqlQuery += ",cpn.NoteDate,at.Name as ActivityTypeName,cpn.Note,'" + (hasReadPermission ? "" : "display:none;") + "' AS HasPermissionToRead,'" + (hasEditPermission ? "" : "display:none;") + "' AS HasPermissionToEdit,'" + (hasDeletePermission ? "" : "display:none;") + "' AS HasPermissionToDelete  from CaseWorkerNote cpn";
-            //sqlQuery += " join ActivityType at on  at.ID=cpn.ActivityTypeID  left join CaseWorkerNoteMembers cpm on cpn.ID=cpm.CaseWorkerNoteID ";
-            //sqlQuery += " left join CaseMember cm on cm.ID=cpm.CaseMemberID or cm.ID=cpn.CaseMemberID where cm.CaseID=" + caseId + "";
-            //sqlQuery += "";
-            //sqlQuery += "" + (caseMemberId.HasValue && caseMemberId > 0 ? " and cm.ID=" + caseMemberId + "" : "") + "";
-            //sqlQuery += " group by cpn.ID,NoteDate,at.Name,Note";
+            string sqlQuery = "";
 
-            //DataSourceResult dsResult = context.Database.SqlQuery<CaseWorkerNoteModel>(sqlQuery.ToString()).AsEnumerable().ToDataSourceResult(dsRequest);
-            //return dsResult;
+            sqlQuery = "SELECT CWN.ID,CWN.CreateDate AS DateLogged,  CWN.Note AS Notes, " +
+            "CM.Name AS ContactMethod, CWN.NoteDate AS ContactDate,  " +
+            "CAST(CWN.TimeSpentHours AS varchar) + ' hrs ' + (CASE WHEN CWN.TimeSpentMinutes > 0 THEN(CAST(CWN.TimeSpentMinutes AS varchar) + 'mins') else '' END) AS TimeSpent,  " +
+            "CS.Name AS CaseStatusAsDate, W.FirstName + ' ' + W.LastName AS LoggedBy, WNAT.Name AS WorkNoteWasLogged  " +
+            "FROM CaseWorkerNote CWN  " +
+            "INNER JOIN ContactMethod CM ON CM.ID = CWN.ContactMethodID  " +
+            "INNER JOIN Worker W ON W.ID = CWN.CreatedByWorkerID  " +
+            "INNER JOIN WorkerNoteActivityType WNAT ON WNAT.ID = CWN.WorkerNoteActivityTypeID  " +
+            "INNER JOIN[Case] C ON C.ID = CWN.CaseID  " +
+            "INNER JOIN Program P ON P.ID = CWN.ProgramID " +
+            "INNER JOIN CaseStatus CS ON CS.ID = CWN.CaseStatusID " +
+            "WHERE CWN.CaseID = " + CaseId + " AND CWN.ProgramID = " + ProgramID ;
 
-            return null;
+            DataSourceResult dsResult = context.Database.SqlQuery<CaseWorkerNoteVM>(sqlQuery.ToString()).AsEnumerable().ToDataSourceResult(dsRequest);
+            return dsResult;
+
         }
 
         public string GetworkerNoteByCaseID(int CaseID)
@@ -135,7 +137,7 @@ delete from [CaseWorkerNote] where id=@id;";
     public interface ICaseWorkerNoteRepository : IBaseRepository<CaseWorkerNote>
     {
         void InsertOrUpdate(CaseWorkerNote CaseWorkerNote);
-        DataSourceResult Search(DataSourceRequest dsRequest, int caseId, int workerId, int? caseMemberId, List<int> workerRoleIDs);
+        DataSourceResult Search(DataSourceRequest dsRequest, int CaseId, int ProgramID);
         string GetworkerNoteByCaseID(int CaseID);
     }
 }

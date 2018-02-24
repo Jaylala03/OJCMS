@@ -52,4 +52,12 @@ namespace eCMS.Shared
     {
         InProcess=6
     }
+    public enum WorkerNoteActivityType
+    { 
+        AddCase=1,
+        EditCase=2,
+        EditHouseholdIncome=3,
+        WorkNote=4
+
+    }
 }

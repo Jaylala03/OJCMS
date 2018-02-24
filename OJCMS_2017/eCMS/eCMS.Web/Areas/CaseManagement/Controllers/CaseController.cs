@@ -83,7 +83,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
         /// <returns>view result</returns>
         [WorkerAuthorize]
         public ActionResult Index([DataSourceRequest(Prefix = "Grid")] DataSourceRequest dsRequest, Case searchCase)
-        {
+        {   
             if (!ViewBag.HasAccessToCaseManagementModule)
             {
                 WebHelper.CurrentSession.Content.ErrorMessage = "You are not eligible to do this action";
@@ -314,6 +314,8 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
                             varCase.CaseWorkerNote.LastUpdatedByWorkerID = CurrentLoggedInWorker.ID;
                             varCase.CaseWorkerNote.CaseID = varCase.ID;
                             varCase.CaseWorkerNote.CaseStatusID = varCase.CaseStatusID;
+                            varCase.CaseWorkerNote.ProgramID = varCase.ProgramID;
+                            varCase.CaseWorkerNote.WorkerNoteActivityTypeID = (int)WorkerNoteActivityType.AddCase;
                             varCase.CaseWorkerNote.NoteDate = Convert.ToDateTime(varCase.ContactDate);
                             caseWorkerNoteRepository.InsertOrUpdate(varCase.CaseWorkerNote);
                             caseWorkerNoteRepository.Save();

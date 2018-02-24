@@ -20,7 +20,7 @@ namespace eCMS.BusinessLogic.Repositories
         public CaseSummaryVM GetCaseDetails(int CaseID)
         {
 
-            StringBuilder sqlQuery = new StringBuilder(@"SELECT [C].[ID] AS CaseID, [PR].[Name] AS Program, [P].[Name] AS SubProgram, [R].Name AS Region, [JK].Name AS Jamatkhaana, [C].CaseNumber AS ReferenceCase, [C].[EnrollDate] AS EnrolmentDate, [IM].[Name] AS IntakeMethod, [RE].[Name] AS ReferralSource ,[C].[ReferralDate] AS ReferralDate, [RT].Name AS RiskLevel, [C].[PresentingProblem] AS PresentingProblem, [C].[Address] AS Address, [C].[City] AS City, [C].[PostalCode] AS PostalCode  FROM [dbo].[Case] [C] ");
+            StringBuilder sqlQuery = new StringBuilder(@"SELECT [C].[ID] AS CaseID, [C].[ProgramID],[PR].[Name] AS Program, [P].[Name] AS SubProgram, [R].Name AS Region, [JK].Name AS Jamatkhaana, [C].CaseNumber AS ReferenceCase, [C].[EnrollDate] AS EnrolmentDate, [IM].[Name] AS IntakeMethod, [RE].[Name] AS ReferralSource ,[C].[ReferralDate] AS ReferralDate, [RT].Name AS RiskLevel, [C].[PresentingProblem] AS PresentingProblem, [C].[Address] AS Address, [C].[City] AS City, [C].[PostalCode] AS PostalCode  FROM [dbo].[Case] [C] ");
 
             sqlQuery.Append(" INNER JOIN [dbo].[Program] [PR] ON [PR].[ID]=[C].[ProgramID]");
             sqlQuery.Append(" INNER JOIN [dbo].[Region] [R] ON [R].[ID]=[C].[RegionID]");

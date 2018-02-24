@@ -132,6 +132,7 @@
     <Compile Include="Repositories\CaseManagement\CaseMemberProfileRepository.cs" />
     <Compile Include="Repositories\CaseManagement\CaseMemberRepository.cs" />
     <Compile Include="Repositories\CaseManagement\CaseSummaryRepository.cs" />
+    <Compile Include="Repositories\CaseManagement\CaseSSSWorkerNoteRepository.cs" />
     <Compile Include="Repositories\CaseManagement\CaseWorkerNoteRepository.cs" />
     <Compile Include="Repositories\CaseManagement\CaseProgressNoteRepository.cs" />
     <Compile Include="Repositories\CaseManagement\CaseHouseholdIncomeRepository.cs" />

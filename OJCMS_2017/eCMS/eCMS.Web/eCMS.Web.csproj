@@ -63,9 +63,18 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Debug\ClosedXML.dll</HintPath>
     </Reference>
-    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
-    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
-    <Reference Include="CrystalDecisions.Shared, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Users\Chirag\Downloads\CrystalDecisions.CrystalReports.Engine.dll</HintPath>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Users\Chirag\Downloads\CrystalDecisions.ReportSource.dll</HintPath>
+    </Reference>
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Users\Chirag\Downloads\CrystalDecisions.Shared.dll</HintPath>
+    </Reference>
     <Reference Include="DocumentFormat.OpenXml, Version=2.7.2.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\DocumentFormat.OpenXml.2.7.2\lib\net40\DocumentFormat.OpenXml.dll</HintPath>
@@ -89,8 +98,10 @@
     <Reference Include="DotNetOpenAuth.OAuth">
       <HintPath>..\packages\DotNetOpenAuth.OAuth.Core.4.3.4.13329\lib\net45-full\DotNetOpenAuth.OAuth.dll</HintPath>
     </Reference>
-    <Reference Include="DotNetOpenAuth.OAuth.Common">
+    <Reference Include="DotNetOpenAuth.OAuth.Common, Version=4.3.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\DotNetOpenAuth.OAuth.Common.4.3.4.13329\lib\net45-full\DotNetOpenAuth.OAuth.Common.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="DotNetOpenAuth.OAuth.Consumer">
       <HintPath>..\packages\DotNetOpenAuth.OAuth.Consumer.4.3.4.13329\lib\net45-full\DotNetOpenAuth.OAuth.Consumer.dll</HintPath>
@@ -219,7 +230,8 @@
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="RestSharp, Version=105.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -320,11 +332,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Areas\CaseManagement\Controllers\CaseSummaryController.cs" />
+    <Compile Include="Areas\CaseManagement\Controllers\CaseSSSWorkerNoteController.cs" />
+    <Compile Include="Areas\CaseManagement\Controllers\CaseWorkerNoteController.cs" />
     <Compile Include="Reports\CaseDashboardNew.cs">
       <DependentUpon>CaseDashboardNew.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\CaseDashboard.cs">
       <AutoGen>True</AutoGen>
@@ -1963,6 +1977,10 @@
     <Content Include="Areas\CaseManagement\Views\Case\Employees.cshtml" />
     <Content Include="Areas\CaseManagement\Views\Case\EditorTemplates\CompaniesList.cshtml" />
     <Content Include="Areas\CaseManagement\Views\CaseSummary\Index.cshtml" />
+    <Content Include="Areas\CaseManagement\Views\CaseWorkerNote\Index.cshtml" />
+    <Content Include="Areas\CaseManagement\Views\CaseWorkerNote\_CreateOrEdit.cshtml" />
+    <Content Include="Areas\CaseManagement\Views\CaseSSSWorkerNote\_CreateOrEdit.cshtml" />
+    <Content Include="Areas\CaseManagement\Views\CaseSSSWorkerNote\Index.cshtml" />
     <None Include="bin\eCMS.Web.dll.config" />
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Properties\PublishProfiles\ecms.softwareravine.com.pubxml" />

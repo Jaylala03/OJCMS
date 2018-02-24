@@ -10,6 +10,7 @@ namespace eCMS.DataLogic.ViewModels
    public class CaseSummaryVM
     {
         public int CaseID { get; set; }
+        public int ProgramID { get; set; }
         public string Program { get; set; }
         public string SubProgram { get; set; }
         public string Region { get; set; }

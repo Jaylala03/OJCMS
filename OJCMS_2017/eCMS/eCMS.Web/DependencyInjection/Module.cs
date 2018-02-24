@@ -168,6 +168,7 @@ namespace eCMS.Web.DependencyInjection
             containerBuilder.Register(container => new CaseWorkerNoteRepository(container.Resolve<RepositoryContext>())).As<ICaseWorkerNoteRepository>();
             containerBuilder.Register(container => new WorkerNoteActivityTypeRepository(container.Resolve<RepositoryContext>())).As<IWorkerNoteActivityTypeRepository>();
             containerBuilder.Register(container => new CaseSummaryRepository(container.Resolve<RepositoryContext>())).As<ICaseSummaryRepository>();
+            containerBuilder.Register(container => new CaseSSSWorkerNoteRepository(container.Resolve<RepositoryContext>())).As<ICaseSSSWorkerNoteRepository>();
         }
     }
 }

@@ -36,17 +36,19 @@ namespace eCMS.DataLogic.Models
         [ForeignKey("ContactMethod")]
         public Int32 ContactMethodID { get; set; }
 
-        [Required(ErrorMessage = "Please enter description")]
-        [Display(Name = "Description")]
+        //[Required(ErrorMessage = "Please enter description")]
+        [Display(Name = "Notes:")]
         [MaxLength]
         public String Note { get; set; }
 
         public virtual ContactMethod ContactMethod { get; set; }
 
-        [NotMapped]
+        //[NotMapped]
         public Int32 CaseID { get; set; }
 
-        [NotMapped]
+        public Int32 ProgramID { get; set; }
+        
+        //[NotMapped]
         public Int32 CaseStatusID { get; set; }
 
         [NotMapped]
@@ -60,6 +62,17 @@ namespace eCMS.DataLogic.Models
         [NotMapped]
         [Display(Name = "Program")]
         public string CaseProgramName { set; get; }
+
+        //[NotMapped]
+        [Display(Name = "Family")]
+        public bool IsFamily { set; get; }
+
+        //[NotMapped]
+        [Display(Name = "Family Member")]
+        public bool IsFamilyMember { set; get; }
+
+        [NotMapped]        
+        public string Family { set; get; }
 
         [NotMapped]
         public string HasPermissionToEdit { get; set; }
