@@ -1,0 +1,99 @@
+@using System.Web.Mvc.Html;
+@model eCMS.DataLogic.Models.CaseSSSWorkerNote
+@using System.Linq
+@using System.Data.Entity
+@using EasySoft.Helper;
+@using eCMS.DataLogic.ViewModels;
+@using eCMS.Shared;
+@using eCMS.DataLogic.Models.Lookup;
+@{
+    Model.IsAjax = true;
+    ViewBag.Title = "SSS Worke Note";
+}
+@section headsection
+{
+    @Styles.Render("~/assets/plugins/kendo/css")
+    @Scripts.Render("~/assets/plugins/kendo/js")
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 col-md-11 candidate-table-bg">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 candidate-on-map">
+                    <div class="row">
+                        <div class="col-md-12 font-13 text-uppercase" style="padding-top: 6px; padding-right: 0;">
+                            <label>
+                                <img src="@Url.Content("~/Assets/images/lavel-side-icon.png")">
+                                <span>SSS Worke Note Editor</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @using (Html.BeginForm("SaveAjax", "CaseSSSWorkerNote", new { area = "CaseManagement" }, FormMethod.Post, new { id = "frmEditorCaseSSSWorkerNote" }))
+            {
+                
+                <div id="divCaseSSSWorkerNoteEditor">
+                    @Html.Partial("_CreateOrEdit", Model)
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        &nbsp;
+                    </div>
+                    <div class="col-md-8 margin-top-10">
+                        <button type="button" id="btnSaveAndRefresh" name="btnSaveAndRefreshCaseSSSWorkerNote" class="col-sm-2 createsource00">Save</button>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<div class="container candidate-list-main-container">
+    <div class="row">
+        <div class="col-lg-12 col-md-11 candidate-table-bg">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 candidate-on-map">
+                    <div class="row">
+                        <div class="col-md-12 font-13 text-uppercase" style="padding-top: 6px; padding-right: 0;">
+                            <label>
+                                <img src="@Url.Content("~/Assets/images/lavel-side-icon.png")">
+                                <span>SSS Work Note List</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                @(Html.Kendo().Grid<CaseSSSWorkerNoteVM>()
+        .Name("GridCaseSSSWorkerNote")
+        .Columns(columns =>
+        {
+            columns.Bound(c => c.DateLogged).Format("{0:MM-dd-yyyy}").Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(c => c.Notes).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(c => c.ContactMethod).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(c => c.ContactDate).Format("{0:MM-dd-yyyy}").Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(c => c.TimeSpent).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(c => c.CaseStatusAsDate).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(c => c.LoggedBy).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(c => c.IsURTResponse).ClientTemplate("# if (IsURTResponse == true) { # Yes # } else { # No # } #"
+                ).Sortable(true).Groupable(false).Filterable(false);
+
+            columns.Bound(c => c.WorkNoteWasLogged).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(c => c.Actions).ClientTemplate("<a id='lnkEditCaseSSSWorkerNoteEditor' name='lnkEdit' href='/CaseManagement/CaseSSSWorkerNote/EditorAjax/#= ID #' title='Edit'>Edit</a>&nbsp;<a name='lnkDelete' id='lnkDeleteCaseSSSWorkerNote' href='/CaseManagement/CaseSSSWorkerNote/DeleteAjax/#= ID #' title='Delete'>Delete</a>").Width("10%").HtmlAttributes(new { @class = "grid-actions-content" }).HeaderTemplate("<center>Actions</center>").HeaderHtmlAttributes(new { @class = "grid-actions-content" });
+        })
+        .DataSource(dataSource => dataSource
+        .Ajax()
+        .Read(read => read.Action("IndexAjax", "CaseSSSWorkerNote", new { CaseId = Model.CaseID, ProgramID = Model.ProgramID }))
+        //.Read(read => read.Action("IndexAjax", "CaseSSSWorkerNote"))
+        .PageSize(50)
+        )
+        .Pageable()
+        .Sortable()
+)
+            </div>
+        </div>
+    </div>
+</div>
+
