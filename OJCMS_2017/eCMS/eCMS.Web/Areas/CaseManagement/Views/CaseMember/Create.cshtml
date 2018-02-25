@@ -13,7 +13,7 @@
     <!-- begin: mainpage -->
     <div class="row margin-top-40">
         <div class="col-md-12">
-            @using (Html.BeginForm("Create", "CaseMember", new { area = "CaseManagement", caseId=Model.CaseID }, FormMethod.Post, new { id = "frmEditor", @class = "horizontal-form" }))
+            @using (Html.BeginForm("Create", "CaseMember", new { area = "CaseManagement", caseId = Model.CaseID }, FormMethod.Post, new { id = "frmEditorCaseMember", @class = "horizontal-form" }))
             {
                 @Html.Partial("_CreateOrEdit", Model) 
             }

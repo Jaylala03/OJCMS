@@ -131,7 +131,6 @@
         <div class="form-group02" title="Date the Confidentiality and Consent to Participate form signed">
             <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.EnrollDate)</label>
             <div class="col-sm-8">
-
                 @Html.EditorFor(model => model.EnrollDate)
             </div>
             <div class="col-sm-8">
@@ -379,7 +378,18 @@
         </div>
     </div>
 }
-<div class="row">
+@{
+    string name = Html.NameFor(m => m.CaseWorkerNote).ToString();
+    string prefix = Html.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name);
+    ViewDataDictionary viewData = new ViewDataDictionary(Html.ViewData)
+    {
+        TemplateInfo = new TemplateInfo { HtmlFieldPrefix = prefix }
+    };
+}
+
+@Html.Partial("WorkNote", Model.CaseWorkerNote, viewData)
+@*@Html.Partial("WorkNote", Model.CaseWorkerNote)*@
+@*<div class="row">
     <div class="col-md-12">
         <div class="form-group02">
             <label class="col-sm-4 control-label labe-text" style="font-weight:bold;">Work Notes: (Optional)</label>
@@ -415,8 +425,8 @@
         </div>
         <div class="form-group02">
             <label class="col-sm-4 control-label labe-text">Time Spent</label>
-            <div class="col-sm-2">
-                @*@Html.EditorFor(m => m.CaseWorkerNote.TimeSpentHours, null, new { @class = "form-control" })*@
+            <div class="col-sm-1" style="width:10%;">
+                <span>Hours</span>
                 @(Html.Kendo().NumericTextBoxFor<int>(m => m.CaseWorkerNote.TimeSpentHours)
                                             .Min(0)
                                             .Max(59)
@@ -424,8 +434,8 @@
                 )
                 @Html.ValidationMessageFor(m => m.CaseWorkerNote.TimeSpentHours, "", new { @class = "text-danger" })
             </div>
-            <div class="col-sm-2">
-                @*@Html.EditorFor(m => m.CaseWorkerNote.TimeSpentMinutes, null, new { @class = "form-control" })*@
+            <div class="col-sm-1" style="width:10%;">
+                <span>Minutes</span>
                 @(Html.Kendo().NumericTextBoxFor<int>(m => m.CaseWorkerNote.TimeSpentMinutes)
                                             .Min(0)
                                             .Max(59)
@@ -435,7 +445,7 @@
             </div>
         </div>
     </div>
-</div>
+</div>*@
 
 @*<div class="row">
         <div class="col-md-12">

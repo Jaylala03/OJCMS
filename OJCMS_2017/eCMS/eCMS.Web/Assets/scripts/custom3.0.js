@@ -339,7 +339,51 @@ $(document).ready(function () {
         }
     });
 
-    $('#btnSaveAndRefresh').live("click", function (e) {
+    $('#btnSaveAndRefreshCaseMember').live("click", function (e) {
+        e.preventDefault();
+        var entityName = $(this).attr('name').replace('btnSaveAndRefresh', '');
+      
+        var formID = 'frmEditor' + entityName;
+        var $form = $('#' + formID);
+
+        var url = $form.attr('action');
+        var searchString = window.location.search.substring(1);
+        if (searchString != null) {
+            if (url.indexOf('?') == -1) {
+                url = url + "?";
+                url = url + searchString;
+            }
+            else {
+                url = url + "&" + searchString;
+            }
+        }
+        if (!$form.valid || $form.valid()) {
+
+            $.post(url, $form.serializeArray(),
+            function (res) {
+                if (res.success) {
+
+                    if (res.data != null)
+                        displayMessage(res.data, 'lime', 5000);
+                    if (res.url != null && res.url != "undefined") {
+                        location.href = res.url;
+                        return;
+                    }
+
+                }
+                else {
+                    if (res.data != null)
+                        displayMessage(res.data, 'ruby', 10000);
+                }
+                return false;
+            });
+        }
+
+        return false;
+    });
+
+    $('#btnSaveAndRefresh').live("click", function (e)
+    {
         debugger
         e.preventDefault();
         var entityName = $(this).attr('name').replace('btnSaveAndRefresh', '');
@@ -842,6 +886,14 @@ $(document).ready(function () {
     onRequestEnd6 = function () {
 
         var ddl = $("#CaseEthinicity").data("kendoDropDownList");
+
+        ddl.options.optionLabel = "";
+        ddl.refresh();
+
+    }
+    onRequestEnd7 = function () {
+
+        var ddl = $("#EthnicityID").data("kendoDropDownList");
 
         ddl.options.optionLabel = "";
         ddl.refresh();

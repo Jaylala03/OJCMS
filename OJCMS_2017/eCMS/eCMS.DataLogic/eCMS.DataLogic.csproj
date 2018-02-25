@@ -88,8 +88,10 @@
     </Compile>
     <Compile Include="Models\CaseManagement\CaseHouseholdIncome.cs" />
     <Compile Include="Models\CaseManagement\CaseMember.cs" />
+    <Compile Include="Models\CaseManagement\CaseMemberEmergencyContact.cs" />
     <Compile Include="Models\CaseManagement\CaseMemberContact.cs" />
     <Compile Include="Models\CaseManagement\CaseMemberEthinicity.cs" />
+    <Compile Include="Models\CaseManagement\CaseSSSWorkerNote.cs" />
     <Compile Include="Models\CaseManagement\CaseSummary.cs" />
     <Compile Include="Models\CaseManagement\CaseWorkerNote.cs" />
     <Compile Include="Models\CaseManagement\CaseSmartGoal.cs">
@@ -195,7 +197,9 @@
     <Compile Include="SeedData\LookupSeed.cs" />
     <Compile Include="SeedData\WorkerSeed.cs" />
     <Compile Include="ViewModels\CaseListViewModel.cs" />
+    <Compile Include="ViewModels\CaseSSSWorkerNoteVM.cs" />
     <Compile Include="ViewModels\CaseSummaryVM.cs" />
+    <Compile Include="ViewModels\CaseWorkerNoteVM.cs" />
     <Compile Include="ViewModels\ChangePasswordModel.cs" />
     <Compile Include="ViewModels\AssignmentModel.cs" />
     <Compile Include="ViewModels\CaseProgressModel.cs" />

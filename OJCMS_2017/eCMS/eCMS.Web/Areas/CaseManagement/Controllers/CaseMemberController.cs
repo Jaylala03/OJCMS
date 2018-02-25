@@ -23,13 +23,14 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
 {
     public class CaseMemberController : CaseBaseController
     {
-        public CaseMemberController(IWorkerRepository workerRepository, 
-            ICaseRepository caseRepository, 
-            IRelationshipStatusRepository relationshipstatusRepository, 
-            ILanguageRepository languageRepository, 
-            IGenderRepository genderRepository, 
+        public CaseMemberController(IWorkerRepository workerRepository,
+            ICaseRepository caseRepository,
+            IRelationshipStatusRepository relationshipstatusRepository,
+            ILanguageRepository languageRepository,
+            IGenderRepository genderRepository,
             IEthnicityRepository ethnicityRepository,
             ICaseMemberEthinicity caseEthinicityRepository,
+            IContactMediaRepository contactmediaRepository,
             IMaritalStatusRepository maritalstatusRepository,
             IMemberStatusRepository memberstatusRepository,
             ICaseMemberRepository casememberRepository,
@@ -51,6 +52,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
             this.casememberRepository = casememberRepository;
             this.caseworkerRepository = caseworkerRepository;
             this.workerroleRepository = workerRoleRepository;
+            this.contactmediaRepository = contactmediaRepository;
         }
 
         /// <summary>
@@ -61,7 +63,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
         /// <returns>view result</returns>
         [WorkerAuthorize]
         public ActionResult Index([DataSourceRequest(Prefix = "Grid")] DataSourceRequest dsRequest, CaseMember searchCaseMember, int caseID)
-        {            
+        {
             var varCase = caseRepository.Find(caseID);
             bool hasAccess = workerroleactionpermissionnewRepository.HasPermission(caseID, CurrentLoggedInWorkerRoleIDs, CurrentLoggedInWorker.ID, varCase.ProgramID, varCase.RegionID, varCase.SubProgramID, varCase.JamatkhanaID, Constants.Areas.CaseManagement, Constants.Controllers.CaseMember, Constants.Actions.Index, true);
             if (!hasAccess)
@@ -130,6 +132,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
             caseMember.EnrollDate = DateTime.Now;
             caseMember.MemberStatusID = 1;
             caseMember.IsActive = true;
+            
             return View(caseMember);
         }
 
@@ -154,7 +157,8 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
                 {
                     casememberRepository.InsertOrUpdate(caseMember);
                     casememberRepository.Save();
-                    return RedirectToAction(Constants.Views.Index, new { caseId = caseMember.CaseID });
+                    //return RedirectToAction(Constants.Views.Index, new { caseId = caseMember.CaseID });
+                    return RedirectToAction(Constants.Views.Edit, new { id = caseMember.ID, caseId = caseMember.CaseID });
                 }
                 else
                 {
@@ -180,7 +184,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
             {
                 ExceptionManager.Manage(ex);
                 caseMember.ErrorMessage = Constants.Messages.UnhandelledError;
-            }               
+            }
             //return view with error message if operation is failed
             return View(caseMember);
         }
@@ -191,9 +195,51 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
         /// <param name="id">casemember id</param>
         /// <returns>action result</returns>
         [WorkerAuthorize]
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int id, int caseId)
         {
-            CaseMember casemember = casememberRepository.Find(id);
+            //CaseMember casemember = casememberRepository.Find(id);
+            
+            CaseMember casemember = null;
+            if (id > 0)
+            {
+                //find an existing casemember from database
+                Case varCase = caseRepository.Find(Convert.ToInt32(caseId));
+                bool hasAccess = workerroleactionpermissionnewRepository.HasPermission(Convert.ToInt32(caseId), CurrentLoggedInWorkerRoleIDs, CurrentLoggedInWorker.ID, varCase.ProgramID, varCase.RegionID, varCase.SubProgramID, varCase.JamatkhanaID, Constants.Areas.CaseManagement, Constants.Controllers.CaseMember, Constants.Actions.Edit, true);
+                if (!hasAccess)
+                {
+                    WebHelper.CurrentSession.Content.ErrorMessage = "You are not eligible to do this action";
+                    return RedirectToAction(Constants.Actions.AccessDenied, Constants.Controllers.Home, new { Area = String.Empty });
+                }
+
+                casemember = casememberRepository.Find(id);
+                if (casemember == null)
+                {
+                    //throw an exception if id is provided but data does not exist in database
+                    return new HttpStatusCodeResult(System.Net.HttpStatusCode.NotFound, "Case Member not found");
+                }
+                else
+                {
+                    //string Ethnicity = caseEthinicityRepository.FindEthnicity(id);
+                    //if (!string.IsNullOrEmpty(Ethnicity))
+                    //{
+                    //    casemember.CaseEthinicity = Ethnicity.Split(',');
+                    //}
+                    //else
+                    //{
+                    //    casemember.CaseEthinicity = new string[] { casemember.EthnicityID.ToString() };
+                    //}
+
+                }
+            }
+            else
+            {
+                //create a new instance if id is not provided
+                casemember = new CaseMember();
+                casemember.CaseID = caseId.ToInteger(true);
+                casemember.IsActive = true;
+            }
+
+            ViewBag.ContactMediaList = contactmediaRepository.AllActiveForDropDownList;
             return View(casemember);
         }
 
@@ -295,7 +341,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
                 ExceptionManager.Manage(ex);
                 casemember.ErrorMessage = Constants.Messages.UnhandelledError;
             }
-            
+
             //return view with error message if the operation is failed
             return View(casemember);
         }
@@ -318,47 +364,47 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
             bool hasDeletePermission = workerroleactionpermissionnewRepository.HasPermission(CurrentLoggedInWorkerRoleIDs, Constants.Areas.CaseManagement, Constants.Controllers.CaseMember, Constants.Actions.Delete, true);
             bool hasReadPermission = workerroleactionpermissionnewRepository.HasPermission(CurrentLoggedInWorkerRoleIDs, Constants.Areas.CaseManagement, Constants.Controllers.CaseMember, Constants.Actions.Read, true);
             bool IsUserAdminWorker = CurrentLoggedInWorkerRoleIDs.IndexOf(1) == -1;
-            bool IsUserRegionalManager = workerroleRepository.IsWorkerRegionalAdmin() > 0 ? true:false ;//CurrentLoggedInWorkerRoleIDs.IndexOf(SiteConfigurationReader.RegionalManagerRoleID) != -1;
+            bool IsUserRegionalManager = workerroleRepository.IsWorkerRegionalAdmin() > 0 ? true : false;//CurrentLoggedInWorkerRoleIDs.IndexOf(SiteConfigurationReader.RegionalManagerRoleID) != -1;
 
             FilterDescriptor newDesc = new FilterDescriptor("CaseID", FilterOperator.IsEqualTo, caseId);
             dsRequest.Filters.Add(newDesc);
-            
+
             var primaryWorkerID = GetPrimaryWorkerOfTheCase(caseId);
-            
+
             List<CaseWorker> caseworker = caseworkerRepository.FindAllByCaseID(caseId).Where(x => x.WorkerID == CurrentLoggedInWorker.ID).ToList();
-            
+
             DataSourceResult result = casememberRepository.AllIncluding(caseId.ToInteger(true), casemember => casemember.CreatedByWorker,
                 casemember => casemember.LastUpdatedByWorker, casemember => casemember.Case, casemember => casemember.RelationshipStatus,
                 casemember => casemember.Language, casemember => casemember.Gender, casemember => casemember.Ethnicity,
                 casemember => casemember.MaritalStatus, casemember => casemember.MemberStatus).OrderBy(item => item.LastUpdateDate).AsEnumerable().Select(casemember =>
                     new CaseMember()
                     {
-                        ID=casemember.ID,
-                        CreateDate=casemember.CreateDate,
-                        LastUpdateDate=casemember.LastUpdateDate,
-                        CreatedByWorkerID=casemember.CreatedByWorkerID,
+                        ID = casemember.ID,
+                        CreateDate = casemember.CreateDate,
+                        LastUpdateDate = casemember.LastUpdateDate,
+                        CreatedByWorkerID = casemember.CreatedByWorkerID,
                         CreatedByWorkerName = casemember.CreatedByWorker.FirstName + " " + casemember.CreatedByWorker.LastName,
-                        LastUpdatedByWorkerID=casemember.LastUpdatedByWorkerID,
+                        LastUpdatedByWorkerID = casemember.LastUpdatedByWorkerID,
                         LastUpdatedByWorkerName = casemember.LastUpdatedByWorker.FirstName + " " + casemember.LastUpdatedByWorker.LastName,
-                        IsArchived=casemember.IsArchived,
-                        CaseID=casemember.CaseID,
-                        FirstName=casemember.FirstName,
-                        LastName=casemember.LastName,
-                        EnrollDate=casemember.EnrollDate,
-                        RelationshipStatusID=casemember.RelationshipStatusID,
-                        RelationshipStatusName = casemember.RelationshipStatus!=null ? casemember.RelationshipStatus.Name : String.Empty,
-                        LanguageID=casemember.LanguageID,
-                        LanguageName = casemember.Language!=null ? casemember.Language.Name : String.Empty,
-                        DateOfBirth=casemember.DateOfBirth,
-                        GenderID=casemember.GenderID,
-                        GenderName = casemember.Gender!=null ? casemember.Gender.Name : String.Empty,
-                        EthnicityID=casemember.EthnicityID,
+                        IsArchived = casemember.IsArchived,
+                        CaseID = casemember.CaseID,
+                        FirstName = casemember.FirstName,
+                        LastName = casemember.LastName,
+                        EnrollDate = casemember.EnrollDate,
+                        RelationshipStatusID = casemember.RelationshipStatusID,
+                        RelationshipStatusName = casemember.RelationshipStatus != null ? casemember.RelationshipStatus.Name : String.Empty,
+                        LanguageID = casemember.LanguageID,
+                        LanguageName = casemember.Language != null ? casemember.Language.Name : String.Empty,
+                        DateOfBirth = casemember.DateOfBirth,
+                        GenderID = casemember.GenderID,
+                        GenderName = casemember.Gender != null ? casemember.Gender.Name : String.Empty,
+                        EthnicityID = casemember.EthnicityID,
                         EthnicityName = casemember.Ethnicity != null ? casemember.Ethnicity.Name : caseEthinicityRepository.FindEthnicityNames(casemember.ID),
-                        MaritalStatusID=casemember.MaritalStatusID,
-                        MaritalStatusName = casemember.MaritalStatus!=null ? casemember.MaritalStatus.Name : String.Empty,
-                        MemberStatusID=casemember.MemberStatusID,
-                        MemberStatusName = casemember.MemberStatus!=null ? casemember.MemberStatus.Name : String.Empty,
-                        IsPrimary=casemember.IsPrimary,
+                        MaritalStatusID = casemember.MaritalStatusID,
+                        MaritalStatusName = casemember.MaritalStatus != null ? casemember.MaritalStatus.Name : String.Empty,
+                        MemberStatusID = casemember.MemberStatusID,
+                        MemberStatusName = casemember.MemberStatus != null ? casemember.MemberStatus.Name : String.Empty,
+                        IsPrimary = casemember.IsPrimary,
                         HasPermissionToEdit = (((caseworker == null || caseworker.Count() == 0) && casemember.CreatedByWorkerID != CurrentLoggedInWorker.ID && primaryWorkerID != CurrentLoggedInWorker.ID && !IsUserAdminWorker && !IsUserRegionalManager) ? "display:none;" : String.Empty),
                         //HasPermissionToEdit = (((caseworker != null && caseworker.Count() > 0) 
                         //&& casemember.CreatedByWorkerID != CurrentLoggedInWorker.ID && primaryWorkerID != CurrentLoggedInWorker.ID 
@@ -414,16 +460,16 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
                 }
                 else
                 {
-                    string Ethnicity=caseEthinicityRepository.FindEthnicity(id);
+                    string Ethnicity = caseEthinicityRepository.FindEthnicity(id);
                     if (!string.IsNullOrEmpty(Ethnicity))
                     {
                         casemember.CaseEthinicity = Ethnicity.Split(',');
                     }
                     else
                     {
-                        casemember.CaseEthinicity=new string[] {casemember.EthnicityID.ToString()};
+                        casemember.CaseEthinicity = new string[] { casemember.EthnicityID.ToString() };
                     }
-                    
+
                 }
             }
             else
@@ -432,7 +478,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
                 casemember = new CaseMember();
                 casemember.CaseID = caseId.ToInteger(true);
                 casemember.IsActive = true;
-            }        
+            }
             //return the html of editor to display on popup
             return Content(this.RenderPartialViewToString(Constants.PartialViews.CreateOrEdit, casemember));
         }
@@ -443,7 +489,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
         /// <param name="casemember">data to save</param>
         /// <returns>status message in json</returns>
         [WorkerAuthorize]
-       // [UpdateRoleAuthorize]
+        // [UpdateRoleAuthorize]
         [HttpPost]
         public ActionResult SaveAjax(CaseMember casemember, int caseId = 0, bool isredirect = false)
         {
@@ -459,55 +505,59 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
 
                 try
                 {
-                    if (casemember.MemberStatusID == null || casemember.MemberStatusID == 0)
+                    //if (casemember.MemberStatusID == null || casemember.MemberStatusID == 0)
+                    //{
+                    //    casemember.ErrorMessage = "Please select Status";
+                    //}
+                    //else
+                    //{
+                    //<JL:Comment:No need to check access again on post. On edit we are already checking permission.>
+                    //if (!isNew)
+                    //{
+                    //    var primaryWorkerID = GetPrimaryWorkerOfTheCase(casemember.CaseID);
+                    //    List<CaseWorker> caseworker = caseworkerRepository.FindAllByCaseID(caseId).Where(x => x.WorkerID == CurrentLoggedInWorker.ID).ToList();
+                    //    if ((caseworker == null || caseworker.Count() == 0) && casemember.CreatedByWorkerID != CurrentLoggedInWorker.ID && primaryWorkerID!=CurrentLoggedInWorker.ID && CurrentLoggedInWorkerRoleIDs.IndexOf(1) == -1 && (CurrentLoggedInWorkerRoleIDs.IndexOf(SiteConfigurationReader.RegionalManagerRoleID) == -1))
+                    //    {
+                    //        WebHelper.CurrentSession.Content.ErrorMessage = "You are not eligible to do this action";
+                    //        return Json(new { success = true, url = Url.Action(Constants.Actions.AccessDenied, Constants.Controllers.Home, new { Area = String.Empty }) });
+                    //        //return RedirectToAction(Constants.Actions.AccessDenied, Constants.Controllers.Home, new { Area = String.Empty });
+                    //    }
+                    //}
+                    //</JL:Comment:07/08/2017>
+                    casemember.MemberStatusID = 1;
+                    if (isNew)
                     {
-                        casemember.ErrorMessage = "Please select Status";
+                        casemember.EnrollDate = System.DateTime.Now;
+                    }
+                    //set the id of the worker who has added/updated this record
+                    casemember.LastUpdatedByWorkerID = CurrentLoggedInWorker.ID;
+                    //call repository function to save the data in database
+                    casememberRepository.InsertOrUpdate(casemember);
+                    casememberRepository.Save();
+                    //if (casemember.CaseEthinicity != null && casemember.CaseEthinicity.Length > 0)
+                    //{
+                    //    CaseMemberEthinicity ethinicityModel = new CaseMemberEthinicity();
+                    //    ethinicityModel.CaseID = casemember.ID;
+                    //    string EthinicityIds = string.Join(",", casemember.CaseEthinicity);
+                    //    if (!String.IsNullOrEmpty(EthinicityIds))
+                    //    {
+                    //        ethinicityModel.EthinicityID = EthinicityIds;
+                    //        ethinicityModel.CreateDate = DateTime.Now;
+                    //        caseEthinicityRepository.InsertOrUpdate(ethinicityModel);
+                    //        caseEthinicityRepository.Save();
+                    //    }
+                    //}
+                    //set status message
+                    if (isNew)
+                    {
+                        casemember.SuccessMessage = "Case individual has been added successfully";
                     }
                     else
                     {
-                        //<JL:Comment:No need to check access again on post. On edit we are already checking permission.>
-                        //if (!isNew)
-                        //{
-                        //    var primaryWorkerID = GetPrimaryWorkerOfTheCase(casemember.CaseID);
-                        //    List<CaseWorker> caseworker = caseworkerRepository.FindAllByCaseID(caseId).Where(x => x.WorkerID == CurrentLoggedInWorker.ID).ToList();
-                        //    if ((caseworker == null || caseworker.Count() == 0) && casemember.CreatedByWorkerID != CurrentLoggedInWorker.ID && primaryWorkerID!=CurrentLoggedInWorker.ID && CurrentLoggedInWorkerRoleIDs.IndexOf(1) == -1 && (CurrentLoggedInWorkerRoleIDs.IndexOf(SiteConfigurationReader.RegionalManagerRoleID) == -1))
-                        //    {
-                        //        WebHelper.CurrentSession.Content.ErrorMessage = "You are not eligible to do this action";
-                        //        return Json(new { success = true, url = Url.Action(Constants.Actions.AccessDenied, Constants.Controllers.Home, new { Area = String.Empty }) });
-                        //        //return RedirectToAction(Constants.Actions.AccessDenied, Constants.Controllers.Home, new { Area = String.Empty });
-                        //    }
-                        //}
-                        //</JL:Comment:07/08/2017>
-
-                        //set the id of the worker who has added/updated this record
-                        casemember.LastUpdatedByWorkerID = CurrentLoggedInWorker.ID;
-                        //call repository function to save the data in database
-                        casememberRepository.InsertOrUpdate(casemember);
-                        casememberRepository.Save();
-                        if (casemember.CaseEthinicity != null && casemember.CaseEthinicity.Length > 0)
-                        {
-                            CaseMemberEthinicity ethinicityModel = new CaseMemberEthinicity();
-                            ethinicityModel.CaseID = casemember.ID;
-                            string EthinicityIds = string.Join(",", casemember.CaseEthinicity);
-                            if (!String.IsNullOrEmpty(EthinicityIds))
-                            {
-                                ethinicityModel.EthinicityID = EthinicityIds;
-                                ethinicityModel.CreateDate = DateTime.Now;
-                                caseEthinicityRepository.InsertOrUpdate(ethinicityModel);
-                                caseEthinicityRepository.Save();
-                            }
-                        }
-                        //set status message
-                        if (isNew)
-                        {
-                            casemember.SuccessMessage = "Case individual has been added successfully";
-                        }
-                        else
-                        {
-                            casemember.SuccessMessage = "Case individual has been updated successfully";
-                        }
+                        casemember.SuccessMessage = "Case individual has been updated successfully";
                     }
                 }
+                //}
                 catch (CustomException ex)
                 {
                     casemember.ErrorMessage = ex.UserDefinedMessage;
@@ -536,7 +586,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
             //return the status message in json
             if (casemember.ErrorMessage.IsNotNullOrEmpty())
             {
-              
+
                 return Json(new { success = false, data = this.RenderPartialViewToString(Constants.PartialViews.AlertSliding, casemember) });
             }
             else
@@ -563,7 +613,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
         [HttpPost]
         public ActionResult DeleteAjax(int id)
         {
-           
+
             //find the varCase in database
             BaseModel statusModel = new BaseModel();
             try
@@ -589,7 +639,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
                 casememberRepository.Delete(id);
                 casememberRepository.Save();
                 //Audit Log
-             
+
 
                 //set success message
                 statusModel.SuccessMessage = "Case individual has been deleted successfully";

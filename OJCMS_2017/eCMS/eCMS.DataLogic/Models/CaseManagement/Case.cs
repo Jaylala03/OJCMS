@@ -20,6 +20,7 @@ namespace eCMS.DataLogic.Models
         [StringLength(32)]
         public String DisplayID { get; set; }
 
+
         [Display(Name = "Reference Case", Prompt = "Reference Case")]
         [StringLength(32)]
         public String CaseNumber { get; set; }

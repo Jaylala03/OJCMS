@@ -1,0 +1,94 @@
+@using System.Web.Mvc.Html;
+@model eCMS.DataLogic.Models.CaseWorkerNote
+@using eCMS.BusinessLogic.Helpers
+@using eCMS.DataLogic.Models
+@using eCMS.Shared
+
+@Html.HiddenFor(model => model.ID)
+@Html.HiddenFor(model => model.CreateDate)
+@Html.HiddenFor(model => model.CreatedByWorkerID)
+@Html.HiddenFor(model => model.CaseStatusID)
+@Html.HiddenFor(model => model.WorkerNoteActivityTypeID)
+
+<div id="row hr-line">
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="align-right">
+                @Html.ActionLink("Back to Case Summary", "Index", "CaseSummary", new { CaseID = Model.CaseID }, null)
+            </div>
+            <div class="form-group02">
+                <div class="col-sm-1" style="width:25%;">
+                    <span class="col-sm-1" style="width:25%;">
+                        @Html.RadioButtonFor(model => model.Family, "Family")                        
+                    </span>
+                    <label class="col-sm-4 control-label labe-text">@Html.LabelFor(model => model.IsFamily)</label>
+
+                </div>
+                <div class="col-sm-1" style="width:50%;">
+                    @*<span class="col-sm-1" style="width:25%;">@Html.RadioButtonFor(model => model.IsFamilyMember, true)</span>*@
+                    <span class="col-sm-1" style="width:15%;">
+                        @Html.RadioButtonFor(model => model.Family, "FamilyMember")                        
+                    </span>
+                    <label class="col-sm-4 control-label labe-text">@Html.LabelFor(model => model.IsFamilyMember)</label>
+                </div>
+            </div>
+            @*</div>*@
+            <div class="form-group02">
+                <label class="col-sm-3 control-label labe-text">@Html.LabelRequiredFor(model => model.Note)</label>
+                <div class="col-sm-3">
+                    @Html.TextAreaFor(model => model.Note, new { rows = 4, cols = 50 })
+                </div>
+            </div>
+            <div class="form-group02">
+                <label class="col-sm-3 control-label labe-text">@Html.LabelRequiredFor(model => model.ContactMethodID)</label>
+                <div class="col-sm-3">
+                    @(Html.Kendo().DropDownListFor(model => model.ContactMethodID)
+                    .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                    .DataTextField("Text")
+                    .DataValueField("Value")
+                    .DataSource(source =>
+                    {
+                        source.Read(read =>
+                        {
+                            read.Action("LoadContactMethodAjax", "CaseWorkerNote");
+                        });
+                    })
+                    )
+                </div>
+            </div>
+            <div class="form-group02">
+                <label class="col-sm-3 control-label labe-text">@Html.LabelRequiredFor(model => model.NoteDate)</label>
+                <div class="col-sm-3">
+                    @Html.EditorFor(model => model.NoteDate)
+                </div>
+            </div>
+            <div class="form-group02">
+                <label class="col-sm-3 control-label labe-text">Time Spent</label>
+                <div class="col-sm-1" style="width:10%;">
+                    @*@Html.EditorFor(m => m.TimeSpentHours, null, new { @class = "form-control" })*@
+                    <span>Hours</span>
+                    @(Html.Kendo().NumericTextBoxFor<int>
+                        (m => m.TimeSpentHours)
+                        .Min(0)
+                        .Max(59)
+                        .HtmlAttributes(new { title = "Hours" })
+                    )
+                    @Html.ValidationMessageFor(m => m.TimeSpentHours, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-sm-1" style="width:10%;">
+                    @*@Html.EditorFor(m => m.TimeSpentMinutes, null, new { @class = "form-control" })*@
+                    <span>Minutes</span>
+                    @(Html.Kendo().NumericTextBoxFor<int>
+                        (m => m.TimeSpentMinutes)
+                        .Min(0)
+                        .Max(59)
+                        .HtmlAttributes(new { title = "Minutes" })
+                    )
+                    @Html.ValidationMessageFor(m => m.TimeSpentMinutes, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

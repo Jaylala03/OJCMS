@@ -1,0 +1,33 @@
+﻿@model System.Int32
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ContactMediaList</title>
+</head>
+<body>
+    <div>
+        @(Html.Kendo().DropDownList()
+        .BindTo((System.Collections.IEnumerable)ViewBag.ContactMediaList)
+        .OptionLabel("- Select Type - ")
+        .DataValueField("Value")
+        .DataTextField("Text")
+        .Name("ContactMediaID")
+        .HtmlAttributes(new { ID = "ContactMediaID" })
+        )
+    </div>
+    <script>
+        //var sapProject = $("#ContactMediaID").data("kendoDropDownList").bind("change", onChange);
+        //function onChange(e)
+        //{
+        //    alert($("#ContactMediaID").data("kendoDropDownList").text());
+        //}
+    </script>
+</body>
+
+</html>

@@ -34,28 +34,31 @@ namespace eCMS.DataLogic.Models
         [StringLength(256)]
         public String LastName { get; set; }
 
-        [Required(ErrorMessage = "Please enter enroll date")]
+        //[Required(ErrorMessage = "Please enter enroll date")]
         [Display(Name = "Enroll Date")]
         //[DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime EnrollDate { get; set; }
 
+        [Required(ErrorMessage = "Relationship is required")]
         [Display(Name = "Relationship to family contact")]
         [ForeignKey("RelationshipStatus")]
-        public Int32? RelationshipStatusID { get; set; }
+        public Int32 RelationshipStatusID { get; set; }
 
         [Display(Name = "Other")]
         [StringLength(256)]
         public String RelationshipStatusOther { get; set; }
 
+        [Required(ErrorMessage = "Primary Language is required")]
         [Display(Name = "Primary Language")]
         [ForeignKey("Language")]
-        public Int32? LanguageID { get; set; }
+        public Int32 LanguageID { get; set; }
 
         [Display(Name = "Other")]
         [StringLength(256)]
         public String LanguageOther { get; set; }
 
+         //[Required(ErrorMessage = "Language for communication is required")]
         [Display(Name = "Language for communication")]
         [ForeignKey("CommunicationLanguage")]
         public Int32? CommunicationLanguageID { get; set; }
@@ -69,13 +72,15 @@ namespace eCMS.DataLogic.Models
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? DateOfBirth { get; set; }
 
+        [Required(ErrorMessage = "Gender is required")]
         [Display(Name = "Gender")]
         [ForeignKey("Gender")]
-        public Int32? GenderID { get; set; }
+        public Int32 GenderID { get; set; }
 
+        [Required(ErrorMessage = "Ethnicity is required")]
         [Display(Name = "Ethnicity")]
         [ForeignKey("Ethnicity")]
-        public Int32? EthnicityID { get; set; }
+        public Int32 EthnicityID { get; set; }
 
         [Display(Name = "Other")]
         [StringLength(256)]
@@ -87,7 +92,6 @@ namespace eCMS.DataLogic.Models
 
         [Display(Name = "Status")]
         [ForeignKey("MemberStatus")]
-        
         public Int32? MemberStatusID { get; set; }
 
         [Display(Name = "Is Active?")]
@@ -121,11 +125,11 @@ namespace eCMS.DataLogic.Models
         [Display(Name = "Gender")]
         public string GenderName { get; set; }
         [NotMapped]
-        [Display(Name = "Ethnicity")]
+        [Display(Name = "Tradition")]
         public string EthnicityName { get; set; }
 
         [NotMapped]
-        [Display(Name = "Relationship")]
+        [Display(Name = "Relationship to family contact")]
         public string RelationshipStatusName { get; set; }
 
         [NotMapped]
@@ -133,8 +137,12 @@ namespace eCMS.DataLogic.Models
         public string MaritalStatusName { get; set; }
 
         [NotMapped]
-        [Display(Name = "Language Name")]
+        [Display(Name = "Primary Language")]
         public string LanguageName { get; set; }
+
+        [NotMapped]
+        [Display(Name = "Primary Contact")]
+        public string PrimaryContact { get; set; }
 
         [NotMapped]
         [Display(Name = "Program")]

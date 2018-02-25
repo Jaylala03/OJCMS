@@ -15,7 +15,10 @@ namespace eCMS.DataLogic.Models
 {
     public class CaseMemberContact : EntityBaseModel
     {
-        [Required(ErrorMessage = "Please select case member")]
+        [Display(Name = "Case ID")]
+        public Int32 CaseID { get; set; }
+
+        //[Required(ErrorMessage = "Please select case member")]
         [Display(Name = "Case Member")]
         [ForeignKey("CaseMember")]
         public Int32 CaseMemberID { get; set; }
@@ -24,7 +27,7 @@ namespace eCMS.DataLogic.Models
         [Display(Name = "Type")]
         [ForeignKey("ContactMedia")]
         public Int32 ContactMediaID { get; set; }
-
+        
         [Required(ErrorMessage = "Please enter contact info")]
         [Display(Name = "Phone/Email")]
         [StringLength(128)]
@@ -36,15 +39,18 @@ namespace eCMS.DataLogic.Models
         public String Comments { get; set; }
 
 
-        [Required(ErrorMessage = "Please enter Contact Name")]
+        //[Required(ErrorMessage = "Please enter Contact Name")]
         [Display(Name = "Contact Name")]
         [StringLength(256)]
         public String EmergencyContactName { get; set; }
 
-        [Required(ErrorMessage = "Please enter Contact Number")]
+        //[Required(ErrorMessage = "Please enter Contact Number")]
         [Display(Name = "Contact Number")]
         [StringLength(256)]
         public String EmergencyContactNumber { get; set; }
+
+        [Display(Name = "Is Primary")]
+        public bool IsPrimary { get; set; }
 
         public virtual CaseMember CaseMember { get; set; }
         public virtual ContactMedia ContactMedia { get; set; }

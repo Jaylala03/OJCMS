@@ -319,7 +319,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Areas\CaseManagement\Controllers\CaseMemberEmergencyContactController.cs" />
+    <Compile Include="Areas\CaseManagement\Controllers\CaseSSSWorkerNoteController.cs" />
     <Compile Include="Areas\CaseManagement\Controllers\CaseSummaryController.cs" />
+    <Compile Include="Areas\CaseManagement\Controllers\CaseWorkerNoteController.cs" />
     <Compile Include="Reports\CaseDashboardNew.cs">
       <DependentUpon>CaseDashboardNew.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -1961,8 +1964,15 @@
     <Content Include="Areas\Reporting\Views\Report\CaseDashBoard.cshtml" />
     <Content Include="Areas\Reporting\Views\Report\ListOfIssues.cshtml" />
     <Content Include="Areas\CaseManagement\Views\Case\Employees.cshtml" />
-    <Content Include="Areas\CaseManagement\Views\Case\EditorTemplates\CompaniesList.cshtml" />
+    <Content Include="Areas\CaseManagement\Views\Shared\EditorTemplates\CompaniesList.cshtml" />
     <Content Include="Areas\CaseManagement\Views\CaseSummary\Index.cshtml" />
+    <Content Include="Areas\CaseManagement\Views\CaseMember\_CreateOrEditBackup02222018.cshtml" />
+    <Content Include="Areas\CaseManagement\Views\Shared\EditorTemplates\ContactMediaList.cshtml" />
+    <Content Include="Areas\CaseManagement\Views\Shared\WorkNote.cshtml" />
+    <Content Include="Areas\CaseManagement\Views\CaseSSSWorkerNote\Index.cshtml" />
+    <Content Include="Areas\CaseManagement\Views\CaseSSSWorkerNote\_CreateOrEdit.cshtml" />
+    <Content Include="Areas\CaseManagement\Views\CaseWorkerNote\Index.cshtml" />
+    <Content Include="Areas\CaseManagement\Views\CaseWorkerNote\_CreateOrEdit.cshtml" />
     <None Include="bin\eCMS.Web.dll.config" />
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Properties\PublishProfiles\ecms.softwareravine.com.pubxml" />

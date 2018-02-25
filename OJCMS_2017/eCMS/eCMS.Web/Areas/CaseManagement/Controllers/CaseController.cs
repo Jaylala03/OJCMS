@@ -297,6 +297,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
                 {
                     if ((varCase.ProgramID == 3 && !string.IsNullOrEmpty(varCase.PresentingProblem))|| varCase.ProgramID != 3 ) 
                     {
+                        varCase.CaseStatusID = 1;
                         //call the repository function to save in database
                         caseRepository.InsertOrUpdate(varCase);
                         caseRepository.Save();
@@ -314,7 +315,11 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
                             varCase.CaseWorkerNote.LastUpdatedByWorkerID = CurrentLoggedInWorker.ID;
                             varCase.CaseWorkerNote.CaseID = varCase.ID;
                             varCase.CaseWorkerNote.CaseStatusID = varCase.CaseStatusID;
-                            varCase.CaseWorkerNote.NoteDate = Convert.ToDateTime(varCase.ContactDate);
+                            varCase.CaseWorkerNote.ProgramID = varCase.ProgramID;
+                            varCase.CaseWorkerNote.IsFamily = true;
+                            varCase.CaseWorkerNote.IsFamilyMember = false;
+                            varCase.CaseWorkerNote.WorkerNoteActivityTypeID = (int)WorkerNoteActivityType.AddCase;
+                            //varCase.CaseWorkerNote.NoteDate = Convert.ToDateTime(varCase.ContactDate);
                             caseWorkerNoteRepository.InsertOrUpdate(varCase.CaseWorkerNote);
                             caseWorkerNoteRepository.Save();
                         }
@@ -379,6 +384,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
             ViewBag.HasAccessToIndividualModule = false;
             ViewBag.HasAccessToInitialContactModule = false;
             ViewBag.HasAccessToCaseAuditLogModule = true;
+
             if (CurrentLoggedInWorkerRoleIDs.IndexOf(1) == -1)
             {
                 ViewBag.HasAccessToAssignmentModule = workerroleactionpermissionnewRepository.HasPermission(caseId, CurrentLoggedInWorkerRoleIDs, CurrentLoggedInWorker.ID, varCase.ProgramID, varCase.RegionID, varCase.SubProgramID, varCase.JamatkhanaID, Constants.Areas.CaseManagement, Constants.Controllers.CaseWorker, Constants.Actions.Index, true);
@@ -405,6 +411,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
             //return editor view
             ViewBag.CaseID = caseId;
             ViewBag.DisplayID = varCase.DisplayID;
+            varCase.CaseWorkerNote = new CaseWorkerNote();
             return View(varCase);
         }
 
@@ -480,6 +487,19 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
                     //}
                     caseRepository.InsertOrUpdate(varCase);
                     caseRepository.Save();
+
+                    if (varCase.CaseWorkerNote.ContactMethodID > 0)
+                    {
+                        varCase.CaseWorkerNote.LastUpdatedByWorkerID = CurrentLoggedInWorker.ID;
+                        varCase.CaseWorkerNote.CaseID = varCase.ID;
+                        varCase.CaseWorkerNote.CaseStatusID = varCase.CaseStatusID;
+                        varCase.CaseWorkerNote.ProgramID = varCase.ProgramID;
+                        varCase.CaseWorkerNote.WorkerNoteActivityTypeID = (int)WorkerNoteActivityType.EditCase;
+                        varCase.CaseWorkerNote.NoteDate = Convert.ToDateTime(varCase.ContactDate);
+                        caseWorkerNoteRepository.InsertOrUpdate(varCase.CaseWorkerNote);
+                        caseWorkerNoteRepository.Save();
+                    }
+
                     //Audit log
 
                     //redirect to list page after successful operation

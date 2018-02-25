@@ -1,10 +1,169 @@
 @model eCMS.DataLogic.Models.CaseMember
-
+@using eCMS.Shared;
 @{
     ViewBag.Title = "Create New Case Member";
+    //Layout = "~/Areas/CaseManagement/Views/Shared/_LayoutCase.cshtml";
 }
-@using (Html.BeginForm("Edit", "CaseMember", new { area = "CaseManagement", caseId=Model.CaseID }, FormMethod.Post, new { id="frmEditor", @class="horizontal-form" }))
+@section headsection
 {
-    @Html.Partial(eCMS.Shared.Constants.PartialViews.Alert)
-    @Html.Partial("_CreateOrEdit", Model)
+    @Styles.Render("~/assets/plugins/kendo/css")
+    @Scripts.Render("~/assets/plugins/kendo/js")
 }
+@using (Html.BeginForm("SaveAjax", "CaseMember", new { area = "CaseManagement", caseId = Model.CaseID }, FormMethod.Post, new { id = "frmEditorCaseMember", @class = "horizontal-form" }))
+{
+    <div class="container bulk-import">
+        <!-- begin: mainpage -->
+        <div class="row margin-top-10">
+            @Html.Partial(eCMS.Shared.Constants.PartialViews.Alert)
+            @Html.Partial("_CreateOrEdit", Model)
+        </div>
+        @*<div class="row">
+            <div class="col-md-5">
+                <div class="form-group02">
+                    <div class="col-sm-5">
+                        <button class="btn btn-primary" id="btnSaveAndRefreshCaseMember" name="btnSaveAndRefreshCaseMember"><i class="fa fa-save"></i> Save Individual</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-7">
+                <div class="form-group02">
+                    <div class="col-sm-5 col-sm-offset-7" style="text-align: right;">
+                        <a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.CaseSummary, new { caseID = Model.CaseID})" class="btn btn-primary"><i class="fa fa-long-arrow-left"></i> Back to Case Summary</a>
+                    </div>
+                </div>
+            </div>
+        </div>*@     
+    </div>
+}
+
+@if (Model.ID > 0)
+{
+
+    <div class="container bulk-import">
+        <!-- begin: mainpage -->
+        <div class="row margin-top-10">
+            <label class="col-sm-4 control-label labe-text">Contact Details</label>
+            <div class="col-md-12">
+                @(Html.Kendo().Grid<eCMS.DataLogic.Models.CaseMemberContact>()
+        .Name("GridCaseMemberContact")
+    .Events(events => events.Edit("SetDefaultSourceID"))
+        .Columns(columns =>
+        {
+            //columns.Bound(c => c.ContactMediaID).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(e => e.CaseMemberID).Hidden();
+            columns.Bound(e => e.ContactMediaName).Hidden();
+            columns.Bound(e => e.ContactMediaID).EditorTemplateName("ContactMediaList").Title("Type").ClientTemplate("#:ContactMediaName#");
+            columns.Bound(c => c.Contact).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(p => p.IsPrimary).ClientTemplate("<input type='checkbox' #= IsPrimary ? checked='checked' :'' # />");
+            columns.Bound(c => c.Comments).Sortable(true).Groupable(false).Filterable(false);
+            columns.Command(command =>
+            {
+                command.Edit();
+                command.Destroy();
+            }
+               );
+        }).ToolBar(toolbar => toolbar.Create()).
+                Editable(editable => editable.Mode(GridEditMode.InLine))
+        .DataSource(dataSource => dataSource
+        .Ajax().Events(events => events.Error("error_handler")).Model(model => model.Id(e => e.ID))
+        .Create(update => update.Action("Save", "CaseMemberContact"))
+        .Update(update => update.Action("Save", "CaseMemberContact"))
+        .Destroy(update => update.Action("Delete", "CaseMemberContact"))
+        .Read(read => read.Action("IndexAjax", "CaseMemberContact", new { caseMemberID = Model.ID }).Data("PassSearchParameter"))
+        .PageSize(50)
+        )
+        .Pageable()
+        .Sortable()
+                )
+            </div>
+        </div>
+    </div>
+
+    <div class="container bulk-import">
+        <!-- begin: mainpage -->
+        <div class="row margin-top-10">
+            <label class="col-sm-4 control-label labe-text">Emergency Contact</label>
+            <div class="col-md-12">
+                @(Html.Kendo().Grid<eCMS.DataLogic.Models.CaseMemberEmergencyContact>()
+.Name("GridCaseMemberEmergencyContact")
+.Events(events => events.Edit("SetDefaultSourceIDContact"))
+        .Columns(columns =>
+        {
+            //columns.Bound(c => c.ContactMediaID).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(e => e.CaseMemberID).Hidden();
+            columns.Bound(c => c.ContactName).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(c => c.ContactNumber).Sortable(true).Groupable(false).Filterable(false);
+            columns.Command(command =>
+            {
+                command.Edit();
+                command.Destroy();
+            }
+               );
+        }).ToolBar(toolbar => toolbar.Create()).
+                Editable(editable => editable.Mode(GridEditMode.InLine))
+        .DataSource(dataSource => dataSource
+.Ajax().Events(events => events.Error("error_handlerContact")).Model(model => model.Id(e => e.ID))
+        .Create(update => update.Action("Save", "CaseMemberEmergencyContact"))
+.Update(update => update.Action("Save", "CaseMemberEmergencyContact"))
+.Destroy(update => update.Action("Delete", "CaseMemberEmergencyContact"))
+.Read(read => read.Action("IndexAjax", "CaseMemberEmergencyContact", new { caseMemberID = Model.ID }).Data("PassSearchParameter"))
+        .PageSize(50)
+        )
+        .Pageable()
+        .Sortable()
+                )
+            </div>
+        </div>
+    </div>
+}
+<script>
+    function SetDefaultSourceID(e) {
+        if (e.model.isNew()) {
+            debugger
+            //set the required field value
+            e.model.set("CaseMemberID", @Model.ID);
+        }
+    }
+    function SetDefaultSourceIDContact(e) {
+        if (e.model.isNew()) {
+            debugger
+            //set the required field value
+            e.model.set("CaseMemberID", @Model.ID);
+        }
+    }
+    function error_handler(e) {
+        if (e.errors) {
+            var message = "Errors:\n";
+            $.each(e.errors, function (key, value) {
+                if ('errors' in value) {
+                    $.each(value.errors, function () {
+                        message += this + "\n";
+                    }
+                   );
+                }
+            }
+           );
+            alert(message);
+        }
+    }
+    function error_handlerContact(e) {
+        if (e.errors) {
+            var message = "Errors:\n";
+            $.each(e.errors, function (key, value) {
+                if ('errors' in value) {
+                    $.each(value.errors, function () {
+                        message += this + "\n";
+                    }
+                   );
+                }
+            }
+           );
+            alert(message);
+        }
+    }
+    //Nullable Model Properties – How to Take Care
+    //function EmployeesGrid_Save(e) {
+    //    var companyId = $("#CompanyId").data().kendoDropDownList.value();
+    //    e.model.set("CompanyId", companyId);
+    //}
+</script>

@@ -127,10 +127,12 @@
     <Compile Include="Repositories\CaseManagement\CaseGoalRepository.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Repositories\CaseManagement\CaseMemberEmergencyContactRepository.cs" />
     <Compile Include="Repositories\CaseManagement\CaseMemberContactRepository.cs" />
     <Compile Include="Repositories\CaseManagement\CaseMemberEthinicityRepository.cs" />
     <Compile Include="Repositories\CaseManagement\CaseMemberProfileRepository.cs" />
     <Compile Include="Repositories\CaseManagement\CaseMemberRepository.cs" />
+    <Compile Include="Repositories\CaseManagement\CaseSSSWorkerNoteRepository.cs" />
     <Compile Include="Repositories\CaseManagement\CaseSummaryRepository.cs" />
     <Compile Include="Repositories\CaseManagement\CaseWorkerNoteRepository.cs" />
     <Compile Include="Repositories\CaseManagement\CaseProgressNoteRepository.cs" />

@@ -22,25 +22,10 @@
                 <div id="divEditorCaseMember">                    
                     @Html.Partial("_CreateOrEdit", Model)
                 </div>
-                <div class="row">
-                    <div class="col-md-5">
-                        <div class="form-group02">
-                            <div class="col-sm-5">
-                                <button class="btn btn-primary" id="btnSaveAndRefresh" name="btnSaveAndRefreshCaseMember"><i class="fa fa-save"></i> Save Individual</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-7">
-                        <div class="form-group02">
-                            <div class="col-sm-5 col-sm-offset-7" style="text-align: right;">
-                                <button class="btn btn-primary" id="btnSave" name="btnSaveCaseMember"><i class="fa fa-save"></i> Save & Continue <i class="fa fa-arrow-right"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                </div>                           
+                                   
             }
         </div>
-        <div class="col-md-12">
+        @*<div class="col-md-12">
             @(Html.Kendo().Grid<CaseMember>()
                 .Name("GridCaseMember")
                 .Columns(columns =>
@@ -66,6 +51,6 @@
                 .Pageable()
                 .Sortable()
             )
-        </div>
+        </div>*@
     </div>
 </div>

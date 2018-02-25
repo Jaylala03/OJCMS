@@ -54,7 +54,6 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
 
         }
 
-
         [WorkerAuthorize]
         public ActionResult Index([DataSourceRequest(Prefix = "Grid")] DataSourceRequest dsRequest, Case searchCase, int caseID)
         {
@@ -67,6 +66,8 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
             }
 
             CaseSummaryVM caseSummary = _casesummaryrepository.GetCaseDetails(caseID);
+            caseSummary.caseMember = new CaseMember();
+            caseSummary.caseMember.CaseID = caseID;
 
             return View(caseSummary);
         }

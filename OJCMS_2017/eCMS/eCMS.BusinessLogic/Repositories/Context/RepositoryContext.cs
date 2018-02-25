@@ -484,6 +484,8 @@ namespace eCMS.BusinessLogic.Repositories.Context
         public DbSet<CaseHouseholdIncome> CaseHouseholdIncome { get; set; }
         public DbSet<WorkerNoteActivityType> WorkerNoteActivityType { get; set; }
         public DbSet<CaseWorkerNote> CaseWorkerNote { get; set; }
+        public DbSet<CaseSSSWorkerNote> CaseSSSWorkerNote { get; set; }
+        public DbSet<CaseMemberEmergencyContact> CaseMemberEmergencyContact { get; set; }
     }
 
     public interface IDescribableEntity

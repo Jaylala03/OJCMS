@@ -12,15 +12,21 @@
     @Styles.Render("~/assets/plugins/kendo/css")
     @Scripts.Render("~/assets/plugins/kendo/js")
 }
-
+@Html.HiddenFor(m=>m.CaseID)
+@Html.HiddenFor(m => m.ProgramID)
 @*<label class="control-label labe-text">Test</label>
     <label class="control-label labe-text">@Html.DisplayFor(model => model.EnrollDate)</label>*@
 <div class="container bulk-import">
     <div class="row margin-top-40">
+        <div class="align-right">
+            @Html.ActionLink("Add Work Note", "Index", "CaseWorkerNote", new { CaseID = Model.CaseID, ProgramID = Model.ProgramID }, null)
+            @Html.ActionLink("Add SSS Work Note", "Index", "CaseSSSWorkerNote", new { CaseID = Model.CaseID, ProgramID = Model.ProgramID }, null)
+        </div>
         <div class="center-block" style="align-items:center;">
             <table class="table table-striped text-align-center" align="center" style="width:100%;">
                 <thead>
-                    <tr><th style="width:30%;"><label class="control-label labe-text">Demographics:</label></th>
+                    <tr>
+                        <th style="width:30%;"><label class="control-label labe-text">Demographics:</label></th>
                         <th style="width:20%;">&nbsp;</th>
                         <th style="width:50%;">&nbsp;</th>
                     </tr>
@@ -75,51 +81,101 @@
                     <td>
                         <label class="control-label labe-text">Intake Method:</label>
                     </td>
-                    <td>@Html.DisplayFor(model => model.IntakeMethod)</td><td style="width:50%;">&nbsp;</td>
+                    <td>@Html.DisplayFor(model => model.IntakeMethod)</td>
+                    <td style="width:50%;">&nbsp;</td>
                 </tr>
                 <tr>
                     <td>
                         <label class="control-label labe-text">Referral Source:</label>
                     </td>
-                    <td>@Html.DisplayFor(model => model.ReferralSource)</td><td style="width:50%;">&nbsp;</td>
+                    <td>@Html.DisplayFor(model => model.ReferralSource)</td>
+                    <td style="width:50%;">&nbsp;</td>
                 </tr>
                 <tr>
                     <td>
                         <label class="control-label labe-text">Referral Date:</label>
                     </td>
-                    <td>@Html.DisplayFor(model => model.ReferralDate)</td><td style="width:50%;">&nbsp;</td>
+                    <td>@Html.DisplayFor(model => model.ReferralDate)</td>
+                    <td style="width:50%;">&nbsp;</td>
                 </tr>
                 <tr>
                     <td>
                         <label class="control-label labe-text">Risk Level:</label>
                     </td>
-                    <td>@Html.DisplayFor(model => model.RiskLevel)</td><td style="width:50%;">&nbsp;</td>
+                    <td>@Html.DisplayFor(model => model.RiskLevel)</td>
+                    <td style="width:50%;">&nbsp;</td>
                 </tr>
                 <tr>
                     <td>
                         <label class="control-label labe-text">Presenting Problem (Reason for seeking support):</label>
                     </td>
-                    <td>@Html.DisplayFor(model => model.PresentingProblem)</td><td style="width:50%;">&nbsp;</td>
+                    <td>@Html.DisplayFor(model => model.PresentingProblem)</td>
+                    <td style="width:50%;">&nbsp;</td>
                 </tr>
                 <tr>
                     <td>
                         <label class="control-label labe-text">Address:</label>
                     </td>
-                    <td>@Html.DisplayFor(model => model.Address)</td><td style="width:50%;">&nbsp;</td>
+                    <td>@Html.DisplayFor(model => model.Address)</td>
+                    <td style="width:50%;">&nbsp;</td>
                 </tr>
                 <tr>
                     <td>
                         <label class="control-label labe-text">City:</label>
                     </td>
-                    <td>@Html.DisplayFor(model => model.City)</td><td style="width:50%;">&nbsp;</td>
+                    <td>@Html.DisplayFor(model => model.City)</td>
+                    <td style="width:50%;">&nbsp;</td>
                 </tr>
                 <tr>
                     <td>
                         <label class="control-label labe-text">Postal Code:</label>
                     </td>
-                    <td>@Html.DisplayFor(model => model.PostalCode)</td><td style="width:50%;">&nbsp;</td>
+                    <td>@Html.DisplayFor(model => model.PostalCode)</td>
+                    <td style="width:50%;">&nbsp;</td>
                 </tr>
             </table>
+        </div>
+    </div>
+</div>
+<div class="container bulk-import">
+    <!-- begin: mainpage -->
+    <div class="row margin-top-10">
+        <div class="col-md-12">
+            <div class="col-md-5">
+                <div class="form-group02">
+                    <label class="control-label labe-text">Case Individuals</label>
+                </div>
+            </div>
+            <div class="col-md-7" style="float:right;">
+                <div class="form-group02">
+                    <div class="col-sm-5 col-sm-offset-7" style="text-align: right;">
+                        <a href="@Url.Action(Constants.Actions.Create, Constants.Controllers.CaseMember, new { caseID = Model.CaseID})" class="btn btn-primary"><i class="fa fa-long-arrow-left"></i>Add Case Individual</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            @(Html.Kendo().Grid<CaseMember>()
+                .Name("GridCaseMember")
+                .Columns(columns =>
+                {
+                    columns.Bound(c => c.LastName).Sortable(true).Groupable(false).Filterable(false);
+                    columns.Bound(c => c.FirstName).Sortable(true).Groupable(false).Filterable(false);
+                    columns.Bound(c => c.GenderName).Sortable(true).Groupable(false).Filterable(false);
+                    columns.Bound(c => c.RelationshipStatusName).Sortable(true).Groupable(false).Filterable(false);
+                    columns.Bound(c => c.MaritalStatusName).Sortable(true).Groupable(false).Filterable(false);
+                    columns.Bound(c => c.EthnicityName).Sortable(true).Groupable(false).Filterable(false);
+                    columns.Bound(c => c.LanguageName).Sortable(true).Groupable(false).Filterable(false);
+                    columns.Bound(p => p.FancyBoxLink).ClientTemplate("<center><a href='/CaseManagement/CaseMember/Edit/?Id=#= ID #&CaseID=#= CaseID #' style='#= HasPermissionToEdit #'  title='Edit'>Edit</a>&nbsp;<a name='lnkDelete' id='lnkDeleteCaseMember' href='/CaseManagement/CaseMember/DeleteAjax/#= ID #' style='#= HasPermissionToDelete #'  title='Delete'>Delete</a></center>").Width("10%").HtmlAttributes(new { @class = "grid-actions-content" }).HeaderTemplate("<center>Actions</center>").HeaderHtmlAttributes(new { @class = "grid-actions-content" });
+                })
+                .DataSource(dataSource => dataSource
+                .Ajax()
+                .Read(read => read.Action("IndexAjax", "CaseMember", new { caseId = Model.CaseID }))
+                .PageSize(50)
+                )
+                .Pageable()
+                .Sortable()
+            )
         </div>
     </div>
 </div>

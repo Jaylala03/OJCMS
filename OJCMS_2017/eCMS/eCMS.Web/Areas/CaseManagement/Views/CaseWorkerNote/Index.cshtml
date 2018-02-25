@@ -1,0 +1,95 @@
+@using System.Web.Mvc.Html;
+@model eCMS.DataLogic.Models.CaseWorkerNote
+@using System.Linq
+@using System.Data.Entity
+@using EasySoft.Helper;
+@using eCMS.DataLogic.ViewModels;
+@using eCMS.Shared;
+@using eCMS.DataLogic.Models.Lookup;
+@{
+    Model.IsAjax = true;
+    ViewBag.Title = "Work Note";
+}
+@section headsection
+{
+    @Styles.Render("~/assets/plugins/kendo/css")
+    @Scripts.Render("~/assets/plugins/kendo/js")
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 col-md-11 candidate-table-bg">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 candidate-on-map">
+                    <div class="row">
+                        <div class="col-md-12 font-13 text-uppercase" style="padding-top: 6px; padding-right: 0;">
+                            <label>
+                                <img src="@Url.Content("~/Assets/images/lavel-side-icon.png")">
+                                <span>Work Note Editor</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @using (Html.BeginForm("SaveAjax", "CaseWorkerNote", new { area = "CaseManagement" }, FormMethod.Post, new { id = "frmEditorCaseWorkerNote" }))
+            {
+
+                <div id="divCaseWorkerNoteEditor">
+                    @Html.Partial("_CreateOrEdit", Model)
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        &nbsp;
+                    </div>
+                    <div class="col-md-8 margin-top-10">
+                        <button type="button" id="btnSaveAndRefresh" name="btnSaveAndRefreshCaseWorkerNote" class="col-sm-2 createsource00">Save</button>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<div class="container candidate-list-main-container">
+    <div class="row">
+        <div class="col-lg-12 col-md-11 candidate-table-bg">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 candidate-on-map">
+                    <div class="row">
+                        <div class="col-md-12 font-13 text-uppercase" style="padding-top: 6px; padding-right: 0;">
+                            <label>
+                                <img src="@Url.Content("~/Assets/images/lavel-side-icon.png")">
+                                <span>CaseWorkerNote List</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                @(Html.Kendo().Grid<CaseWorkerNoteVM>()
+        .Name("GridCaseWorkerNote")
+        .Columns(columns =>
+        {
+            columns.Bound(caseworker => caseworker.DateLogged).Format("{0:yyyy-MM-dd}").Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(caseworker => caseworker.Notes).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(caseworker => caseworker.ContactMethod).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(caseworker => caseworker.ContactDate).Format("{0:yyyy-MM-dd}").Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(caseworker => caseworker.TimeSpent).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(caseworker => caseworker.CaseStatusAsDate).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(caseworker => caseworker.LoggedBy).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(c => c.WorkNoteWasLogged).Sortable(true).Groupable(false).Filterable(false);
+            columns.Bound(c => c.Actions).ClientTemplate("<a id='lnkEditCaseWorkerNoteEditor' name='lnkEdit' href='/CaseManagement/CaseWorkerNote/EditorAjax/#= ID #' title='Edit'>Edit</a>&nbsp;<a name='lnkDelete' id='lnkDeleteCaseWorkerNote' href='/CaseManagement/CaseWorkerNote/DeleteAjax/#= ID #' title='Delete'>Delete</a>").Width("10%").HtmlAttributes(new { @class = "grid-actions-content" }).HeaderTemplate("<center>Actions</center>").HeaderHtmlAttributes(new { @class = "grid-actions-content" });
+        })
+        .DataSource(dataSource => dataSource
+        .Ajax()
+        .Read(read => read.Action("IndexAjax", "CaseWorkerNote", new { CaseId = Model.CaseID, ProgramID = Model.ProgramID }))
+        .PageSize(50)
+        )
+        .Pageable()
+        .Sortable()
+                )
+            </div>
+        </div>
+    </div>
+</div>
+
