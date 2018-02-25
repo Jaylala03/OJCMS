@@ -149,6 +149,9 @@ namespace eCMS.DataLogic.Models
         public string ProgramName { get; set; }
 
         [NotMapped]
+        public CaseWorkerNote CaseWorkerNote { get; set; }
+
+        [NotMapped]
         [Display(Name = "Member Status")]
         public string MemberStatusName { get; set; }
 

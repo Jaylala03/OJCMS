@@ -54,6 +54,13 @@ namespace eCMS.BusinessLogic.Repositories
         /// <param name="CaseWorkerNote">data to save</param>
         public void InsertOrUpdate(CaseWorkerNote CaseWorkerNote)
         {
+            //var varcase = context.Case.Where(c => c.ID == CaseWorkerNote.CaseID).
+            //    Select new {
+            //    CaseStatusID = c.Cas
+            //    }
+            //        aseStatusID = c => c.CaseStatusID 
+            //    ).SingleOrDefault();
+
             CaseWorkerNote.CaseStatusID = context.Case.Where(c => c.ID == CaseWorkerNote.CaseID).Select(c => c.CaseStatusID).SingleOrDefault();
 
             CaseWorkerNote.LastUpdateDate = DateTime.Now;

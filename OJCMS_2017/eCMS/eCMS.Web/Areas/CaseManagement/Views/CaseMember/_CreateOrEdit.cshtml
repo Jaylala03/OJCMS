@@ -186,3 +186,13 @@
         </div>
     </div>
 </div>       
+@{
+    string name = Html.NameFor(m => m.CaseWorkerNote).ToString();
+    string prefix = Html.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name);
+    ViewDataDictionary viewData = new ViewDataDictionary(Html.ViewData)
+    {
+        TemplateInfo = new TemplateInfo { HtmlFieldPrefix = prefix }
+    };
+}
+
+@Html.Partial("WorkNote", Model.CaseWorkerNote, viewData)

@@ -306,6 +306,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
                         {
                             varCase.CaseHouseholdIncome.LastUpdatedByWorkerID = CurrentLoggedInWorker.ID;
                             varCase.CaseHouseholdIncome.CaseID = varCase.ID;
+                            varCase.CaseHouseholdIncome.IsInitialIncome = true;
                             varCase.CaseHouseholdIncome.CaseStatusID = varCase.CaseStatusID;
                             caseHouseholdIncomeRepository.InsertOrUpdate(varCase.CaseHouseholdIncome);
                             caseHouseholdIncomeRepository.Save();

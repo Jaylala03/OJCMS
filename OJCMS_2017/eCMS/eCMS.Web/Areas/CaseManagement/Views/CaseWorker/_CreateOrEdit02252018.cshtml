@@ -7,7 +7,7 @@
 @Html.HiddenFor(model => model.CaseID)
 @Html.HiddenFor(model => model.CreateDate)
 @Html.HiddenFor(model => model.CreatedByWorkerID)
-@Html.HiddenFor(model => model.IsActive)
+
 <div class="col-md-6">
     <div class="form-group02">
         <label class="col-sm-5 control-label labe-text">
@@ -55,7 +55,17 @@
 
 
 </div>
+<div class="col-md-6 ">
 
+    <div class="form-group02">
+        <label class="col-sm-4 control-label labe-text">@Html.LabelFor(model => model.IsActive)</label>
+        <div class="col-sm-8">
+            @Html.EditorFor(model => model.IsActive)
+        </div>
+    </div>
+
+
+</div>
 <div class="col-md-6">
     <div class="form-group02">
         <label class="col-sm-4 control-label labe-text">@Html.LabelFor(model => model.IsPrimary)</label>
@@ -69,6 +79,31 @@
         <label class="col-sm-4 control-label labe-text">@Html.LabelFor(model => model.AllowNotification)</label>
         <div class="col-sm-8">
             @Html.EditorFor(model => model.AllowNotification)
+        </div>
+    </div>
+</div>
+
+<div class="col-md-12">
+    <div class="form-group02">
+        <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.CaseMemberList)</label>
+        <div class="col-sm-8">
+            @if (Model.CaseMemberList != null)
+            {
+                foreach (SelectListItem caseMember in Model.CaseMemberList)
+                {
+                    string strChecked = "";
+                    if (caseMember.Selected)
+                    {
+                        strChecked = "checked='checked'";
+                    }
+                <div class="row">
+                    <div class="col-sm-3">
+                        <input type="checkbox" name="SelectedCaseMember" value="@caseMember.Value" @strChecked />
+                        @caseMember.Text
+                    </div>
+                </div>
+                }
+            }
         </div>
     </div>
 </div>

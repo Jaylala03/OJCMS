@@ -322,6 +322,7 @@
     <Compile Include="Areas\CaseManagement\Controllers\CaseMemberEmergencyContactController.cs" />
     <Compile Include="Areas\CaseManagement\Controllers\CaseSSSWorkerNoteController.cs" />
     <Compile Include="Areas\CaseManagement\Controllers\CaseSummaryController.cs" />
+    <Compile Include="Areas\CaseManagement\Controllers\CaseWorkerController02252018.cs" />
     <Compile Include="Areas\CaseManagement\Controllers\CaseWorkerNoteController.cs" />
     <Compile Include="Reports\CaseDashboardNew.cs">
       <DependentUpon>CaseDashboardNew.rpt</DependentUpon>
@@ -1973,6 +1974,8 @@
     <Content Include="Areas\CaseManagement\Views\CaseSSSWorkerNote\_CreateOrEdit.cshtml" />
     <Content Include="Areas\CaseManagement\Views\CaseWorkerNote\Index.cshtml" />
     <Content Include="Areas\CaseManagement\Views\CaseWorkerNote\_CreateOrEdit.cshtml" />
+    <Content Include="Areas\CaseManagement\Views\CaseWorker\_CreateOrEdit02252018.cshtml" />
+    <Content Include="Areas\CaseManagement\Views\CaseWorker\Index02252018.cshtml" />
     <None Include="bin\eCMS.Web.dll.config" />
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Properties\PublishProfiles\ecms.softwareravine.com.pubxml" />

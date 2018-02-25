@@ -23,6 +23,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
 {
     public class CaseMemberController : CaseBaseController
     {
+        private readonly ICaseWorkerNoteRepository caseWorkerNoteRepository;
         public CaseMemberController(IWorkerRepository workerRepository,
             ICaseRepository caseRepository,
             IRelationshipStatusRepository relationshipstatusRepository,
@@ -38,6 +39,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
            IWorkerRoleRepository workerRoleRepository,
             IWorkerRoleActionPermissionRepository workerroleactionpermissionRepository
             , IWorkerRoleActionPermissionNewRepository workerroleactionpermissionnewRepository
+            ,ICaseWorkerNoteRepository caseWorkerNoteRepository
            )
             : base(workerroleactionpermissionRepository, caseRepository, workerroleactionpermissionnewRepository)
         {
@@ -53,6 +55,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
             this.caseworkerRepository = caseworkerRepository;
             this.workerroleRepository = workerRoleRepository;
             this.contactmediaRepository = contactmediaRepository;
+            this.caseWorkerNoteRepository = caseWorkerNoteRepository;
         }
 
         /// <summary>
@@ -132,7 +135,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
             caseMember.EnrollDate = DateTime.Now;
             caseMember.MemberStatusID = 1;
             caseMember.IsActive = true;
-            
+            caseMember.CaseWorkerNote = new CaseWorkerNote();
             return View(caseMember);
         }
 
@@ -157,6 +160,21 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
                 {
                     casememberRepository.InsertOrUpdate(caseMember);
                     casememberRepository.Save();
+
+                    if (caseMember.CaseWorkerNote.ContactMethodID > 0)
+                    {
+                        caseMember.CaseWorkerNote.LastUpdatedByWorkerID = CurrentLoggedInWorker.ID;
+                        caseMember.CaseWorkerNote.CaseID = caseMember.CaseID;
+                        //caseMember.CaseWorkerNote.CaseStatusID = varCase.CaseStatusID;
+                        //caseMember.CaseWorkerNote.ProgramID = varCase.ProgramID;
+                        caseMember.CaseWorkerNote.IsFamily = true;
+                        caseMember.CaseWorkerNote.IsFamilyMember = false;
+                        caseMember.CaseWorkerNote.WorkerNoteActivityTypeID = (int)WorkerNoteActivityType.AddCase;
+                        //varCase.CaseWorkerNote.NoteDate = Convert.ToDateTime(varCase.ContactDate);
+                        caseWorkerNoteRepository.InsertOrUpdate(caseMember.CaseWorkerNote);
+                        caseWorkerNoteRepository.Save();
+                    }
+
                     //return RedirectToAction(Constants.Views.Index, new { caseId = caseMember.CaseID });
                     return RedirectToAction(Constants.Views.Edit, new { id = caseMember.ID, caseId = caseMember.CaseID });
                 }
