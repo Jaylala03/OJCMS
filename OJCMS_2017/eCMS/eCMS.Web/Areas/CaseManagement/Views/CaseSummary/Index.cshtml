@@ -1,4 +1,5 @@
 ﻿@model eCMS.DataLogic.ViewModels.CaseSummaryVM
+
 @using EasySoft.Helper;
 @using eCMS.Shared;
 @using eCMS.DataLogic.Models;
@@ -12,7 +13,7 @@
     @Styles.Render("~/assets/plugins/kendo/css")
     @Scripts.Render("~/assets/plugins/kendo/js")
 }
-@Html.HiddenFor(m=>m.CaseID)
+@Html.HiddenFor(m => m.CaseID)
 @Html.HiddenFor(m => m.ProgramID)
 @*<label class="control-label labe-text">Test</label>
     <label class="control-label labe-text">@Html.DisplayFor(model => model.EnrollDate)</label>*@
@@ -134,6 +135,85 @@
                     <td style="width:50%;">&nbsp;</td>
                 </tr>
             </table>
+
+            <div class="col-md-12">
+                <div class="align-left">
+                    <label class="control-label labe-text">household Income:</label>
+                </div>
+                <div class="col-md-6 border">
+                    <table>
+                        <thead>
+                            <label class="control-label labe-text">Initial household Income:</label>
+                        </thead>
+                        <tr>
+                            <td><label class="control-label labe-text">Number of members in the household:</label></td>
+                            <td>@Html.DisplayFor(model => model.CaseInitialHouseholdIncomeVM.NoOfMembers)</td>
+                        </tr>
+                        <tr>
+                            <td><label class="control-label labe-text">Number of children in the household:</label></td>
+                            <td>@Html.DisplayFor(model => model.CaseInitialHouseholdIncomeVM.NoOfChild)</td>
+                        </tr>
+                        <tr>
+                            <td><label class="control-label labe-text">Number of seniors (+65) in the household:</label></td>
+                            <td>@Html.DisplayFor(model => model.CaseInitialHouseholdIncomeVM.NoOfSeniors)</td>
+                        </tr>
+                        <tr>
+                            <td><label class="control-label labe-text">Number of physically disabled members in the household:</label></td>
+                            <td>@Html.DisplayFor(model => model.CaseInitialHouseholdIncomeVM.NoOfPhysicallyDisabled)</td>
+                        </tr>
+                        <tr>
+                            <td><label class="control-label labe-text">Household gross income range (annual):</label></td>
+                            <td>@Html.DisplayFor(model => model.CaseInitialHouseholdIncomeVM.IncomeRanges)</td>
+                        </tr>
+                        <tr>
+                            <td><label class="control-label labe-text">Date Entered:</label></td>
+                            <td>@Html.DisplayFor(model => model.CaseInitialHouseholdIncomeVM.CreatedDate)</td>
+                        </tr>
+                        <tr>
+                            <td><label class="control-label labe-text">Is LICO:</label></td>
+                            <td>@Html.DisplayFor(model => model.CaseInitialHouseholdIncomeVM.IsLICO)</td>
+                        </tr>
+                    </table>
+
+                </div>
+                <div class="col-md-6 border">
+                    <table>
+                        <thead>
+                            <label class="control-label labe-text">Current household Income:</label>
+                        </thead>
+                        <tr>
+                            <td><label class="control-label labe-text">Number of members in the household:</label></td>
+                            <td>@Html.DisplayFor(model => model.CaseCurrentHouseholdIncomeVM.NoOfMembers)</td>
+                        </tr>
+                        <tr>
+                            <td><label class="control-label labe-text">Number of children in the household:</label></td>
+                            <td>@Html.DisplayFor(model => model.CaseCurrentHouseholdIncomeVM.NoOfChild)</td>
+                        </tr>
+                        <tr>
+                            <td><label class="control-label labe-text">Number of seniors (+65) in the household:</label></td>
+                            <td>@Html.DisplayFor(model => model.CaseCurrentHouseholdIncomeVM.NoOfSeniors)</td>
+                        </tr>
+                        <tr>
+                            <td><label class="control-label labe-text">Number of physically disabled members in the household:</label></td>
+                            <td>@Html.DisplayFor(model => model.CaseCurrentHouseholdIncomeVM.NoOfPhysicallyDisabled)</td>
+                        </tr>
+                        <tr>
+                            <td><label class="control-label labe-text">Household gross income range (annual):</label></td>
+                            <td>@Html.DisplayFor(model => model.CaseCurrentHouseholdIncomeVM.IncomeRanges)</td>
+                        </tr>
+                        <tr>
+                            <td><label class="control-label labe-text">Date Entered:</label></td>
+                            <td>@Html.DisplayFor(model => model.CaseCurrentHouseholdIncomeVM.CreatedDate)</td>
+                        </tr>
+                        <tr>
+                            <td><label class="control-label labe-text">Is LICO:</label></td>
+                            <td>@Html.DisplayFor(model => model.CaseCurrentHouseholdIncomeVM.IsLICO)</td>
+                        </tr>
+                    </table>
+                </div>
+
+            </div>
+
         </div>
     </div>
 </div>

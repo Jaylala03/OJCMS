@@ -70,6 +70,31 @@ namespace eCMS.BusinessLogic.Repositories
         {
             return null;
         }
+        public CaseHouseholdIncomeVM GetInitialIncomeForCaseSummary(int CaseId)
+        {
+            StringBuilder sqlQuery = new StringBuilder(@"SELECT [C].NoOfMembers AS NoOfMembers, [C].NoOfChild AS NoOfChild, [C].NoOfSeniors AS NoOfSeniors, [C].NoOfPhysicallyDisabled AS NoOfPhysicallyDisabled, [C].CreateDate AS CreatedDate, [C].IsLICO AS IsLICO, [IR].Name AS IncomeRanges FROM CaseHouseholdIncome[C]");
+
+            sqlQuery.Append(" INNER JOIN IncomeRange[IR] ON[C].IncomeRangeID = [IR].ID");
+            sqlQuery.Append(" INNER JOIN[Case] AS[CS] ON[CS].ID = [C].CaseID");            
+            sqlQuery.Append(" WHERE [C].[IsArchived] = 0 AND [C].CaseId = " + CaseId + " AND [C].IsInitialIncome = 1 ");
+
+            CaseHouseholdIncomeVM casesummary = context.Database.SqlQuery<CaseHouseholdIncomeVM>(sqlQuery.ToString()).AsEnumerable().FirstOrDefault();
+
+            return casesummary;
+        }
+        public CaseHouseholdIncomeVM GetCurrentIncomeForCaseSummary(int CaseId)
+        {
+            StringBuilder sqlQuery = new StringBuilder(@"SELECT TOP 1 [C].NoOfMembers AS NoOfMembers, [C].NoOfChild AS NoOfChild, [C].NoOfSeniors AS NoOfSeniors, [C].NoOfPhysicallyDisabled AS NoOfPhysicallyDisabled, [C].CreateDate AS CreatedDate, [C].IsLICO AS IsLICO, [IR].Name AS IncomeRanges FROM CaseHouseholdIncome[C]");
+
+            sqlQuery.Append(" INNER JOIN IncomeRange[IR] ON[C].IncomeRangeID = [IR].ID");
+            sqlQuery.Append(" INNER JOIN[Case] AS[CS] ON[CS].ID = [C].CaseID");
+            sqlQuery.Append(" WHERE [C].[IsArchived] = 0 AND [C].CaseId = " + CaseId + " AND [C].IsInitialIncome = 0 ");
+            sqlQuery.Append("ORDER BY [C].CreateDate DESC");
+            
+            CaseHouseholdIncomeVM casesummary = context.Database.SqlQuery<CaseHouseholdIncomeVM>(sqlQuery.ToString()).AsEnumerable().FirstOrDefault();
+
+            return casesummary;
+        }
     }
 
     /// <summary>
@@ -79,5 +104,7 @@ namespace eCMS.BusinessLogic.Repositories
     {
         void InsertOrUpdate(CaseHouseholdIncome varCase);
         DataSourceResult Search(CaseHouseholdIncome searchParameters, DataSourceRequest paramDSRequest);
+        CaseHouseholdIncomeVM GetInitialIncomeForCaseSummary(int CaseId);
+        CaseHouseholdIncomeVM GetCurrentIncomeForCaseSummary(int CaseId);
     }
 }

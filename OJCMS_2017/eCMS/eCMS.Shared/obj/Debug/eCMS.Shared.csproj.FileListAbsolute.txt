@@ -18,3 +18,8 @@ D:\OJCMS\OJCMS_2017\eCMS\eCMS.Shared\bin\Debug\eCMS.Shared.pdb
 D:\OJCMS\OJCMS_2017\eCMS\eCMS.Shared\obj\Debug\eCMS.Shared.dll
 D:\OJCMS\OJCMS_2017\eCMS\eCMS.Shared\obj\Debug\eCMS.Shared.pdb
 D:\OJCMS\OJCMS_2017\eCMS\eCMS.Shared\obj\Debug\eCMS.Shared.csprojResolveAssemblyReference.cache
+G:\Jay Bhai\CIMSMaster\OJCMS_2017\eCMS\eCMS.Shared\bin\Debug\eCMS.Shared.dll
+G:\Jay Bhai\CIMSMaster\OJCMS_2017\eCMS\eCMS.Shared\bin\Debug\eCMS.Shared.pdb
+G:\Jay Bhai\CIMSMaster\OJCMS_2017\eCMS\eCMS.Shared\obj\Debug\eCMS.Shared.dll
+G:\Jay Bhai\CIMSMaster\OJCMS_2017\eCMS\eCMS.Shared\obj\Debug\eCMS.Shared.pdb
+G:\Jay Bhai\CIMSMaster\OJCMS_2017\eCMS\eCMS.Shared\obj\Debug\eCMS.Shared.csprojResolveAssemblyReference.cache

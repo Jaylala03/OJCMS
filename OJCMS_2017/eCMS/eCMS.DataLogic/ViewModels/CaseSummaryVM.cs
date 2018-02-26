@@ -1,5 +1,4 @@
 ﻿
-using eCMS.DataLogic.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +25,8 @@ namespace eCMS.DataLogic.ViewModels
         public string Address { get; set; }
         public string City { get; set; }
         public string PostalCode { get; set; }
-        public CaseMember caseMember { get; set; }
+
+        public CaseHouseholdIncomeVM CaseInitialHouseholdIncomeVM { get; set; }
+        public CaseHouseholdIncomeVM CaseCurrentHouseholdIncomeVM { get; set; }
     }
 }
