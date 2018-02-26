@@ -145,7 +145,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
                         caseSSSWorkerNote.IsFamilyMember = true;
                     }
 
-
+                    caseSSSWorkerNote.WorkerNoteActivityTypeID = (int)eCMS.Shared.WorkerNoteActivityType.WorkNote;
                     //call repository function to save the data in database
                     caseSSSWorkerNoteRepository.InsertOrUpdate(caseSSSWorkerNote);
                     caseSSSWorkerNoteRepository.Save();

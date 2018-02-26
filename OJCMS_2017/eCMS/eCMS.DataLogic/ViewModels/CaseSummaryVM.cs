@@ -27,5 +27,8 @@ namespace eCMS.DataLogic.ViewModels
         public string City { get; set; }
         public string PostalCode { get; set; }
         public CaseMember caseMember { get; set; }
+
+        public CaseHouseholdIncomeVM CaseInitialHouseholdIncomeVM { get; set; }
+        public CaseHouseholdIncomeVM CaseCurrentHouseholdIncomeVM { get; set; }
     }
 }

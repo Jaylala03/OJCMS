@@ -54,21 +54,23 @@ namespace eCMS.BusinessLogic.Repositories
         /// <param name="CaseWorkerNote">data to save</param>
         public void InsertOrUpdate(CaseWorkerNote CaseWorkerNote)
         {
-            //var varcase = context.Case.Where(c => c.ID == CaseWorkerNote.CaseID).
-            //    Select new {
-            //    CaseStatusID = c.Cas
-            //    }
-            //        aseStatusID = c => c.CaseStatusID 
-            //    ).SingleOrDefault();
+            var varcase = (from Case in context.Case.Where(c => c.ID == CaseWorkerNote.CaseID)
+                            select new 
+                            {
+                                CaseStatusID = Case.CaseStatusID,
+                                ProgramID = Case.ProgramID
+                            }).FirstOrDefault();
 
-            CaseWorkerNote.CaseStatusID = context.Case.Where(c => c.ID == CaseWorkerNote.CaseID).Select(c => c.CaseStatusID).SingleOrDefault();
+            CaseWorkerNote.CaseStatusID = varcase.CaseStatusID;
+            CaseWorkerNote.ProgramID = varcase.ProgramID;
+            //CaseWorkerNote.CaseStatusID = context.Case.Where(c => c.ID == CaseWorkerNote.CaseID).Select(c => c.CaseStatusID).SingleOrDefault();
 
             CaseWorkerNote.LastUpdateDate = DateTime.Now;
             if (CaseWorkerNote.ID == default(int))
             {
                 //set the date when this record was created
                 CaseWorkerNote.CreateDate = CaseWorkerNote.LastUpdateDate;
-                CaseWorkerNote.WorkerNoteActivityTypeID = (int)WorkerNoteActivityType.WorkNote;
+                
                 //set the id of the worker who has created this record
                 CaseWorkerNote.CreatedByWorkerID = CaseWorkerNote.LastUpdatedByWorkerID;
                 //CaseWorkerNote.CreatedByWorkerID = CaseWorkerNote.CreatedByWorkerID;

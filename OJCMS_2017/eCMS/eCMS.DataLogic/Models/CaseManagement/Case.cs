@@ -37,11 +37,11 @@ namespace eCMS.DataLogic.Models
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? ReferralDate { get; set; }
 
-        [NotMapped]
-        [Display(Name = "Contact Date")]
-        //[DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime? ContactDate { get; set; }
+        //[NotMapped]
+        //[Display(Name = "Contact Date")]
+        ////[DataType(DataType.Date)]
+        //[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        //public DateTime? ContactDate { get; set; }
 
         
 

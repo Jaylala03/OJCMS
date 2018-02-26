@@ -58,6 +58,7 @@ namespace eCMS.Shared
         EditCase=2,
         EditHouseholdIncome=3,
         WorkNote=4,
-
+        CaseIndividual = 5,
+        CaseWorker = 6,
     }
 }

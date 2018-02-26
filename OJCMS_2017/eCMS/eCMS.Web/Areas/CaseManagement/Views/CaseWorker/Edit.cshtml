@@ -6,9 +6,8 @@
 @{
     Model.IsAjax = true;
     ViewBag.Title = "Case Worker";
-    //Layout = "~/Areas/CaseManagement/Views/Shared/_LayoutCase.cshtml";
+    Layout = "~/Areas/CaseManagement/Views/Shared/_LayoutCase.cshtml";
     CaseWorker caseWorkerModel = Model.CaseWorker;
-    CaseSupportCircle caseSupportCircle = Model.CaseSupportCircle;
 }
 @section headsection
 {
@@ -34,7 +33,7 @@
                     </div>
                 </div>
                 @Html.Partial(Constants.PartialViews.Alert)
-                @using (Html.BeginForm("Create", "CaseWorker", new { area = "CaseManagement" }, FormMethod.Post, new { id = "frmEditorCaseWorker" }))
+                @using (Html.BeginForm("Edit", "CaseWorker", new { area = "CaseManagement" }, FormMethod.Post, new { id = "frmEditorCaseWorker" }))
                 {
                     <div id="divEditorCaseWorker">
                         @Html.Partial("_CreateOrEdit", caseWorkerModel)

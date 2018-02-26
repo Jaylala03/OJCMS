@@ -14,6 +14,7 @@ using eCMS.DataLogic.ViewModels;
 using eCMS.ExceptionLoging;
 using eCMS.Shared;
 using System;
+using System.IO;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -51,6 +52,7 @@ namespace eCMS.Web.Controllers
         [HttpPost]
         public ActionResult Login(Worker worker)
         {
+            
             try
             {
                 Worker loggedInWorker =workerAuthenticationManager.AuthenticateWorker(worker.EmailAddress, worker.Password, false);

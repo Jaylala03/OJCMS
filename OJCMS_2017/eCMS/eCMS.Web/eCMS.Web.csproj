@@ -1976,6 +1976,7 @@
     <Content Include="Areas\CaseManagement\Views\CaseWorkerNote\_CreateOrEdit.cshtml" />
     <Content Include="Areas\CaseManagement\Views\CaseWorker\_CreateOrEdit02252018.cshtml" />
     <Content Include="Areas\CaseManagement\Views\CaseWorker\Index02252018.cshtml" />
+    <Content Include="Areas\CaseManagement\Views\CaseWorker\Edit.cshtml" />
     <None Include="bin\eCMS.Web.dll.config" />
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Properties\PublishProfiles\ecms.softwareravine.com.pubxml" />

@@ -20,7 +20,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
     public class CaseSummaryController : CaseBaseController
     {
         private readonly ICaseSummaryRepository _casesummaryrepository;
-
+        private readonly ICaseHouseholdIncomeRepository caseHouseholdIncomeRepository;
         public CaseSummaryController(IWorkerRepository workerRepository,
            ICaseRepository caseRepository,
            IRelationshipStatusRepository relationshipstatusRepository,
@@ -36,6 +36,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
            ICaseSummaryRepository caseSummaryRepository,
            IWorkerRoleActionPermissionRepository workerroleactionpermissionRepository
            , IWorkerRoleActionPermissionNewRepository workerroleactionpermissionnewRepository
+            , ICaseHouseholdIncomeRepository caseHouseholdIncomeRepository
           )
             : base(workerroleactionpermissionRepository, caseRepository, workerroleactionpermissionnewRepository)
         {
@@ -51,7 +52,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
             this.caseworkerRepository = caseworkerRepository;
             this.workerroleRepository = workerRoleRepository;
             this._casesummaryrepository = caseSummaryRepository;
-
+            this.caseHouseholdIncomeRepository = caseHouseholdIncomeRepository;
         }
 
         [WorkerAuthorize]
@@ -68,6 +69,14 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
             CaseSummaryVM caseSummary = _casesummaryrepository.GetCaseDetails(caseID);
             caseSummary.caseMember = new CaseMember();
             caseSummary.caseMember.CaseID = caseID;
+
+            caseSummary.CaseInitialHouseholdIncomeVM = caseHouseholdIncomeRepository.GetInitialIncomeForCaseSummary(caseID);
+            caseSummary.CaseCurrentHouseholdIncomeVM = caseHouseholdIncomeRepository.GetCurrentIncomeForCaseSummary(caseID);
+
+            if (caseSummary.CaseCurrentHouseholdIncomeVM == null)
+            {
+                caseSummary.CaseCurrentHouseholdIncomeVM = caseSummary.CaseInitialHouseholdIncomeVM;
+            }
 
             return View(caseSummary);
         }

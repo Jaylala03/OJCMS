@@ -12,7 +12,7 @@
     @Styles.Render("~/assets/plugins/kendo/css")
     @Scripts.Render("~/assets/plugins/kendo/js")
 }
-@Html.HiddenFor(m=>m.CaseID)
+@Html.HiddenFor(m => m.CaseID)
 @Html.HiddenFor(m => m.ProgramID)
 @*<label class="control-label labe-text">Test</label>
     <label class="control-label labe-text">@Html.DisplayFor(model => model.EnrollDate)</label>*@
@@ -134,6 +134,82 @@
                     <td style="width:50%;">&nbsp;</td>
                 </tr>
             </table>
+            <div class="col-md-12">
+                <div class="align-left">
+                    <label class="control-label labe-text">household Income:</label>
+                </div>
+                <div class="col-md-6 border">
+                    <table>
+                        <thead>
+                            <label class="control-label labe-text">Initial household Income:</label>
+                        </thead>
+                        <tr>
+                            <td><label class="control-label labe-text">Number of members in the household:</label></td>
+                            <td>@Html.DisplayFor(model => model.CaseInitialHouseholdIncomeVM.NoOfMembers)</td>
+                        </tr>
+                        <tr>
+                            <td><label class="control-label labe-text">Number of children in the household:</label></td>
+                            <td>@Html.DisplayFor(model => model.CaseInitialHouseholdIncomeVM.NoOfChild)</td>
+                        </tr>
+                        <tr>
+                            <td><label class="control-label labe-text">Number of seniors (+65) in the household:</label></td>
+                            <td>@Html.DisplayFor(model => model.CaseInitialHouseholdIncomeVM.NoOfSeniors)</td>
+                        </tr>
+                        <tr>
+                            <td><label class="control-label labe-text">Number of physically disabled members in the household:</label></td>
+                            <td>@Html.DisplayFor(model => model.CaseInitialHouseholdIncomeVM.NoOfPhysicallyDisabled)</td>
+                        </tr>
+                        <tr>
+                            <td><label class="control-label labe-text">Household gross income range (annual):</label></td>
+                            <td>@Html.DisplayFor(model => model.CaseInitialHouseholdIncomeVM.IncomeRanges)</td>
+                        </tr>
+                        <tr>
+                            <td><label class="control-label labe-text">Date Entered:</label></td>
+                            <td>@Html.DisplayFor(model => model.CaseInitialHouseholdIncomeVM.CreatedDate)</td>
+                        </tr>
+                        <tr>
+                            <td><label class="control-label labe-text">Is LICO:</label></td>
+                            <td>@Html.DisplayFor(model => model.CaseInitialHouseholdIncomeVM.IsLICO)</td>
+                        </tr>
+                    </table>
+
+                </div>
+                <div class="col-md-6 border">
+                    <table>
+                        <thead>
+                            <label class="control-label labe-text">Current household Income:</label>
+                        </thead>
+                        <tr>
+                            <td><label class="control-label labe-text">Number of members in the household:</label></td>
+                            <td>@Html.DisplayFor(model => model.CaseCurrentHouseholdIncomeVM.NoOfMembers)</td>
+                        </tr>
+                        <tr>
+                            <td><label class="control-label labe-text">Number of children in the household:</label></td>
+                            <td>@Html.DisplayFor(model => model.CaseCurrentHouseholdIncomeVM.NoOfChild)</td>
+                        </tr>
+                        <tr>
+                            <td><label class="control-label labe-text">Number of seniors (+65) in the household:</label></td>
+                            <td>@Html.DisplayFor(model => model.CaseCurrentHouseholdIncomeVM.NoOfSeniors)</td>
+                        </tr>
+                        <tr>
+                            <td><label class="control-label labe-text">Number of physically disabled members in the household:</label></td>
+                            <td>@Html.DisplayFor(model => model.CaseCurrentHouseholdIncomeVM.NoOfPhysicallyDisabled)</td>
+                        </tr>
+                        <tr>
+                            <td><label class="control-label labe-text">Household gross income range (annual):</label></td>
+                            <td>@Html.DisplayFor(model => model.CaseCurrentHouseholdIncomeVM.IncomeRanges)</td>
+                        </tr>
+                        <tr>
+                            <td><label class="control-label labe-text">Date Entered:</label></td>
+                            <td>@Html.DisplayFor(model => model.CaseCurrentHouseholdIncomeVM.CreatedDate)</td>
+                        </tr>
+                        <tr>
+                            <td><label class="control-label labe-text">Is LICO:</label></td>
+                            <td>@Html.DisplayFor(model => model.CaseCurrentHouseholdIncomeVM.IsLICO)</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -149,7 +225,7 @@
             <div class="col-md-7" style="float:right;">
                 <div class="form-group02">
                     <div class="col-sm-5 col-sm-offset-7" style="text-align: right;">
-                        <a href="@Url.Action(Constants.Actions.Create, Constants.Controllers.CaseMember, new { caseID = Model.CaseID})" class="btn btn-primary"><i class="fa fa-long-arrow-left"></i>Add Case Individual</a>
+                        <a href="@Url.Action(Constants.Actions.Create, Constants.Controllers.CaseMember, new { caseID = Model.CaseID})" class="btn btn-primary"><i class="fa fa-long-arrow-right"></i>Add Case Individual</a>
                     </div>
                 </div>
             </div>
@@ -175,6 +251,47 @@
                 )
                 .Pageable()
                 .Sortable()
+            )
+        </div>
+    </div>
+</div>
+<div class="container bulk-import">
+    <div class="row margin-top-10">
+        <div class="col-md-12">
+            <div class="col-md-5">
+                <div class="form-group02">
+                    <label class="control-label labe-text">Case Workers</label>
+                </div>
+            </div>
+            <div class="col-md-7" style="float:right;">
+                <div class="form-group02">
+                    <div class="col-sm-5 col-sm-offset-7" style="text-align: right;">
+                        <a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.CaseWorker, new { caseID = Model.CaseID})" class="btn btn-primary"><i class="fa fa-long-arrow-right"></i>Assign Case Worker</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            @(Html.Kendo().Grid<CaseWorker>()
+                            .Name("GridCaseWorker")
+                            .Columns(columns =>
+                            {
+                                columns.Bound(c => c.WorkerName).Sortable(true).Groupable(false).Filterable(false);
+                                columns.Bound(c => c.RoleName).Sortable(true).Groupable(false).Filterable(false);
+                                columns.Bound(c => c.IsPrimary).ClientTemplate("# if (IsPrimary == true) { # Yes # } else { # No # } #"
+                ).Sortable(true).Groupable(false).Filterable(false);
+                                columns.Bound(c => c.AllowNotification).ClientTemplate("# if (AllowNotification == true) { # Yes # } else { # No # } #"
+                ).Sortable(true).Groupable(false).Filterable(false);
+                                //columns.Bound(p => p.ErrorMessage).ClientTemplate("<center><a name='lnkEditor' data-container='divEditorCaseWorker' href='/CaseManagement/CaseWorker/EditorAjax/#= ID #?caseId=#= CaseID #' class='fa fa-edit' title='Edit'></a>&nbsp;<a name='lnkDelete' id='lnkDeleteCaseWorker' href='/CaseManagement/CaseWorker/DeleteAjax/#= ID #' class='fa fa-times' title='Delete'></a></center>").Width("10%").HtmlAttributes(new { @class = "grid-actions-content" }).HeaderTemplate("<center>Actions</center>").HeaderHtmlAttributes(new { @class = "grid-actions-content" });
+                                columns.Bound(p => p.FancyBoxLink).ClientTemplate("<center><a href='/CaseManagement/CaseWorker/Edit/?Id=#= ID #' style='#= HasPermissionToEdit #'  title='Edit'>Edit</a>&nbsp;<a name='lnkDelete' id='lnkDeleteCaseWorker' href='/CaseManagement/CaseWorker/DeleteAjax/#= ID #' style='#= HasPermissionToDelete #'  title='Delete'>Delete</a></center>").Width("10%").HtmlAttributes(new { @class = "grid-actions-content" }).HeaderTemplate("<center>Actions</center>").HeaderHtmlAttributes(new { @class = "grid-actions-content" });
+                            })
+                            .DataSource(dataSource => dataSource
+                            .Ajax()
+                                    .Read(read => read.Action("IndexAjax", "CaseWorker", new { caseId = Model.CaseID }))
+                            .PageSize(50)
+                            )
+                            .Pageable()
+                            .Sortable()
             )
         </div>
     </div>

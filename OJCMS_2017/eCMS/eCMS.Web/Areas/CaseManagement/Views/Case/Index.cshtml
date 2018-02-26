@@ -258,7 +258,8 @@
         {
             columns.Bound(c => c.SubProgramName).Sortable(true).Groupable(false).Filterable(false).HeaderHtmlAttributes(new { title = "Program the Family or Family Member is enrolled in" });
             columns.Bound(c => c.RegionName).Sortable(true).Groupable(false).Filterable(false);
-            columns.Bound(p => p.DisplayId).ClientTemplate("<a href='/CaseManagement/CaseMemberProfile/Index?caseId=#= ID #' title='#= AllCaseMemberWithContact #'>#= DisplayId #</a>").Width("10%").HtmlAttributes(new { @class = "grid-actions-content" }).HeaderHtmlAttributes(new { @class = "grid-actions-content" });
+            //columns.Bound(p => p.DisplayId).ClientTemplate("<a href='/CaseManagement/CaseMemberProfile/Index?caseId=#= ID #' title='#= AllCaseMemberWithContact #'>#= DisplayId #</a>").Width("10%").HtmlAttributes(new { @class = "grid-actions-content" }).HeaderHtmlAttributes(new { @class = "grid-actions-content" });
+            columns.Bound(p => p.DisplayId).ClientTemplate("<a href='/CaseManagement/CaseSummary/Index?caseID=#= ID #' title='#= AllCaseMemberWithContact #'>#= DisplayId #</a>").Width("10%").HtmlAttributes(new { @class = "grid-actions-content" }).HeaderHtmlAttributes(new { @class = "grid-actions-content" });
             columns.Bound(c => c.EnrollDate).Format("{0:yyyy-MM-dd}").Sortable(true).Groupable(false).Filterable(false);
             columns.Bound(c => c.CaseMember).Sortable(true).Groupable(false).Filterable(false).HtmlAttributes(new { title = "#= AllCaseMember #" });
             columns.Bound(c => c.StatusName).Sortable(true).Groupable(false).Filterable(false);

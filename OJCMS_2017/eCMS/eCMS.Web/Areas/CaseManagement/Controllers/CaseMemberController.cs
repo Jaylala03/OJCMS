@@ -146,37 +146,35 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
         /// <returns>action result</returns>
         [WorkerAuthorize]
         [HttpPost]
-        public ActionResult Create(CaseMember caseMember, int caseId)
+        public ActionResult Create(CaseMember casemember, int caseId)
         {
-            if (caseMember.CaseID == 0 && caseId > 0)
+            if (casemember.CaseID == 0 && caseId > 0)
             {
-                caseMember.CaseID = caseId;
+                casemember.CaseID = caseId;
             }
-            caseMember.LastUpdatedByWorkerID = CurrentLoggedInWorker.ID;
+            casemember.LastUpdatedByWorkerID = CurrentLoggedInWorker.ID;
             try
             {
                 //validate data
                 if (ModelState.IsValid)
                 {
-                    casememberRepository.InsertOrUpdate(caseMember);
+                    casememberRepository.InsertOrUpdate(casemember);
                     casememberRepository.Save();
-
-                    if (caseMember.CaseWorkerNote.ContactMethodID > 0)
+                    if (casemember.CaseWorkerNote.ContactMethodID > 0)
                     {
-                        caseMember.CaseWorkerNote.LastUpdatedByWorkerID = CurrentLoggedInWorker.ID;
-                        caseMember.CaseWorkerNote.CaseID = caseMember.CaseID;
+                        casemember.CaseWorkerNote.LastUpdatedByWorkerID = CurrentLoggedInWorker.ID;
+                        casemember.CaseWorkerNote.CaseID = casemember.CaseID;
                         //caseMember.CaseWorkerNote.CaseStatusID = varCase.CaseStatusID;
                         //caseMember.CaseWorkerNote.ProgramID = varCase.ProgramID;
-                        caseMember.CaseWorkerNote.IsFamily = true;
-                        caseMember.CaseWorkerNote.IsFamilyMember = false;
-                        caseMember.CaseWorkerNote.WorkerNoteActivityTypeID = (int)WorkerNoteActivityType.AddCase;
+                        casemember.CaseWorkerNote.IsFamily = true;
+                        casemember.CaseWorkerNote.IsFamilyMember = false;
+                        casemember.CaseWorkerNote.WorkerNoteActivityTypeID = (int)WorkerNoteActivityType.CaseIndividual;
                         //varCase.CaseWorkerNote.NoteDate = Convert.ToDateTime(varCase.ContactDate);
-                        caseWorkerNoteRepository.InsertOrUpdate(caseMember.CaseWorkerNote);
+                        caseWorkerNoteRepository.InsertOrUpdate(casemember.CaseWorkerNote);
                         caseWorkerNoteRepository.Save();
                     }
-
                     //return RedirectToAction(Constants.Views.Index, new { caseId = caseMember.CaseID });
-                    return RedirectToAction(Constants.Views.Edit, new { id = caseMember.ID, caseId = caseMember.CaseID });
+                    return RedirectToAction(Constants.Views.Edit, new { id = casemember.ID, caseId = casemember.CaseID });
                 }
                 else
                 {
@@ -184,10 +182,10 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
                     {
                         foreach (var error in modelStateValue.Errors)
                         {
-                            caseMember.ErrorMessage = error.ErrorMessage;
+                            casemember.ErrorMessage = error.ErrorMessage;
                             break;
                         }
-                        if (caseMember.ErrorMessage.IsNotNullOrEmpty())
+                        if (casemember.ErrorMessage.IsNotNullOrEmpty())
                         {
                             break;
                         }
@@ -196,15 +194,15 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
             }
             catch (CustomException ex)
             {
-                caseMember.ErrorMessage = ex.UserDefinedMessage;
+                casemember.ErrorMessage = ex.UserDefinedMessage;
             }
             catch (Exception ex)
             {
                 ExceptionManager.Manage(ex);
-                caseMember.ErrorMessage = Constants.Messages.UnhandelledError;
+                casemember.ErrorMessage = Constants.Messages.UnhandelledError;
             }
             //return view with error message if operation is failed
-            return View(caseMember);
+            return View(casemember);
         }
 
         /// <summary>
@@ -258,6 +256,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
             }
 
             ViewBag.ContactMediaList = contactmediaRepository.AllActiveForDropDownList;
+            casemember.CaseWorkerNote = new CaseWorkerNote();
             return View(casemember);
         }
 
@@ -328,8 +327,22 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
                     //call the repository function to save in database
                     casememberRepository.InsertOrUpdate(casemember);
                     casememberRepository.Save();
+                    if (casemember.CaseWorkerNote.ContactMethodID > 0)
+                    {
+                        casemember.CaseWorkerNote.LastUpdatedByWorkerID = CurrentLoggedInWorker.ID;
+                        casemember.CaseWorkerNote.CaseID = casemember.CaseID;
+                        //caseMember.CaseWorkerNote.CaseStatusID = varCase.CaseStatusID;
+                        //caseMember.CaseWorkerNote.ProgramID = varCase.ProgramID;
+                        casemember.CaseWorkerNote.IsFamily = true;
+                        casemember.CaseWorkerNote.IsFamilyMember = false;
+                        casemember.CaseWorkerNote.WorkerNoteActivityTypeID = (int)WorkerNoteActivityType.CaseIndividual;
+                        //varCase.CaseWorkerNote.NoteDate = Convert.ToDateTime(varCase.ContactDate);
+                        caseWorkerNoteRepository.InsertOrUpdate(casemember.CaseWorkerNote);
+                        caseWorkerNoteRepository.Save();
+                    }
                     //redirect to list page after successful operation
-                    return RedirectToAction(Constants.Views.Index, new { caseId = caseId });
+                    //return RedirectToAction(Constants.Views.Index, new { caseId = caseId });
+                    return RedirectToAction(Constants.Actions.Index, Constants.Controllers.CaseSummary, new { caseID = caseId });
                 }
                 else
                 {

@@ -158,6 +158,74 @@ namespace eCMS.BusinessLogic.Repositories
         }
 
 
+//        public DataSourceResult Search(CaseWorker searchParameters, DataSourceRequest paramDSRequest)
+//        {
+//            DataSourceRequest dsRequest = paramDSRequest;
+//            if (dsRequest == null)
+//            {
+//                dsRequest = new DataSourceRequest();
+//            }
+//            if (dsRequest.Filters == null || (dsRequest.Filters != null && dsRequest.Filters.Count == 0))
+//            {
+//                if (dsRequest.Filters == null)
+//                {
+//                    dsRequest.Filters = new List<IFilterDescriptor>();
+//                }
+//            }
+//            if (dsRequest.Sorts == null || (dsRequest.Sorts != null && dsRequest.Sorts.Count == 0))
+//            {
+//                if (dsRequest.Sorts == null)
+//                {
+//                    dsRequest.Sorts = new List<SortDescriptor>();
+//                }
+//                SortDescriptor defaultSortExpression = new SortDescriptor("WorkerName", System.ComponentModel.ListSortDirection.Descending);
+//                dsRequest.Sorts.Add(defaultSortExpression);
+//            }
+//            if (dsRequest.PageSize == 0)
+//            {
+//                dsRequest.PageSize = Constants.CommonConstants.DefaultPageSize;
+//            }
+
+//            StringBuilder sqlQuery = new StringBuilder(@"select CW.*,WR.Name as RoleName,(W.FirstName+' '+W.Lastname) as WorkerName,(SELECT Stuff(
+//            (
+//            SELECT ', ' + R.Name
+//            FROM Region R
+//            WHERE R.ID in (SELECT PR.RegionID 
+//                        FROM WorkerInRoleNew AS WIR 
+//                        INNER JOIN WorkerRolePermissionNew AS WRP ON WIR.WorkerRoleID = WRP.WorkerRoleID 
+//                        INNER JOIN Permission AS P ON WRP.PermissionID = P.ID 
+//                        INNER JOIN PermissionRegion AS PR ON P.ID = PR.PermissionID 
+//                        WHERE WIR.WorkerID = W.ID
+//                        GROUP BY PR.RegionID  )
+//            FOR XML PATH('')
+//            ), 1, 2, '')) AS RegionName,
+//        (SELECT Stuff(
+//            (
+//            SELECT ', ' + (CM.FirstName+' '+CM.LastName)
+//            FROM CaseMember CM
+//            where CM.ID in (Select CaseMemberID from CaseWorkerMemberAssignment CWM WHERE CWM.CaseWorkerID= CW.ID )
+//            FOR XML PATH('')
+//            ), 1, 2, '')) AS AssignedMembers
+//            from CaseWorker CW
+//            join Worker W on CW.WorkerID=W.ID
+//            join WorkerInRoleNew WIR on W.ID=WIR.WorkerID
+//            join WorkerRole WR on WR.ID=WIR.WorkerRoleID    
+//            WHERE CW.CaseID=" + searchParameters.CaseID + "");
+//            sqlQuery=sqlQuery.Append(@"
+//            group by CW.ID,CW.CaseID,CW.WorkerId,CW.IsActive,
+//            CW.AllowNotification,CW.IsPrimary,CW.CreatedByWorkerID,
+//            CW.LastUpdatedByWorkerID,CW.IsArchived,CW.CreateDate,
+//            CW.LastUpdateDate,WR.Name,W.ID,W.FirstName,W.Lastname"
+//           );
+
+//            DataSourceResult dataSourceResult = context.Database.SqlQuery<WorkerSearchViewModel>(sqlQuery.ToString()).AsEnumerable().ToDataSourceResult(dsRequest);
+
+//            DataSourceRequest dsRequestTotalCountQuery = new DataSourceRequest();
+//            dsRequestTotalCountQuery.Filters = dsRequest.Filters;
+//            dataSourceResult.Total = context.Database.SqlQuery<WorkerSearchViewModel>(sqlQuery.ToString()).AsEnumerable().ToDataSourceResult(dsRequestTotalCountQuery).Data.AsQueryable().Count();
+//            return dataSourceResult;
+//        }
+
         public DataSourceResult Search(CaseWorker searchParameters, DataSourceRequest paramDSRequest)
         {
             DataSourceRequest dsRequest = paramDSRequest;
@@ -186,38 +254,13 @@ namespace eCMS.BusinessLogic.Repositories
                 dsRequest.PageSize = Constants.CommonConstants.DefaultPageSize;
             }
 
-            StringBuilder sqlQuery = new StringBuilder(@"select CW.*,WR.Name as RoleName,(W.FirstName+' '+W.Lastname) as WorkerName,(SELECT Stuff(
-            (
-            SELECT ', ' + R.Name
-            FROM Region R
-            WHERE R.ID in (SELECT PR.RegionID 
-                        FROM WorkerInRoleNew AS WIR 
-                        INNER JOIN WorkerRolePermissionNew AS WRP ON WIR.WorkerRoleID = WRP.WorkerRoleID 
-                        INNER JOIN Permission AS P ON WRP.PermissionID = P.ID 
-                        INNER JOIN PermissionRegion AS PR ON P.ID = PR.PermissionID 
-                        WHERE WIR.WorkerID = W.ID
-                        GROUP BY PR.RegionID  )
-            FOR XML PATH('')
-            ), 1, 2, '')) AS RegionName,
-        (SELECT Stuff(
-            (
-            SELECT ', ' + (CM.FirstName+' '+CM.LastName)
-            FROM CaseMember CM
-            where CM.ID in (Select CaseMemberID from CaseWorkerMemberAssignment CWM WHERE CWM.CaseWorkerID= CW.ID )
-            FOR XML PATH('')
-            ), 1, 2, '')) AS AssignedMembers
+            StringBuilder sqlQuery = new StringBuilder(@"select CW.*,WR.Name as RoleName,(W.FirstName + ' ' + W.Lastname) as WorkerName
             from CaseWorker CW
             join Worker W on CW.WorkerID=W.ID
             join WorkerInRoleNew WIR on W.ID=WIR.WorkerID
             join WorkerRole WR on WR.ID=WIR.WorkerRoleID    
-            WHERE CW.CaseID=" + searchParameters.CaseID + "");
-            sqlQuery=sqlQuery.Append(@"
-            group by CW.ID,CW.CaseID,CW.WorkerId,CW.IsActive,
-            CW.AllowNotification,CW.IsPrimary,CW.CreatedByWorkerID,
-            CW.LastUpdatedByWorkerID,CW.IsArchived,CW.CreateDate,
-            CW.LastUpdateDate,WR.Name,W.ID,W.FirstName,W.Lastname"
-           );
-
+            WHERE CW.CaseID = " + searchParameters.CaseID + "");
+           
             DataSourceResult dataSourceResult = context.Database.SqlQuery<WorkerSearchViewModel>(sqlQuery.ToString()).AsEnumerable().ToDataSourceResult(dsRequest);
 
             DataSourceRequest dsRequestTotalCountQuery = new DataSourceRequest();
@@ -225,8 +268,6 @@ namespace eCMS.BusinessLogic.Repositories
             dataSourceResult.Total = context.Database.SqlQuery<WorkerSearchViewModel>(sqlQuery.ToString()).AsEnumerable().ToDataSourceResult(dsRequestTotalCountQuery).Data.AsQueryable().Count();
             return dataSourceResult;
         }
-
-
 
         public CaseWorker FindPrimary(int caseID)
         {

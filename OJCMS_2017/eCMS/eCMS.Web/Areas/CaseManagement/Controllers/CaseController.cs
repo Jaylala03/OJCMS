@@ -493,10 +493,12 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
                     {
                         varCase.CaseWorkerNote.LastUpdatedByWorkerID = CurrentLoggedInWorker.ID;
                         varCase.CaseWorkerNote.CaseID = varCase.ID;
-                        varCase.CaseWorkerNote.CaseStatusID = varCase.CaseStatusID;
-                        varCase.CaseWorkerNote.ProgramID = varCase.ProgramID;
+                        varCase.CaseWorkerNote.IsFamily = true;
+                        varCase.CaseWorkerNote.IsFamilyMember = false;
+                        //varCase.CaseWorkerNote.CaseStatusID = varCase.CaseStatusID;
+                        //varCase.CaseWorkerNote.ProgramID = varCase.ProgramID;
                         varCase.CaseWorkerNote.WorkerNoteActivityTypeID = (int)WorkerNoteActivityType.EditCase;
-                        varCase.CaseWorkerNote.NoteDate = Convert.ToDateTime(varCase.ContactDate);
+                        //varCase.CaseWorkerNote.NoteDate = Convert.ToDateTime(varCase.ContactDate);
                         caseWorkerNoteRepository.InsertOrUpdate(varCase.CaseWorkerNote);
                         caseWorkerNoteRepository.Save();
                     }
@@ -504,7 +506,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
                     //Audit log
 
                     //redirect to list page after successful operation
-                    return RedirectToAction(Constants.Actions.Index, Constants.Controllers.CaseMember, new { caseID = varCase.ID });
+                    return RedirectToAction(Constants.Actions.Index, Constants.Controllers.CaseSummary, new { caseID = varCase.ID });
                 }
                 else
                 {

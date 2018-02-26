@@ -66,5 +66,8 @@ namespace eCMS.DataLogic.Models
         [NotMapped]
         [Display(Name = "Region")]
         public string RegionName { get; set; }
+
+        [NotMapped]
+        public CaseWorkerNote CaseWorkerNote { get; set; }
     }
 }

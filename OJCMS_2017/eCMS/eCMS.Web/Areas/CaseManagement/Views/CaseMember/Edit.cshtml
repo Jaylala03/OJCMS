@@ -9,7 +9,7 @@
     @Styles.Render("~/assets/plugins/kendo/css")
     @Scripts.Render("~/assets/plugins/kendo/js")
 }
-@using (Html.BeginForm("SaveAjax", "CaseMember", new { area = "CaseManagement", caseId = Model.CaseID }, FormMethod.Post, new { id = "frmEditorCaseMember", @class = "horizontal-form" }))
+@using (Html.BeginForm("Edit", "CaseMember", new { area = "CaseManagement", caseId = Model.CaseID }, FormMethod.Post, new { id = "frmEditorCaseMember", @class = "horizontal-form" }))
 {
     <div class="container bulk-import">
         <!-- begin: mainpage -->
@@ -17,6 +17,7 @@
             @Html.Partial(eCMS.Shared.Constants.PartialViews.Alert)
             @Html.Partial("_CreateOrEdit", Model)
         </div>
+
         @*<div class="row">
             <div class="col-md-5">
                 <div class="form-group02">
@@ -119,14 +120,12 @@
 <script>
     function SetDefaultSourceID(e) {
         if (e.model.isNew()) {
-            debugger
             //set the required field value
             e.model.set("CaseMemberID", @Model.ID);
         }
     }
     function SetDefaultSourceIDContact(e) {
         if (e.model.isNew()) {
-            debugger
             //set the required field value
             e.model.set("CaseMemberID", @Model.ID);
         }

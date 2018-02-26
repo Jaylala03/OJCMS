@@ -235,21 +235,21 @@ namespace eCMS.BusinessLogic.Helpers
                     regionCode = "NA";
                 }
                 string id = regionCode;
-                if (muridFirstName.IsNullOrEmpty() && muridLastName.IsNullOrEmpty())
-                {
-                    id = id + "-NA";
-                }
-                else
-                {
-                    if (muridFirstName.IsNotNullOrEmpty())
-                    {
-                        id = id + "-" + muridFirstName.GetFirstChar();
-                    }
-                    if (muridLastName.IsNotNullOrEmpty())
-                    {
-                        id = id + muridLastName.GetFirstChar();
-                    }
-                }
+                //if (muridFirstName.IsNullOrEmpty() && muridLastName.IsNullOrEmpty())
+                //{
+                //    id = id + "-NA";
+                //}
+                //else
+                //{
+                //    if (muridFirstName.IsNotNullOrEmpty())
+                //    {
+                //        id = id + "-" + muridFirstName.GetFirstChar();
+                //    }
+                //    if (muridLastName.IsNotNullOrEmpty())
+                //    {
+                //        id = id + muridLastName.GetFirstChar();
+                //    }
+                //}
                 if (caseID == 0)
                 {
                     id = id + "-" + DateTime.Now.ToString("hhmm");

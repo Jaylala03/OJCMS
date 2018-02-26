@@ -21,20 +21,20 @@ namespace eCMS.DataLogic.Models
         [Display(Name = "Contact Date")]
         //[DataType(DataType.DateTime)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime NoteDate { get; set; }
+        public DateTime? NoteDate { get; set; }
 
         [Display(Name = "Time Spent")]
-        public int TimeSpentHours { get; set; }
+        public int? TimeSpentHours { get; set; }
         [Display(Name = "Time Spent")]
-        public int TimeSpentMinutes { get; set; }
+        public int? TimeSpentMinutes { get; set; }
 
         //[Display(Name = "Time Spent")]
         //public string TimeSpent { get; set; }
 
-        [Required(ErrorMessage = "Please select contact method")]
+        //[Required(ErrorMessage = "Please select contact method")]
         [Display(Name = "Contact Method")]
         [ForeignKey("ContactMethod")]
-        public Int32 ContactMethodID { get; set; }
+        public Int32? ContactMethodID { get; set; }
 
         //[Required(ErrorMessage = "Please enter description")]
         [Display(Name = "Notes:")]
