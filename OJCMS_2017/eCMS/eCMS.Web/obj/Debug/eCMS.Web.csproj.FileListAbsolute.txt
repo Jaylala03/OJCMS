@@ -44,3 +44,21 @@ D:\OJCMS\OJCMS_2017\eCMS\eCMS.Web\bin\eCMS.Shared.pdb
 D:\OJCMS\OJCMS_2017\eCMS\eCMS.Web\obj\Debug\eCMS.Web.csprojResolveAssemblyReference.cache
 D:\OJCMS\OJCMS_2017\eCMS\eCMS.Web\obj\Debug\eCMS.Web.dll
 D:\OJCMS\OJCMS_2017\eCMS\eCMS.Web\obj\Debug\eCMS.Web.pdb
+G:\Jay Bhai\OJCMSMaster-0226\OJCMS_2017\eCMS\eCMS.Web\bin\eCMS.Web.dll.config
+G:\Jay Bhai\OJCMSMaster-0226\OJCMS_2017\eCMS\eCMS.Web\bin\eCMS.Web.dll
+G:\Jay Bhai\OJCMSMaster-0226\OJCMS_2017\eCMS\eCMS.Web\bin\eCMS.Web.pdb
+G:\Jay Bhai\OJCMSMaster-0226\OJCMS_2017\eCMS\eCMS.Web\bin\CrystalDecisions.CrystalReports.Engine.dll
+G:\Jay Bhai\OJCMSMaster-0226\OJCMS_2017\eCMS\eCMS.Web\bin\CrystalDecisions.ReportSource.dll
+G:\Jay Bhai\OJCMSMaster-0226\OJCMS_2017\eCMS\eCMS.Web\bin\CrystalDecisions.Shared.dll
+G:\Jay Bhai\OJCMSMaster-0226\OJCMS_2017\eCMS\eCMS.Web\bin\eCMS.BusinessLogic.dll
+G:\Jay Bhai\OJCMSMaster-0226\OJCMS_2017\eCMS\eCMS.Web\bin\eCMS.DataLogic.dll
+G:\Jay Bhai\OJCMSMaster-0226\OJCMS_2017\eCMS\eCMS.Web\bin\eCMS.ExceptionLoging.dll
+G:\Jay Bhai\OJCMSMaster-0226\OJCMS_2017\eCMS\eCMS.Web\bin\eCMS.Shared.dll
+G:\Jay Bhai\OJCMSMaster-0226\OJCMS_2017\eCMS\eCMS.Web\bin\Microsoft.Practices.EnterpriseLibrary.Logging.dll
+G:\Jay Bhai\OJCMSMaster-0226\OJCMS_2017\eCMS\eCMS.Web\bin\eCMS.BusinessLogic.pdb
+G:\Jay Bhai\OJCMSMaster-0226\OJCMS_2017\eCMS\eCMS.Web\bin\eCMS.DataLogic.pdb
+G:\Jay Bhai\OJCMSMaster-0226\OJCMS_2017\eCMS\eCMS.Web\bin\eCMS.ExceptionLoging.pdb
+G:\Jay Bhai\OJCMSMaster-0226\OJCMS_2017\eCMS\eCMS.Web\bin\eCMS.Shared.pdb
+G:\Jay Bhai\OJCMSMaster-0226\OJCMS_2017\eCMS\eCMS.Web\obj\Debug\eCMS.Web.csprojResolveAssemblyReference.cache
+G:\Jay Bhai\OJCMSMaster-0226\OJCMS_2017\eCMS\eCMS.Web\obj\Debug\eCMS.Web.dll
+G:\Jay Bhai\OJCMSMaster-0226\OJCMS_2017\eCMS\eCMS.Web\obj\Debug\eCMS.Web.pdb

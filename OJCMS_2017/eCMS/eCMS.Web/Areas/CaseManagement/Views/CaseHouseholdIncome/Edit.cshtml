@@ -1,0 +1,95 @@
+﻿@model eCMS.DataLogic.Models.CaseHouseholdIncome
+@using EasySoft.Helper;
+@using eCMS.Shared;
+@using eCMS.DataLogic.Models;
+@using eCMS.DataLogic.ViewModels;
+@{
+    Layout = "~/Views/Shared/_LayoutInternal.cshtml";
+    ViewBag.Title = "Case House Hold Income";
+}
+@section headsection
+{
+    @Styles.Render("~/assets/plugins/kendo/css")
+    @Scripts.Render("~/assets/plugins/kendo/js")
+}
+
+@using (Html.BeginForm(Constants.Actions.Edit, Constants.Controllers.CaseHouseholdIncome, new { area = Constants.Areas.CaseManagement }, FormMethod.Post, new { id = "frmEditor", role = "form" }))
+{
+    @*@Html.HiddenFor(m => m.CaseCurrentHouseholdIncomeVM.ID)*@
+    @Html.HiddenFor(model => model.CaseID)
+
+    <div class="container bulk-import">
+        <div class="row margin-top-40">            
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group02">
+                        <label class="col-sm-4 control-label labe-text" style="font-weight:bold;">Household Income: (Optional)</label>
+                    </div>
+                    <div class="form-group02">
+                        <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.NoOfMembers)</label>
+                        <div class="col-sm-2">
+                            @(Html.Kendo().NumericTextBoxFor<int>(model => model.NoOfMembers)
+            .Placeholder("Enter numeric value")
+             .HtmlAttributes(new { title = "numeric" })
+                            )
+                        </div>
+                    </div>
+                    <div class="form-group02">
+                        <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.NoOfChild)</label>
+                        <div class="col-sm-2">
+                            @(Html.Kendo().NumericTextBoxFor<int>(model => model.NoOfChild)
+            .Placeholder("Enter numeric value")
+             .HtmlAttributes(new { title = "numeric" })
+                            )
+                        </div>
+                    </div>
+                    <div class="form-group02">
+                        <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.NoOfSeniors)</label>
+                        <div class="col-sm-2">
+                            @(Html.Kendo().NumericTextBoxFor<int>(model => model.NoOfSeniors)
+            .Placeholder("Enter numeric value")
+             .HtmlAttributes(new { title = "numeric" })
+                            )
+                        </div>
+                    </div>
+                    <div class="form-group02">
+                        <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.NoOfPhysicallyDisabled)</label>
+                        <div class="col-sm-2">
+                            @(Html.Kendo().NumericTextBoxFor<int>(model => model.NoOfPhysicallyDisabled)
+            .Placeholder("Enter numeric value")
+             .HtmlAttributes(new { title = "numeric" })
+                            )
+                        </div>
+                    </div>
+                    <div class="form-group02">
+                        <label class="col-sm-4 control-label labe-text">Household gross income range (annual):</label>
+                    </div>
+                    @foreach (var a in Model.IncomeRanges)
+                {
+                        <div class="form-group02">
+                            <label class="col-sm-4 control-label labe-text"></label>
+                            <div class="col-sm-6">
+                                @Html.RadioButtonFor(b => b.IncomeRangeID, a.ID)  @a.Name
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            @{
+                string name = Html.NameFor(model => model.CaseWorkerNote).ToString();
+                string prefix = Html.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name);
+                ViewDataDictionary viewData = new ViewDataDictionary(Html.ViewData)
+                {
+                    TemplateInfo = new TemplateInfo { HtmlFieldPrefix = prefix }
+                };
+            }
+            @Html.Partial("WorkNote", Model.CaseWorkerNote, viewData)
+            <div id="add_candidate3">
+                <button type="submit" class="btn btn-primary btnSaveAndRefresh" data-formid="frmEditorWorker" name="btnSave"><i class="fa fa-save"></i> Save </button>
+                <a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.Case)" class="btn btn-primary"><i class="fa fa-long-arrow-left"></i> Back Case Summary</a>
+            </div>
+            <br class="clear" />
+        </div>
+
+    </div>
+                }

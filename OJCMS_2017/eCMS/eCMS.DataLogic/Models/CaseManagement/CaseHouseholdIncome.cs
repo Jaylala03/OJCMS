@@ -11,7 +11,7 @@ namespace eCMS.DataLogic.Models
     {
         [Display(Name = "Case")]
         public Int32 CaseID { get; set; }
-
+                 
         [Display(Name = "Case Status")]
         public Int32 CaseStatusID { get; set; }
 
@@ -43,5 +43,8 @@ namespace eCMS.DataLogic.Models
         {
             IncomeRanges = new List<IncomeRange>();
         }
+        
+        [NotMapped]
+        public CaseWorkerNote CaseWorkerNote { get; set; }
     }
 }

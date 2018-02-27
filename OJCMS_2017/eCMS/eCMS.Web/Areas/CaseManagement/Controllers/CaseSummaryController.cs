@@ -69,14 +69,18 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
             CaseSummaryVM caseSummary = _casesummaryrepository.GetCaseDetails(caseID);
             caseSummary.caseMember = new CaseMember();
             caseSummary.caseMember.CaseID = caseID;
+            caseSummary.CurrentHouseholdIncomeID = 0;
 
             caseSummary.CaseInitialHouseholdIncomeVM = caseHouseholdIncomeRepository.GetInitialIncomeForCaseSummary(caseID);
             caseSummary.CaseCurrentHouseholdIncomeVM = caseHouseholdIncomeRepository.GetCurrentIncomeForCaseSummary(caseID);
 
-            if (caseSummary.CaseCurrentHouseholdIncomeVM == null)
+            if (caseSummary.CaseCurrentHouseholdIncomeVM == null && caseSummary.CaseInitialHouseholdIncomeVM != null)
             {
                 caseSummary.CaseCurrentHouseholdIncomeVM = caseSummary.CaseInitialHouseholdIncomeVM;
             }
+            
+            if (caseSummary.CaseCurrentHouseholdIncomeVM != null)
+                caseSummary.CurrentHouseholdIncomeID = caseSummary.CaseCurrentHouseholdIncomeVM.ID;
 
             return View(caseSummary);
         }

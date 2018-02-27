@@ -17,6 +17,8 @@ namespace eCMS.DataLogic.ViewModels
         //[Display(Name = "Case Status")]
         //public Int32 CaseStatusID { get; set; }
 
+        public Int32 ID { get; set; }
+
         [Display(Name = "Number of members in the household: ")]
         public Int32 NoOfMembers { get; set; }
 

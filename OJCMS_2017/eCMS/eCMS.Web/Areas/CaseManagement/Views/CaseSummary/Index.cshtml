@@ -14,6 +14,7 @@
 }
 @Html.HiddenFor(m => m.CaseID)
 @Html.HiddenFor(m => m.ProgramID)
+@Html.HiddenFor(m => m.CurrentHouseholdIncomeID)
 @*<label class="control-label labe-text">Test</label>
     <label class="control-label labe-text">@Html.DisplayFor(model => model.EnrollDate)</label>*@
 <div class="container bulk-import">
@@ -137,8 +138,12 @@
             <div class="col-md-12">
                 <div class="align-left">
                     <label class="control-label labe-text">household Income:</label>
+                    <label style="text-align:right;">
+                        @Html.ActionLink("Update Household Income", Constants.Actions.Edit, Constants.Controllers.CaseHouseholdIncome, new { CaseID = Model.CaseID, IncomeID = Model.CurrentHouseholdIncomeID }, null)
+                    </label>
                 </div>
-                <div class="col-md-6 border">
+
+                <div class="col-md-6 border" style="outline-style: solid;">
                     <table>
                         <thead>
                             <label class="control-label labe-text">Initial household Income:</label>
@@ -174,7 +179,8 @@
                     </table>
 
                 </div>
-                <div class="col-md-6 border">
+
+                <div class="col-md-6 border" style="outline-style: solid;">
                     <table>
                         <thead>
                             <label class="control-label labe-text">Current household Income:</label>
