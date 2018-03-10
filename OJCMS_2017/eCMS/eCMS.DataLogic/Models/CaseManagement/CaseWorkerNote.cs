@@ -71,6 +71,12 @@ namespace eCMS.DataLogic.Models
         [Display(Name = "Family Member")]
         public bool IsFamilyMember { set; get; }
 
+        [Display(Name = "")]
+        [ForeignKey("CaseMember")]
+        public Int32? CaseMemberID { get; set; }
+
+        public virtual CaseMember CaseMember { get; set; }
+
         [NotMapped]        
         public string Family { set; get; }
 

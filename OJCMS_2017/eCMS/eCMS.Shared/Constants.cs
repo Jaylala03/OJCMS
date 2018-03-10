@@ -128,6 +128,7 @@ namespace eCMS.Shared
             public const string Service = "Service";
             public const string Report = "Report";
             public const string CaseTraining = "CaseTraining";
+            public const string CaseHouseholdIncome = "CaseHouseholdIncome";
         }
 
         public static class Areas

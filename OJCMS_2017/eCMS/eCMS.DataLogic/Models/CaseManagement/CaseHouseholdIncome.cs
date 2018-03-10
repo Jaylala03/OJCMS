@@ -39,9 +39,12 @@ namespace eCMS.DataLogic.Models
         [Display(Name = "Is LICO")]
         public bool IsLICO { get; set; }
 
+        [NotMapped]
+        public CaseWorkerNote CaseWorkerNote { get; set; }
         public CaseHouseholdIncome()
         {
             IncomeRanges = new List<IncomeRange>();
         }
+
     }
 }

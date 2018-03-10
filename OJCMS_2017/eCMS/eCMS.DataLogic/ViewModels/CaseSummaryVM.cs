@@ -2,6 +2,7 @@
 using eCMS.DataLogic.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,6 +29,7 @@ namespace eCMS.DataLogic.ViewModels
         public string PostalCode { get; set; }
         public CaseMember caseMember { get; set; }
 
+        public int CurrentHouseholdIncomeID { get; set; }
         public CaseHouseholdIncomeVM CaseInitialHouseholdIncomeVM { get; set; }
         public CaseHouseholdIncomeVM CaseCurrentHouseholdIncomeVM { get; set; }
     }

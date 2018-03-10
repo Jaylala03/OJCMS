@@ -1,0 +1,35 @@
+﻿@model eCMS.DataLogic.Models.CaseWorker
+@using EasySoft.Helper;
+@using eCMS.Shared;
+@using eCMS.DataLogic.Models;
+@using eCMS.DataLogic.ViewModels;
+
+
+    <!-- begin: mainpage -->
+    
+    
+        @(Html.Kendo().Grid<CaseWorker>()
+                            .Name("GridCaseWorker")
+                            .Columns(columns =>
+                            {
+                                columns.Bound(c => c.WorkerName).Sortable(true).Groupable(false).Filterable(false);
+                                columns.Bound(c => c.RoleName).Sortable(true).Groupable(false).Filterable(false);
+                                columns.Bound(c => c.IsPrimary).ClientTemplate("# if (IsPrimary == true) { # Yes # } else { # No # } #"
+                ).Sortable(true).Groupable(false).Filterable(false);
+                                //                columns.Bound(c => c.AllowNotification).ClientTemplate("# if (AllowNotification == true) { # Yes # } else { # No # } #"
+                                //).Sortable(true).Groupable(false).Filterable(false);
+                                columns.Bound(c => c.AssignedMembers).Sortable(true).Groupable(false).Filterable(false);
+                                //columns.Bound(p => p.ErrorMessage).ClientTemplate("<center><a name='lnkEditor' data-container='divEditorCaseWorker' href='/CaseManagement/CaseWorker/EditorAjax/#= ID #?caseId=#= CaseID #' class='fa fa-edit' title='Edit'></a>&nbsp;<a name='lnkDelete' id='lnkDeleteCaseWorker' href='/CaseManagement/CaseWorker/DeleteAjax/#= ID #' class='fa fa-times' title='Delete'></a></center>").Width("10%").HtmlAttributes(new { @class = "grid-actions-content" }).HeaderTemplate("<center>Actions</center>").HeaderHtmlAttributes(new { @class = "grid-actions-content" });
+                                columns.Bound(p => p.FancyBoxLink).ClientTemplate("<center><a href='/CaseManagement/CaseWorker/Edit/?Id=#= ID #' style='#= HasPermissionToEdit #'  title='Edit'>Edit</a>&nbsp;<a name='lnkDelete' id='lnkDeleteCaseWorker' href='/CaseManagement/CaseWorker/DeleteAjax/#= ID #' style='#= HasPermissionToDelete #'  title='Delete'>Delete</a></center>").Width("10%").HtmlAttributes(new { @class = "grid-actions-content" }).HeaderTemplate("<center>Actions</center>").HeaderHtmlAttributes(new { @class = "grid-actions-content" });
+                            })
+                            .DataSource(dataSource => dataSource
+                            .Ajax()
+                                    .Read(read => read.Action("IndexAjax", "CaseWorker", new { caseId = Model.CaseID }))
+                            .PageSize(50)
+                            )
+                            .Pageable()
+                            .Sortable()
+        )
+
+
+

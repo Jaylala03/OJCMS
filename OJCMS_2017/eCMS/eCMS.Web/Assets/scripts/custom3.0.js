@@ -1223,7 +1223,8 @@ function CaseActionServiceProviderDropDownList_OnChanged(e) {
     }
 }
 
-function ProgramDropDownList_OnSelect(e) {
+function ProgramDropDownList_OnSelect(e)
+{
     var varProgramID = $("#ProgramID").val();
     if (!varProgramID) {
         varProgramID = 0;
@@ -1327,6 +1328,12 @@ function WorkerSubProgramDropDownList_OnSelect(e) {
 function RegionDropDownList_OnSelect(e) {
     return {
         RegionID: $("#RegionID").val()
+    };
+}
+function JKAutocomplete(e) {
+    return {
+        RegionID: $("#RegionID").val(),
+        JKText: $("#JamatkhanaName").val()
     };
 }
 function CaswWorkerRoleDropDownList_OnSelect(e) {
@@ -1595,7 +1602,15 @@ function RoleDropDownList_OnChanged(e) {
         ddlSubProgramID.refresh();
     }
 }
-
+function FamilyMemberSelect(e) {
+    var varCaseID = $("#CaseID").val();
+    if (!varCaseID) {
+        varCaseID = 0;
+    }
+    return {
+        caseID: varCaseID
+    };
+}
 //function RelationStatusDropDownList_OnChanged(e) {
 //    if (e.sender.text() == "self" || e.sender.text() == "Self" || e.sender.text() == "SELF")
 //        $('#selfDiv').css('display', 'block');

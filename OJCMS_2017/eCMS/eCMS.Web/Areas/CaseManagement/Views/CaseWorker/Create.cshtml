@@ -1,4 +1,4 @@
-@model eCMS.DataLogic.Models.CaseWorker
+﻿@model eCMS.DataLogic.Models.CaseWorker
 @using eCMS.BusinessLogic.Helpers
 @using eCMS.DataLogic.Models
 @using eCMS.Shared
@@ -18,25 +18,62 @@
     <div class="col-md-12">
         <div class="form-group02">
             <label class="col-sm-4 control-label labe-text">
-                <label>Edit Staff / Volunteer Assignment:</label>
+                <label>Assign Staff / Volunteer</label>
             </label>
         </div>
     </div>
     @Html.Partial(Constants.PartialViews.Alert)
-    @using (Html.BeginForm("Edit", "CaseWorker", new { area = "CaseManagement" }, FormMethod.Post, new { id = "frmEditorCaseWorker" }))
+    @using (Html.BeginForm("Create", "CaseWorker", new { area = "CaseManagement" }, FormMethod.Post, new { id = "frmEditorCaseWorker" }))
     {
         @Html.HiddenFor(model => model.ID)
         @Html.HiddenFor(model => model.CaseID)
-        @Html.HiddenFor(model => model.WorkerID)
         @Html.HiddenFor(model => model.CreateDate)
         @Html.HiddenFor(model => model.CreatedByWorkerID)
         @Html.HiddenFor(model => model.IsActive)
         <div id="divEditorCaseWorker">
             <div class="col-md-12">
                 <div class="form-group02">
-                    <label class="col-sm-2 control-label labe-text">Name:</label>
+                    <label class="col-sm-2 control-label labe-text">@Html.LabelRequiredFor(model => model.RoleID)</label>
                     <div class="col-sm-4">
-                        @Html.DisplayFor(model => model.Worker.FirstName)&nbsp;@Html.DisplayFor(model => model.Worker.LastName)
+                        @(Html.Kendo().DropDownListFor(model => model.RoleID)
+                .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+            .DataTextField("Text")
+            .DataValueField("Value")
+            .Events(e => e.Change("RoleDropDownList_OnChanged"))
+            .DataSource(source =>
+            {
+                source.Read(read =>
+                {
+                    read.Action("LoadWorkerRoleByRegionProgram", "CaseWorker", new { caseID = Model.CaseID });
+                });
+            })
+                        )
+                    </div>
+                    <div class="col-sm-4">
+                        @Html.ValidationMessageFor(model => model.RoleID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-12">
+                <div class="form-group02">
+                    <label class="col-sm-2 control-label labe-text">@Html.LabelRequiredFor(model => model.WorkerID)</label>
+                    <div class="col-sm-4">
+                        @(Html.Kendo().DropDownListFor(model => model.WorkerID)
+            .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+            .DataTextField("Text")
+            .DataValueField("Value")
+            .DataSource(source =>
+                {
+                    source.Read(read =>
+                    {
+                        read.Action("LoadWorkerAjax", "CaseWorker", new { caseID = Model.CaseID }).Data("CaswWorkerRoleDropDownList_OnSelect");
+                    });
+                })
+                        )
+                    </div>
+                    <div class="col-sm-4">
+                        @Html.ValidationMessageFor(model => model.WorkerID, "", new { @class = "text-danger" })
                     </div>
                 </div>
             </div>
@@ -52,7 +89,31 @@
                     </div>
                 </div>
             </div>
+            @*<div class="col-md-6">
+                    <div class="form-group02">
+                        <label class="col-sm-4 control-label labe-text">@Html.LabelFor(model => model.AllowNotification)</label>
+                        <div class="col-sm-8">
+                            @Html.EditorFor(model => model.AllowNotification)
+                        </div>
+                        <div class="col-sm-8">
+                            @Html.ValidationMessageFor(model => model.AllowNotification, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>*@
+            @*<div class="row">
+                    <div class="col-md-6">
+                        @{
+                            string name = Html.NameFor(m => m.CaseWorkerNote).ToString();
+                            string prefix = Html.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name);
+                            ViewDataDictionary viewData = new ViewDataDictionary(Html.ViewData)
+                            {
+                                TemplateInfo = new TemplateInfo { HtmlFieldPrefix = prefix }
+                            };
 
+                            @Html.Partial("WorkNote", Model.CaseWorkerNote, viewData)
+                        }
+                    </div>
+                </div>*@
             <div class="col-md-12">
                 <div class="form-group02">
                     <label class="col-sm-2 control-label labe-text">@Html.LabelRequiredFor(model => model.CaseMemberList)</label>
@@ -89,7 +150,7 @@
                     <div class="col-sm-2">
                     </div>
                     <div class="col-sm-1">
-                        <button type="submit" id="btnSaveCaseWorker" class="btn btn-primary"><i class="fa fa-plus"></i>Save</button>
+                        <button type="submit" id="btnSaveCaseWorker" class="btn btn-primary"><i class="fa fa-plus"></i>Add</button>
                     </div>
                     <div class="col-sm-2">
                         @*<button class="btn btn-primary" id="btnSave" name="btnSaveCaseMember"><i class="fa fa-save"></i> Save & Continue <i class="fa fa-arrow-left"></i></button>*@
@@ -142,15 +203,20 @@
         $('.casemember').on('click', function () {
             checkAllItems();
         });
-        function checkAllItems() {
-            if ($('.casemember:checked').length == $('.casemember').length) {
+        function checkAllItems()
+        {
+            if ($('.casemember:checked').length == $('.casemember').length)
+            {
                 $('#chkAllMembers').prop('checked', true);
             } else {
                 $('#chkAllMembers').prop('checked', false);
             }
         }
 
-        checkAllItems();
+        $('#chkAllMembers').prop('checked', true);
+        $('.casemember').each(function () {
+            this.checked = true;
+        });
     });
 
 </script>

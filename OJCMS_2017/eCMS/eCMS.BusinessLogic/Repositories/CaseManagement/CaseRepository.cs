@@ -105,6 +105,8 @@ namespace eCMS.BusinessLogic.Repositories
                 varCase.DisplayID = MiscUtility.GetCasePersonalizedId(regionCode, primaryCaseMemberFirstName, primaryCaseMemberLastName, varCase.ID, varCase.DisplayID);
             }
             varCase.LastUpdateDate = DateTime.Now;
+            var jkid = context.Jamatkhana.Where(c => c.Name == varCase.JamatkhanaName).Select(c => c.ID).FirstOrDefault();
+            varCase.JamatkhanaID = jkid;
             if (varCase.ID == default(int))
             {
                 //set the date when this record was created
@@ -687,7 +689,12 @@ namespace eCMS.BusinessLogic.Repositories
             }
             return newCase;
         }
-
+        public override Case Find(int id)
+        {
+            var varcase = context.Set<Case>().Find(id);
+            varcase.JamatkhanaName = context.Jamatkhana.Where(j => j.ID == varcase.JamatkhanaID).Select(j => j.Name).FirstOrDefault();
+            return varcase;
+        }
         public override void Delete(int id)
         {
             var entity = Find(id);

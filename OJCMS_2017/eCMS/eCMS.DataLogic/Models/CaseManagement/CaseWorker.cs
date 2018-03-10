@@ -53,7 +53,7 @@ namespace eCMS.DataLogic.Models
         public string AssignedMembers { set; get; }
 
         [NotMapped]
-        [Display(Name = "Assign Family Members to Worker")]
+        [Display(Name = "Assign to:")]
         public List<SelectListItem> CaseMemberList { set; get; }
         [NotMapped]
         [Display(Name = "Role")]

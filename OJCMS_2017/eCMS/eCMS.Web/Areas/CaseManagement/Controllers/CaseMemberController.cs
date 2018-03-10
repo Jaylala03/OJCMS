@@ -39,7 +39,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
            IWorkerRoleRepository workerRoleRepository,
             IWorkerRoleActionPermissionRepository workerroleactionpermissionRepository
             , IWorkerRoleActionPermissionNewRepository workerroleactionpermissionnewRepository
-            ,ICaseWorkerNoteRepository caseWorkerNoteRepository
+            , ICaseWorkerNoteRepository caseWorkerNoteRepository
            )
             : base(workerroleactionpermissionRepository, caseRepository, workerroleactionpermissionnewRepository)
         {
@@ -83,6 +83,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
                 //caseMember.MemberStatusID = varCase.CaseStatusID;
                 //caseMember.EnrollDate = varCase.EnrollDate;
                 ViewBag.DisplayID = varCase.DisplayID;
+                ViewBag.CaseID = caseID;
             }
             else
             {
@@ -107,6 +108,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
             {
                 caseMember.CaseID = caseID;
                 ViewBag.DisplayID = varCase.DisplayID;
+                ViewBag.CaseID = caseID;
             }
             else
             {
@@ -125,6 +127,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
         {
             //create a new instance of casemember
             var varCase = caseRepository.Find(caseID);
+           
             if (varCase == null)
             {
                 return new HttpStatusCodeResult(System.Net.HttpStatusCode.NotFound, "Case not found");
@@ -132,6 +135,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
             CaseMember caseMember = new CaseMember();
             caseMember.CaseID = caseID;
             ViewBag.DisplayID = varCase.DisplayID;
+            ViewBag.CaseID = caseID;
             caseMember.EnrollDate = DateTime.Now;
             caseMember.MemberStatusID = 1;
             caseMember.IsActive = true;
@@ -158,8 +162,56 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
                 //validate data
                 if (ModelState.IsValid)
                 {
+                    if (!string.IsNullOrEmpty(casemember.CaseWorkerNote.Note) || casemember.CaseWorkerNote.NoteDate != null ||
+                        casemember.CaseWorkerNote.TimeSpentHours != null || casemember.CaseWorkerNote.TimeSpentMinutes != null
+                        || (casemember.CaseWorkerNote.ContactMethodID != null && casemember.CaseWorkerNote.ContactMethodID > 0))
+                    {
+                        var isnoteerror = false;
+
+                        if (string.IsNullOrEmpty(casemember.CaseWorkerNote.Note))
+                        {
+                            ModelState.AddModelError("", "Please enter work note.");
+                            isnoteerror = true;
+                        }
+
+                        if (casemember.CaseWorkerNote.NoteDate == null)
+                        {
+                            ModelState.AddModelError("", "Please enter not date");
+                            isnoteerror = true;
+                        }
+
+                        if ((casemember.CaseWorkerNote.TimeSpentHours == null || casemember.CaseWorkerNote.TimeSpentHours == 0) &&
+                            (casemember.CaseWorkerNote.TimeSpentMinutes == null || casemember.CaseWorkerNote.TimeSpentMinutes == 0))
+                        {
+                            ModelState.AddModelError("", "Please enter time spent");
+                            isnoteerror = true;
+                        }
+
+                        if (casemember.CaseWorkerNote.ContactMethodID == null || casemember.CaseWorkerNote.ContactMethodID == 0)
+                        {
+                            ModelState.AddModelError("", "Please select contact method");
+                            isnoteerror = true;
+                        }
+                        if (isnoteerror)
+                        {
+                            var varCase = caseRepository.Find(caseId);
+                            if (varCase != null)
+                            {
+                                ViewBag.DisplayID = varCase.DisplayID;
+
+                            }
+                            ViewBag.CaseID = caseId;
+                            casemember.EnrollDate = DateTime.Now;
+                            casemember.MemberStatusID = 1;
+                            casemember.IsActive = true;
+                            return View(casemember);
+
+                        }
+                    }
+
                     casememberRepository.InsertOrUpdate(casemember);
                     casememberRepository.Save();
+
                     if (casemember.CaseWorkerNote.ContactMethodID > 0)
                     {
                         casemember.CaseWorkerNote.LastUpdatedByWorkerID = CurrentLoggedInWorker.ID;
@@ -214,12 +266,14 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
         public ActionResult Edit(int id, int caseId)
         {
             //CaseMember casemember = casememberRepository.Find(id);
-            
+
             CaseMember casemember = null;
             if (id > 0)
             {
                 //find an existing casemember from database
                 Case varCase = caseRepository.Find(Convert.ToInt32(caseId));
+                ViewBag.DisplayID = varCase.DisplayID;
+                ViewBag.CaseID = caseId;
                 bool hasAccess = workerroleactionpermissionnewRepository.HasPermission(Convert.ToInt32(caseId), CurrentLoggedInWorkerRoleIDs, CurrentLoggedInWorker.ID, varCase.ProgramID, varCase.RegionID, varCase.SubProgramID, varCase.JamatkhanaID, Constants.Areas.CaseManagement, Constants.Controllers.CaseMember, Constants.Actions.Edit, true);
                 if (!hasAccess)
                 {
@@ -257,6 +311,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
 
             ViewBag.ContactMediaList = contactmediaRepository.AllActiveForDropDownList;
             casemember.CaseWorkerNote = new CaseWorkerNote();
+            
             return View(casemember);
         }
 
@@ -715,6 +770,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
             }
         }
 
+        
     }
 }
 

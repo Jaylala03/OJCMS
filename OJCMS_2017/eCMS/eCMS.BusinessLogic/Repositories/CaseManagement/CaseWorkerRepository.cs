@@ -255,6 +255,13 @@ namespace eCMS.BusinessLogic.Repositories
             }
 
             StringBuilder sqlQuery = new StringBuilder(@"select CW.*,WR.Name as RoleName,(W.FirstName + ' ' + W.Lastname) as WorkerName
+            ,(SELECT Stuff(
+            (
+            SELECT ', ' + (CM.FirstName+' '+CM.LastName)
+            FROM CaseMember CM
+            where CM.ID in (Select CaseMemberID from CaseWorkerMemberAssignment CWM WHERE CWM.CaseWorkerID= CW.ID )
+            FOR XML PATH('')
+            ), 1, 2, '')) AS AssignedMembers
             from CaseWorker CW
             join Worker W on CW.WorkerID=W.ID
             join WorkerInRoleNew WIR on W.ID=WIR.WorkerID

@@ -319,9 +319,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Areas\CaseManagement\Controllers\CaseHouseholdIncomeController.cs" />
     <Compile Include="Areas\CaseManagement\Controllers\CaseMemberEmergencyContactController.cs" />
     <Compile Include="Areas\CaseManagement\Controllers\CaseSSSWorkerNoteController.cs" />
     <Compile Include="Areas\CaseManagement\Controllers\CaseSummaryController.cs" />
+    <Compile Include="Areas\CaseManagement\Controllers\CaseWorkerController03032018.cs" />
     <Compile Include="Areas\CaseManagement\Controllers\CaseWorkerController02252018.cs" />
     <Compile Include="Areas\CaseManagement\Controllers\CaseWorkerNoteController.cs" />
     <Compile Include="Reports\CaseDashboardNew.cs">
@@ -1977,6 +1979,11 @@
     <Content Include="Areas\CaseManagement\Views\CaseWorker\_CreateOrEdit02252018.cshtml" />
     <Content Include="Areas\CaseManagement\Views\CaseWorker\Index02252018.cshtml" />
     <Content Include="Areas\CaseManagement\Views\CaseWorker\Edit.cshtml" />
+    <Content Include="Areas\CaseManagement\Views\CaseHouseholdIncome\Edit.cshtml" />
+    <Content Include="Areas\CaseManagement\Views\CaseWorker\_CreateOrEdit - Copy.cshtml" />
+    <Content Include="Areas\CaseManagement\Views\CaseWorker\_Index.cshtml" />
+    <Content Include="Areas\CaseManagement\Views\CaseWorker\Create.cshtml" />
+    <Content Include="Areas\CaseManagement\Views\CaseWorker\Edit - Copy.cshtml" />
     <None Include="bin\eCMS.Web.dll.config" />
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Properties\PublishProfiles\ecms.softwareravine.com.pubxml" />
