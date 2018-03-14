@@ -30,6 +30,7 @@ namespace eCMS.DataLogic.ViewModels
         public CaseMember caseMember { get; set; }
 
         public int CurrentHouseholdIncomeID { get; set; }
+
         public CaseHouseholdIncomeVM CaseInitialHouseholdIncomeVM { get; set; }
         public CaseHouseholdIncomeVM CaseCurrentHouseholdIncomeVM { get; set; }
     }

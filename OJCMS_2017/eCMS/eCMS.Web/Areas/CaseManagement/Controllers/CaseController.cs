@@ -295,68 +295,8 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
                 //validate data
                 if (ModelState.IsValid)
                 {
-                    varCase.CaseHouseholdIncome.IncomeRanges = incomeRangeRepository.GetAll().ToList();
-                    varCase.CaseStatusID = 1;
-
                     if ((varCase.ProgramID == 3 && !string.IsNullOrEmpty(varCase.PresentingProblem))|| varCase.ProgramID != 3 ) 
                     {
-                        if (varCase.CaseHouseholdIncome.NoOfMembers != 0 
-                            || varCase.CaseHouseholdIncome.IncomeRangeID != 0 )
-                        {
-                            varCase.CaseHouseholdIncome.IncomeRanges = incomeRangeRepository.GetAll().ToList();
-                            bool validincomeflag = true;
-
-                            if (varCase.CaseHouseholdIncome.NoOfMembers == 0 || varCase.CaseHouseholdIncome.NoOfMembers == null)
-                            {
-                                validincomeflag = false;
-                                ModelState.AddModelError("", "Please enter No. of members");
-                            }
-                          
-                            if (varCase.CaseHouseholdIncome.IncomeRangeID == 0 || varCase.CaseHouseholdIncome.NoOfMembers == null)
-                            {
-                                validincomeflag = false;
-                                ModelState.AddModelError("", "Please select income range");
-                            }
-                            if (!validincomeflag)
-                                return View(varCase);
-                            //CustomException ex = new CustomException(CustomExceptionType.CommonServerError, "Please enter No. of members and income range.");
-                            //throw ex;
-                        }
-                        if (!string.IsNullOrEmpty(varCase.CaseWorkerNote.Note) || varCase.CaseWorkerNote.NoteDate != null ||
-                        varCase.CaseWorkerNote.TimeSpentHours != null || varCase.CaseWorkerNote.TimeSpentMinutes != null
-                        || (varCase.CaseWorkerNote.ContactMethodID != null && varCase.CaseWorkerNote.ContactMethodID > 0))
-                        {
-                            varCase.CaseHouseholdIncome.IncomeRanges = incomeRangeRepository.GetAll().ToList();
-                            var isnoteerror = false;
-
-                            if (string.IsNullOrEmpty(varCase.CaseWorkerNote.Note))
-                            {
-                                ModelState.AddModelError("", "Please enter work note.");
-                                isnoteerror = true;
-                            }
-
-                            if (varCase.CaseWorkerNote.NoteDate == null)
-                            {
-                                ModelState.AddModelError("", "Please enter not date");
-                                isnoteerror = true;
-                            }
-
-                            if ((varCase.CaseWorkerNote.TimeSpentHours == null || varCase.CaseWorkerNote.TimeSpentHours == 0) &&
-                                (varCase.CaseWorkerNote.TimeSpentMinutes == null || varCase.CaseWorkerNote.TimeSpentMinutes == 0))
-                            {
-                                ModelState.AddModelError("", "Please enter time spent");
-                                isnoteerror = true;
-                            }
-
-                            if (varCase.CaseWorkerNote.ContactMethodID == null || varCase.CaseWorkerNote.ContactMethodID == 0)
-                            {
-                                ModelState.AddModelError("", "Please select contact method");
-                                isnoteerror = true;
-                            }
-                            if (isnoteerror)
-                                return View(varCase);
-                        }
-
                         varCase.CaseStatusID = 1;
                         //call the repository function to save in database
                         caseRepository.InsertOrUpdate(varCase);
@@ -429,8 +369,6 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
                 ExceptionManager.Manage(ex);
                 varCase.ErrorMessage = Constants.Messages.UnhandelledError;
             }
-            varCase.CaseHouseholdIncome.IncomeRanges = incomeRangeRepository.GetAll().ToList();
-            varCase.CaseStatusID = 1;
             return View(varCase);
         }
 
@@ -573,7 +511,6 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
                 else
                 {
                     varCase = caseRepository.Find(varCase.ID);
-                    varCase.CaseWorkerNote = new CaseWorkerNote();
                     ViewBag.HasAccessToAssignmentModule = false;
                     ViewBag.HasAccessToIndividualModule = false;
                     ViewBag.HasAccessToInitialContactModule = false;

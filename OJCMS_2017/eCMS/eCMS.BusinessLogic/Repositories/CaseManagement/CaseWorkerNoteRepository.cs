@@ -107,7 +107,7 @@ namespace eCMS.BusinessLogic.Repositories
 
             string sqlQuery = "";
 
-            sqlQuery = "SELECT CWN.ID,CWN.CreateDate AS DateLogged, (ISNULL(CaseM.FirstName,'') + ' ' + ISNULL(CaseM.LastName,'')) AS FamilyMember, CWN.Note AS Notes, " +
+            sqlQuery = "SELECT CWN.ID,CWN.CreateDate AS DateLogged,  CWN.Note AS Notes, " +
             "CM.Name AS ContactMethod, CWN.NoteDate AS ContactDate,  " +
             "CAST(CWN.TimeSpentHours AS varchar) + ' hrs ' + (CASE WHEN CWN.TimeSpentMinutes > 0 THEN(CAST(CWN.TimeSpentMinutes AS varchar) + 'mins') else '' END) AS TimeSpent,  " +
             "CS.Name AS CaseStatusAsDate, W.FirstName + ' ' + W.LastName AS LoggedBy, WNAT.Name AS WorkNoteWasLogged  " +
@@ -118,7 +118,6 @@ namespace eCMS.BusinessLogic.Repositories
             "INNER JOIN[Case] C ON C.ID = CWN.CaseID  " +
             "INNER JOIN Program P ON P.ID = CWN.ProgramID " +
             "INNER JOIN CaseStatus CS ON CS.ID = CWN.CaseStatusID " +
-            "LEFT JOIN CaseMember CaseM ON CaseM.ID = CWN.CaseMemberID  " +
             "WHERE CWN.CaseID = " + CaseId + " AND CWN.ProgramID = " + ProgramID ;
 
             DataSourceResult dsResult = context.Database.SqlQuery<CaseWorkerNoteVM>(sqlQuery.ToString()).AsEnumerable().ToDataSourceResult(dsRequest);

@@ -2,6 +2,7 @@
 using eCMS.BusinessLogic.Helpers;
 using eCMS.BusinessLogic.Repositories;
 using eCMS.DataLogic.Models;
+using eCMS.DataLogic.Models;
 using eCMS.DataLogic.ViewModels;
 using eCMS.ExceptionLoging;
 using eCMS.Shared;
@@ -77,7 +78,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
             {
                 caseSummary.CaseCurrentHouseholdIncomeVM = caseSummary.CaseInitialHouseholdIncomeVM;
             }
-
+            
             if (caseSummary.CaseCurrentHouseholdIncomeVM != null)
                 caseSummary.CurrentHouseholdIncomeID = caseSummary.CaseCurrentHouseholdIncomeVM.ID;
 

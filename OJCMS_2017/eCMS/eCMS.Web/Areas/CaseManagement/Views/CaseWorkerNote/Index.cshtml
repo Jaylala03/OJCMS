@@ -9,7 +9,6 @@
 @{
     Model.IsAjax = true;
     ViewBag.Title = "Work Note";
-    Layout = "~/Areas/CaseManagement/Views/Shared/_LayoutCase.cshtml";
 }
 @section headsection
 {
@@ -32,7 +31,7 @@
                     </div>
                 </div>
             </div>
-            @using (Html.BeginForm("Save", "CaseWorkerNote", new { area = "CaseManagement" }, FormMethod.Post, new { id = "frmEditorCaseWorkerNote" }))
+            @using (Html.BeginForm("SaveAjax", "CaseWorkerNote", new { area = "CaseManagement" }, FormMethod.Post, new { id = "frmEditorCaseWorkerNote" }))
             {
 
                 <div id="divCaseWorkerNoteEditor">
@@ -43,7 +42,7 @@
                         &nbsp;
                     </div>
                     <div class="col-md-8 margin-top-10">
-                        <button type="submit" id="btnSaveCaseWorkerNote" class="col-sm-2 createsource00">Save</button>
+                        <button type="button" id="btnSaveAndRefresh" name="btnSaveAndRefreshCaseWorkerNote" class="col-sm-2 createsource00">Save</button>
                         <div class="clearfix"></div>
                     </div>
                 </div>
@@ -72,7 +71,6 @@
         .Columns(columns =>
         {
             columns.Bound(caseworker => caseworker.DateLogged).Format("{0:yyyy-MM-dd}").Sortable(true).Groupable(false).Filterable(false);
-            columns.Bound(caseworker => caseworker.FamilyMember).Sortable(true).Groupable(false).Filterable(false);
             columns.Bound(caseworker => caseworker.Notes).Sortable(true).Groupable(false).Filterable(false);
             columns.Bound(caseworker => caseworker.ContactMethod).Sortable(true).Groupable(false).Filterable(false);
             columns.Bound(caseworker => caseworker.ContactDate).Format("{0:yyyy-MM-dd}").Sortable(true).Groupable(false).Filterable(false);

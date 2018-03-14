@@ -78,6 +78,7 @@
     <Compile Include="Models\Base\IEntityBaseModel.cs" />
     <Compile Include="Models\Base\EntityBaseModel.cs" />
     <Compile Include="Models\Base\IBaseModel.cs" />
+    <Compile Include="Models\CaseManagement\CaseInitialAssessment.cs" />
     <Compile Include="Models\CaseManagement\Case.cs" />
     <Compile Include="Models\CaseManagement\CaseAuditLog.cs" />
     <Compile Include="Models\CaseManagement\CaseGoal.cs">
@@ -117,6 +118,8 @@
     <Compile Include="Models\CaseManagement\CaseSmartGoalAssignment.cs" />
     <Compile Include="Models\CaseManagement\CaseProgressNoteMembers.cs" />
     <Compile Include="Models\CaseManagement\Employee.cs" />
+    <Compile Include="Models\CaseManagement\AssesmentIndicators.cs" />
+    <Compile Include="Models\Lookup\IndicatorType.cs" />
     <Compile Include="Models\Lookup\WorkerNoteActivityType.cs" />
     <Compile Include="Models\Lookup\IncomeRange.cs" />
     <Compile Include="Models\Lookup\Service.cs">
@@ -200,6 +203,7 @@
     <Compile Include="ViewModels\CaseListViewModel.cs" />
     <Compile Include="ViewModels\CaseSSSWorkerNoteVM.cs" />
     <Compile Include="ViewModels\CaseSummaryVM.cs" />
+    <Compile Include="ViewModels\InitialAssessmentVM.cs" />
     <Compile Include="ViewModels\CaseWorkerNoteVM.cs" />
     <Compile Include="ViewModels\ChangePasswordModel.cs" />
     <Compile Include="ViewModels\AssignmentModel.cs" />

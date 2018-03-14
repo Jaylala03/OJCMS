@@ -63,9 +63,18 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Debug\ClosedXML.dll</HintPath>
     </Reference>
-    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
-    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
-    <Reference Include="CrystalDecisions.Shared, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Users\Chirag\Downloads\CrystalDecisions.CrystalReports.Engine.dll</HintPath>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Users\Chirag\Downloads\CrystalDecisions.ReportSource.dll</HintPath>
+    </Reference>
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Users\Chirag\Downloads\CrystalDecisions.Shared.dll</HintPath>
+    </Reference>
     <Reference Include="DocumentFormat.OpenXml, Version=2.7.2.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\DocumentFormat.OpenXml.2.7.2\lib\net40\DocumentFormat.OpenXml.dll</HintPath>
@@ -319,18 +328,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Areas\CaseManagement\Controllers\CaseHouseholdIncomeController.cs" />
+    <Compile Include="Areas\CaseManagement\Controllers\CaseInitialAssessmentController.cs" />
+    <Compile Include="Areas\CaseManagement\Controllers\AssesmentIndicatorsController.cs" />
     <Compile Include="Areas\CaseManagement\Controllers\CaseMemberEmergencyContactController.cs" />
     <Compile Include="Areas\CaseManagement\Controllers\CaseSSSWorkerNoteController.cs" />
+    <Compile Include="Areas\CaseManagement\Controllers\CaseHouseholdIncomeController.cs" />
     <Compile Include="Areas\CaseManagement\Controllers\CaseSummaryController.cs" />
-    <Compile Include="Areas\CaseManagement\Controllers\CaseWorkerController03032018.cs" />
     <Compile Include="Areas\CaseManagement\Controllers\CaseWorkerController02252018.cs" />
     <Compile Include="Areas\CaseManagement\Controllers\CaseWorkerNoteController.cs" />
     <Compile Include="Reports\CaseDashboardNew.cs">
       <DependentUpon>CaseDashboardNew.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Reports\CaseDashboard.cs">
       <AutoGen>True</AutoGen>
@@ -1980,10 +1990,9 @@
     <Content Include="Areas\CaseManagement\Views\CaseWorker\Index02252018.cshtml" />
     <Content Include="Areas\CaseManagement\Views\CaseWorker\Edit.cshtml" />
     <Content Include="Areas\CaseManagement\Views\CaseHouseholdIncome\Edit.cshtml" />
-    <Content Include="Areas\CaseManagement\Views\CaseWorker\_CreateOrEdit - Copy.cshtml" />
-    <Content Include="Areas\CaseManagement\Views\CaseWorker\_Index.cshtml" />
-    <Content Include="Areas\CaseManagement\Views\CaseWorker\Create.cshtml" />
-    <Content Include="Areas\CaseManagement\Views\CaseWorker\Edit - Copy.cshtml" />
+    <Content Include="Areas\CaseManagement\Views\AssesmentIndicators\Index.cshtml" />
+    <Content Include="Areas\CaseManagement\Views\AssesmentIndicators\_CreateOrEdit.cshtml" />
+    <Content Include="Areas\CaseManagement\Views\CaseInitialAssessment\Index.cshtml" />
     <None Include="bin\eCMS.Web.dll.config" />
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Properties\PublishProfiles\ecms.softwareravine.com.pubxml" />

@@ -91,6 +91,9 @@ namespace eCMS.Web.Controllers
         protected IActionMethodRepository actionMethodRepository;
         protected IWorkerRolePermissionNewRepository wokerRolePermissionNewRepository;
         protected IIncomeRangeRepository incomeRangeRepository;
+
+        protected IIndicatorTypeRepository indicatorTypeRepository;
+        
         public BaseController(IWorkerRoleActionPermissionRepository workerroleactionpermissionRepository)
         {
             this.workerroleactionpermissionRepository = workerroleactionpermissionRepository;
@@ -799,11 +802,7 @@ namespace eCMS.Web.Controllers
             //return Json(jamatkhanaRepository.FindAllByRegionID(regionID), JsonRequestBehavior.AllowGet);
             return Json(jamatkhanaRepository.FindAllByWorkerRegionID(regionID), JsonRequestBehavior.AllowGet);
         }
-        public JsonResult LoadJamatkhanasAutoCompleteAjax(int regionID, string JKText)
-        {
-            //return Json(jamatkhanaRepository.FindAllByRegionID(regionID), JsonRequestBehavior.AllowGet);
-            return Json(jamatkhanaRepository.FindAllByWorkerRegionIDAutoComplete(regionID, JKText), JsonRequestBehavior.AllowGet);
-        }
+
         /// <summary>
         /// Load Intake Method DropDownList Asynchronously
         /// </summary>
@@ -917,7 +916,13 @@ namespace eCMS.Web.Controllers
         {
             return Json(incomeRangeRepository.AllActiveForDropDownList, JsonRequestBehavior.AllowGet);
         }
-        
+
+
+        public JsonResult LoadIndicatorTypeAjax()
+        {
+            return Json(indicatorTypeRepository.AllActiveForDropDownList, JsonRequestBehavior.AllowGet);
+        }
+
         #endregion
     }
 }
