@@ -1,0 +1,78 @@
+﻿@model IEnumerable<eCMS.DataLogic.ViewModels.InitialAssessmentVM>
+@using EasySoft.Helper;
+@using eCMS.Shared;
+@using eCMS.DataLogic.Models;
+@{
+    ViewBag.Title = "Case Initial Assessment";
+}
+@section headsection
+{
+    @Styles.Render("~/assets/plugins/kendo/css")
+    @Scripts.Render("~/assets/plugins/kendo/js")
+}
+<div class="container candidate-list-main-container">
+    <div class="row">
+        <div class="col-lg-12 col-md-11 candidate-table-bg">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 candidate-on-map">
+                    <div class="row">
+                        <div class="col-md-12 font-13 text-uppercase" style="padding-top: 6px; padding-right: 0;">
+                            <label>
+                                <img src="@Url.Content("~/Assets/images/lavel-side-icon.png")">
+                                <span>Case Initial Assessment</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-md-11 candidate-table-bg">
+            <div class="row">
+                <table class="table-striped border" width="100%">
+                    <thead>
+                        <tr>
+                            <th>Indicators</th>
+                            <th>1</th>
+                            <th>2</th>
+                            <th>3</th>
+                            <th>4</th>
+                            <th>5</th>
+                            <th>6</th>
+                            <th>Not Applicable</th>
+                        </tr>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.IndicatorName</td>
+                                <td>@Html.RadioButton("rd" + item.IndicatorTypeID + "", item.IndicatorTypeID, false, new { @id = item.IndicatorTypeID })</td>
+                                <td>@Html.RadioButton("rd" + item.IndicatorTypeID + "", item.IndicatorTypeID, false, new { @id = item.IndicatorTypeID })</td>
+                                <td>@Html.RadioButton("rd" + item.IndicatorTypeID + "", item.IndicatorTypeID, false, new { @id = item.IndicatorTypeID })</td>
+                                <td>@Html.RadioButton("rd" + item.IndicatorTypeID + "", item.IndicatorTypeID, false, new { @id = item.IndicatorTypeID })</td>
+                                <td>@Html.RadioButton("rd" + item.IndicatorTypeID + "", item.IndicatorTypeID, false, new { @id = item.IndicatorTypeID })</td>
+                                <td>@Html.RadioButton("rd" + item.IndicatorTypeID + "", item.IndicatorTypeID, false, new { @id = item.IndicatorTypeID })</td>
+                                <td>@Html.RadioButton("rd" + item.IndicatorTypeID + "", item.IndicatorTypeID, false, new { @id = item.IndicatorTypeID })</td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;</td>
+                                <td>@item.AssesmentIndicatorDescription1</td>
+                                <td>@item.AssesmentIndicatorDescription2</td>
+                                <td>@item.AssesmentIndicatorDescription3</td>
+                                <td>@item.AssesmentIndicatorDescription4</td>
+                                <td>@item.AssesmentIndicatorDescription5</td>
+                                <td>@item.AssesmentIndicatorDescription6</td>
+                            </tr>
+                        }
+
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+

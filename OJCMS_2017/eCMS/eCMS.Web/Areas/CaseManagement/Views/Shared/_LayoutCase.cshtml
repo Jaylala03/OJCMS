@@ -14,13 +14,6 @@
     <div class="sub-menu margin-top-30">
         <div class="container" id="layoutcontainer">
             <div class="row">
-                <div class="col-md-3 caseDisplay" style="text-align:left;">
-                    @if (ViewBag.DisplayID != null)
-                    {
-                        @*<a href="/CaseManagement/CaseMemberProfile/Index?caseId=@ViewBag.CaseID" style="color:red">@ViewBag.DisplayID</a>*@
-                        <a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.CaseSummary, new { caseID=ViewBag.CaseID })" style="color:red">@ViewBag.DisplayID</a>
-                    }
-                </div>
                 <div class="float-right">
 
                     @if (ViewBag.HasAccessToCaseAuditLogModule)
@@ -38,54 +31,57 @@
 
                 </div>
 
-                @*<div class="text-center font-13 col-md-9">
-
-                        <ul class="candidate-list-sub-menu">
-                            @if ((ViewBag.CurrentActionName == Constants.Actions.Edit || ViewBag.CurrentActionName == Constants.Actions.Read || ViewBag.CurrentActionName == Constants.Actions.Readmit) && ViewBag.CurrentControllerName == Constants.Controllers.Case)
+                <div class="text-center font-13 col-md-9">
+                    
+                    <ul class="candidate-list-sub-menu">
+                        @if ((ViewBag.CurrentActionName == Constants.Actions.Edit || ViewBag.CurrentActionName == Constants.Actions.Read || ViewBag.CurrentActionName == Constants.Actions.Readmit) && ViewBag.CurrentControllerName == Constants.Controllers.Case)
+                        {
+                            <li class="active"><a href="@Url.Action(Constants.Actions.Edit, Constants.Controllers.Case, new { caseID=ViewBag.CaseID })" title="Demographics">Demographics</a></li>
+                        }                           
+                        else
+                        {
+                            <li><a href="@Url.Action(Constants.Actions.Edit, Constants.Controllers.Case, new { caseID=ViewBag.CaseID })" title="Demographics">Demographics</a></li>
+                        }
+                        @if(ViewBag.HasAccessToIndividualModule)
+                        {
+                            if (ViewBag.CurrentActionName == Constants.Actions.Index && ViewBag.CurrentControllerName == Constants.Controllers.CaseMember)
                             {
-                                <li class="active"><a href="@Url.Action(Constants.Actions.Edit, Constants.Controllers.Case, new { caseID=ViewBag.CaseID })" title="Demographics">Demographics</a></li>
+                                <li class="active"><a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.CaseMember, new { caseID=ViewBag.CaseID })" title="Case Individuals">Case Individuals</a></li>
                             }
                             else
                             {
-                                <li><a href="@Url.Action(Constants.Actions.Edit, Constants.Controllers.Case, new { caseID=ViewBag.CaseID })" title="Demographics">Demographics</a></li>
+                                <li><a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.CaseMember, new { caseID=ViewBag.CaseID })" title="Case Individuals">Case Individuals</a></li>
                             }
-                            @if(ViewBag.HasAccessToIndividualModule)
+                        }
+                        @if(ViewBag.HasAccessToInitialContactModule)
+                        {
+                            if ((ViewBag.CurrentActionName == Constants.Actions.InitialContact || ViewBag.CurrentActionName == Constants.Actions.CreateInitialContact) && ViewBag.CurrentControllerName == Constants.Controllers.CaseProgressNote)
                             {
-                                if (ViewBag.CurrentActionName == Constants.Actions.Index && ViewBag.CurrentControllerName == Constants.Controllers.CaseMember)
-                                {
-                                    <li class="active"><a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.CaseMember, new { caseID=ViewBag.CaseID })" title="Case Individuals">Case Individuals</a></li>
-                                }
-                                else
-                                {
-                                    <li><a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.CaseMember, new { caseID=ViewBag.CaseID })" title="Case Individuals">Case Individuals</a></li>
-                                }
+                                <li class="active"><a href="@Url.Action(Constants.Actions.InitialContact, Constants.Controllers.CaseProgressNote, new { caseID=ViewBag.CaseID })" title="Initial Contact">Initial Contact</a></li>
                             }
-                            @if(ViewBag.HasAccessToInitialContactModule)
+                            else
                             {
-                                if ((ViewBag.CurrentActionName == Constants.Actions.InitialContact || ViewBag.CurrentActionName == Constants.Actions.CreateInitialContact) && ViewBag.CurrentControllerName == Constants.Controllers.CaseProgressNote)
-                                {
-                                    <li class="active"><a href="@Url.Action(Constants.Actions.InitialContact, Constants.Controllers.CaseProgressNote, new { caseID=ViewBag.CaseID })" title="Initial Contact">Initial Contact</a></li>
-                                }
-                                else
-                                {
-                                    <li><a href="@Url.Action(Constants.Actions.InitialContact, Constants.Controllers.CaseProgressNote, new { caseID=ViewBag.CaseID })" title="Initial Contact">Initial Contact</a></li>
-                                }
+                                <li><a href="@Url.Action(Constants.Actions.InitialContact, Constants.Controllers.CaseProgressNote, new { caseID=ViewBag.CaseID })" title="Initial Contact">Initial Contact</a></li>
                             }
-                            @if(ViewBag.HasAccessToAssignmentModule)
+                        }
+                        @if(ViewBag.HasAccessToAssignmentModule)
+                        {
+                            if (ViewBag.CurrentActionName == Constants.Actions.Index && ViewBag.CurrentControllerName == Constants.Controllers.CaseWorker)
                             {
-                                if (ViewBag.CurrentActionName == Constants.Actions.Index && ViewBag.CurrentControllerName == Constants.Controllers.CaseWorker)
-                                {
-                                    <li class="active"><a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.CaseWorker, new { caseID=ViewBag.CaseID })" title="Assignment">Assignment</a></li>
-                                }
-                                else
-                                {
-                                    <li><a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.CaseWorker, new { caseID=ViewBag.CaseID })" title="Assignment">Assignment</a></li>
-                                }
+                                <li class="active"><a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.CaseWorker, new { caseID=ViewBag.CaseID })" title="Assignment">Assignment</a></li>
                             }
-
-                        </ul>
-                    </div>*@
-
+                            else
+                            {
+                                <li><a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.CaseWorker, new { caseID=ViewBag.CaseID })" title="Assignment">Assignment</a></li>
+                            }
+                        }
+                      
+                    </ul>
+                </div>
+                <div class="col-md-3 caseDisplay">
+                   @if(ViewBag.DisplayID!=null)
+                   {<a href="/CaseManagement/CaseMemberProfile/Index?caseId=@ViewBag.CaseID" style="color:red">@ViewBag.DisplayID</a>}
+                </div>
             </div>
         </div>
     </div>

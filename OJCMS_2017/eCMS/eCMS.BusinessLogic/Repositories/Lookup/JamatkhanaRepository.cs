@@ -68,36 +68,6 @@ namespace eCMS.BusinessLogic.Repositories
             return subprogram.AsEnumerable().Select(item => new SelectListItem() { Text = item.Name, Value = item.ID.ToString() }).ToList();
         }
 
-        public List<SelectListItem> FindAllByWorkerRegionIDAutoComplete(int regionID, string JKText)
-        {
-            List<DropDownViewModel> subprogram = null;
-            string loggedinworkers = String.Join(",", CurrentLoggedInWorkerRoleIDs);
-            StringBuilder sqlQuery = new StringBuilder();
-
-            sqlQuery.Append("SELECT JK.ID,JK.Name ");
-            sqlQuery.Append("FROM WorkerInRoleNew AS WIR ");
-            sqlQuery.Append("INNER JOIN WorkerRolePermissionNew AS WRP ON WIR.WorkerRoleID = WRP.WorkerRoleID ");
-            sqlQuery.Append("INNER JOIN Permission AS P ON WRP.PermissionID = P.ID ");
-            sqlQuery.Append("INNER JOIN PermissionRegion AS PR ON P.ID = PR.PermissionID ");
-            sqlQuery.Append("INNER JOIN Jamatkhana AS JK ON PR.RegionID = JK.RegionID ");
-            sqlQuery.Append("WHERE WIR.WorkerID = " + CurrentLoggedInWorker.ID + " AND WIR.WorkerRoleID IN (" + loggedinworkers + ") ");
-            sqlQuery.Append("AND JK.IsActive = 1 ");
-            if (regionID > 0)
-            {
-                sqlQuery.Append("AND PR.RegionID = " + regionID + " ");
-            }
-            if (!string.IsNullOrEmpty(JKText))
-            {
-                sqlQuery.Append("AND JK.Name LIKE '" + JKText + "%' ");
-            }
-            sqlQuery.Append("GROUP BY JK.ID,JK.Name ");
-            sqlQuery.Append("ORDER BY JK.Name ");
-
-            subprogram = context.Database.SqlQuery<DropDownViewModel>(sqlQuery.ToString()).ToList();
-
-            return subprogram.AsEnumerable().Select(item => new SelectListItem() { Text = item.Name, Value = item.ID.ToString() }).ToList();
-        }
-
         public List<SelectListItem> FindAllByWorkerRegionIDs(string programIDs, string regionIDs)
         {
             List<DropDownViewModel> subprogram = null;
@@ -138,7 +108,7 @@ namespace eCMS.BusinessLogic.Repositories
         IEnumerable<SelectListItem> FindAllByRegionID(int regionID);
 
         List<SelectListItem> FindAllByWorkerRegionID(int regionID);
-        List<SelectListItem> FindAllByWorkerRegionIDAutoComplete(int regionID,string JKText);
+
         List<Jamatkhana> FindAllJamatkhanaByRegionID(int regionID);
         List<int> FindAllJamatkhanaIDsByRegionID(int regionID);
 

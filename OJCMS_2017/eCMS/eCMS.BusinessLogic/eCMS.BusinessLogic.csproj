@@ -117,6 +117,7 @@
     <Compile Include="Repositories\Base\IBaseLookupRepository.cs" />
     <Compile Include="Repositories\Base\IBaseRepository.cs" />
     <Compile Include="Repositories\Base\IConnectionString.cs" />
+    <Compile Include="Repositories\CaseManagement\CaseInitialAssessmentRepository.cs" />
     <Compile Include="Repositories\CaseManagement\CaseActionRepository.cs" />
     <Compile Include="Repositories\CaseManagement\CaseAssessmentLivingConditionRepository.cs" />
     <Compile Include="Repositories\CaseManagement\CaseAssessmentRepository.cs" />
@@ -155,9 +156,11 @@
     <Compile Include="Repositories\CaseManagement\CaseTrainingRepository.cs" />
     <Compile Include="Repositories\CaseManagement\CaseWorkerRepository.cs" />
     <Compile Include="Repositories\CaseManagement\CaseProgressNoteMembersRepository.cs" />
+    <Compile Include="Repositories\CaseManagement\AssesmentIndicatorsRepository.cs" />
     <Compile Include="Repositories\Context\IRepositoryContextInitializer.cs" />
     <Compile Include="Repositories\Context\RepositoryContext.cs" />
     <Compile Include="Repositories\Context\RepositoryContextInitializer.cs" />
+    <Compile Include="Repositories\Lookup\IndicatorTypeRepository.cs" />
     <Compile Include="Repositories\Lookup\WorkerNoteActivityTypeRepository.cs" />
     <Compile Include="Repositories\Lookup\ActivityTypeRepository.cs" />
     <Compile Include="Repositories\Lookup\AnnualIncomeRepository.cs" />

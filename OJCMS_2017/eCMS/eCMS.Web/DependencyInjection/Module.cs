@@ -170,6 +170,12 @@ namespace eCMS.Web.DependencyInjection
             containerBuilder.Register(container => new CaseSummaryRepository(container.Resolve<RepositoryContext>())).As<ICaseSummaryRepository>();
             containerBuilder.Register(container => new CaseMemberEmergencyContactRepository(container.Resolve<RepositoryContext>())).As<ICaseMemberEmergencyContactRepository>();
             containerBuilder.Register(container => new CaseSSSWorkerNoteRepository(container.Resolve<RepositoryContext>())).As<ICaseSSSWorkerNoteRepository>();
+
+            containerBuilder.Register(container => new IndicatorTypeRepository(container.Resolve<RepositoryContext>())).As<IIndicatorTypeRepository>();
+
+            containerBuilder.Register(container => new AssesmentIndicatorsRepository(container.Resolve<RepositoryContext>())).As<IAssesmentIndicatorsRepository>();
+
+            containerBuilder.Register(container => new CaseInitialAssessmentRepository(container.Resolve<RepositoryContext>())).As<ICaseInitialAssessmentRepository>();
         }
     }
 }

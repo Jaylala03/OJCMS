@@ -60,15 +60,10 @@ namespace eCMS.DataLogic.Models
         [ForeignKey("Region")]
         public Int32 RegionID { get; set; }
 
-        //[Required(ErrorMessage = "Please select jamatkhana")]
+        [Required(ErrorMessage = "Please select jamatkhana")]
         [Display(Name = "Jamatkhana")]
         [ForeignKey("Jamatkhana")]
         public Int32? JamatkhanaID { get; set; }
-
-        [NotMapped]
-        [Required(ErrorMessage = "Please select jamatkhana")]
-        [Display(Name = "Jamatkhana")]
-        public string JamatkhanaName { get; set; }
 
         [Display(Name = "Address",Prompt="Address")]
         [StringLength(256)]
@@ -138,27 +133,6 @@ namespace eCMS.DataLogic.Models
         [MaxLength]
         [DataType(DataType.MultilineText)]
         public String PresentingProblem { get; set; }
-
-        [Display(Name = "Education")]
-        public bool Education { get; set; }
-
-        [Display(Name = "Income & Livelihood")]
-        public bool IncomeLivelihood { get; set; }
-
-        [Display(Name = "Assets & Life Skills")]
-        public bool Assets { get; set; }
-
-        [Display(Name = "Housing")]
-        public bool Housing { get; set; }
-
-        [Display(Name = "Social Support")]
-        public bool SocialSupport { get; set; }
-
-        [Display(Name = "Dignity & Self Respect")]
-        public bool Dignity { get; set; }
-
-        [Display(Name = "Health")]
-        public bool Health { get; set; }
 
         //public virtual RiskType RiskType { get; set; }
         public virtual Program Program { get; set; }

@@ -51,58 +51,28 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
         /// <param name="dsRequest">sort filter</param>
         /// <param name="searchCaseWorker">search filter</param>
         /// <returns>view result</returns>
-        //[WorkerAuthorize]
-        //public ActionResult Index(int caseID)
-        //{
-        //    var varCase = caseRepository.Find(caseID);
-        //    bool hasAccess = workerroleactionpermissionnewRepository.HasPermission(caseID,CurrentLoggedInWorkerRoleIDs, CurrentLoggedInWorker.ID, varCase.ProgramID, varCase.RegionID, varCase.SubProgramID,varCase.JamatkhanaID, Constants.Areas.CaseManagement, Constants.Controllers.CaseWorker, Constants.Actions.Index, true);
-        //    if (!hasAccess)
-        //    {
-        //        WebHelper.CurrentSession.Content.ErrorMessage = "You are not eligible to do this action";
-        //        return RedirectToAction(Constants.Actions.AccessDenied, Constants.Controllers.Home, new { Area = String.Empty });
-        //    }
-        //    AssignmentModel assignmentModel = new AssignmentModel();
-        //    assignmentModel.CaseWorker = new CaseWorker();
-        //    assignmentModel.CaseWorker.CaseWorkerNote = new CaseWorkerNote();
-        //    assignmentModel.CaseSupportCircle = new CaseSupportCircle();
-        //    assignmentModel.CaseSupportCircle.CaseID = caseID;
-        //    assignmentModel.CaseWorker.CaseID = caseID;
-        //    assignmentModel.CaseWorker.CaseMemberList = casememberRepository.FindAllByCaseIDForDropDownList(caseID);
-        //    //List<SelectListItem> workerList = workerRepository.FindAllPossible(varCase.ProgramID, varCase.RegionID, varCase.SubProgramID);
-        //    List<SelectListItem> workerList = workerRepository.NewFindAllPossible(varCase.ProgramID, varCase.RegionID, varCase.SubProgramID);
-        //    if (workerList == null || (workerList != null && workerList.Count == 0))
-        //    {
-        //        assignmentModel.ErrorMessage = "There is no worker found for Program:" + varCase.Program.Name + ", Region:" + varCase.Region.Name + ", Sub-Program:" + varCase.SubProgram.Name;
-        //    }
-        //    else
-        //    {
-        //        workerList = workerList.OrderBy(m => m.Text).ToList();
-        //    }
-        //    ViewBag.PossibleWorkerList = workerList;
-        //    ViewBag.DisplayID = caseRepository.Find(caseID).DisplayID;
-        //    ViewBag.CaseID = caseID;
-        //    return View(assignmentModel);
-        //}
-
         [WorkerAuthorize]
         public ActionResult Index(int caseID)
         {
             var varCase = caseRepository.Find(caseID);
-            bool hasAccess = workerroleactionpermissionnewRepository.HasPermission(caseID, CurrentLoggedInWorkerRoleIDs, CurrentLoggedInWorker.ID, varCase.ProgramID, varCase.RegionID, varCase.SubProgramID, varCase.JamatkhanaID, Constants.Areas.CaseManagement, Constants.Controllers.CaseWorker, Constants.Actions.Index, true);
+            bool hasAccess = workerroleactionpermissionnewRepository.HasPermission(caseID,CurrentLoggedInWorkerRoleIDs, CurrentLoggedInWorker.ID, varCase.ProgramID, varCase.RegionID, varCase.SubProgramID,varCase.JamatkhanaID, Constants.Areas.CaseManagement, Constants.Controllers.CaseWorker, Constants.Actions.Index, true);
             if (!hasAccess)
             {
                 WebHelper.CurrentSession.Content.ErrorMessage = "You are not eligible to do this action";
                 return RedirectToAction(Constants.Actions.AccessDenied, Constants.Controllers.Home, new { Area = String.Empty });
             }
-            CaseWorker CaseWorker = new CaseWorker();
-            CaseWorker.CaseWorkerNote = new CaseWorkerNote();
-            CaseWorker.CaseID = caseID;
-            //CaseWorker.CaseMemberList = casememberRepository.FindAllByCaseIDForDropDownList(caseID);
+            AssignmentModel assignmentModel = new AssignmentModel();
+            assignmentModel.CaseWorker = new CaseWorker();
+            assignmentModel.CaseWorker.CaseWorkerNote = new CaseWorkerNote();
+            assignmentModel.CaseSupportCircle = new CaseSupportCircle();
+            assignmentModel.CaseSupportCircle.CaseID = caseID;
+            assignmentModel.CaseWorker.CaseID = caseID;
+            assignmentModel.CaseWorker.CaseMemberList = casememberRepository.FindAllByCaseIDForDropDownList(caseID);
             //List<SelectListItem> workerList = workerRepository.FindAllPossible(varCase.ProgramID, varCase.RegionID, varCase.SubProgramID);
             List<SelectListItem> workerList = workerRepository.NewFindAllPossible(varCase.ProgramID, varCase.RegionID, varCase.SubProgramID);
             if (workerList == null || (workerList != null && workerList.Count == 0))
             {
-                CaseWorker.ErrorMessage = "There is no worker found for Program:" + varCase.Program.Name + ", Region:" + varCase.Region.Name + ", Sub-Program:" + varCase.SubProgram.Name;
+                assignmentModel.ErrorMessage = "There is no worker found for Program:" + varCase.Program.Name + ", Region:" + varCase.Region.Name + ", Sub-Program:" + varCase.SubProgram.Name;
             }
             else
             {
@@ -110,8 +80,8 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
             }
             ViewBag.PossibleWorkerList = workerList;
             ViewBag.DisplayID = caseRepository.Find(caseID).DisplayID;
-            ViewBag.CaseID = caseID;
-            return View(CaseWorker);
+
+            return View(assignmentModel);
         }
 
         [WorkerAuthorize]
@@ -142,7 +112,6 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
             }
             ViewBag.PossibleWorkerList = workerList;
             ViewBag.DisplayID = caseRepository.Find(caseID).DisplayID;
-            ViewBag.CaseID = caseID;
             return View(assignmentModel);
         }
         public JsonResult LoadWorkerAjax(int caseID,int? RoleID=0)
@@ -192,10 +161,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
 
             CaseWorker caseworker = new CaseWorker();
             caseworker.CaseID = caseId;
-            ViewBag.DisplayID = caseRepository.Find(caseId).DisplayID;
-            ViewBag.CaseID = caseId;
             Case varCase=caseRepository.Find(caseId);
-            caseworker.CaseMemberList = casememberRepository.FindAllByCaseIDForDropDownList(caseId);
             //List<SelectListItem> workerList = workerRepository.FindAllPossible(varCase.ProgramID, varCase.RegionID, varCase.SubProgramID);
             List<SelectListItem> workerList = workerRepository.NewFindAllPossible(varCase.ProgramID, varCase.RegionID, varCase.SubProgramID);
             if (workerList == null || (workerList != null && workerList.Count == 0))
@@ -214,7 +180,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
         /// <returns>action result</returns>
         [WorkerAuthorize]
         [HttpPost]
-        public ActionResult Create(CaseWorker caseworker)
+        public ActionResult Create(CaseWorker caseworker, int caseId)
         {
             caseworker.LastUpdatedByWorkerID = CurrentLoggedInWorker.ID;
             try
@@ -222,104 +188,26 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
                 //validate data
                 if (ModelState.IsValid)
                 {
-                    //if (!string.IsNullOrEmpty(caseworker.CaseWorkerNote.Note) || caseworker.CaseWorkerNote.NoteDate != null ||
-                    //    caseworker.CaseWorkerNote.TimeSpentHours != null || caseworker.CaseWorkerNote.TimeSpentMinutes != null
-                    //    || (caseworker.CaseWorkerNote.ContactMethodID != null && caseworker.CaseWorkerNote.ContactMethodID > 0))
-                    //{
-                    //    var isnoteerror = false;
-
-                    //    if (string.IsNullOrEmpty(caseworker.CaseWorkerNote.Note))
-                    //    {
-                    //        ModelState.AddModelError("", "Please enter work note.");
-                    //        isnoteerror = true;
-                    //    }
-
-                    //    if (caseworker.CaseWorkerNote.NoteDate == null)
-                    //    {
-                    //        ModelState.AddModelError("", "Please enter not date");
-                    //        isnoteerror = true;
-                    //    }
-
-                    //    if ((caseworker.CaseWorkerNote.TimeSpentHours == null || caseworker.CaseWorkerNote.TimeSpentHours == 0) &&
-                    //        (caseworker.CaseWorkerNote.TimeSpentMinutes == null || caseworker.CaseWorkerNote.TimeSpentMinutes == 0))
-                    //    {
-                    //        ModelState.AddModelError("", "Please enter time spent");
-                    //        isnoteerror = true;
-                    //    }
-
-                    //    if (caseworker.CaseWorkerNote.ContactMethodID == null || caseworker.CaseWorkerNote.ContactMethodID == 0)
-                    //    {
-                    //        ModelState.AddModelError("", "Please select contact method");
-                    //        isnoteerror = true;
-                    //    }
-                    //    if (isnoteerror)
-                    //    {
-                    //        Case varCase = caseRepository.Find(caseId);
-
-                    //        List<SelectListItem> workerList = workerRepository.NewFindAllPossible(varCase.ProgramID, varCase.RegionID, varCase.SubProgramID);
-                    //        if (workerList == null || (workerList != null && workerList.Count == 0))
-                    //        {
-                    //            caseworker.ErrorMessage = "There is no worker found for Program:" + varCase.Program.Name + ", Region:" + varCase.Region.Name + ", Sub-Program:" + varCase.SubProgram.Name;
-                    //        }
-                    //        ViewBag.PossibleWorkerList = workerList;
-                    //        return View(caseworker);
-                    //    }
-                            
-                    //}
-
                     //call the repository function to save in database
                     caseworker.IsActive = true;
                     caseworkerRepository.InsertOrUpdate(caseworker);
                     caseworkerRepository.Save();
-
-                    string selectedCaseMember = Request.Form["SelectedCaseMember"].ToString(true);
-                    selectedCaseMember = selectedCaseMember.Replace("false", string.Empty);
-                    string[] arraySelectedCaseMember = selectedCaseMember.ToStringArray(',', true);
-                    List<CaseWorkerMemberAssignment> assignment = caseworkermemberassignmentRepository.FindAllByCaseWorkerID(caseworker.ID);
-                    if (arraySelectedCaseMember != null && arraySelectedCaseMember.Length > 0)
+                    if (caseworker.CaseWorkerNote.ContactMethodID > 0)
                     {
-                        foreach (string caseMemberID in arraySelectedCaseMember)
-                        {
-                            if (assignment.Where(item => item.CaseMemberID == caseMemberID.ToInteger(true)).Count() == 0)
-                            {
-                                CaseWorkerMemberAssignment newCaseWorkerMemberAssignment = new CaseWorkerMemberAssignment()
-                                {
-                                    CaseMemberID = caseMemberID.ToInteger(true),
-                                    CaseWorkerID = caseworker.ID,
-                                    LastUpdateDate = DateTime.Now,
-                                    LastUpdatedByWorkerID = caseworker.LastUpdatedByWorkerID
-                                };
-                                caseworkermemberassignmentRepository.InsertOrUpdate(newCaseWorkerMemberAssignment);
-                                caseworkermemberassignmentRepository.Save();
-                            }
-                        }
+                        caseworker.CaseWorkerNote.LastUpdatedByWorkerID = CurrentLoggedInWorker.ID;
+                        caseworker.CaseWorkerNote.CaseID = caseworker.CaseID;
+                        //caseMember.CaseWorkerNote.CaseStatusID = varCase.CaseStatusID;
+                        //caseMember.CaseWorkerNote.ProgramID = varCase.ProgramID;
+                        caseworker.CaseWorkerNote.IsFamily = true;
+                        caseworker.CaseWorkerNote.IsFamilyMember = false;
+                        caseworker.CaseWorkerNote.WorkerNoteActivityTypeID = (int)WorkerNoteActivityType.CaseWorker;
+                        //varCase.CaseWorkerNote.NoteDate = Convert.ToDateTime(varCase.ContactDate);
+                        caseWorkerNoteRepository.InsertOrUpdate(caseworker.CaseWorkerNote);
+                        caseWorkerNoteRepository.Save();
                     }
-
-                    foreach (CaseWorkerMemberAssignment existingMember in assignment)
-                    {
-                        if (arraySelectedCaseMember==null || !arraySelectedCaseMember.Contains(existingMember.CaseMemberID.ToString(true)))
-                        {
-                            caseworkermemberassignmentRepository.Delete(existingMember);
-                            caseworkermemberassignmentRepository.Save();
-                        }
-                    }
-                    //if (caseworker.CaseWorkerNote.ContactMethodID > 0)
-                    //{
-                    //    caseworker.CaseWorkerNote.LastUpdatedByWorkerID = CurrentLoggedInWorker.ID;
-                    //    caseworker.CaseWorkerNote.CaseID = caseworker.CaseID;
-                    //    //caseMember.CaseWorkerNote.CaseStatusID = varCase.CaseStatusID;
-                    //    //caseMember.CaseWorkerNote.ProgramID = varCase.ProgramID;
-                    //    caseworker.CaseWorkerNote.IsFamily = true;
-                    //    caseworker.CaseWorkerNote.IsFamilyMember = false;
-                    //    caseworker.CaseWorkerNote.WorkerNoteActivityTypeID = (int)WorkerNoteActivityType.CaseWorker;
-                    //    //varCase.CaseWorkerNote.NoteDate = Convert.ToDateTime(varCase.ContactDate);
-                    //    caseWorkerNoteRepository.InsertOrUpdate(caseworker.CaseWorkerNote);
-                    //    caseWorkerNoteRepository.Save();
-                    //}
-
                     //redirect to list page after successful operation
                     //return RedirectToAction(Constants.Views.Index, new { caseId = caseId });
-                    return RedirectToAction(Constants.Actions.Index, Constants.Controllers.CaseSummary, new { caseID = caseworker.CaseID });
+                    return RedirectToAction(Constants.Actions.Index, Constants.Controllers.CaseSummary, new { caseID = caseId });
                 }
                 else
                 {
@@ -349,8 +237,6 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
             ViewBag.PossibleCreatedByWorkers = workerRepository.All;
             ViewBag.PossibleLastUpdatedByWorkers = workerRepository.All;
             ViewBag.PossibleWorkers = workerRepository.All;
-            ViewBag.DisplayID = caseRepository.Find(caseworker.CaseID).DisplayID;
-            ViewBag.CaseID = caseworker.CaseID;
             return View(caseworker);
         }
 
@@ -359,63 +245,22 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
         /// </summary>
         /// <param name="id">caseworker id</param>
         /// <returns>action result</returns>
-        //[WorkerAuthorize]
-        //public ActionResult Edit(int id)
-        //{
-        //    AssignmentModel assignmentModel = new AssignmentModel();
-        //    assignmentModel.CaseWorker = caseworkerRepository.Find(id);
-        //    assignmentModel.CaseWorker.CaseWorkerNote = new CaseWorkerNote();
-        //    assignmentModel.CaseSupportCircle = new CaseSupportCircle();
-        //    assignmentModel.CaseSupportCircle.CaseID = assignmentModel.CaseWorker.CaseID;
-        //    assignmentModel.CaseWorker.CaseID = assignmentModel.CaseWorker.CaseID;
-
-        //    //find the existing caseworker from database
-        //    ViewBag.PossibleCreatedByWorkers = workerRepository.All;
-        //    ViewBag.PossibleLastUpdatedByWorkers = workerRepository.All;
-        //    ViewBag.PossibleWorkers = workerRepository.All;
-        //    //return editor view
-        //    ViewBag.DisplayID = caseRepository.Find(assignmentModel.CaseWorker.CaseID).DisplayID;
-        //    ViewBag.CaseID = assignmentModel.CaseWorker.CaseID;
-        //    return View(assignmentModel);
-        //}
-
         [WorkerAuthorize]
         public ActionResult Edit(int id)
         {
-            bool hasAccess = workerroleactionpermissionnewRepository.HasPermission(CurrentLoggedInWorkerRoleIDs, Constants.Areas.CaseManagement, Constants.Controllers.CaseWorker, Constants.Actions.Create, true);
-            if (!hasAccess)
-            {
-                WebHelper.CurrentSession.Content.ErrorMessage = "You are not eligible to do this action";
-                return RedirectToAction(Constants.Actions.AccessDenied, Constants.Controllers.Home, new { Area = String.Empty });
-            }
+            AssignmentModel assignmentModel = new AssignmentModel();
+            assignmentModel.CaseWorker = caseworkerRepository.Find(id);
+            assignmentModel.CaseWorker.CaseWorkerNote = new CaseWorkerNote();
+            assignmentModel.CaseSupportCircle = new CaseSupportCircle();
+            assignmentModel.CaseSupportCircle.CaseID = assignmentModel.CaseWorker.CaseID;
+            assignmentModel.CaseWorker.CaseID = assignmentModel.CaseWorker.CaseID;
 
-            CaseWorker caseworker = caseworkerRepository.Find(id);
-
-            ViewBag.DisplayID = caseRepository.Find(caseworker.CaseID).DisplayID;
-            ViewBag.CaseID = caseworker.CaseID;
-            Case varCase = caseRepository.Find(caseworker.CaseID);
-            caseworker.CaseMemberList = casememberRepository.FindAllByCaseIDForDropDownList(caseworker.CaseID);
-            List<CaseWorkerMemberAssignment> assignment = caseworkermemberassignmentRepository.FindAllByCaseWorkerID(caseworker.ID);
-            if (assignment != null)
-            {
-                foreach (SelectListItem caseMember in caseworker.CaseMemberList)
-                {
-                    if (assignment.Where(item => item.CaseMemberID == caseMember.Value.ToInteger(true)).Count() > 0)
-                    {
-                        caseMember.Selected = true;
-                    }
-                }
-            }
-            //List<SelectListItem> workerList = workerRepository.FindAllPossible(varCase.ProgramID, varCase.RegionID, varCase.SubProgramID);
-            List<SelectListItem> workerList = workerRepository.NewFindAllPossible(varCase.ProgramID, varCase.RegionID, varCase.SubProgramID);
-            if (workerList == null || (workerList != null && workerList.Count == 0))
-            {
-                caseworker.ErrorMessage = "There is no worker found for Program:" + varCase.Program.Name + ", Region:" + varCase.Region.Name + ", Sub-Program:" + varCase.SubProgram.Name;
-            }
-            ViewBag.PossibleWorkerList = workerList;
-            caseworker.CaseWorkerNote = new CaseWorkerNote();
-            return View(caseworker);
-
+            //find the existing caseworker from database
+            ViewBag.PossibleCreatedByWorkers = workerRepository.All;
+            ViewBag.PossibleLastUpdatedByWorkers = workerRepository.All;
+            ViewBag.PossibleWorkers = workerRepository.All;
+            //return editor view
+            return View(assignmentModel);
         }
 
         /// <summary>
@@ -425,7 +270,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
         /// <returns>action result</returns>
         [WorkerAuthorize]
         [HttpPost]
-        public ActionResult Edit(CaseWorker caseworker)
+        public ActionResult Edit(CaseWorker caseworker, int caseId)
         {
             caseworker.LastUpdatedByWorkerID = CurrentLoggedInWorker.ID;
             try
@@ -442,52 +287,21 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
                     }
                     caseworkerRepository.InsertOrUpdate(caseworker);
                     caseworkerRepository.Save();
-                    string selectedCaseMember = Request.Form["SelectedCaseMember"].ToString(true);
-                    selectedCaseMember = selectedCaseMember.Replace("false", string.Empty);
-                    string[] arraySelectedCaseMember = selectedCaseMember.ToStringArray(',', true);
-                    List<CaseWorkerMemberAssignment> assignment = caseworkermemberassignmentRepository.FindAllByCaseWorkerID(caseworker.ID);
-                    if (arraySelectedCaseMember != null && arraySelectedCaseMember.Length > 0)
+                    if (caseworker.CaseWorkerNote.ContactMethodID > 0)
                     {
-                        foreach (string caseMemberID in arraySelectedCaseMember)
-                        {
-                            if (assignment.Where(item => item.CaseMemberID == caseMemberID.ToInteger(true)).Count() == 0)
-                            {
-                                CaseWorkerMemberAssignment newCaseWorkerMemberAssignment = new CaseWorkerMemberAssignment()
-                                {
-                                    CaseMemberID = caseMemberID.ToInteger(true),
-                                    CaseWorkerID = caseworker.ID,
-                                    LastUpdateDate = DateTime.Now,
-                                    LastUpdatedByWorkerID = caseworker.LastUpdatedByWorkerID
-                                };
-                                caseworkermemberassignmentRepository.InsertOrUpdate(newCaseWorkerMemberAssignment);
-                                caseworkermemberassignmentRepository.Save();
-                            }
-                        }
+                        caseworker.CaseWorkerNote.LastUpdatedByWorkerID = CurrentLoggedInWorker.ID;
+                        caseworker.CaseWorkerNote.CaseID = caseworker.CaseID;
+                        //caseMember.CaseWorkerNote.CaseStatusID = varCase.CaseStatusID;
+                        //caseMember.CaseWorkerNote.ProgramID = varCase.ProgramID;
+                        caseworker.CaseWorkerNote.IsFamily = true;
+                        caseworker.CaseWorkerNote.IsFamilyMember = false;
+                        caseworker.CaseWorkerNote.WorkerNoteActivityTypeID = (int)WorkerNoteActivityType.CaseWorker;
+                        //varCase.CaseWorkerNote.NoteDate = Convert.ToDateTime(varCase.ContactDate);
+                        caseWorkerNoteRepository.InsertOrUpdate(caseworker.CaseWorkerNote);
+                        caseWorkerNoteRepository.Save();
                     }
-
-                    foreach (CaseWorkerMemberAssignment existingMember in assignment)
-                    {
-                        if (arraySelectedCaseMember == null || !arraySelectedCaseMember.Contains(existingMember.CaseMemberID.ToString(true)))
-                        {
-                            caseworkermemberassignmentRepository.Delete(existingMember);
-                            caseworkermemberassignmentRepository.Save();
-                        }
-                    }
-                    //if (caseworker.CaseWorkerNote.ContactMethodID > 0)
-                    //{
-                    //    caseworker.CaseWorkerNote.LastUpdatedByWorkerID = CurrentLoggedInWorker.ID;
-                    //    caseworker.CaseWorkerNote.CaseID = caseworker.CaseID;
-                    //    //caseMember.CaseWorkerNote.CaseStatusID = varCase.CaseStatusID;
-                    //    //caseMember.CaseWorkerNote.ProgramID = varCase.ProgramID;
-                    //    caseworker.CaseWorkerNote.IsFamily = true;
-                    //    caseworker.CaseWorkerNote.IsFamilyMember = false;
-                    //    caseworker.CaseWorkerNote.WorkerNoteActivityTypeID = (int)WorkerNoteActivityType.CaseWorker;
-                    //    //varCase.CaseWorkerNote.NoteDate = Convert.ToDateTime(varCase.ContactDate);
-                    //    caseWorkerNoteRepository.InsertOrUpdate(caseworker.CaseWorkerNote);
-                    //    caseWorkerNoteRepository.Save();
-                    //}
                     //return RedirectToAction(Constants.Views.Index, new { caseId = caseId });
-                    return RedirectToAction(Constants.Actions.Index, Constants.Controllers.CaseSummary, new { caseID = caseworker.CaseID });
+                    return RedirectToAction(Constants.Actions.Index, Constants.Controllers.CaseSummary, new { caseID = caseId });
                 }
                 else
                 {

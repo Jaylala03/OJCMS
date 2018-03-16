@@ -49,16 +49,7 @@ namespace eCMS.BusinessLogic.Repositories
         /// <param name="case">data to save</param>
         public void InsertOrUpdate(CaseHouseholdIncome varCase)
         {
-            var casestatus = (from Case in context.Case.Where(c => c.ID == varCase.CaseID)
-                           select new
-                           {
-                               CaseStatusID = Case.CaseStatusID,
-                               ProgramID = Case.ProgramID
-                           }).FirstOrDefault();
-
             varCase.LastUpdateDate = DateTime.Now;
-            varCase.CaseStatusID = casestatus.CaseStatusID;
-
             if (varCase.ID == default(int))
             {
                 //set the date when this record was created
@@ -82,10 +73,10 @@ namespace eCMS.BusinessLogic.Repositories
 
         public CaseHouseholdIncomeVM GetInitialIncomeForCaseSummary(int CaseId)
         {
-            StringBuilder sqlQuery = new StringBuilder(@"SELECT [C].NoOfMembers AS NoOfMembers,C.ID,[C].NoOfChild AS NoOfChild, [C].NoOfSeniors AS NoOfSeniors, [C].NoOfPhysicallyDisabled AS NoOfPhysicallyDisabled, [C].CreateDate AS CreatedDate, [C].IsLICO AS IsLICO, [IR].Name AS IncomeRanges FROM CaseHouseholdIncome[C]");
+            StringBuilder sqlQuery = new StringBuilder(@"SELECT [C].NoOfMembers AS NoOfMembers, [C].NoOfChild AS NoOfChild, [C].NoOfSeniors AS NoOfSeniors, [C].NoOfPhysicallyDisabled AS NoOfPhysicallyDisabled, [C].CreateDate AS CreatedDate, [C].IsLICO AS IsLICO, [IR].Name AS IncomeRanges FROM CaseHouseholdIncome[C]");
 
             sqlQuery.Append(" INNER JOIN IncomeRange[IR] ON[C].IncomeRangeID = [IR].ID");
-            sqlQuery.Append(" INNER JOIN [Case] AS[CS] ON[CS].ID = [C].CaseID");
+            sqlQuery.Append(" INNER JOIN[Case] AS[CS] ON[CS].ID = [C].CaseID");
             sqlQuery.Append(" WHERE [C].[IsArchived] = 0 AND [C].CaseId = " + CaseId + " AND [C].IsInitialIncome = 1 ");
 
             CaseHouseholdIncomeVM casesummary = context.Database.SqlQuery<CaseHouseholdIncomeVM>(sqlQuery.ToString()).AsEnumerable().FirstOrDefault();
@@ -94,10 +85,10 @@ namespace eCMS.BusinessLogic.Repositories
         }
         public CaseHouseholdIncomeVM GetCurrentIncomeForCaseSummary(int CaseId)
         {
-            StringBuilder sqlQuery = new StringBuilder(@"SELECT TOP 1 [C].NoOfMembers AS NoOfMembers,C.ID, [C].NoOfChild AS NoOfChild, [C].NoOfSeniors AS NoOfSeniors, [C].NoOfPhysicallyDisabled AS NoOfPhysicallyDisabled, [C].CreateDate AS CreatedDate, [C].IsLICO AS IsLICO, [IR].Name AS IncomeRanges FROM CaseHouseholdIncome[C]");
+            StringBuilder sqlQuery = new StringBuilder(@"SELECT TOP 1 [C].NoOfMembers AS NoOfMembers, [C].NoOfChild AS NoOfChild, [C].NoOfSeniors AS NoOfSeniors, [C].NoOfPhysicallyDisabled AS NoOfPhysicallyDisabled, [C].CreateDate AS CreatedDate, [C].IsLICO AS IsLICO, [IR].Name AS IncomeRanges FROM CaseHouseholdIncome[C]");
 
             sqlQuery.Append(" INNER JOIN IncomeRange[IR] ON[C].IncomeRangeID = [IR].ID");
-            sqlQuery.Append(" INNER JOIN [Case] AS[CS] ON[CS].ID = [C].CaseID");
+            sqlQuery.Append(" INNER JOIN[Case] AS[CS] ON[CS].ID = [C].CaseID");
             sqlQuery.Append(" WHERE [C].[IsArchived] = 0 AND [C].CaseId = " + CaseId + " AND [C].IsInitialIncome = 0 ");
             sqlQuery.Append("ORDER BY [C].CreateDate DESC");
 

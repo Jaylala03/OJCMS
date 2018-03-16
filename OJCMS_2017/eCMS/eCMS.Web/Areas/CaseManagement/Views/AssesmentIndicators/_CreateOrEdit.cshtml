@@ -1,0 +1,81 @@
+@model eCMS.DataLogic.Models.AssesmentIndicators
+@using eCMS.BusinessLogic.Helpers
+@using eCMS.DataLogic.Models
+@using eCMS.Shared
+
+@Html.HiddenFor(model => model.ID)
+
+
+<div id="row hr-line">
+    <div class="row">        
+        <div class="col-md-12">
+            <label class="col-sm-2 control-label labe-text">@Html.LabelFor(model => model.IndicatorTYpeID)</label>
+            <div class="col-sm-8">
+                @(Html.Kendo().DropDownListFor(model => model.IndicatorTYpeID)
+                            .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                        .DataTextField("Name")
+                        .DataValueField("ID")
+                        .DataSource(source =>
+                        {
+                            source.Read(read =>
+                            {
+                                read.Action("LoadIndicatorTypeListAjax", "AssesmentIndicators");
+                            });
+                        })
+                        )
+            </div>
+        </div>
+        <div class="col-md-12">
+            <label class="col-sm-2 control-label labe-text">@Html.LabelFor(model => model.Description1)</label>
+            <div class="col-sm-8">
+                @Html.TextBoxFor(model => model.Description1, new { @class = "form-control popup-text-box" })
+            </div>
+        </div>
+        <div class="col-md-12">
+            <label class="col-sm-2 control-label labe-text">@Html.LabelFor(model => model.Description2)</label>
+            <div class="col-sm-8">
+                @Html.TextBoxFor(model => model.Description2, new { @class = "form-control popup-text-box" })
+            </div>
+        </div>
+        <div class="col-md-12">
+            <label class="col-sm-2 control-label labe-text">@Html.LabelFor(model => model.Description3)</label>
+            <div class="col-sm-8">
+                @Html.TextBoxFor(model => model.Description3, new { @class = "form-control popup-text-box" })
+            </div>
+        </div>
+        <div class="col-md-12">
+            <label class="col-sm-2 control-label labe-text">@Html.LabelFor(model => model.Description4)</label>
+            <div class="col-sm-8">
+                @Html.TextBoxFor(model => model.Description4, new { @class = "form-control popup-text-box" })
+            </div>
+        </div>
+        <div class="col-md-12">
+            <label class="col-sm-2 control-label labe-text">@Html.LabelFor(model => model.Description5)</label>
+            <div class="col-sm-8">
+                @Html.TextBoxFor(model => model.Description5, new { @class = "form-control popup-text-box" })
+            </div>
+        </div>
+        <div class="col-md-12">
+            <label class="col-sm-2 control-label labe-text">@Html.LabelFor(model => model.Description6)</label>
+            <div class="col-sm-8">
+                @Html.TextBoxFor(model => model.Description6, new { @class = "form-control popup-text-box" })
+            </div>
+        </div>
+        <div class="col-md-12">
+            <label class="col-sm-2 control-label labe-text">@Html.LabelFor(model => model.Description7)</label>
+            <div class="col-sm-8">
+                @Html.TextBoxFor(model => model.Description7, new { @class = "form-control popup-text-box" })
+            </div>
+        </div>
+       
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            &nbsp;
+        </div>
+        <div class="col-md-8 margin-top-10">
+            <button type="button" id="btnSaveAndRefresh" name="btnSaveAndRefreshAssesmentIndicators" class="col-sm-2 createsource00">Save</button>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
