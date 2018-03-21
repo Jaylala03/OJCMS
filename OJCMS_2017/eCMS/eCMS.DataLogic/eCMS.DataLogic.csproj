@@ -200,10 +200,12 @@
     <Compile Include="SeedData\LookupSeed.cs" />
     <Compile Include="SeedData\WorkerSeed.cs" />
     <Compile Include="ViewModels\CaseHouseholdIncomeVM.cs" />
+    <Compile Include="ViewModels\CaseInitialAssessmentVM.cs" />
     <Compile Include="ViewModels\CaseListViewModel.cs" />
     <Compile Include="ViewModels\CaseSSSWorkerNoteVM.cs" />
     <Compile Include="ViewModels\CaseSummaryVM.cs" />
     <Compile Include="ViewModels\InitialAssessmentVM.cs" />
+    <Compile Include="ViewModels\InitialAssessmentIndicatorsVM.cs" />
     <Compile Include="ViewModels\CaseWorkerNoteVM.cs" />
     <Compile Include="ViewModels\ChangePasswordModel.cs" />
     <Compile Include="ViewModels\AssignmentModel.cs" />

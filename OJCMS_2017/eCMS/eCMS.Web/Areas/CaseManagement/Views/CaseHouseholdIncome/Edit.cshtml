@@ -17,10 +17,14 @@
 {
     @*@Html.HiddenFor(m => m.CaseCurrentHouseholdIncomeVM.ID)*@
     @Html.HiddenFor(model => model.CaseID)
-
+    @Html.HiddenFor(model => model.ID)
     <div class="container bulk-import">
-        <div class="row margin-top-40">            
+        <div class="row margin-top-40 margin-left-50">
+            <div class="row margin-left-50">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            </div>
             <div class="row">
+
                 <div class="col-md-12">
                     <div class="form-group02">
                         <label class="col-sm-4 control-label labe-text" style="font-weight:bold;">Household Income: (Optional)</label>
@@ -65,25 +69,29 @@
                         <label class="col-sm-4 control-label labe-text">Household gross income range (annual):</label>
                     </div>
                     @foreach (var a in Model.IncomeRanges)
-                {
-                        <div class="form-group02">
-                            <label class="col-sm-4 control-label labe-text"></label>
-                            <div class="col-sm-6">
-                                @Html.RadioButtonFor(b => b.IncomeRangeID, a.ID)  @a.Name
-                            </div>
+                    {
+                    <div class="form-group02">
+                        <label class="col-sm-4 control-label labe-text"></label>
+                        <div class="col-sm-6">
+                            @Html.RadioButtonFor(b => b.IncomeRangeID, a.ID)  @a.Name
                         </div>
+                    </div>
                     }
                 </div>
             </div>
-            @{
-                string name = Html.NameFor(model => model.CaseWorkerNote).ToString();
-                string prefix = Html.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name);
-                ViewDataDictionary viewData = new ViewDataDictionary(Html.ViewData)
-                {
-                    TemplateInfo = new TemplateInfo { HtmlFieldPrefix = prefix }
-                };
-            }
-            @Html.Partial("WorkNote", Model.CaseWorkerNote, viewData)
+            <div class="row">
+                <div class="col-md-6">
+                    @{
+                    string name = Html.NameFor(model => model.CaseWorkerNote).ToString();
+                    string prefix = Html.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name);
+                    ViewDataDictionary viewData = new ViewDataDictionary(Html.ViewData)
+                    {
+                        TemplateInfo = new TemplateInfo { HtmlFieldPrefix = prefix }
+                    };
+                    }
+                    @Html.Partial("WorkNote", Model.CaseWorkerNote, viewData)
+                </div>
+            </div>
             <div id="add_candidate3">
                 <button type="submit" class="btn btn-primary btnSaveAndRefresh" data-formid="frmEditorWorker" name="btnSave"><i class="fa fa-save"></i> Save </button>
                 <a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.Case)" class="btn btn-primary"><i class="fa fa-long-arrow-left"></i> Back Case Summary</a>
@@ -92,4 +100,4 @@
         </div>
 
     </div>
-                }
+}

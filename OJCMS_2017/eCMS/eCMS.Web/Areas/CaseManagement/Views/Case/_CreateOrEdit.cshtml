@@ -14,8 +14,9 @@
 @Html.HiddenFor(model => model.CreatedByWorkerID)
 <div class="row">
     <div class="col-md-6">
-
-        @Html.ValidationSummary(true)
+        <div class="row margin-left-50 margin-bottom-10">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        </div>
 
         <div class="form-group02">
             <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.ProgramID)</label>
@@ -91,23 +92,41 @@
         <div class="form-group02">
             <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.JamatkhanaID)</label>
             <div class="col-sm-8" id="divJamatkhana">
-                @(Html.Kendo().DropDownListFor(model => model.JamatkhanaID)
-                    .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
-                    .DataTextField("Text")
-                    .DataValueField("Value")
-                    .DataSource(source =>
-                    {
-                        source.Read(read =>
+                @*@(Html.Kendo().DropDownListFor(model => model.JamatkhanaID)
+                        .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                        .DataTextField("Text")
+                        .DataValueField("Value")
+                        .DataSource(source =>
                         {
-                            read.Action("LoadJamatkhanasAjax", "Case")
-                                .Data("RegionDropDownList_OnSelect"); ;
+                            source.Read(read =>
+                            {
+                                read.Action("LoadJamatkhanasAjax", "Case")
+                                    .Data("RegionDropDownList_OnSelect"); ;
+                            })
+                            .ServerFiltering(true);
                         })
-                        .ServerFiltering(true);
-                    })
-                    .Enable(false)
-                    .AutoBind(false)
-                    .CascadeFrom("RegionID")
+                        .Enable(false)
+                        .AutoBind(false)
+                        .CascadeFrom("RegionID")
+                    )*@
+                @(Html.Kendo().AutoCompleteFor(model => model.JamatkhanaName)
+                                  .Name("JamatkhanaName")
+                  .DataTextField("Text")
+                  .Filter("contains")
+                  .MinLength(1)
+                  .HtmlAttributes(new { style = "width:100%" })
+                  .DataSource(source =>
+                  {
+                      source.Read(read =>
+                      {
+                          read.Action("LoadJamatkhanasAutoCompleteAjax", "Case")
+                              .Data("JKAutocomplete");
+                      })
+                      .ServerFiltering(true);
+                  })
+
                 )
+
             </div>
             <div class="col-sm-8">
                 @Html.ValidationMessageFor(model => model.JamatkhanaID, "", new { @class = "text-danger" })
@@ -118,15 +137,15 @@
             <label class="col-sm-4 control-label labe-text">@Html.LabelFor(model => model.CaseNumber)</label>
             @if (Model.IsReadmit)
             {
-                <div class="col-sm-8">
-                    @Html.TextBoxFor(model => model.CaseNumber, new { @class = "form-control", disabled = "disabled" })
-                </div>
+            <div class="col-sm-8">
+                @Html.TextBoxFor(model => model.CaseNumber, new { @class = "form-control", disabled = "disabled" })
+            </div>
             }
             else
             {
-                <div class="col-sm-8">
-                    @Html.EditorFor(model => model.CaseNumber)
-                </div>
+            <div class="col-sm-8">
+                @Html.EditorFor(model => model.CaseNumber)
+            </div>
             }
         </div>
         <div class="form-group02" title="Date the Confidentiality and Consent to Participate form signed">
@@ -144,8 +163,8 @@
             <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.IntakeMethodID)</label>
             @if (Model.IntakeMethodOther.IsNotNullOrEmpty())
             {
-                <div class="col-sm-4" id="divIntakeMethod">
-                    @(Html.Kendo().DropDownListFor(model => model.IntakeMethodID)
+            <div class="col-sm-4" id="divIntakeMethod">
+                @(Html.Kendo().DropDownListFor(model => model.IntakeMethodID)
                                     .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
                                     .Events(e => e.Change("DropDownListOther_OnChange"))
                                 .DataTextField("Text")
@@ -157,19 +176,19 @@
                                         read.Action("LoadIntakeMethodsAjax", "Case");
                                     });
                                 })
-                    )
-                </div>
-                @*<div class="col-sm-4" id="divIntakeMethodOther">
-                        @Html.EditorFor(model => model.IntakeMethodOther)
-                    </div>*@
-                <div class="col-sm-8">
-                    @Html.ValidationMessageFor(model => model.IntakeMethodID, "", new { @class = "text-danger" })
-                </div>
+                )
+            </div>
+            @*<div class="col-sm-4" id="divIntakeMethodOther">
+                    @Html.EditorFor(model => model.IntakeMethodOther)
+                </div>*@
+            <div class="col-sm-8">
+                @Html.ValidationMessageFor(model => model.IntakeMethodID, "", new { @class = "text-danger" })
+            </div>
             }
             else
             {
-                <div class="col-sm-8" id="divIntakeMethod">
-                    @(Html.Kendo().DropDownListFor(model => model.IntakeMethodID)
+            <div class="col-sm-8" id="divIntakeMethod">
+                @(Html.Kendo().DropDownListFor(model => model.IntakeMethodID)
                                     .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
                                     .Events(e => e.Change("DropDownListOther_OnChange"))
                                 .DataTextField("Text")
@@ -181,15 +200,14 @@
                                         read.Action("LoadIntakeMethodsAjax", "Case");
                                     });
                                 })
-                    )
-                </div>
-                <div class="col-sm-8">
-                    @Html.ValidationMessageFor(model => model.IntakeMethodID, "", new { @class = "text-danger" })
-                </div>
+                )
+            </div>
+            <div class="col-sm-8">
+                @Html.ValidationMessageFor(model => model.IntakeMethodID, "", new { @class = "text-danger" })
+            </div>
             }
         </div>
-    </div>
-    <div class="col-md-6">
+
         <div class="form-group02">
             <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.ReferralSourceID)</label>
             @if (Model.ReferralSourceOther.IsNotNullOrEmpty())
@@ -286,9 +304,48 @@
                 @Html.EditorFor(model => model.PostalCode)
             </div>
         </div>
-
         <div class="form-group02">
-            <label class="col-md-9 control-label labe-text">Presenting problem (Reason of seeking support)*</label>
+            <label class="col-md-9 control-label labe-text">Reason of seeking support:*</label>
+        </div>
+        <div class="form-group02">
+            <label class="col-md-3 control-label labe-text">Area of need:</label>
+        </div>
+        <div class="form-group02">
+            <div class="col-sm-3 control-label labe-text">
+                @Html.CheckBoxFor(m => m.Education)
+                @Html.LabelFor(model => model.Education)
+            </div>
+            <div class="col-sm-5 control-label labe-text">
+                @Html.CheckBoxFor(m => m.IncomeLivelihood)
+                @Html.LabelFor(model => model.IncomeLivelihood)
+            </div>
+            <div class="col-sm-4 control-label labe-text">
+                @Html.CheckBoxFor(m => m.Assets)
+                @Html.LabelFor(model => model.Assets)
+            </div>
+        </div>
+        <div class="form-group02">
+            <div class="col-sm-3 control-label labe-text">
+                @Html.CheckBoxFor(m => m.Housing)
+                @Html.LabelFor(model => model.Housing)
+            </div>
+            <div class="col-sm-4 control-label labe-text">
+                @Html.CheckBoxFor(m => m.SocialSupport)
+                @Html.LabelFor(model => model.SocialSupport)
+            </div>
+            <div class="col-sm-5 control-label labe-text">
+                @Html.CheckBoxFor(m => m.Dignity)
+                @Html.LabelFor(model => model.Dignity)
+            </div>
+        </div>
+        <div class="form-group02">
+            <div class="col-sm-3 control-label labe-text">
+                @Html.CheckBoxFor(m => m.Health)
+                @Html.LabelFor(model => model.Health)
+            </div>
+        </div>
+        <div class="form-group02">
+            <label class="col-md-9 control-label labe-text">Reason of seeking support:*</label>
             <div class="col-sm-12">
                 @Html.TextAreaFor(model => model.PresentingProblem, new { @class = "form-control", style = "width:97%; height: 50px;", rows = "3" })
             </div>
@@ -298,6 +355,92 @@
             </div>
         </div>
 
+    </div>
+    <div class="col-md-6">
+        @if (Model.CaseHouseholdIncome != null)
+        {
+
+            <div class="form-group02">
+                <label class="col-sm-8 control-label labe-text" style="font-weight:bold;">Household Income: (Optional)</label>
+            </div>
+            <div class="form-group02">
+                <label class="col-sm-8 control-label labe-text">@Html.LabelRequiredFor(model => model.CaseHouseholdIncome.NoOfMembers)</label>
+                <div class="col-sm-4">
+                    @(Html.Kendo().NumericTextBoxFor<int>(model => model.CaseHouseholdIncome.NoOfMembers)
+                                .Placeholder("Enter numeric value")
+                                .Min(1)
+                                .Max(100)
+                                 .HtmlAttributes(new { title = "numeric" })
+                    )
+                </div>
+            </div>
+            <div class="form-group02">
+                <label class="col-sm-8 control-label labe-text">@Html.LabelRequiredFor(model => model.CaseHouseholdIncome.NoOfChild)</label>
+                <div class="col-sm-4">
+                    @(Html.Kendo().NumericTextBoxFor<int>(model => model.CaseHouseholdIncome.NoOfChild)
+                                .Placeholder("Enter numeric value")
+                             .Min(1)
+                            .Max(100)
+                                 .HtmlAttributes(new { title = "numeric" })
+                    )
+                </div>
+            </div>
+            <div class="form-group02">
+                <label class="col-sm-8 control-label labe-text">@Html.LabelRequiredFor(model => model.CaseHouseholdIncome.NoOfSeniors)</label>
+                <div class="col-sm-4">
+                    @(Html.Kendo().NumericTextBoxFor<int>(model => model.CaseHouseholdIncome.NoOfSeniors)
+                                .Placeholder("Enter numeric value")
+                             .Min(1)
+                            .Max(100)
+                                 .HtmlAttributes(new { title = "numeric" })
+                    )
+                </div>
+            </div>
+            <div class="form-group02">
+                <label class="col-sm-8 control-label labe-text">@Html.LabelRequiredFor(model => model.CaseHouseholdIncome.NoOfPhysicallyDisabled)</label>
+                <div class="col-sm-4">
+                    @(Html.Kendo().NumericTextBoxFor<int>(model => model.CaseHouseholdIncome.NoOfPhysicallyDisabled)
+                                .Placeholder("Enter numeric value")
+                             .Min(1)
+                            .Max(100)
+                                 .HtmlAttributes(new { title = "numeric" })
+                    )
+                </div>
+            </div>
+            <div class="form-group02">
+                <label class="col-sm-8 control-label labe-text">Household gross income range (annual):</label>
+            </div>
+            <div style="margin-top:-40px;">
+                @foreach (var a in Model.CaseHouseholdIncome.IncomeRanges)
+                {
+                <div class="form-group02">
+                    <label class="col-sm-7 control-label labe-text"></label>
+                    @if (Model.CaseHouseholdIncome.IncomeRangeID > 0)
+                    {
+                        <div class="col-sm-5">
+                            @Html.RadioButtonFor(b => b.CaseHouseholdIncome.IncomeRangeID, a.ID)  @a.Name
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-sm-5">
+                            @Html.RadioButtonFor(b => b.CaseHouseholdIncome.IncomeRangeID, a.ID)  @a.Name
+                        </div>
+                    }
+                </div>
+                }
+            </div>
+        }
+        @{
+            string name = Html.NameFor(m => m.CaseWorkerNote).ToString();
+            string prefix = Html.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name);
+            ViewDataDictionary viewData = new ViewDataDictionary(Html.ViewData)
+            {
+                TemplateInfo = new TemplateInfo { HtmlFieldPrefix = prefix }
+            };
+        }
+
+        @Html.Partial("WorkNote", Model.CaseWorkerNote, viewData)
         @*<div class="form-group02">
                 <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.CaseStatusID)</label>
                 <div class="col-sm-8">
@@ -321,143 +464,8 @@
 
     </div>
 </div>
-@if (Model.CaseHouseholdIncome != null)
-{
-    <div class="row">
-        <div class="col-md-12">
-            <div class="form-group02">
-                <label class="col-sm-4 control-label labe-text" style="font-weight:bold;">Household Income: (Optional)</label>
-            </div>
-            <div class="form-group02">
-                <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.CaseHouseholdIncome.NoOfMembers)</label>
-                <div class="col-sm-2">
-                    @(Html.Kendo().NumericTextBoxFor<int>(model => model.CaseHouseholdIncome.NoOfMembers)
-                                .Placeholder("Enter numeric value")
-                                 .HtmlAttributes(new { title = "numeric" })
-                    )
-                </div>
-            </div>
-            <div class="form-group02">
-                <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.CaseHouseholdIncome.NoOfChild)</label>
-                <div class="col-sm-2">
-                    @(Html.Kendo().NumericTextBoxFor<int>(model => model.CaseHouseholdIncome.NoOfChild)
-                                .Placeholder("Enter numeric value")
-                                 .HtmlAttributes(new { title = "numeric" })
-                    )
-                </div>
-            </div>
-            <div class="form-group02">
-                <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.CaseHouseholdIncome.NoOfSeniors)</label>
-                <div class="col-sm-2">
-                    @(Html.Kendo().NumericTextBoxFor<int>(model => model.CaseHouseholdIncome.NoOfSeniors)
-                                .Placeholder("Enter numeric value")
-                                 .HtmlAttributes(new { title = "numeric" })
-                    )
-                </div>
-            </div>
-            <div class="form-group02">
-                <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.CaseHouseholdIncome.NoOfPhysicallyDisabled)</label>
-                <div class="col-sm-2">
-                    @(Html.Kendo().NumericTextBoxFor<int>(model => model.CaseHouseholdIncome.NoOfPhysicallyDisabled)
-                                .Placeholder("Enter numeric value")
-                                 .HtmlAttributes(new { title = "numeric" })
-                    )
-                </div>
-            </div>
-            <div class="form-group02">
-                <label class="col-sm-4 control-label labe-text">Household gross income range (annual):</label>
-            </div>
-            @foreach (var a in Model.CaseHouseholdIncome.IncomeRanges)
-            {
-                <div class="form-group02">
-                    <label class="col-sm-4 control-label labe-text"></label>
-                    <div class="col-sm-6">
-                        @Html.RadioButtonFor(b => b.CaseHouseholdIncome.IncomeRangeID, a.ID)  @a.Name
-                    </div>
-                </div>
-            }
-        </div>
-    </div>
-}
-@{
-    string name = Html.NameFor(m => m.CaseWorkerNote).ToString();
-    string prefix = Html.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name);
-    ViewDataDictionary viewData = new ViewDataDictionary(Html.ViewData)
-    {
-        TemplateInfo = new TemplateInfo { HtmlFieldPrefix = prefix }
-    };
-}
 
-@Html.Partial("WorkNote", Model.CaseWorkerNote, viewData)
-@*@Html.Partial("WorkNote", Model.CaseWorkerNote)*@
-@*<div class="row">
-    <div class="col-md-12">
-        <div class="form-group02">
-            <label class="col-sm-4 control-label labe-text" style="font-weight:bold;">Work Notes: (Optional)</label>
-        </div>
-        <div class="form-group02">
-            <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.CaseWorkerNote.Note)</label>
-            <div class="col-sm-4">
-                @Html.TextAreaFor(model => model.CaseWorkerNote.Note, new { @class = "form-control", rows = 4, cols = 100 })
-            </div>
-        </div>
-        <div class="form-group02">
-            <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.CaseWorkerNote.ContactMethodID)</label>
-            <div class="col-sm-4">
-                @(Html.Kendo().DropDownListFor(model => model.CaseWorkerNote.ContactMethodID)
-                            .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
-                            .DataTextField("Text")
-                            .DataValueField("Value")
-                            .DataSource(source =>
-                            {
-                                source.Read(read =>
-                                {
-                                    read.Action("LoadContactMethodAjax", "CaseProgressNote");
-                                });
-                            })
-                )
-            </div>
-        </div>
-        <div class="form-group02">
-            <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.ContactDate)</label>
-            <div class="col-sm-4">
-                @Html.EditorFor(model => model.ContactDate)
-            </div>
-        </div>
-        <div class="form-group02">
-            <label class="col-sm-4 control-label labe-text">Time Spent</label>
-            <div class="col-sm-1" style="width:10%;">
-                <span>Hours</span>
-                @(Html.Kendo().NumericTextBoxFor<int>(m => m.CaseWorkerNote.TimeSpentHours)
-                                            .Min(0)
-                                            .Max(59)
-                                            .HtmlAttributes(new { title = "Hours" })
-                )
-                @Html.ValidationMessageFor(m => m.CaseWorkerNote.TimeSpentHours, "", new { @class = "text-danger" })
-            </div>
-            <div class="col-sm-1" style="width:10%;">
-                <span>Minutes</span>
-                @(Html.Kendo().NumericTextBoxFor<int>(m => m.CaseWorkerNote.TimeSpentMinutes)
-                                            .Min(0)
-                                            .Max(59)
-                                            .HtmlAttributes(new { title = "Minutes" })
-                )
-                @Html.ValidationMessageFor(m => m.CaseWorkerNote.TimeSpentMinutes, "", new { @class = "text-danger" })
-            </div>
-        </div>
-    </div>
-</div>*@
 
-@*<div class="row">
-        <div class="col-md-12">
-            <div class="form-group02">
-                <label class="col-sm-2 control-label labe-text">@Html.LabelFor(model => model.Comments)</label>
-                <div class="col-sm-10">
-                    @Html.TextAreaFor(model => model.Comments, new { @class = "form-control ckeditor", style = "width:95%; height: 50px;", rows = "3" })
-                </div>
-            </div>
-        </div>
-    </div>*@
 <div id="add_candidate3">
     @if (Model.IsReadmit)
     {

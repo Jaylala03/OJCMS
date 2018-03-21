@@ -37,22 +37,6 @@ D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\
 D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.BusinessLogic\obj\Debug\eCMS.BusinessLogic.csproj.GenerateResource.Cache
 D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.BusinessLogic\obj\Debug\eCMS.BusinessLogic.dll
 D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.BusinessLogic\obj\Debug\eCMS.BusinessLogic.pdb
-D:\OJCMS\OJCMS_2017\eCMS\eCMS.BusinessLogic\bin\Debug\eCMS.BusinessLogic.dll.config
-D:\OJCMS\OJCMS_2017\eCMS\eCMS.BusinessLogic\bin\Debug\eCMS.BusinessLogic.dll
-D:\OJCMS\OJCMS_2017\eCMS\eCMS.BusinessLogic\bin\Debug\eCMS.BusinessLogic.pdb
-D:\OJCMS\OJCMS_2017\eCMS\eCMS.BusinessLogic\bin\Debug\eCMS.DataLogic.dll
-D:\OJCMS\OJCMS_2017\eCMS\eCMS.BusinessLogic\bin\Debug\eCMS.ExceptionLoging.dll
-D:\OJCMS\OJCMS_2017\eCMS\eCMS.BusinessLogic\bin\Debug\eCMS.Shared.dll
-D:\OJCMS\OJCMS_2017\eCMS\eCMS.BusinessLogic\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.dll
-D:\OJCMS\OJCMS_2017\eCMS\eCMS.BusinessLogic\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.dll
-D:\OJCMS\OJCMS_2017\eCMS\eCMS.BusinessLogic\bin\Debug\eCMS.DataLogic.pdb
-D:\OJCMS\OJCMS_2017\eCMS\eCMS.BusinessLogic\bin\Debug\eCMS.ExceptionLoging.pdb
-D:\OJCMS\OJCMS_2017\eCMS\eCMS.BusinessLogic\bin\Debug\eCMS.Shared.pdb
-D:\OJCMS\OJCMS_2017\eCMS\eCMS.BusinessLogic\obj\Debug\eCMS.BusinessLogic.csprojResolveAssemblyReference.cache
-D:\OJCMS\OJCMS_2017\eCMS\eCMS.BusinessLogic\obj\Debug\eCMS.BusinessLogic.Migrations.db_update.resources
-D:\OJCMS\OJCMS_2017\eCMS\eCMS.BusinessLogic\obj\Debug\eCMS.BusinessLogic.csproj.GenerateResource.Cache
-D:\OJCMS\OJCMS_2017\eCMS\eCMS.BusinessLogic\obj\Debug\eCMS.BusinessLogic.dll
-D:\OJCMS\OJCMS_2017\eCMS\eCMS.BusinessLogic\obj\Debug\eCMS.BusinessLogic.pdb
 G:\Jay Bhai\OJCMSMaster-0226\OJCMS_2017\eCMS\eCMS.BusinessLogic\obj\Debug\eCMS.BusinessLogic.csprojResolveAssemblyReference.cache
 G:\Jay Bhai\OJCMSMaster-0226\OJCMS_2017\eCMS\eCMS.BusinessLogic\obj\Debug\eCMS.BusinessLogic.Migrations.db_update.resources
 G:\Jay Bhai\OJCMSMaster-0226\OJCMS_2017\eCMS\eCMS.BusinessLogic\obj\Debug\eCMS.BusinessLogic.csproj.GenerateResource.Cache
@@ -69,3 +53,19 @@ G:\Jay Bhai\OJCMSMaster-0226\OJCMS_2017\eCMS\eCMS.BusinessLogic\bin\Debug\eCMS.E
 G:\Jay Bhai\OJCMSMaster-0226\OJCMS_2017\eCMS\eCMS.BusinessLogic\bin\Debug\eCMS.Shared.pdb
 G:\Jay Bhai\OJCMSMaster-0226\OJCMS_2017\eCMS\eCMS.BusinessLogic\obj\Debug\eCMS.BusinessLogic.dll
 G:\Jay Bhai\OJCMSMaster-0226\OJCMS_2017\eCMS\eCMS.BusinessLogic\obj\Debug\eCMS.BusinessLogic.pdb
+D:\OJCMS\OJCMS_2017\eCMS\eCMS.BusinessLogic\obj\Debug\eCMS.BusinessLogic.csprojResolveAssemblyReference.cache
+D:\OJCMS\OJCMS_2017\eCMS\eCMS.BusinessLogic\obj\Debug\eCMS.BusinessLogic.Migrations.db_update.resources
+D:\OJCMS\OJCMS_2017\eCMS\eCMS.BusinessLogic\obj\Debug\eCMS.BusinessLogic.csproj.GenerateResource.Cache
+D:\OJCMS\OJCMS_2017\eCMS\eCMS.BusinessLogic\bin\Debug\eCMS.BusinessLogic.dll.config
+D:\OJCMS\OJCMS_2017\eCMS\eCMS.BusinessLogic\bin\Debug\eCMS.BusinessLogic.dll
+D:\OJCMS\OJCMS_2017\eCMS\eCMS.BusinessLogic\bin\Debug\eCMS.BusinessLogic.pdb
+D:\OJCMS\OJCMS_2017\eCMS\eCMS.BusinessLogic\bin\Debug\eCMS.DataLogic.dll
+D:\OJCMS\OJCMS_2017\eCMS\eCMS.BusinessLogic\bin\Debug\eCMS.ExceptionLoging.dll
+D:\OJCMS\OJCMS_2017\eCMS\eCMS.BusinessLogic\bin\Debug\eCMS.Shared.dll
+D:\OJCMS\OJCMS_2017\eCMS\eCMS.BusinessLogic\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Logging.dll
+D:\OJCMS\OJCMS_2017\eCMS\eCMS.BusinessLogic\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.dll
+D:\OJCMS\OJCMS_2017\eCMS\eCMS.BusinessLogic\bin\Debug\eCMS.DataLogic.pdb
+D:\OJCMS\OJCMS_2017\eCMS\eCMS.BusinessLogic\bin\Debug\eCMS.ExceptionLoging.pdb
+D:\OJCMS\OJCMS_2017\eCMS\eCMS.BusinessLogic\bin\Debug\eCMS.Shared.pdb
+D:\OJCMS\OJCMS_2017\eCMS\eCMS.BusinessLogic\obj\Debug\eCMS.BusinessLogic.dll
+D:\OJCMS\OJCMS_2017\eCMS\eCMS.BusinessLogic\obj\Debug\eCMS.BusinessLogic.pdb

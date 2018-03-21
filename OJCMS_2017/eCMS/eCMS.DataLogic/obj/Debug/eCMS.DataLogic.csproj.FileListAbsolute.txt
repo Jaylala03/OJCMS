@@ -18,14 +18,6 @@ D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\
 D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.DataLogic\obj\Debug\eCMS.DataLogic.csprojResolveAssemblyReference.cache
 D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.DataLogic\obj\Debug\eCMS.DataLogic.dll
 D:\OJCMS_MAJOR_VERSION\OJCMS_MAJOR_VERSION\March 1st 2017\OJCMS_2017\OJCMS_2017\eCMS\eCMS.DataLogic\obj\Debug\eCMS.DataLogic.pdb
-D:\OJCMS\OJCMS_2017\eCMS\eCMS.DataLogic\bin\Debug\eCMS.DataLogic.dll.config
-D:\OJCMS\OJCMS_2017\eCMS\eCMS.DataLogic\bin\Debug\eCMS.DataLogic.dll
-D:\OJCMS\OJCMS_2017\eCMS\eCMS.DataLogic\bin\Debug\eCMS.DataLogic.pdb
-D:\OJCMS\OJCMS_2017\eCMS\eCMS.DataLogic\bin\Debug\eCMS.Shared.dll
-D:\OJCMS\OJCMS_2017\eCMS\eCMS.DataLogic\bin\Debug\eCMS.Shared.pdb
-D:\OJCMS\OJCMS_2017\eCMS\eCMS.DataLogic\obj\Debug\eCMS.DataLogic.csprojResolveAssemblyReference.cache
-D:\OJCMS\OJCMS_2017\eCMS\eCMS.DataLogic\obj\Debug\eCMS.DataLogic.dll
-D:\OJCMS\OJCMS_2017\eCMS\eCMS.DataLogic\obj\Debug\eCMS.DataLogic.pdb
 G:\Jay Bhai\OJCMSMaster-0226\OJCMS_2017\eCMS\eCMS.DataLogic\obj\Debug\eCMS.DataLogic.csprojResolveAssemblyReference.cache
 G:\Jay Bhai\OJCMSMaster-0226\OJCMS_2017\eCMS\eCMS.DataLogic\bin\Debug\eCMS.DataLogic.dll.config
 G:\Jay Bhai\OJCMSMaster-0226\OJCMS_2017\eCMS\eCMS.DataLogic\bin\Debug\eCMS.DataLogic.dll
@@ -34,3 +26,11 @@ G:\Jay Bhai\OJCMSMaster-0226\OJCMS_2017\eCMS\eCMS.DataLogic\bin\Debug\eCMS.Share
 G:\Jay Bhai\OJCMSMaster-0226\OJCMS_2017\eCMS\eCMS.DataLogic\bin\Debug\eCMS.Shared.pdb
 G:\Jay Bhai\OJCMSMaster-0226\OJCMS_2017\eCMS\eCMS.DataLogic\obj\Debug\eCMS.DataLogic.dll
 G:\Jay Bhai\OJCMSMaster-0226\OJCMS_2017\eCMS\eCMS.DataLogic\obj\Debug\eCMS.DataLogic.pdb
+D:\OJCMS\OJCMS_2017\eCMS\eCMS.DataLogic\bin\Debug\eCMS.DataLogic.dll.config
+D:\OJCMS\OJCMS_2017\eCMS\eCMS.DataLogic\bin\Debug\eCMS.DataLogic.dll
+D:\OJCMS\OJCMS_2017\eCMS\eCMS.DataLogic\bin\Debug\eCMS.DataLogic.pdb
+D:\OJCMS\OJCMS_2017\eCMS\eCMS.DataLogic\bin\Debug\eCMS.Shared.dll
+D:\OJCMS\OJCMS_2017\eCMS\eCMS.DataLogic\bin\Debug\eCMS.Shared.pdb
+D:\OJCMS\OJCMS_2017\eCMS\eCMS.DataLogic\obj\Debug\eCMS.DataLogic.csprojResolveAssemblyReference.cache
+D:\OJCMS\OJCMS_2017\eCMS\eCMS.DataLogic\obj\Debug\eCMS.DataLogic.dll
+D:\OJCMS\OJCMS_2017\eCMS\eCMS.DataLogic\obj\Debug\eCMS.DataLogic.pdb

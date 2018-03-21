@@ -9,33 +9,46 @@
 @Html.HiddenFor(model => model.CreatedByWorkerID)
 @Html.HiddenFor(model => model.CaseStatusID)
 @Html.HiddenFor(model => model.WorkerNoteActivityTypeID)
+@Html.HiddenFor(model => model.CaseID)
+@Html.HiddenFor(model => model.ProgramID)
 
 <div id="row hr-line">
     <div class="row">
+        <div class="row margin-left-50">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        </div>
         <div class="col-md-12">
 
             <div class="align-right">
                 @Html.ActionLink("Back to Case Summary", "Index", "CaseSummary", new { CaseID = Model.CaseID }, null)
             </div>
             <div class="form-group02">
-                <div class="col-sm-1" style="width:25%;">
-                    <span class="col-sm-1" style="width:25%;">
+                <div class="col-sm-2">
+                    <span>
                         @Html.RadioButtonFor(model => model.Family, "Family")
-                        @*@Html.RadioButton("Family", true, Model.IsFamily)*@
-                        @*@Html.RadioButton("Family", Model.IsFamily)*@
                     </span>
-                    <label class="col-sm-4 control-label labe-text">@Html.LabelFor(model => model.IsFamily)</label>
-
+                    <label class="control-label labe-text">@Html.LabelFor(model => model.IsFamily)</label>
                 </div>
-                <div class="col-sm-1" style="width:50%;">
-                    @*<span class="col-sm-1" style="width:25%;">@Html.RadioButtonFor(model => model.IsFamilyMember, true)</span>*@
-                    <span class="col-sm-1" style="width:15%;">
+                <div class="col-sm-2">
+                    <span>
                         @Html.RadioButtonFor(model => model.Family, "FamilyMember")
-                        @*@Html.RadioButton("Family", true, Model.IsFamilyMember)*@
-                        @*@Html.RadioButton("Family", Model.IsFamilyMember)*@
-
                     </span>
-                    <label class="col-sm-4 control-label labe-text">@Html.LabelFor(model => model.IsFamilyMember)</label>
+                    <label class="control-label labe-text">@Html.LabelFor(model => model.IsFamilyMember)</label>
+                </div>
+                <div class="col-sm-2">
+                    @(Html.Kendo().DropDownListFor(model => model.CaseMemberID)
+                    .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                    .DataTextField("Text")
+                    .DataValueField("Value")
+                    .DataSource(source =>
+                    {
+                        source.Read(read =>
+                        {
+                            read.Action("LoadCaseMemberListAjax", "CaseMember").Data("FamilyMemberSelect");
+                        });
+                    }).Enable(false)
+                            //.AutoBind(false)
+                    )
                 </div>
             </div>
             @*</div>*@
@@ -103,3 +116,26 @@
     </div>
 
 </div>
+<script>
+    $(document).ready(function ()
+    {
+        var dropdownlist = $("#CaseMemberID").data("kendoDropDownList");
+
+        if ($('#Family').prop('checked'))
+        {
+            dropdownlist.enable(true);
+        }
+        else {
+            dropdownlist.enable(false);
+        }
+
+        $('input[type=radio][name=Family]').change(function () {
+            if (this.value == 'Family') {
+                dropdownlist.enable(false);
+            }
+            else  {
+                dropdownlist.enable(true);
+            }
+        });
+    });
+</script>

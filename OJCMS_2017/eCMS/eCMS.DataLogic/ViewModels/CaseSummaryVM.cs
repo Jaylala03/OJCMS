@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace eCMS.DataLogic.ViewModels
 {
-   public class CaseSummaryVM
+    public class CaseSummaryVM
     {
         public int CaseID { get; set; }
         public int ProgramID { get; set; }
@@ -24,6 +24,7 @@ namespace eCMS.DataLogic.ViewModels
         public DateTime? ReferralDate { get; set; }
         public string RiskLevel { get; set; }
         public string PresentingProblem { get; set; }
+        public string AreaOfNeed { get; set; }
         public string Address { get; set; }
         public string City { get; set; }
         public string PostalCode { get; set; }
@@ -33,5 +34,12 @@ namespace eCMS.DataLogic.ViewModels
 
         public CaseHouseholdIncomeVM CaseInitialHouseholdIncomeVM { get; set; }
         public CaseHouseholdIncomeVM CaseCurrentHouseholdIncomeVM { get; set; }
+
+        public List<InitialAssessmentIndicatorsVM> AssesmentIndicators { get; set; }
+        public List<CaseInitialAssessmentVM> CaseInitialAssessment { get; set; }
+
+        public bool DoesHouseHoldIncomeExists { get; set; }
+        public bool DoesInitialAssessmentExists { get; set; }
+        public bool DoesFamilyMembersExists { get; set; }
     }
 }

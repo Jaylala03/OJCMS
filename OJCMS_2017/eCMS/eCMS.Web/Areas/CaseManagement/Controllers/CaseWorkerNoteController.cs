@@ -25,16 +25,20 @@ using System.Web.Mvc;
 
 namespace eCMS.Web.Areas.CaseManagement.Controllers
 {
-    public class CaseWorkerNoteController : BaseController
+    public class CaseWorkerNoteController : CaseBaseController
     {
         private readonly ICaseWorkerNoteRepository caseWorkerNoteRepository;
 
-        public CaseWorkerNoteController(IContactMethodRepository contactmethodRepository, IWorkerRoleActionPermissionRepository workerroleactionpermissionRepository,
-            IWorkerRoleActionPermissionNewRepository workerroleactionpermissionnewRepository, ICaseWorkerNoteRepository caseWorkerNoteRepository)
-            : base(workerroleactionpermissionRepository, workerroleactionpermissionnewRepository)
+        public CaseWorkerNoteController(IContactMethodRepository contactmethodRepository,
+             ICaseRepository caseRepository, 
+            IWorkerRoleActionPermissionRepository workerroleactionpermissionRepository,
+            IWorkerRoleActionPermissionNewRepository workerroleactionpermissionnewRepository, 
+            ICaseWorkerNoteRepository caseWorkerNoteRepository,ICaseMemberRepository casememberRepository)
+            : base(workerroleactionpermissionRepository, caseRepository, workerroleactionpermissionnewRepository)
         {
             this.contactmethodRepository = contactmethodRepository;
             this.caseWorkerNoteRepository = caseWorkerNoteRepository;
+            this.casememberRepository = casememberRepository;
         }
 
         
@@ -49,6 +53,8 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
             CaseWorkerNote caseWorkerNote = new CaseWorkerNote();
             caseWorkerNote.CaseID = CaseId;
             caseWorkerNote.ProgramID = ProgramID;
+            ViewBag.CaseID = CaseId;
+            ViewBag.DisplayID = caseRepository.Find(CaseId).DisplayID;
             return View(caseWorkerNote);
         }
 
@@ -128,10 +134,43 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
                
                 try
                 {
-                    if (caseWorkerNote.TimeSpentHours == 0 && caseWorkerNote.TimeSpentMinutes == 0)
+                    if (!string.IsNullOrEmpty(caseWorkerNote.Note) || caseWorkerNote.NoteDate != null ||
+                        caseWorkerNote.TimeSpentHours != null || caseWorkerNote.TimeSpentMinutes != null
+                        || (caseWorkerNote.ContactMethodID != null && caseWorkerNote.ContactMethodID > 0)
+                        || !string.IsNullOrEmpty(caseWorkerNote.Family))
                     {
-                        CustomException ex = new CustomException(CustomExceptionType.CommonServerError, "Please enter time spent.");
-                        throw ex;
+                        var isnoteerror = false;
+                        string errmsg = string.Empty;
+
+                        if (string.IsNullOrEmpty(caseWorkerNote.Note))
+                        {
+                            errmsg += "Please enter work note. <br/>";
+                            isnoteerror = true;
+                        }
+
+                        if (caseWorkerNote.NoteDate == null)
+                        {
+                            errmsg += "Please enter not date. <br/>";
+                            isnoteerror = true;
+                        }
+
+                        if ((caseWorkerNote.TimeSpentHours == null || caseWorkerNote.TimeSpentHours == 0) &&
+                            (caseWorkerNote.TimeSpentMinutes == null || caseWorkerNote.TimeSpentMinutes == 0))
+                        {
+                            errmsg += "Please enter time spent. <br/>";
+                            isnoteerror = true;
+                        }
+
+                        if (caseWorkerNote.ContactMethodID == null || caseWorkerNote.ContactMethodID == 0)
+                        {
+                            errmsg += "Please select contact method. <br/>";
+                            isnoteerror = true;
+                        }
+                        if (isnoteerror)
+                        {
+                            CustomException ex = new CustomException(CustomExceptionType.CommonServerError, errmsg);
+                            throw ex;
+                        }
                     }
 
                     if (caseWorkerNote.Family == "Family")
@@ -195,6 +234,129 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
             }
         }
 
+        /// <summary>
+        /// Save data to database in ajax mode
+        /// </summary>
+        /// <param name="caseWorkerNote">data to save</param>
+        /// <returns>status message in json</returns>
+        [WorkerAuthorize]
+        [HttpPost]
+        public ActionResult Save(CaseWorkerNote caseWorkerNote)
+        {
+            //id=0 means add operation, update operation otherwise
+            bool isNew = caseWorkerNote.ID == 0;
+            caseWorkerNote.LastUpdatedByWorkerID = CurrentLoggedInWorker.ID;
+
+            //validate data
+            if (ModelState.IsValid)
+            {
+
+                try
+                {
+                    if (string.IsNullOrEmpty(caseWorkerNote.Note) || caseWorkerNote.NoteDate == null
+                        || (caseWorkerNote.TimeSpentHours != null && caseWorkerNote.TimeSpentMinutes != null)
+                        || (caseWorkerNote.ContactMethodID == null || caseWorkerNote.ContactMethodID == 0)
+                        || string.IsNullOrEmpty(caseWorkerNote.Family))
+                    {
+                        var isnoteerror = false;
+
+                        if (string.IsNullOrEmpty(caseWorkerNote.Note))
+                        {
+                            ModelState.AddModelError("", "Please enter work note.");
+                            isnoteerror = true;
+                        }
+
+                        if (caseWorkerNote.NoteDate == null)
+                        {
+                            ModelState.AddModelError("", "Please enter contact date");
+                            isnoteerror = true;
+                        }
+
+                        if ((caseWorkerNote.TimeSpentHours == null || caseWorkerNote.TimeSpentHours == 0) &&
+                            (caseWorkerNote.TimeSpentMinutes == null || caseWorkerNote.TimeSpentMinutes == 0))
+                        {
+                            ModelState.AddModelError("", "Please enter time spent");
+                            isnoteerror = true;
+                        }
+
+                        if (caseWorkerNote.ContactMethodID == null || caseWorkerNote.ContactMethodID == 0)
+                        {
+                            ModelState.AddModelError("", "Please select contact method");
+                            isnoteerror = true;
+                        }
+                        if (string.IsNullOrEmpty(caseWorkerNote.Family))
+                        {
+                            ModelState.AddModelError("", "Please select family / family member.");
+                            isnoteerror = true;
+                        }
+                        if (isnoteerror)
+                        {
+                            return View("Index",caseWorkerNote);
+                        }
+                    }
+
+                    if (caseWorkerNote.Family == "Family")
+                    {
+                        caseWorkerNote.IsFamily = true;
+                        caseWorkerNote.IsFamilyMember = false;
+                    }
+                    else
+                    {
+                        caseWorkerNote.IsFamily = false;
+                        caseWorkerNote.IsFamilyMember = true;
+                    }
+
+                    caseWorkerNote.WorkerNoteActivityTypeID = (int)eCMS.Shared.WorkerNoteActivityType.WorkNote;
+                    //call repository function to save the data in database
+                    caseWorkerNoteRepository.InsertOrUpdate(caseWorkerNote);
+                    caseWorkerNoteRepository.Save();
+                    //set status message
+                    //if (isNew)
+                    //{
+                    //    caseWorkerNote.SuccessMessage = "Work Note has been added successfully";
+                    //}
+                    //else
+                    //{
+                    //    caseWorkerNote.SuccessMessage = "Work Note has been updated successfully";
+                    //}
+                    return RedirectToAction(Constants.Actions.Index, Constants.Controllers.CaseSummary, new { caseID = caseWorkerNote.CaseID });
+                }
+                catch (CustomException ex)
+                {
+                    caseWorkerNote.ErrorMessage = ex.UserDefinedMessage;
+                }
+                catch (Exception ex)
+                {
+                    ExceptionManager.Manage(ex);
+                    caseWorkerNote.ErrorMessage = Constants.Messages.UnhandelledError;
+                }
+            }
+            else
+            {
+                foreach (var modelStateValue in ViewData.ModelState.Values)
+                {
+                    foreach (var error in modelStateValue.Errors)
+                    {
+                        caseWorkerNote.ErrorMessage = error.ErrorMessage;
+                        break;
+                    }
+                    if (caseWorkerNote.ErrorMessage.IsNotNullOrEmpty())
+                    {
+                        break;
+                    }
+                }
+            }
+            return View("Index", caseWorkerNote);
+            //return the status message in json
+            //if (caseWorkerNote.ErrorMessage.IsNotNullOrEmpty())
+            //{
+            //    return Json(new { success = false, data = this.RenderPartialViewToString(Constants.PartialViews.AlertSliding, caseWorkerNote) });
+            //}
+            //else
+            //{
+            //    return Json(new { success = true, data = this.RenderPartialViewToString(Constants.PartialViews.AlertSliding, caseWorkerNote) });
+            //}
+        }
         /// <summary>
         /// delete caseWorkerNote from database usign ajax operation
         /// </summary>

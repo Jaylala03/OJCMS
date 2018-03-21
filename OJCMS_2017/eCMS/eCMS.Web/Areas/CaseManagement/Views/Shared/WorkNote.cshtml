@@ -8,20 +8,20 @@
     @Styles.Render("~/assets/plugins/kendo/css")
     @Scripts.Render("~/assets/plugins/kendo/js")
 }
-<div class="row">
-    <div class="col-md-12">
+@*<div class="row">
+    <div class="col-md-12">*@
         <div class="form-group02">
-            <label class="col-sm-2 control-label labe-text" style="font-weight:bold;">Work Notes: (Optional)</label>
+            <label class="col-sm-8 control-label labe-text" style="font-weight:bold;">Work Notes: (Optional)</label>
         </div>
         <div class="form-group02">
-            <label class="col-sm-2 control-label labe-text">@Html.LabelRequiredFor(model => model.Note)</label>
-            <div class="col-sm-4">
+            <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.Note)</label>
+            <div class="col-sm-8">
                 @Html.TextAreaFor(model => model.Note, new { @class = "form-control", rows = 4, cols = 100})
             </div>
         </div>
         <div class="form-group02">
-            <label class="col-sm-2 control-label labe-text">@Html.LabelRequiredFor(model => model.ContactMethodID)</label>
-            <div class="col-sm-4">
+            <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.ContactMethodID)</label>
+            <div class="col-sm-8">
                 @(Html.Kendo().DropDownListFor(model => model.ContactMethodID)
                             .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
                             .DataTextField("Text")
@@ -37,8 +37,8 @@
             </div>
         </div>
         <div class="form-group02">
-            <label class="col-sm-2 control-label labe-text">@Html.LabelRequiredFor(model => model.NoteDate)</label>
-            <div class="col-sm-4">
+            <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.NoteDate)</label>
+            <div class="col-sm-8">
                 @*@Html.EditorFor(model => model.NoteDate, new { id = "Case.CaseWorkerNote_NoteDate", name = "Case.CaseWorkerNote_NoteDate" })*@
                 @(Html.Kendo().DatePickerFor(model => model.NoteDate)
                 .HtmlAttributes(new { style = "width: 100%", title = "datepicker" })
@@ -46,8 +46,8 @@
             </div>
         </div>
         <div class="form-group02">
-            <label class="col-sm-2 control-label labe-text">Time Spent</label>
-            <div class="col-sm-1" style="width:10%;">
+            <label class="col-sm-4 control-label labe-text">Time Spent</label>
+            <div class="col-sm-2" >
                 @*@Html.EditorFor(m => m.CaseWorkerNote.TimeSpentHours, null, new { @class = "form-control" })*@
                 <span>Hours</span>
                 @(Html.Kendo().NumericTextBoxFor<int>(m => m.TimeSpentHours)
@@ -57,7 +57,7 @@
                 )
                 @Html.ValidationMessageFor(m => m.TimeSpentHours, "", new { @class = "text-danger"  })
             </div>
-            <div class="col-sm-1" style="width:10%;">
+            <div class="col-sm-2" >
                 @*@Html.EditorFor(m => m.CaseWorkerNote.TimeSpentMinutes, null, new { @class = "form-control" })*@
                 <span>Minutes</span>
                 @(Html.Kendo().NumericTextBoxFor<int>(m => m.TimeSpentMinutes)
@@ -68,5 +68,5 @@
                 @Html.ValidationMessageFor(m => m.TimeSpentMinutes, "", new { @class = "text-danger" })
             </div>
         </div>
-    </div>
-</div>
+    @*</div>
+</div>*@

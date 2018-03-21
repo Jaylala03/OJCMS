@@ -1,15 +1,71 @@
-﻿@model IEnumerable<eCMS.DataLogic.ViewModels.InitialAssessmentVM>
+﻿@model eCMS.DataLogic.ViewModels.InitialAssessmentVM
 @using EasySoft.Helper;
 @using eCMS.Shared;
 @using eCMS.DataLogic.Models;
+@using eCMS.DataLogic.ViewModels
 @{
     ViewBag.Title = "Case Initial Assessment";
+    Layout = "~/Areas/CaseManagement/Views/Shared/_LayoutCase.cshtml";
 }
 @section headsection
 {
     @Styles.Render("~/assets/plugins/kendo/css")
     @Scripts.Render("~/assets/plugins/kendo/js")
 }
+<style type="text/css">
+    #indicators td {
+        width: 195px;
+        padding: 5px;
+        border: 1px solid black;
+        text-align: center;
+        height: 33px;
+    }
+
+    #indicators th {
+        width: 220px;
+        padding: 5px;
+        border: 1px solid black;
+        text-align: center;
+        height: 33px;
+    }
+
+    #indicators td:first-child {
+        text-align: left;
+    }
+
+    #indicators th:first-child {
+        text-align: left;
+    }
+
+    #assessment td {
+        width: 195px;
+        padding: 5px;
+        border: 1px solid black;
+        text-align: center;
+        height: 33px;
+    }
+
+    #assessment th {
+        width: 220px;
+        padding: 5px;
+        border: 1px solid black;
+        text-align: center;
+        height: 33px;
+    }
+
+    #assessment td:first-child {
+        text-align: left;
+    }
+
+    #assessment th:first-child {
+        text-align: left;
+    }
+
+    #lnkEditor:hover {
+        cursor: pointer;
+    }
+</style>
+
 <div class="container candidate-list-main-container">
     <div class="row">
         <div class="col-lg-12 col-md-11 candidate-table-bg">
@@ -23,16 +79,21 @@
                             </label>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
     </div>
+    <div class="row" style="padding-top:10px;padding-bottom:10px;display:none;" id="divmembername">
+        <span style=" padding-left:10px;padding-right:10px;font-weight:bold;" id="membername">
+        </span>
+    </div>
     <div class="row">
         <div class="col-lg-12 col-md-11 candidate-table-bg">
             <div class="row">
-                <table class="table-striped border" width="100%">
+                <table id="indicators" cellpadding="2">
                     <thead>
-                        <tr>
+                        <tr style="height:50px;padding-left:5px;">
                             <th>Indicators</th>
                             <th>1</th>
                             <th>2</th>
@@ -42,37 +103,279 @@
                             <th>6</th>
                             <th>Not Applicable</th>
                         </tr>
-
-                        @foreach (var item in Model)
+                    </thead>
+                    <tbody style="background:none;">
+                        @foreach (var item in Model.AssesmentIndicators)
                         {
                             <tr>
                                 <td>@item.IndicatorName</td>
-                                <td>@Html.RadioButton("rd" + item.IndicatorTypeID + "", item.IndicatorTypeID, false, new { @id = item.IndicatorTypeID })</td>
-                                <td>@Html.RadioButton("rd" + item.IndicatorTypeID + "", item.IndicatorTypeID, false, new { @id = item.IndicatorTypeID })</td>
-                                <td>@Html.RadioButton("rd" + item.IndicatorTypeID + "", item.IndicatorTypeID, false, new { @id = item.IndicatorTypeID })</td>
-                                <td>@Html.RadioButton("rd" + item.IndicatorTypeID + "", item.IndicatorTypeID, false, new { @id = item.IndicatorTypeID })</td>
-                                <td>@Html.RadioButton("rd" + item.IndicatorTypeID + "", item.IndicatorTypeID, false, new { @id = item.IndicatorTypeID })</td>
-                                <td>@Html.RadioButton("rd" + item.IndicatorTypeID + "", item.IndicatorTypeID, false, new { @id = item.IndicatorTypeID })</td>
-                                <td>@Html.RadioButton("rd" + item.IndicatorTypeID + "", item.IndicatorTypeID, false, new { @id = item.IndicatorTypeID })</td>
+                                <td>@Html.RadioButton("rd" + item.IndicatorTypeID + "", 1, false, new { @id = item.IndicatorTypeID, @class = "rdind" })</td>
+                                <td>@Html.RadioButton("rd" + item.IndicatorTypeID + "", 2, false, new { @id = item.IndicatorTypeID, @class = "rdind" })</td>
+                                <td>@Html.RadioButton("rd" + item.IndicatorTypeID + "", 3, false, new { @id = item.IndicatorTypeID, @class = "rdind" })</td>
+                                <td>@Html.RadioButton("rd" + item.IndicatorTypeID + "", 4, false, new { @id = item.IndicatorTypeID, @class = "rdind" })</td>
+                                <td>@Html.RadioButton("rd" + item.IndicatorTypeID + "", 5, false, new { @id = item.IndicatorTypeID, @class = "rdind" })</td>
+                                <td>@Html.RadioButton("rd" + item.IndicatorTypeID + "", 6, false, new { @id = item.IndicatorTypeID, @class = "rdind" })</td>
+                                <td>@Html.RadioButton("rd" + item.IndicatorTypeID + "", 0, false, new { @id = item.IndicatorTypeID, @class = "rdind" })</td>
                             </tr>
                             <tr>
                                 <td>&nbsp;</td>
-                                <td>@item.AssesmentIndicatorDescription1</td>
-                                <td>@item.AssesmentIndicatorDescription2</td>
-                                <td>@item.AssesmentIndicatorDescription3</td>
-                                <td>@item.AssesmentIndicatorDescription4</td>
-                                <td>@item.AssesmentIndicatorDescription5</td>
-                                <td>@item.AssesmentIndicatorDescription6</td>
+                                @*<td>@(item.AssesmentIndicatorDescription1.Length > 10 ? item.AssesmentIndicatorDescription1.Substring(0, 10) + "..." : item.AssesmentIndicatorDescription1) </td>
+                                    <td>@(item.AssesmentIndicatorDescription2.Length > 10 ? @item.AssesmentIndicatorDescription2.Substring(0, 10) + "..." : @item.AssesmentIndicatorDescription2) </td>
+                                    <td>@(item.AssesmentIndicatorDescription3.Length > 10 ? @item.AssesmentIndicatorDescription3.Substring(0, 10) + "..." : @item.AssesmentIndicatorDescription3) </td>
+                                    <td>@(item.AssesmentIndicatorDescription4.Length > 10 ? @item.AssesmentIndicatorDescription4.Substring(0, 10) + "..." : @item.AssesmentIndicatorDescription4) </td>
+                                    <td>@(item.AssesmentIndicatorDescription5.Length > 10 ? @item.AssesmentIndicatorDescription5.Substring(0, 10) + "..." : @item.AssesmentIndicatorDescription5) </td>
+                                    <td>@(item.AssesmentIndicatorDescription6.Length > 10 ? @item.AssesmentIndicatorDescription6.Substring(0, 10) + "..." : @item.AssesmentIndicatorDescription6) </td>*@
+                                <td style="word-wrap:break-word;">@(item.AssesmentIndicatorDescription1) </td>
+                                <td style="word-wrap:break-word;">@(item.AssesmentIndicatorDescription2) </td>
+                                <td style="word-wrap:break-word;">@(item.AssesmentIndicatorDescription3) </td>
+                                <td style="word-wrap:break-word;">@(item.AssesmentIndicatorDescription4) </td>
+                                <td style="word-wrap:break-word;">@(item.AssesmentIndicatorDescription5) </td>
+                                <td style="word-wrap:break-word;">@(item.AssesmentIndicatorDescription6) </td>
+                                <td>&nbsp;</td>
                             </tr>
                         }
-
-                    </thead>
+                    </tbody>
                 </table>
+            </div>
+            <div class="row" style="text-align:center;margin-bottom:10px;margin-top:10px;display:none;" id="divSaveAssessment">
+                <button type="button" class="btn btn-primary" id="btnSaveAssessment"><i class="fa fa-save"></i> Save </button>
             </div>
         </div>
     </div>
 
+    <div class="row" style="margin-top:10px;">
+        <div class="col-lg-12 col-md-11 candidate-table-bg">
+            <div class="row">
+                <table id="assessment" cellpadding="2">
+                    <thead>
+                        <tr style="height:50px;padding-left:5px;">
+                            <th>Family Member</th>
+                            @foreach (var item in Model.AssesmentIndicators)
+                            {
+                                <th>
+                                    @item.IndicatorName
+                                </th>
+                            }
+                            <th>&nbsp;</th>
+                        </tr>
+                    </thead>
+                    <tbody style="background:none;">
+                        @foreach (var member in Model.CaseInitialAssessment.Select(m => new { m.CaseMemberName, m.CaseMemberID }).Distinct())
+                        {
+                            <tr>
+                                <td>@member.CaseMemberName</td>
+                                <td style="display:none;">@member.CaseMemberID</td>
+                                @foreach (var item in Model.CaseInitialAssessment.Where(c => c.CaseMemberName == member.CaseMemberName).OrderBy(c => c.IndicatorTypeID))
+                                {
+                                    <td class="clsind" data-memberid="@item.CaseMemberID" data-indicatorid="@item.IndicatorTypeID" data-assessmentvalue="@item.AssessmentValue">@(item.AssessmentValue > 0 ? item.AssessmentValue.ToString() : "")</td>
+                                }
+                                <td>
+                                    <a id="lnkEditor" class="lnkEditor" data-membername="@member.CaseMemberName" title="Edit">Edit</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-top:10px;">
+        <div class="form-group02">
+            @Html.CheckBoxFor(m => m.CaseAssessmentReviewed)
+            @Html.LabelRequiredFor(model => model.CaseAssessmentReviewed)
+        </div>
+    </div>
+    @using (Html.BeginForm("Create", "CaseInitialAssessment", new { area = "CaseManagement", caseId = Model.CaseID }, FormMethod.Post, new { id = "frmEditorCaseInitialAssessment", @class = "horizontal-form" }))
+    {
+        <div class="row">
+            @Html.ValidationSummary(true)
+            <div class="col-md-12">
+                <div class="form-group02">
+                    <label class="col-sm-4 control-label labe-text" style="font-weight:bold;">Household Income: (Optional)</label>
+                </div>
+                <div class="form-group02">
+                    <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.CaseHouseholdIncome.NoOfMembers)</label>
+                    <div class="col-sm-2">
+                        @(Html.Kendo().NumericTextBoxFor<int>(model => model.CaseHouseholdIncome.NoOfMembers)
+                                .Placeholder("Enter numeric value")
+                                .HtmlAttributes(new { title = "numeric" })
+                        )
+                    </div>
+                </div>
+                <div class="form-group02">
+                    <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.CaseHouseholdIncome.NoOfChild)</label>
+                    <div class="col-sm-2">
+                        @(Html.Kendo().NumericTextBoxFor<int>(model => model.CaseHouseholdIncome.NoOfChild)
+                                .Placeholder("Enter numeric value")
+                                 .HtmlAttributes(new { title = "numeric" })
+                        )
+                    </div>
+                </div>
+                <div class="form-group02">
+                    <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.CaseHouseholdIncome.NoOfSeniors)</label>
+                    <div class="col-sm-2">
+                        @(Html.Kendo().NumericTextBoxFor<int>(model => model.CaseHouseholdIncome.NoOfSeniors)
+                                .Placeholder("Enter numeric value")
+                                 .HtmlAttributes(new { title = "numeric" })
+                        )
+                    </div>
+                </div>
+                <div class="form-group02">
+                    <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.CaseHouseholdIncome.NoOfPhysicallyDisabled)</label>
+                    <div class="col-sm-2">
+                        @(Html.Kendo().NumericTextBoxFor<int>(model => model.CaseHouseholdIncome.NoOfPhysicallyDisabled)
+                                .Placeholder("Enter numeric value")
+                                 .HtmlAttributes(new { title = "numeric" })
+                        )
+                    </div>
+                </div>
+                <div class="form-group02">
+                    <label class="col-sm-4 control-label labe-text">Household gross income range (annual):</label>
+                </div>
+                @foreach (var a in Model.CaseHouseholdIncome.IncomeRanges)
+                {
+                    <div class="form-group02">
+                        <label class="col-sm-4 control-label labe-text"></label>
+                        <div class="col-sm-6">
+                            @Html.RadioButtonFor(b => b.CaseHouseholdIncome.IncomeRangeID, a.ID)  @a.Name
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="col-md-6">
+            @{
+            string name = Html.NameFor(m => m.CaseWorkerNote).ToString();
+            string prefix = Html.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name);
+            ViewDataDictionary viewData = new ViewDataDictionary(Html.ViewData)
+            {
+            TemplateInfo = new TemplateInfo { HtmlFieldPrefix = prefix }
+            };
+            @Html.Partial("WorkNote", Model.CaseWorkerNote, viewData)
+            }
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="form-group02">
+                        <div class="col-sm-5">
+                            <button type="submit" class="btn btn-primary" name="btnSaveCaseAssessment"><i class="fa fa-save"></i> Save </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group02">
+                            <a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.CaseSummary, new { caseID = Model.CaseID})" class="btn btn-primary"><i class="fa fa-long-arrow-left"></i> Back to Case Summary</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    }
 </div>
+<script type="text/javascript">
+    var memberid = '';
+    var memebername = '';
 
+    $(".lnkEditor").on("click", function ()
+    {
+        var $row = $(this).closest('tr');
+        membername = $("td:eq(0)", $row).text();
+        memberid = $("td:eq(1)", $row).text();
+        $("#divSaveAssessment").show();
+        $("#divmembername").show();
+        $("#membername").text('Family Member:   ' + membername);
+        var cells = $row.find(".clsind");
+        $('.rdind').prop('checked', false);
+        $.each(cells, function () {
+            var text = $(this).data("indicatorid");
+            //alert(text);
+            var assval = $(this).data("assessmentvalue");
+            var rdname = 'rd' + text;
+            $('[name=' + rdname + '][value="' + assval + '"]').prop('checked', true);
+        });
+    });
 
+    $("#btnSaveAssessment").on("click", function ()
+    {
+        if(!$('#CaseAssessmentReviewed').is(":checked"))
+        {
+            alert("Please confirm family has reviewed and agreed with the Assessment.");
+            return
+        }
 
+        var CaseInitialAssessmentVM = [];
+        var rdgrpname = '';
+        var isvalid = true;
+        var assindicators =  @Html.Raw(Json.Encode(Model.AssesmentIndicators));
+
+        $.each(assindicators, function (index, value)
+        {
+            if(isvalid)
+            {
+                rdgrpname = "rd" + value.IndicatorTypeID;
+
+                if(!$("input:radio[name='" + rdgrpname + "']").is(":checked"))
+                {
+                    alert("Please select assessment value for " + value.IndicatorName);
+                    isvalid = false;
+                }
+                else
+                {
+                    CaseInitialAssessmentVM.push({
+                        CaseMemberID: memberid,
+                        IndicatorTypeID: value.IndicatorTypeID,
+                        AssessmentValue: $("input:radio[name='" + rdgrpname + "']:checked").val()
+                    });
+                }
+            }
+            else
+                return
+        });
+        if(isvalid)
+        {
+            //save
+            $.ajax({
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'html',
+                type: 'POST',
+                url: '/CaseInitialAssessment/AddAssessment',
+                data: JSON.stringify({'CaseID':@Request.QueryString["caseid"],'Asslist': CaseInitialAssessmentVM }),
+                cache: false,
+                async: false,
+                beforeSend: function ()
+                {
+                    // cog placed
+                },
+                success: function (data) {
+                    alert("Member assessment saved successfully.");
+                    $("#divmembername").hide();
+                    $("#divSaveAssessment").hide();
+                    $("#membername").text('');
+
+                    var $tableRow = $("td").filter(function() {
+                        return $(this).text() == membername;
+                    }).closest("tr");
+
+                    debugger
+                    var cells = $tableRow.find(".clsind");
+                    //$.each(cells, function () {
+                    //    $(this).text('');
+                    //});
+                    var rdgrpname = '';
+                    var rdgrpvalue = '';
+                    $.each(cells, function () {
+
+                        rdgrpname = "rd" + $(this).data("indicatorid");
+                        rdgrpvalue = $("input:radio[name='" + rdgrpname + "']:checked").val();
+                        $(this).text(rdgrpvalue);
+                        $(this).data('assessmentvalue', rdgrpvalue);
+                    });
+
+                    $('.rdind').prop('checked', false);
+                },
+                error: function (data) {
+                    alert(data);
+                }
+            });
+        }
+    });
+</script>

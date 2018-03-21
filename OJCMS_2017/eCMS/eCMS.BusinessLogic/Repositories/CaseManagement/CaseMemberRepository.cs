@@ -105,66 +105,67 @@ namespace eCMS.BusinessLogic.Repositories
             {
                 string sqlQuery = "UPDATE CaseMember SET IsPrimary=0 WHERE CaseID=" + casemember.CaseID;
                 context.Database.ExecuteSqlCommand(sqlQuery);
-                Case varCase = context.Case.SingleOrDefault(item => item.ID == casemember.CaseID);
-                if (varCase != null)
-                {
-                    string regionCode = varCase.Region.Code;
-                    if (regionCode.IsNullOrEmpty())
-                    {
-                        if (varCase.Region.Name.IsNotNullOrEmpty())
-                        {
-                            regionCode = varCase.Region.Name.Substring(0, 2).ToUpper();
-                        }
-                    }
-                    if (varCase.DisplayID.IsNotNullOrEmpty() && varCase.DisplayID.Contains("NA"))
-                    {
-                        varCase.DisplayID = MiscUtility.GetCasePersonalizedId(regionCode, casemember.FirstName, casemember.LastName, casemember.CaseID, varCase.DisplayID);
-                    }
-                    context.Entry(varCase).State = System.Data.Entity.EntityState.Modified;
-                    context.SaveChanges();
-                    caseDisplayID = varCase.DisplayID;
-                }
+                context.SaveChanges();
+                //Case varCase = context.Case.SingleOrDefault(item => item.ID == casemember.CaseID);
+                //if (varCase != null)
+                //{
+                //    string regionCode = varCase.Region.Code;
+                //    if (regionCode.IsNullOrEmpty())
+                //    {
+                //        if (varCase.Region.Name.IsNotNullOrEmpty())
+                //        {
+                //            regionCode = varCase.Region.Name.Substring(0, 2).ToUpper();
+                //        }
+                //    }
+                //    if (varCase.DisplayID.IsNotNullOrEmpty() && varCase.DisplayID.Contains("NA"))
+                //    {
+                //        varCase.DisplayID = MiscUtility.GetCasePersonalizedId(regionCode, casemember.FirstName, casemember.LastName, casemember.CaseID, varCase.DisplayID);
+                //    }
+                //    context.Entry(varCase).State = System.Data.Entity.EntityState.Modified;
+                //    context.SaveChanges();
+                //    caseDisplayID = varCase.DisplayID;
+                //}
             }
-            if (casemember.DisplayID.IsNullOrEmpty())
-            {
-                if (caseDisplayID.IsNullOrEmpty())
-                {
-                    Case varCase = context.Case.SingleOrDefault(item => item.ID == casemember.CaseID);
-                    if (varCase != null)
-                    {
-                        caseDisplayID = varCase.DisplayID;
-                    }
-                    if (caseDisplayID.IsNullOrEmpty())
-                    {
-                        CaseMember originalCaller = GetOriginalCaller(casemember.CaseID);
-                        if (originalCaller == null)
-                        {
-                            originalCaller = context.CaseMember.OrderBy(item => item.ID).FirstOrDefault(item=>item.CaseID==casemember.CaseID);
-                            if (originalCaller != null)
-                            {
-                                originalCaller.IsPrimary = true;
-                                context.Entry(originalCaller).State = System.Data.Entity.EntityState.Modified;
-                                context.SaveChanges();
-                            }
-                        }
-                        string regionCode = varCase.Region.Code;
-                        if (regionCode.IsNullOrEmpty())
-                        {
-                            if (varCase.Region.Name.IsNotNullOrEmpty())
-                            {
-                                regionCode = varCase.Region.Name.Substring(0, 2).ToUpper();
-                            }
-                        }
-                        if (varCase.DisplayID.IsNotNullOrEmpty() && varCase.DisplayID.Contains("NA"))
-                        {
-                            varCase.DisplayID = MiscUtility.GetCasePersonalizedId(regionCode, casemember.FirstName, casemember.LastName, casemember.CaseID, varCase.DisplayID);
-                        }
-                        context.Entry(varCase).State = System.Data.Entity.EntityState.Modified;
-                        context.SaveChanges();
-                        caseDisplayID = varCase.DisplayID;
-                    }
-                }
-            }
+            //if (casemember.DisplayID.IsNullOrEmpty())
+            //{
+            //    if (caseDisplayID.IsNullOrEmpty())
+            //    {
+            //        Case varCase = context.Case.SingleOrDefault(item => item.ID == casemember.CaseID);
+            //        if (varCase != null)
+            //        {
+            //            caseDisplayID = varCase.DisplayID;
+            //        }
+            //        if (caseDisplayID.IsNullOrEmpty())
+            //        {
+            //            CaseMember originalCaller = GetOriginalCaller(casemember.CaseID);
+            //            if (originalCaller == null)
+            //            {
+            //                originalCaller = context.CaseMember.OrderBy(item => item.ID).FirstOrDefault(item=>item.CaseID==casemember.CaseID);
+            //                if (originalCaller != null)
+            //                {
+            //                    originalCaller.IsPrimary = true;
+            //                    context.Entry(originalCaller).State = System.Data.Entity.EntityState.Modified;
+            //                    context.SaveChanges();
+            //                }
+            //            }
+            //            string regionCode = varCase.Region.Code;
+            //            if (regionCode.IsNullOrEmpty())
+            //            {
+            //                if (varCase.Region.Name.IsNotNullOrEmpty())
+            //                {
+            //                    regionCode = varCase.Region.Name.Substring(0, 2).ToUpper();
+            //                }
+            //            }
+            //            if (varCase.DisplayID.IsNotNullOrEmpty() && varCase.DisplayID.Contains("NA"))
+            //            {
+            //                varCase.DisplayID = MiscUtility.GetCasePersonalizedId(regionCode, casemember.FirstName, casemember.LastName, casemember.CaseID, varCase.DisplayID);
+            //            }
+            //            context.Entry(varCase).State = System.Data.Entity.EntityState.Modified;
+            //            context.SaveChanges();
+            //            caseDisplayID = varCase.DisplayID;
+            //        }
+            //    }
+            //}
             int sequence = 1;
 
             //Update case display id

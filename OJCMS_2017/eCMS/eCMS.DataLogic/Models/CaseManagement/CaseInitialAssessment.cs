@@ -22,12 +22,10 @@ namespace eCMS.DataLogic.Models
 
         public Int32 IndicatorTypeID { get; set; }
 
-        public string AssessmentValue { set; get; }        
+        public int AssessmentValue { set; get; }
 
         [NotMapped]
-        public CaseHouseholdIncome CaseHouseholdIncome { get; set; }
+        public string CaseMemberName { get; set; }
 
-        [NotMapped]
-        public CaseWorkerNote CaseWorkerNote { get; set; }
     }
 }

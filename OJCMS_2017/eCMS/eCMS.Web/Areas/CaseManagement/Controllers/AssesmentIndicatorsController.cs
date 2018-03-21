@@ -134,6 +134,14 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
                 try
                 {
                     //call repository function to save the data in database
+                    assesmentIndicators.Description1 = assesmentIndicators.Description1 == null ? string.Empty : assesmentIndicators.Description1;
+                    assesmentIndicators.Description2 = assesmentIndicators.Description2 == null ? string.Empty : assesmentIndicators.Description2;
+                    assesmentIndicators.Description3 = assesmentIndicators.Description3 == null ? string.Empty : assesmentIndicators.Description3;
+                    assesmentIndicators.Description4 = assesmentIndicators.Description4 == null ? string.Empty : assesmentIndicators.Description4;
+                    assesmentIndicators.Description5 = assesmentIndicators.Description5 == null ? string.Empty : assesmentIndicators.Description5;
+                    assesmentIndicators.Description6 = assesmentIndicators.Description6 == null ? string.Empty : assesmentIndicators.Description6;
+                    assesmentIndicators.Description7 = assesmentIndicators.Description7 == null ? string.Empty : assesmentIndicators.Description7;
+
                     assesmentIndicatorsRepository.InsertOrUpdate(assesmentIndicators);
                     assesmentIndicatorsRepository.Save();
                     //set status message

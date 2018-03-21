@@ -37,7 +37,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
            IWorkerRoleActionPermissionRepository workerroleactionpermissionRepository
            , IWorkerRoleActionPermissionNewRepository workerroleactionpermissionnewRepository
             , ICaseHouseholdIncomeRepository caseHouseholdIncomeRepository
-            , IIncomeRangeRepository incomeRangeRepository,
+             , IIncomeRangeRepository incomeRangeRepository,
             ICaseWorkerNoteRepository caseWorkerNoteRepository
           )
             : base(workerroleactionpermissionRepository, caseRepository, workerroleactionpermissionnewRepository)
@@ -63,16 +63,13 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
         {
             CaseHouseholdIncome caseHouseholdIncome = new CaseHouseholdIncome();
             //CaseSummaryVM caseSummary = new CaseSummaryVM();
-            caseHouseholdIncome.CaseID = CaseID;
-            caseHouseholdIncome.IncomeRanges = incomeRangeRepository.GetAll().ToList();
-
-            caseHouseholdIncome.CaseWorkerNote = new CaseWorkerNote();
-
             if (IncomeID != 0)
             {
                 caseHouseholdIncome = caseHouseholdIncomeRepository.Find(IncomeID);
             }
-
+            caseHouseholdIncome.CaseWorkerNote = new CaseWorkerNote();
+            caseHouseholdIncome.CaseID = CaseID;
+            caseHouseholdIncome.IncomeRanges = incomeRangeRepository.GetAll().ToList();
             //var varCase = caseRepository.Find(caseID);
             //bool hasAccess = workerroleactionpermissionnewRepository.HasPermission(caseID, CurrentLoggedInWorkerRoleIDs, CurrentLoggedInWorker.ID, varCase.ProgramID, varCase.RegionID, varCase.SubProgramID, varCase.JamatkhanaID, Constants.Areas.CaseManagement, Constants.Controllers.CaseMember, Constants.Actions.Index, true);
             //if (!hasAccess)
@@ -101,6 +98,52 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
                     //if any one entered then check all entered
                     bool allentered = true;
 
+                    if (incomemodel.NoOfMembers == 0 || incomemodel.IncomeRangeID == 0)
+                    {
+                        incomemodel.IncomeRanges = incomeRangeRepository.GetAll().ToList();
+                        if (incomemodel.NoOfMembers == 0)
+                            ModelState.AddModelError("", "Please enter No. of members");
+                        if (incomemodel.IncomeRangeID == 0)
+                            ModelState.AddModelError("", "Please select income range");
+                        return View(incomemodel);
+                        //CustomException ex = new CustomException(CustomExceptionType.CommonServerError, "Please enter No. of members and income range.");
+                        //throw ex;
+                    }
+                    if (!string.IsNullOrEmpty(incomemodel.CaseWorkerNote.Note) || incomemodel.CaseWorkerNote.NoteDate != null ||
+                        incomemodel.CaseWorkerNote.TimeSpentHours != null || incomemodel.CaseWorkerNote.TimeSpentMinutes != null
+                        || (incomemodel.CaseWorkerNote.ContactMethodID != null && incomemodel.CaseWorkerNote.ContactMethodID > 0))
+                    {
+                        incomemodel.IncomeRanges = incomeRangeRepository.GetAll().ToList();
+                        var isnoteerror = false;
+
+                        if (string.IsNullOrEmpty(incomemodel.CaseWorkerNote.Note))
+                        {
+                            ModelState.AddModelError("", "Please enter work note.");
+                            isnoteerror = true;
+                        }
+
+                        if (incomemodel.CaseWorkerNote.NoteDate == null)
+                        {
+                            ModelState.AddModelError("", "Please enter not date");
+                            isnoteerror = true;
+                        }
+
+                        if ((incomemodel.CaseWorkerNote.TimeSpentHours == null || incomemodel.CaseWorkerNote.TimeSpentHours == 0) &&
+                            (incomemodel.CaseWorkerNote.TimeSpentMinutes == null || incomemodel.CaseWorkerNote.TimeSpentMinutes == 0))
+                        {
+                            ModelState.AddModelError("", "Please enter time spent");
+                            isnoteerror = true;
+                        }
+
+                        if (incomemodel.CaseWorkerNote.ContactMethodID == null || incomemodel.CaseWorkerNote.ContactMethodID == 0)
+                        {
+                            ModelState.AddModelError("", "Please select contact method");
+                            isnoteerror = true;
+                        }
+                        if (isnoteerror)
+                            return View(incomemodel);
+                    }
+
                     if (incomemodel.ID == 0)
                     {
                         incomemodel.IsInitialIncome = true;
@@ -123,7 +166,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
                         //varCase.CaseWorkerNote.NoteDate = Convert.ToDateTime(varCase.ContactDate);
                         incomemodel.CaseWorkerNote.IsFamily = true;
                         incomemodel.CaseWorkerNote.IsFamilyMember = false;
-                        incomemodel.CaseWorkerNote.WorkerNoteActivityTypeID = (int)WorkerNoteActivityType.AddCase;
+                        incomemodel.CaseWorkerNote.WorkerNoteActivityTypeID = (int)WorkerNoteActivityType.EditHouseholdIncome;
 
                         caseWorkerNoteRepository.InsertOrUpdate(incomemodel.CaseWorkerNote);
                         caseWorkerNoteRepository.Save();

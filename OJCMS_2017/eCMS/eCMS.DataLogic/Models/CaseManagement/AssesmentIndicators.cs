@@ -55,5 +55,15 @@ namespace eCMS.DataLogic.Models
         [Display(Name = "Indicator Type")]
         [NotMapped]
         public String IndicatorTypeName { get; set; }
+        public AssesmentIndicators()
+        {
+            Description1 = string.Empty;
+            Description2 = string.Empty;
+            Description3 = string.Empty;
+            Description4 = string.Empty;
+            Description5 = string.Empty;
+            Description6 = string.Empty;
+            Description7 = string.Empty;
+        }
     }
 }

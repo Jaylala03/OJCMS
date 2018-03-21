@@ -1,22 +1,107 @@
-@model eCMS.DataLogic.ViewModels.AssignmentModel
-@using EasySoft.Helper;
-@using eCMS.Shared;
-@using eCMS.DataLogic.Models;
-@using eCMS.DataLogic.ViewModels;
+@model eCMS.DataLogic.Models.CaseWorker
+@using eCMS.BusinessLogic.Helpers
+@using eCMS.DataLogic.Models
+@using eCMS.Shared
 @{
     Model.IsAjax = true;
     ViewBag.Title = "Case Worker";
     Layout = "~/Areas/CaseManagement/Views/Shared/_LayoutCase.cshtml";
-    CaseWorker caseWorkerModel = Model.CaseWorker;
 }
 @section headsection
 {
     @Styles.Render("~/assets/plugins/kendo/css")
     @Scripts.Render("~/assets/plugins/kendo/js")
 }
+@* This partial view defines form fields that will appear when creating and editing entities *@
 
 <div class="container bulk-import">
-    <!-- begin: mainpage -->
+    <div class="col-md-12">
+        <div class="form-group02">
+            <label class="col-sm-4 control-label labe-text">
+                <label>Edit Staff / Volunteer Assignment:</label>
+            </label>
+        </div>
+    </div>
+    @Html.Partial(Constants.PartialViews.Alert)
+    @using (Html.BeginForm("Edit", "CaseWorker", new { area = "CaseManagement" }, FormMethod.Post, new { id = "frmEditorCaseWorker" }))
+    {
+        @Html.HiddenFor(model => model.ID)
+        @Html.HiddenFor(model => model.CaseID)
+        @Html.HiddenFor(model => model.WorkerID)
+        @Html.HiddenFor(model => model.CreateDate)
+        @Html.HiddenFor(model => model.CreatedByWorkerID)
+        @Html.HiddenFor(model => model.IsActive)
+        <div id="divEditorCaseWorker">
+            <div class="col-md-12">
+                <div class="form-group02">
+                    <label class="col-sm-2 control-label labe-text">Name:</label>
+                    <div class="col-sm-4">
+                        @Html.DisplayFor(model => model.Worker.FirstName)&nbsp;@Html.DisplayFor(model => model.Worker.LastName)
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="form-group02">
+                    <label class="col-sm-2 control-label labe-text">@Html.LabelFor(model => model.IsPrimary)</label>
+                    <div class="col-sm-2">
+                        @Html.EditorFor(model => model.IsPrimary)
+                    </div>
+                    <div class="col-sm-4">
+                        @Html.ValidationMessageFor(model => model.IsPrimary, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="form-group02">
+                    <label class="col-sm-2 control-label labe-text">@Html.LabelRequiredFor(model => model.CaseMemberList)</label>
+                    <div class="col-sm-4" style="padding-left:30px;">
+                        @if (Model.CaseMemberList != null)
+                        {
+                            <div class="row" style="background-color:lightgray;border:1px solid black;">
+                                <div class="col-sm-12">
+                                    <input type="checkbox" id="chkAllMembers" />
+                                    <label class="control-label labe-text">Family Member Name</label>
+                                </div>
+                            </div>
+                            foreach (SelectListItem caseMember in Model.CaseMemberList)
+                            {
+                                string strChecked = "";
+                                if (caseMember.Selected)
+                                {
+                                    strChecked = "checked='checked'";
+                                }
+                                <div class="row" style="border-bottom: 1px solid black;border-left: 1px solid black;border-right: 1px solid black;">
+                                    <div class="col-sm-12">
+                                        <input type="checkbox" name="SelectedCaseMember" class="casemember" value="@caseMember.Value" @strChecked />
+                                        <label class="control-label labe-text">@caseMember.Text</label>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                @*<button id="btnClearForm" type="reset" name="btnClearFormCaseWorker" class="btn btn-primary btnClear"><i class="fa fa-plus"></i>RESET</button>*@
+                <div class="form-group02">
+                    <div class="col-sm-2">
+                    </div>
+                    <div class="col-sm-1">
+                        <button type="submit" id="btnSaveCaseWorker" class="btn btn-primary"><i class="fa fa-plus"></i>Save</button>
+                    </div>
+                    <div class="col-sm-2">
+                        @*<button class="btn btn-primary" id="btnSave" name="btnSaveCaseMember"><i class="fa fa-save"></i> Save & Continue <i class="fa fa-arrow-left"></i></button>*@
+                        <a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.CaseSummary, new { caseID = Model.CaseID})" class="btn btn-primary"><i class="fa fa-long-arrow-left"></i> Back to Case Summary</a>
+                    </div>
+                </div>
+                <div class="form-group02">
+
+                </div>
+            </div>
+        </div>
+    }
     <div class="row margin-top-10">
         <div class="col-md-12">
             <div class="col-lg-12 col-md-11 ">
@@ -26,22 +111,46 @@
                             <div class="col-md-12 font-13 text-uppercase" style="padding-top: 6px; padding-right: 0;">
                                 <label>
                                     <img src="@Url.Content("~/Assets/images/lavel-side-icon.png")">
-                                    <span>Case Worker Assignment</span>
+                                    <span>Staff / Volunteers assigned in the past or present:</span>
                                 </label>
+
                             </div>
+                        </div>
+                        <div class="col-md-12">
+                            @Html.Partial("_Index", Model)
                         </div>
                     </div>
                 </div>
-                @Html.Partial(Constants.PartialViews.Alert)
-                @using (Html.BeginForm("Edit", "CaseWorker", new { area = "CaseManagement" }, FormMethod.Post, new { id = "frmEditorCaseWorker" }))
-                {
-                    <div id="divEditorCaseWorker">
-                        @Html.Partial("_CreateOrEdit", caseWorkerModel)
-                    </div>         
-                }
-               
             </div>
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function () {
+        $("#chkAllMembers").on('click', function () {
+            if (this.checked) {
+                $('.casemember').each(function () {
+                    this.checked = true;
+                });
+            } else {
+                $('.casemember').each(function () {
+                    this.checked = false;
+                });
+            }
+        });
 
+        $('.casemember').on('click', function () {
+            checkAllItems();
+        });
+        function checkAllItems() {
+            if ($('.casemember:checked').length == $('.casemember').length) {
+                $('#chkAllMembers').prop('checked', true);
+            } else {
+                $('#chkAllMembers').prop('checked', false);
+            }
+        }
+
+        checkAllItems();
+    });
+
+</script>

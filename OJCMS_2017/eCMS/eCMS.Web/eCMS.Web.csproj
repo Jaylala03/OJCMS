@@ -227,8 +227,8 @@
       <HintPath>..\packages\Microsoft.AspNet.WebPages.OAuth.2.0.30506.0\lib\net40\Microsoft.Web.WebPages.OAuth.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="RestSharp, Version=105.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -335,6 +335,7 @@
     <Compile Include="Areas\CaseManagement\Controllers\CaseHouseholdIncomeController.cs" />
     <Compile Include="Areas\CaseManagement\Controllers\CaseSummaryController.cs" />
     <Compile Include="Areas\CaseManagement\Controllers\CaseWorkerController02252018.cs" />
+    <Compile Include="Areas\CaseManagement\Controllers\CaseWorkerController03032018.cs" />
     <Compile Include="Areas\CaseManagement\Controllers\CaseWorkerNoteController.cs" />
     <Compile Include="Reports\CaseDashboardNew.cs">
       <DependentUpon>CaseDashboardNew.rpt</DependentUpon>
@@ -1993,6 +1994,10 @@
     <Content Include="Areas\CaseManagement\Views\AssesmentIndicators\Index.cshtml" />
     <Content Include="Areas\CaseManagement\Views\AssesmentIndicators\_CreateOrEdit.cshtml" />
     <Content Include="Areas\CaseManagement\Views\CaseInitialAssessment\Index.cshtml" />
+    <Content Include="Areas\CaseManagement\Views\CaseWorker\Create.cshtml" />
+    <Content Include="Areas\CaseManagement\Views\CaseWorker\Edit - Copy.cshtml" />
+    <Content Include="Areas\CaseManagement\Views\CaseWorker\_CreateOrEdit - Copy.cshtml" />
+    <Content Include="Areas\CaseManagement\Views\CaseWorker\_Index.cshtml" />
     <None Include="bin\eCMS.Web.dll.config" />
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Properties\PublishProfiles\ecms.softwareravine.com.pubxml" />

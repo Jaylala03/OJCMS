@@ -802,7 +802,11 @@ namespace eCMS.Web.Controllers
             //return Json(jamatkhanaRepository.FindAllByRegionID(regionID), JsonRequestBehavior.AllowGet);
             return Json(jamatkhanaRepository.FindAllByWorkerRegionID(regionID), JsonRequestBehavior.AllowGet);
         }
-
+        public JsonResult LoadJamatkhanasAutoCompleteAjax(int regionID, string JKText)
+        {
+            //return Json(jamatkhanaRepository.FindAllByRegionID(regionID), JsonRequestBehavior.AllowGet);
+            return Json(jamatkhanaRepository.FindAllByWorkerRegionIDAutoComplete(regionID, JKText), JsonRequestBehavior.AllowGet);
+        }
         /// <summary>
         /// Load Intake Method DropDownList Asynchronously
         /// </summary>

@@ -17,7 +17,7 @@ namespace eCMS.DataLogic.Models
     {
         public Int32 WorkerNoteActivityTypeID { get; set; }
 
-        //[Required(ErrorMessage = "Please enter Contact Date")]
+        [Required(ErrorMessage = "Please enter Contact Date")]
         [Display(Name = "Contact Date")]
         //[DataType(DataType.DateTime)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
@@ -36,12 +36,18 @@ namespace eCMS.DataLogic.Models
         [ForeignKey("ContactMethod")]
         public Int32 ContactMethodID { get; set; }
 
-        //[Required(ErrorMessage = "Please enter description")]
+        [Required(ErrorMessage = "Please enter description")]
         [Display(Name = "Notes:")]
         [MaxLength]
         public String Note { get; set; }
 
         public virtual ContactMethod ContactMethod { get; set; }
+
+        [Display(Name = "")]
+        [ForeignKey("CaseMember")]
+        public Int32? CaseMemberID { get; set; }
+
+        public virtual CaseMember CaseMember { get; set; }
 
         //[NotMapped]
         public Int32 CaseID { get; set; }

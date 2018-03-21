@@ -1,4 +1,4 @@
-@model eCMS.DataLogic.ViewModels.AssignmentModel
+@model eCMS.DataLogic.Models.CaseWorker
 @using EasySoft.Helper;
 @using eCMS.Shared;
 @using eCMS.DataLogic.Models;
@@ -6,9 +6,7 @@
 @{
     Model.IsAjax = true;
     ViewBag.Title = "Case Worker";
-    //Layout = "~/Areas/CaseManagement/Views/Shared/_LayoutCase.cshtml";
-    CaseWorker caseWorkerModel = Model.CaseWorker;
-    CaseSupportCircle caseSupportCircle = Model.CaseSupportCircle;
+    Layout = "~/Areas/CaseManagement/Views/Shared/_LayoutCase.cshtml";
 }
 @section headsection
 {
@@ -20,29 +18,33 @@
     <!-- begin: mainpage -->
     <div class="row margin-top-10">
         <div class="col-md-12">
-            <div class="col-lg-12 col-md-11 ">
+            <div class="col-lg-12 col-md-12 ">
                 <div class="row">
                     <div class="col-md-12 col-sm-12 candidate-on-map">
                         <div class="row">
-                            <div class="col-md-12 font-13 text-uppercase" style="padding-top: 6px; padding-right: 0;">
+                            <div class="col-md-6 font-13" style="padding-top: 6px; padding-right: 0;float:left;">
                                 <label>
                                     <img src="@Url.Content("~/Assets/images/lavel-side-icon.png")">
-                                    <span>Case Worker Assignment</span>
+                                    <span>Staff / Volunteers assigned in past or present:</span>
                                 </label>
+                            </div>
+                            <div class="col-md-6 font-13" style="padding-top: 6px;">
+                                <div style="float:right;">
+                                    <a href="@Url.Action(Constants.Actions.Create, Constants.Controllers.CaseWorker, new { caseID = Model.CaseID})"> Assign Staff / Volunteer</a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                @Html.Partial(Constants.PartialViews.Alert)
-                @using (Html.BeginForm("Create", "CaseWorker", new { area = "CaseManagement" }, FormMethod.Post, new { id = "frmEditorCaseWorker" }))
-                {
-                    <div id="divEditorCaseWorker">
-                        @Html.Partial("_CreateOrEdit", caseWorkerModel)
-                    </div>         
-                }
-               
+                <div class="row center-block col-md-12 margin-bottom-10">
+                    @*<button class="btn btn-primary" id="btnSave" name="btnSaveCaseMember"><i class="fa fa-save"></i> Save & Continue <i class="fa fa-arrow-left"></i></button>*@
+                    <a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.CaseSummary, new { caseID = Model.CaseID})" class="btn btn-primary"><i class="fa fa-long-arrow-left"></i> Back to Case Summary</a>
+                </div>
             </div>
         </div>
+    </div>
+    <div class="col-md-12">
+        @Html.Partial("_Index", Model)
     </div>
 </div>
 

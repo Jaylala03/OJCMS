@@ -2,7 +2,6 @@
 using eCMS.BusinessLogic.Helpers;
 using eCMS.BusinessLogic.Repositories;
 using eCMS.DataLogic.Models;
-using eCMS.DataLogic.Models;
 using eCMS.DataLogic.ViewModels;
 using eCMS.ExceptionLoging;
 using eCMS.Shared;
@@ -21,6 +20,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
     {
         private readonly ICaseSummaryRepository _casesummaryrepository;
         private readonly ICaseHouseholdIncomeRepository caseHouseholdIncomeRepository;
+        private readonly ICaseInitialAssessmentRepository caseInitialAssessmentRepository;
         public CaseSummaryController(IWorkerRepository workerRepository,
            ICaseRepository caseRepository,
            IRelationshipStatusRepository relationshipstatusRepository,
@@ -37,6 +37,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
            IWorkerRoleActionPermissionRepository workerroleactionpermissionRepository
            , IWorkerRoleActionPermissionNewRepository workerroleactionpermissionnewRepository
             , ICaseHouseholdIncomeRepository caseHouseholdIncomeRepository
+            , ICaseInitialAssessmentRepository caseInitialAssessmentRepository
           )
             : base(workerroleactionpermissionRepository, caseRepository, workerroleactionpermissionnewRepository)
         {
@@ -53,6 +54,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
             this.workerroleRepository = workerRoleRepository;
             this._casesummaryrepository = caseSummaryRepository;
             this.caseHouseholdIncomeRepository = caseHouseholdIncomeRepository;
+            this.caseInitialAssessmentRepository = caseInitialAssessmentRepository;
         }
 
         [WorkerAuthorize]
@@ -81,6 +83,9 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
             
             if (caseSummary.CaseCurrentHouseholdIncomeVM != null)
                 caseSummary.CurrentHouseholdIncomeID = caseSummary.CaseCurrentHouseholdIncomeVM.ID;
+
+            caseSummary.AssesmentIndicators = caseInitialAssessmentRepository.GetAllIndicators();
+            caseSummary.CaseInitialAssessment = caseInitialAssessmentRepository.GetCaseAssessment(caseID);
 
             return View(caseSummary);
         }

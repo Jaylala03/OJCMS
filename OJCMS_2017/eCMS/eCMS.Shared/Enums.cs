@@ -60,5 +60,6 @@ namespace eCMS.Shared
         WorkNote=4,
         CaseIndividual = 5,
         CaseWorker = 6,
+        CaseInitialAssessment = 7,
     }
 }
