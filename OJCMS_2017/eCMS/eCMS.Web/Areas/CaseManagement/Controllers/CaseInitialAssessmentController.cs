@@ -68,8 +68,8 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
             iniass.CaseInitialAssessment = caseInitialAssessmentRepository.GetCaseAssessment(caseid);
             iniass.CaseAssessmentReviewed = caseInitialAssessmentRepository.CaseAssessmentReviewed(caseid);
             iniass.CaseWorkerNote = new CaseWorkerNote();
-            iniass.CaseHouseholdIncome = caseHouseholdIncomeRepository.GetCurrentIncomeForCaseSummary(caseid);
-            if (iniass.CaseHouseholdIncome == null)
+            //iniass.CaseHouseholdIncome = caseHouseholdIncomeRepository.GetCurrentIncomeForCaseSummary(caseid);
+            //if (iniass.CaseHouseholdIncome == null)
                 iniass.CaseHouseholdIncome = new CaseHouseholdIncome();
             iniass.CaseHouseholdIncome.IncomeRanges = incomeRangeRepository.GetAll().ToList();
             var varCase = caseRepository.Find(caseid);
