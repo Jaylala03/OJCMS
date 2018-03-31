@@ -64,6 +64,9 @@
     #lnkEditor:hover {
         cursor: pointer;
     }
+    .fulldescription {
+    text-align:justify;
+    }
 </style>
 
 <div class="container candidate-list-main-container">
@@ -125,13 +128,20 @@
                                     <td>@(item.AssesmentIndicatorDescription4.Length > 10 ? @item.AssesmentIndicatorDescription4.Substring(0, 10) + "..." : @item.AssesmentIndicatorDescription4) </td>
                                     <td>@(item.AssesmentIndicatorDescription5.Length > 10 ? @item.AssesmentIndicatorDescription5.Substring(0, 10) + "..." : @item.AssesmentIndicatorDescription5) </td>
                                     <td>@(item.AssesmentIndicatorDescription6.Length > 10 ? @item.AssesmentIndicatorDescription6.Substring(0, 10) + "..." : @item.AssesmentIndicatorDescription6) </td>*@
-                                <td style="word-wrap:break-word;">@(item.AssesmentIndicatorDescription1) </td>
+                                @*<td style="word-wrap:break-word;">@(item.AssesmentIndicatorDescription1) </td>
                                 <td style="word-wrap:break-word;">@(item.AssesmentIndicatorDescription2) </td>
                                 <td style="word-wrap:break-word;">@(item.AssesmentIndicatorDescription3) </td>
                                 <td style="word-wrap:break-word;">@(item.AssesmentIndicatorDescription4) </td>
                                 <td style="word-wrap:break-word;">@(item.AssesmentIndicatorDescription5) </td>
                                 <td style="word-wrap:break-word;">@(item.AssesmentIndicatorDescription6) </td>
-                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>*@
+                                <td class="fulldescription">@(item.AssesmentIndicatorDescription1) </td>
+                                <td class="fulldescription">@(item.AssesmentIndicatorDescription2) </td>
+                                <td class="fulldescription">@(item.AssesmentIndicatorDescription3) </td>
+                                <td class="fulldescription">@(item.AssesmentIndicatorDescription4) </td>
+                                <td class="fulldescription">@(item.AssesmentIndicatorDescription5) </td>
+                                <td class="fulldescription">@(item.AssesmentIndicatorDescription6) </td>
+                                <td class="fulldescription">&nbsp;</td>
                             </tr>
                         }
                     </tbody>
@@ -274,7 +284,9 @@
 <script type="text/javascript">
     var memberid = '';
     var memebername = '';
-
+    $(document).ready(function() {
+        TrimDataLoad();
+    });
     $(".lnkEditor").on("click", function ()
     {
         var $row = $(this).closest('tr');
@@ -378,4 +390,40 @@
             });
         }
     });
+    function TrimDataLoad() 
+    {
+        var showChar = 41;  // How many characters are shown by default
+        var ellipsestext = "...";
+        var moretext = "<b style='color: #ca4263;'>Show More</b>";
+        var lesstext = "<b>Show Less</b>";
+
+
+        $('.fulldescription').each(function () {
+            var content = $(this).html();
+
+            if (content.length > showChar) {
+
+                var c = content.substr(0, showChar);
+                var h = content.substr(showChar, content.length - showChar);
+
+                var html = c + '<span class="moreellipses">' + ellipsestext + '&nbsp;</span><span class="morecontent"><span style="display:none;">' + h + '</span>&nbsp;&nbsp;<a href="" class="morelink">' + moretext + '</a></span>';
+
+                $(this).html(html);
+            }
+
+        });
+    
+        $(".morelink").click(function () {
+            if ($(this).hasClass("less")) {
+                $(this).removeClass("less");
+                $(this).html(moretext);
+            } else {
+                $(this).addClass("less");
+                $(this).html(lesstext);
+            }
+            $(this).parent().prev().toggle();
+            $(this).prev().toggle();
+            return false;
+        });
+    }
 </script>

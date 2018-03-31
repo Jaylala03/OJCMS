@@ -58,6 +58,7 @@ namespace eCMS.BusinessLogic.Repositories
 
             varCase.LastUpdateDate = DateTime.Now;
             varCase.CaseStatusID = casestatus.CaseStatusID;
+            varCase.IsLICO = (varCase.IncomeRangeID < (int)IncomeRanges.From40000to60000 ? true : false);
 
             if (varCase.ID == default(int))
             {
@@ -105,6 +106,10 @@ namespace eCMS.BusinessLogic.Repositories
 
             return casesummary;
         }
+        public CaseHouseholdIncome GetCurrentHouseholdIncome(int CaseId)
+        {
+            return context.CaseHouseholdIncome.Where(c => c.CaseID == CaseId && !c.IsArchived).OrderByDescending(c => c.ID).FirstOrDefault();
+        }
     }
 
     /// <summary>
@@ -116,5 +121,6 @@ namespace eCMS.BusinessLogic.Repositories
         DataSourceResult Search(CaseHouseholdIncome searchParameters, DataSourceRequest paramDSRequest);
         CaseHouseholdIncomeVM GetInitialIncomeForCaseSummary(int CaseId);
         CaseHouseholdIncomeVM GetCurrentIncomeForCaseSummary(int CaseId);
+        CaseHouseholdIncome GetCurrentHouseholdIncome(int CaseId);
     }
 }

@@ -312,7 +312,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
                                 ModelState.AddModelError("", "Please enter No. of members");
                             }
 
-                            if (varCase.CaseHouseholdIncome.IncomeRangeID == 0 || varCase.CaseHouseholdIncome.NoOfMembers == null)
+                            if (varCase.CaseHouseholdIncome.IncomeRangeID == 0 || varCase.CaseHouseholdIncome.IncomeRangeID == null)
                             {
                                 validincomeflag = false;
                                 ModelState.AddModelError("", "Please select income range");
@@ -384,18 +384,18 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
                             caseWorkerNoteRepository.InsertOrUpdate(varCase.CaseWorkerNote);
                             caseWorkerNoteRepository.Save();
                         }
-                        var caseWorker = new CaseWorker();
-                        //var workerRoleList = workerinroleRepository.FindAllByWorkerID(CurrentLoggedInWorker.ID);
-                        var workerRoleList = workerinrolenewRepository.FindAllByWorkerID(CurrentLoggedInWorker.ID);
-                        if (workerRoleList != null)
-                        {
-                            caseWorker.IsActive = true;
-                            caseWorker.LastUpdatedByWorkerID = CurrentLoggedInWorker.ID;
-                            caseWorker.CaseID = varCase.ID;
-                            caseWorker.WorkerID = CurrentLoggedInWorker.ID;
-                            caseworkerRepository.InsertOrUpdate(caseWorker);
-                            caseworkerRepository.Save();
-                        }
+                        //var caseWorker = new CaseWorker();
+                        ////var workerRoleList = workerinroleRepository.FindAllByWorkerID(CurrentLoggedInWorker.ID);
+                        //var workerRoleList = workerinrolenewRepository.FindAllByWorkerID(CurrentLoggedInWorker.ID);
+                        //if (workerRoleList != null)
+                        //{
+                        //    caseWorker.IsActive = true;
+                        //    caseWorker.LastUpdatedByWorkerID = CurrentLoggedInWorker.ID;
+                        //    caseWorker.CaseID = varCase.ID;
+                        //    caseWorker.WorkerID = CurrentLoggedInWorker.ID;
+                        //    caseworkerRepository.InsertOrUpdate(caseWorker);
+                        //    caseworkerRepository.Save();
+                        //}
                         //redirect to list page after successful operation
                         //return RedirectToAction(Constants.Actions.Index, Constants.Controllers.CaseMember, new { caseID = varCase.ID });
                         return RedirectToAction(Constants.Actions.Index, Constants.Controllers.CaseSummary, new { caseID = varCase.ID });
@@ -407,18 +407,18 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
                 }
                 else
                 {
-                    foreach (var modelStateValue in ViewData.ModelState.Values)
-                    {
-                        foreach (var error in modelStateValue.Errors)
-                        {
-                            varCase.ErrorMessage = error.ErrorMessage;
-                            break;
-                        }
-                        if (varCase.ErrorMessage.IsNotNullOrEmpty())
-                        {
-                            break;
-                        }
-                    }
+                    //foreach (var modelStateValue in ViewData.ModelState.Values)
+                    //{
+                    //    foreach (var error in modelStateValue.Errors)
+                    //    {
+                    //        varCase.ErrorMessage = error.ErrorMessage;
+                    //        break;
+                    //    }
+                    //    if (varCase.ErrorMessage.IsNotNullOrEmpty())
+                    //    {
+                    //        break;
+                    //    }
+                    //}
                 }
             }
             catch (CustomException ex)
@@ -840,99 +840,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-        public List<Employee> GetAllEmployees()
-        {
-            List<Employee> employees = new List<Employee>();
-            employees.Add(new Employee()
-            {
-                Id = 1,
-                FirstName = "John",
-                LastName = "Smith",
-                CompanyId = 1,
-                CompanyName = "Microsoft"
-            }
-            );
-            employees.Add(new Employee()
-            {
-                Id = 2,
-                FirstName = "Tim",
-                LastName = "Smith",
-                CompanyId = 2,
-                CompanyName = "UbiSoft"
-            }
-            );
-            return employees;
-        }
-        public JsonResult ReadEmployees([DataSourceRequest] DataSourceRequest request)
-        {
-            List<Employee> employess = GetAllEmployees();
-            DataSourceResult result = employess.ToDataSourceResult(request);
-            return Json(result, JsonRequestBehavior.AllowGet);
-        }
-        public class Company
-        {
-            public int Id { get; set; }
-            public string Name { get; set; }
-        }
-        public List<Company> GetAllCompanies()
-        {
-            List<Company> companies = new List<Company>();
-            companies.Add(new Company()
-            {
-                Id = 1,
-                Name = "Microsoft"
-            }
-            );
-            companies.Add(new Company()
-            {
-                Id = 2,
-                Name = "UbiSoft"
-            }
-            );
-            return companies;
-        }
 
-        public ActionResult Employees()
-        {
-            ViewBag.Companies = GetAllCompanies();
-            return View();
-        }
-
-        public ActionResult Editing_Inline()
-        {
-            return View();
-        }
-
-        [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult CreateEmployee([DataSourceRequest] DataSourceRequest request, Employee employee)
-        {
-            if (employee != null && ModelState.IsValid)
-            {
-            }
-
-            return Json(new[] { employee }.ToDataSourceResult(request, ModelState));
-        }
-
-
-        [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult UpdateEmployees([DataSourceRequest] DataSourceRequest request, Employee employee)
-        {
-            if (employee != null && ModelState.IsValid)
-            {
-            }
-
-            return Json(new[] { employee }.ToDataSourceResult(request, ModelState));
-        }
-
-        [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult DestroyEmployees([DataSourceRequest] DataSourceRequest request, Employee employee)
-        {
-            if (employee != null)
-            {
-            }
-
-            return Json(new[] { employee }.ToDataSourceResult(request, ModelState));
-        }
     }
 
 

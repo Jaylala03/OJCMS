@@ -481,7 +481,7 @@
         }
         else
         {
-            <button type="submit" class="btn btn-primary btnSaveAndRefresh" data-formid="frmEditorWorker" name="btnSave"><i class="fa fa-save"></i> Save & Continue <i class="fa fa-long-arrow-right"></i></button>
+            <button type="submit" class="btn btn-primary btnSaveAndRefresh" data-formid="frmEditorWorker" id="btnSaveCase" name="btnSave"><i class="fa fa-save"></i> Save & Continue <i class="fa fa-long-arrow-right"></i></button>
             <a href="@Url.Action(Constants.Actions.Index,Constants.Controllers.Case)" class="btn btn-primary"><i class="fa fa-long-arrow-left"></i> Back to Case List</a>
         }
     }
@@ -489,7 +489,13 @@
 </div>
 <br class="clear" />
 <script>
-
+    //$('#btnSaveCase').on("click", function () {
+    //    debugger
+    //    var confirmmessage = confirm("Do you want to save ?");
+    //    if (confirmmessage) {
+    //        return false;
+    //    }
+    //});
     //$(document).ready(function () {
     //    $('#TimeSpent').timepicker({
     //        autoclose: true,

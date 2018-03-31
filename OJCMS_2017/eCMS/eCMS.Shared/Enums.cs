@@ -62,4 +62,13 @@ namespace eCMS.Shared
         CaseWorker = 6,
         CaseInitialAssessment = 7,
     }
+    public enum IncomeRanges
+    { 
+        Lessthan20000 = 1,
+        From20000to25000 = 2,
+        From25000to40000=3,
+        From40000to60000=4,
+        From60000to80000=5,
+        Greaterthan80000=6,
+    }
 }

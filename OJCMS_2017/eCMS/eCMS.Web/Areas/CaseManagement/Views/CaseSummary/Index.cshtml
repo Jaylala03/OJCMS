@@ -64,6 +64,9 @@
     #lnkEditor:hover {
         cursor: pointer;
     }
+     .fulldescription {
+    text-align:justify;
+    }
 </style>
 @Html.HiddenFor(m => m.CaseID)
 @Html.HiddenFor(m => m.ProgramID)
@@ -82,22 +85,34 @@
         </div>
         @if (!Model.DoesHouseHoldIncomeExists || !Model.DoesInitialAssessmentExists || !Model.DoesFamilyMembersExists)
         {
-            string message = "The following sections are not complete : ";
+            string message = "";
+            string assmessage = "";
             if (!Model.DoesHouseHoldIncomeExists)
             {
-                message += "HouseHoldIncome,";
+                message += "HouseHoldIncome";
             }
             if (!Model.DoesInitialAssessmentExists)
             {
-                message += "Initial Assessment,";
+                message += ",Initial Assessment";
+                assmessage = "Initial Assessment have to happen within one month of inake.";
             }
             if (!Model.DoesFamilyMembersExists)
             {
-                message += "Family Member Assignment";
+                message += ",Family Member Assignment";
             }
-                <div class="col-md-12" style="height:40px;background:yellow;padding-left:10px;border:1px solid black;">
-                    <label class="control-label labe-text">@message</label>
-                </div>
+            <div class="col-md-12" style="background:yellow;padding-left:10px;border:1px solid black;">
+                <label class="control-label labe-text">
+                @if (message.StartsWith(","))
+                { 
+                    @:The following sections are not complete : @message.Substring(1,message.Length - 1)
+                }
+                @if (!string.IsNullOrEmpty(assmessage))
+                { 
+                    @:<br/>
+                    @assmessage
+                }
+                    </label>
+            </div>
         }
         <div class="center-block" style="align-items:center;">
             <table class="table table-striped text-align-center" align="center" style="width:100%;">
@@ -235,9 +250,13 @@
                     <div class="align-left">
                         <label class="control-label labe-text">household Income:</label>
                     </div>
-                    <table>
+                    <table class="col-md-12">
                         <thead>
-                            <label class="control-label labe-text">Initial household Income:</label>
+                            <tr>
+                                <th colspan="2">
+                                    <label class="control-label labe-text">Initial household Income:</label>
+                                </th>
+                            </tr>
                         </thead>
                         <tr>
                             <td><label class="control-label labe-text">Number of members in the household:</label></td>
@@ -281,16 +300,20 @@
                     </table>
 
                 </div>
-                <div class="col-md-6 border table-bordered">
+                <div class="col-md-6 table-bordered">
                     <div class="align-right">
                         <label class="control-label labe-text" style="text-align:right;float:right;">
                             @Html.ActionLink("Update Household Income", Constants.Actions.Edit, Constants.Controllers.CaseHouseholdIncome, new { CaseID = Model.CaseID, IncomeID = Model.CurrentHouseholdIncomeID }, null)
                         </label>
                     </div>
                     <br /><br />
-                    <table>
+                    <table class="col-md-12">
                         <thead>
-                            <label class="control-label labe-text">Current household Income:</label>
+                            <tr>
+                                <th colspan="2">
+                                    <label class="control-label labe-text">Current household Income:</label>
+                                </th>
+                            </tr>
                         </thead>
                         <tr>
                             <td><label class="control-label labe-text">Number of members in the household:</label></td>
@@ -416,8 +439,8 @@
                 </div>
             </div>
 
-    <div class="col-md-12" style="height:40px;background:yellow;padding-left:10px;border:1px solid black;">
-        <label class="control-label labe-text">Initial Assessment has not been added yet.</label>
+    <div class="col-md-12" style="background:yellow;padding-left:10px;border:1px solid black;">
+        <label class="control-label labe-text">Initial Assessment have to happen within one month of inake.</label>
     </div>
         }
         else
@@ -477,12 +500,12 @@
                                             </tr>*@
                                         <tr>
                                             <td>@item.IndicatorName</td>
-                                            <td style="word-wrap:break-word;">@(item.AssesmentIndicatorDescription1) </td>
-                                            <td style="word-wrap:break-word;">@(item.AssesmentIndicatorDescription2) </td>
-                                            <td style="word-wrap:break-word;">@(item.AssesmentIndicatorDescription3) </td>
-                                            <td style="word-wrap:break-word;">@(item.AssesmentIndicatorDescription4) </td>
-                                            <td style="word-wrap:break-word;">@(item.AssesmentIndicatorDescription5) </td>
-                                            <td style="word-wrap:break-word;">@(item.AssesmentIndicatorDescription6) </td>
+                                            <td class="fulldescription">@(item.AssesmentIndicatorDescription1) </td>
+                                            <td class="fulldescription">@(item.AssesmentIndicatorDescription2) </td>
+                                            <td class="fulldescription">@(item.AssesmentIndicatorDescription3) </td>
+                                            <td class="fulldescription">@(item.AssesmentIndicatorDescription4) </td>
+                                            <td class="fulldescription">@(item.AssesmentIndicatorDescription5) </td>
+                                            <td class="fulldescription">@(item.AssesmentIndicatorDescription6) </td>
                                             @*<td>&nbsp;</td>*@
                                         </tr>
                                     }
@@ -539,7 +562,7 @@
 </div>
 <script>
     $(document).ready(function () {
-
+            TrimDataLoad();
         $("#showAssessmentChart").click(function () {
             if ($('#divAssessmentChart').css('display') == 'none') {
                 $('#showAssessmentChart').text('Hide Assessment Chart');
@@ -551,4 +574,39 @@
         });
 
     });
+    function TrimDataLoad() {
+        var showChar = 41;  // How many characters are shown by default
+        var ellipsestext = "...";
+        var moretext = "<b style='color: #ca4263;'>Show More</b>";
+        var lesstext = "<b>Show Less</b>";
+
+
+        $('.fulldescription').each(function () {
+            var content = $(this).html();
+
+            if (content.length > showChar) {
+
+                var c = content.substr(0, showChar);
+                var h = content.substr(showChar, content.length - showChar);
+
+                var html = c + '<span class="moreellipses">' + ellipsestext + '&nbsp;</span><span class="morecontent"><span style="display:none;">' + h + '</span>&nbsp;&nbsp;<a href="" class="morelink">' + moretext + '</a></span>';
+
+                $(this).html(html);
+            }
+
+        });
+
+        $(".morelink").click(function () {
+            if ($(this).hasClass("less")) {
+                $(this).removeClass("less");
+                $(this).html(moretext);
+            } else {
+                $(this).addClass("less");
+                $(this).html(lesstext);
+            }
+            $(this).parent().prev().toggle();
+            $(this).prev().toggle();
+            return false;
+        });
+    }
 </script>
