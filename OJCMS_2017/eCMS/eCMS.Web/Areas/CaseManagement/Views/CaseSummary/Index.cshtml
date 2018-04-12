@@ -451,11 +451,12 @@
                         <label class="control-label labe-text">Assessment as on (MM/DD/yyyy) @System.DateTime.Now.ToString("MM/dd/yyyy")</label>
                     </div>
                 </div>
-                <div class="col-md-4" style="float:right;">
+                <div class="col-md-7" style="float:right;">
                     <div class="form-group02">
-                        <label>
+                        <label>                            
+                            <a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.CaseAssessmentSummary, new { caseID = Model.CaseID})" class="btn btn-primary"><i class="fa fa-long-arrow-right"></i>View Assessment Summary</a>
                             <span id="showAssessmentChart" style="cursor:pointer;" class="btn btn-primary">Show Assessment Chart</span>
-                            <a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.CaseInitialAssessment, new { caseID = Model.CaseID})" class="btn btn-primary"><i class="fa fa-long-arrow-right"></i>Create Assessment</a>
+                            <a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.CaseInitialAssessment, new { caseID = Model.CaseID})" class="btn btn-primary"><i class="fa fa-long-arrow-right"></i>Create Assessment</a>                            
                         </label>
                     </div>
                 </div>

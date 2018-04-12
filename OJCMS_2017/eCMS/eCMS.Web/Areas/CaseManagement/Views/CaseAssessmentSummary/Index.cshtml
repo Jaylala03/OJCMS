@@ -1,0 +1,231 @@
+﻿@model eCMS.DataLogic.ViewModels.CaseAssessmentSummaryVM
+@using EasySoft.Helper;
+@using eCMS.Shared;
+@using eCMS.DataLogic.Models;
+@using eCMS.DataLogic.ViewModels
+@{
+    ViewBag.Title = "Case Initial Assessment";
+    Layout = "~/Areas/CaseManagement/Views/Shared/_LayoutCase.cshtml";
+}
+@section headsection
+{
+    @Styles.Render("~/assets/plugins/kendo/css")
+    @Scripts.Render("~/assets/plugins/kendo/js")
+}
+<style type="text/css">
+    #indicators td {
+        width: 195px;
+        padding: 5px;
+        border: 1px solid black;
+        text-align: center;
+        height: 33px;
+    }
+
+    #indicators th {
+        width: 220px;
+        padding: 5px;
+        border: 1px solid black;
+        text-align: center;
+        height: 33px;
+    }
+
+    #indicators td:first-child {
+        text-align: left;
+    }
+
+    #indicators th:first-child {
+        text-align: left;
+    }
+
+    #assessment td {
+        width: 195px;
+        padding: 5px;
+        border: 1px solid black;
+        text-align: center;
+        height: 33px;
+    }
+
+    #assessment th {
+        width: 220px;
+        padding: 5px;
+        border: 1px solid black;
+        text-align: center;
+        height: 33px;
+    }
+
+    #assessment td:first-child {
+        text-align: left;
+    }
+
+    #assessment th:first-child {
+        text-align: left;
+    }
+
+    #lnkEditor:hover {
+        cursor: pointer;
+    }
+
+    .fulldescription {
+        text-align: justify;
+    }
+</style>
+
+@Html.HiddenFor(model => model.CaseID)
+
+<div class="container candidate-list-main-container">
+    <div class="row">
+        <div class="col-lg-12 col-md-11 candidate-table-bg">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 candidate-on-map">
+                    <div class="row">
+                        <div class="col-md-12 font-13 text-uppercase" style="padding-top: 6px; padding-right: 0;">
+                            <label>
+                                <img src="@Url.Content("~/Assets/images/lavel-side-icon.png")">
+                                <span>Assessment Summary</span>
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            <label class="control-label labe-text">@Html.Label("Family Member")</label>
+        </div>
+        <div class="form-group02">
+            <div class="col-sm-2">
+                @(Html.Kendo().DropDownListFor(model => model.CaseMemberID)
+                    .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                    .DataTextField("Text")
+                    .DataValueField("Value")
+                    .DataSource(source =>
+                    {
+                        source.Read(read =>
+                        {
+                            read.Action("LoadCaseMemberListAjax", "CaseAssessmentSummary").Data("FamilyMemberSelect");
+                        });
+                    }).Enable(true)
+            //.AutoBind(false)
+                )
+            </div>
+
+
+            <div class="col-sm-1">
+                <label class="control-label labe-text">@Html.Label("View As")</label>
+            </div>
+            <div class="form-group02">
+                <div class="col-sm-4">
+                    @(Html.Kendo().DropDownListFor(model => model.ViewAsID)
+                    .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+          .DataTextField("Text")
+          .DataValueField("Value")
+          .BindTo(new List<SelectListItem>() {
+              new SelectListItem() {
+                  Text = "Table",
+                  Value = "1"
+              },
+              new SelectListItem() {
+                  Text = "Chart",
+                  Value = "2"
+              }
+          })
+          .HtmlAttributes(new { style = "width: 100%" })
+                    )
+                </div>
+            </div>
+        </div>
+        <div class="row" style="text-align:center;margin-bottom:10px;margin-top:10px;">
+            <div class="form-group02">
+                <div class="col-sm-4">
+                    <button type="button" class="btn btn-primary" id="btnViewAssessmentSummary"> View </button>
+                </div>
+                <div class="col-sm-4">
+                    <a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.CaseSummary, new { caseID = Model.CaseID})" class="btn btn-primary"><i class="fa fa-long-arrow-left"></i> Back to Case Summary</a>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-top:10px;" id="AssessmentTable">
+            <div class="col-lg-12 col-md-11 candidate-table-bg">
+                <div class="row">
+                    <table id="assessment" cellpadding="2">
+                        @*<thead>
+                            <tr style="height:50px;padding-left:5px;">
+                                <th>Assessment Date (MM/DD/YYYY)</th>
+                                @foreach (var item in Model.AssesmentIndicators)
+                                {
+                                    <th>
+                                        @item.IndicatorName
+                                    </th>
+                                }
+                            </tr>
+                        </thead>
+                        <tbody style="background:none;">
+                            @foreach (var member in Model.CaseInitialAssessment.Select(m => new { m.CaseMemberName, m.CaseMemberID }).Distinct())
+                            {
+                                <tr>
+                                    <td>01-01-1900</td>
+                                    <td style="display:none;">@member.CaseMemberID</td>
+                                    @foreach (var item in Model.CaseInitialAssessment.Where(c => c.CaseMemberName == member.CaseMemberName).OrderBy(c => c.IndicatorTypeID))
+                                    {
+                                        <td class="clsind" data-memberid="@item.CaseMemberID" data-indicatorid="@item.IndicatorTypeID" data-assessmentvalue="@item.AssessmentValue">@(item.AssessmentValue > 0 ? item.AssessmentValue.ToString() : "")</td>
+                                    }
+                                </tr>
+                            }
+                        </tbody>*@
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <table id="tblProducts"></table>
+</div>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        //$("#AssessmentTable").hide();
+    });
+
+    $("#btnViewAssessmentSummary").on("click", function () {
+        var caseMemberID = $("#CaseMemberID").data("kendoDropDownList"),
+            viewAsID = $("#ViewAsID").data("kendoDropDownList");
+
+        $.ajax({
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            type: 'POST',
+            url: '/CaseAssessmentSummary/GetInitialAssessmentSummary',
+            data: JSON.stringify({'CaseID': @Model.CaseID, 'CaseMemberID': caseMemberID.value() }),
+            success: function (data) {
+                var dataList = JSON.stringify(data);               
+
+                alert(dataList);
+
+                var stringyfy = JSON.parse(dataList);                
+                
+                var row;
+                row = "<thead><tr style=height:50px;padding-left:5px;>";
+                $.each(stringyfy.AssesmentIndicators, function(i, item){
+                    row = "<th>" + item.IndicatorName +"</th></tr></thead>";
+
+                    $("#assessment").append(row);
+                });
+
+                $.each(stringyfy.CaseInitialAssessment, function(i, items){
+                    row = "<tbody><tr>" + items.AssessmentValue +"</tr></tbody>";
+
+                    $("#assessment").append(row);
+                });
+                
+
+            },
+            error: function (data) {
+                alert("Error " + data);
+            }
+        });
+
+    });
+
+</script>

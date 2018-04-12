@@ -104,6 +104,7 @@ namespace eCMS.Shared
             public const string CaseSummary = "CaseSummary";
             public const string CaseMember = "CaseMember";
             public const string CaseInitialAssessment = "CaseInitialAssessment";
+            public const string CaseAssessmentSummary = "CaseAssessmentSummary"; 
             public const string CaseWorker = "CaseWorker";
             public const string CaseProgressNote = "CaseProgressNote";
             public const string CaseAction = "CaseAction";
