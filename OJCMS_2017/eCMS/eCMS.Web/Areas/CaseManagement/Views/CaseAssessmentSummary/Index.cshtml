@@ -149,8 +149,8 @@
         <div class="row" style="margin-top:10px;" id="AssessmentTable">
             <div class="col-lg-12 col-md-11 candidate-table-bg">
                 <div class="row">
-                    <table id="assessment" cellpadding="2">
-                        @*<thead>
+                    @*<table id="assessment" cellpadding="2">
+                        <thead>
                             <tr style="height:50px;padding-left:5px;">
                                 <th>Assessment Date (MM/DD/YYYY)</th>
                                 @foreach (var item in Model.AssesmentIndicators)
@@ -173,19 +173,18 @@
                                     }
                                 </tr>
                             }
-                        </tbody>*@
-                    </table>
+                        </tbody>
+                    </table>*@
                 </div>
             </div>
         </div>
     </div>
-
-    <table id="tblProducts"></table>
 </div>
 <script type="text/javascript">
 
     $(document).ready(function () {
         //$("#AssessmentTable").hide();
+        $("#assessment tbody tr").css('height', '50px');
     });
 
     $("#btnViewAssessmentSummary").on("click", function () {
@@ -205,19 +204,58 @@
 
                 var stringyfy = JSON.parse(dataList);                
                 
-                var row;
-                row = "<thead><tr style=height:50px;padding-left:5px;>";
-                $.each(stringyfy.AssesmentIndicators, function(i, item){
-                    row = "<th>" + item.IndicatorName +"</th></tr></thead>";
+                //var row;
+                //row = "<thead><tr style=height:50px;padding-left:5px;>";
+                //$.each(stringyfy.AssesmentIndicators, function(i, item){
+                //    row = "<th>" + item.IndicatorName +"</th>";
 
-                    $("#assessment").append(row);
-                });
+                //    row = $("#assessment").append(row);
+                //});
+                //row = "</tr></thead>";
+                //alert(row);
+                //$("#assessment").append(row);
 
-                $.each(stringyfy.CaseInitialAssessment, function(i, items){
-                    row = "<tbody><tr>" + items.AssessmentValue +"</tr></tbody>";
+                //Create a HTML Table element.
+                var table = $("<table  id=assessment cellpadding=2 />");
+                table[0].border = "1";
+ 
+                //Get the count of columns.
+                var columnCount = stringyfy.AssesmentIndicators.length;
+                
+                var columnCount123 = stringyfy.CaseInitialAssessment.length;
 
-                    $("#assessment").append(row);
-                });
+                alert(columnCount123);
+
+                //Add the header row.
+                var row = $(table[0].insertRow(-1));
+                row.append("<th>Assessment Date (MM/DD/YYYY)</th>");
+                for (var i = 0; i < columnCount; i++) {
+                    var headerCell = $("<th />");
+                    headerCell.html(stringyfy.AssesmentIndicators[i].IndicatorName);
+                    row.append(headerCell);
+                }
+ 
+                //Add the data rows.
+                for (var i = 1; i < stringyfy.CaseInitialAssessment.length; i++) {
+                    row = $(table[0].insertRow(-1));
+                    row.append("<td>2018/04/14</td>");
+                    for (var j = 0; j < columnCount123; j++) {
+                        var cell = $("<td />");
+                        cell.html(stringyfy.CaseInitialAssessment[i].AssessmentValue);
+                        row.append(cell);
+                    }
+                }
+ 
+                var dvTable = $("#AssessmentTable");
+                dvTable.html("");
+                dvTable.append(table);
+
+
+                //$.each(stringyfy.CaseInitialAssessment, function(i, items){
+                //    row = "<tbody><tr>" + items.AssessmentValue +"</tr></tbody>";
+
+                //    $("#assessment").append(row);
+                //});
                 
 
             },

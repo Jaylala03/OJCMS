@@ -102,21 +102,21 @@ namespace eCMS.BusinessLogic.Repositories
             return context.Case.Where(c => c.ID == CaseID).Select(c => c.CaseAssessmentReviewed).SingleOrDefault();
         }
 
-        public List<CaseAssessmentSummaryVM> GetCaseAssessmentSummary(int CaseID, int CaseMemberID)
+        public List<CaseInitialAssessmentVM> GetCaseAssessmentSummary(int CaseID, int CaseMemberID)
         {
             string sqlQuery = "";
 
-            //sqlQuery = "SELECT CM.ID AS CaseMemberID, " +
-            //"IT.ID AS IndicatorTypeID,ISNULL(CIA.AssessmentValue,0) AS AssessmentValue, CIA.CreateDate " +
-            //"FROM CaseMember AS CM " +
-            //"CROSS JOIN IndicatorType AS IT " +
-            //"LEFT JOIN CaseInitialAssessment AS CIA ON CM.ID = CIA.CaseMemberID AND IT.ID = CIA.IndicatorTypeID " +
-            //"WHERE CM.CaseID = " + CaseID.ToString() + "AND CIA.CaseMemberID = " + CaseMemberID;
+            //sqlQuery = "SELECT AssessmentValue FROM CaseInitialAssessment " +
+            //            "WHERE CaseMemberID = " + CaseMemberID + "AND CaseID = " + CaseID;
 
-            sqlQuery = "SELECT * FROM CaseInitialAssessment " +
-                        "WHERE CaseMemberID = " + CaseMemberID;
+            sqlQuery = "SELECT DISTINCT CM.ID AS CaseMemberID, (CM.FirstName + ' ' + CM.LastName) AS CaseMemberName, " +
+            " IT.ID AS IndicatorTypeID,ISNULL(CIA.AssessmentValue, 0) AS AssessmentValue, CIA.CreateDate " +
+            " FROM CaseMember AS CM "+
+            " CROSS JOIN IndicatorType AS IT " +
+            " LEFT JOIN CaseInitialAssessment AS CIA ON CM.ID = CIA.CaseMemberID AND IT.ID = CIA.IndicatorTypeID " +
+            " WHERE CM.ID = " + CaseMemberID + "AND CM.CaseID = " + CaseID;
 
-            List<CaseAssessmentSummaryVM> dsResult = context.Database.SqlQuery<CaseAssessmentSummaryVM>(sqlQuery.ToString()).ToList();
+            List<CaseInitialAssessmentVM> dsResult = context.Database.SqlQuery<CaseInitialAssessmentVM>(sqlQuery.ToString()).ToList();
             return dsResult;
         }
     }
@@ -127,7 +127,7 @@ namespace eCMS.BusinessLogic.Repositories
         List<CaseInitialAssessmentVM> GetCaseAssessment(int CaseID);
         void AddAssessment(int CaseID, List<CaseInitialAssessmentVM> asslist);
         bool CaseAssessmentReviewed(int CaseID);
-        List<CaseAssessmentSummaryVM> GetCaseAssessmentSummary(int CaseID, int CaseMemberID);
+        List<CaseInitialAssessmentVM> GetCaseAssessmentSummary(int CaseID, int CaseMemberID);
     }
 
 }

@@ -75,7 +75,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
                 caseAssessmentSummary.CaseMemberID = CaseMemberID;
                 caseAssessmentSummary.AssesmentIndicators = caseInitialAssessmentRepository.GetAllIndicators();
                 //caseAssessmentSummary.CaseInitialAssessment = caseInitialAssessmentRepository.GetCaseAssessmentSummary(CaseID, CaseMemberID);
-                //caseAssessmentSummary.CaseInitialAssessment = caseInitialAssessmentRepository.GetCaseAssessmentSummary(CaseID, CaseMemberID);
+                caseAssessmentSummary.CaseInitialAssessment = caseInitialAssessmentRepository.GetCaseAssessmentSummary(CaseID, CaseMemberID);
             }
             catch (Exception ex)
             {
