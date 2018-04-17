@@ -723,9 +723,14 @@
     <Content Include="Assets\plugins\fuelux\js\spinner.min.js" />
     <Content Include="Assets\plugins\jquery-ui\jquery-ui.css" />
     <Content Include="Assets\plugins\jquery-ui\jquery-ui.js" />
+    <Content Include="Assets\scripts\Chart.bundle.js" />
+    <Content Include="Assets\scripts\Chart.bundle.min.js" />
+    <Content Include="Assets\scripts\Chart.js" />
+    <Content Include="Assets\scripts\Chart.min.js" />
     <Content Include="Assets\scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Assets\scripts\jquery.validate.min.js" />
     <Content Include="Assets\scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Assets\scripts\utils.js" />
     <Content Include="Assets\styles\bootstrap.css" />
     <Content Include="Assets\styles\custom.css" />
     <Content Include="Assets\styles\style.css" />

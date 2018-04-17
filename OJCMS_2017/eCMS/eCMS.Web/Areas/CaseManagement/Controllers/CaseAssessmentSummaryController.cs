@@ -64,7 +64,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
 
         }
 
-        public JsonResult GetInitialAssessmentSummary(int CaseID, int CaseMemberID)
+        public JsonResult GetInitialAssessmentSummary(int CaseID, int CaseMemberID, int viewAsID)
         {
             string result = string.Empty;
             CaseAssessmentSummaryVM caseAssessmentSummary = new CaseAssessmentSummaryVM();
@@ -76,6 +76,8 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
                 caseAssessmentSummary.AssesmentIndicators = caseInitialAssessmentRepository.GetAllIndicators();
                 //caseAssessmentSummary.CaseInitialAssessment = caseInitialAssessmentRepository.GetCaseAssessmentSummary(CaseID, CaseMemberID);
                 caseAssessmentSummary.CaseInitialAssessment = caseInitialAssessmentRepository.GetCaseAssessmentSummary(CaseID, CaseMemberID);
+
+                caseAssessmentSummary.ViewAsID = viewAsID;
             }
             catch (Exception ex)
             {
