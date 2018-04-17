@@ -199,6 +199,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SeedData\LookupSeed.cs" />
     <Compile Include="SeedData\WorkerSeed.cs" />
+    <Compile Include="ViewModels\CaseAssessmentSummaryVM.cs" />
     <Compile Include="ViewModels\CaseHouseholdIncomeVM.cs" />
     <Compile Include="ViewModels\CaseInitialAssessmentVM.cs" />
     <Compile Include="ViewModels\CaseListViewModel.cs" />

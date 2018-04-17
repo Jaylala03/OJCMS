@@ -7,6 +7,11 @@
 <div id="dvAjaxAlertContainer">
     @Html.Partial(Constants.PartialViews.Alert)
 </div>
+
+@*<script src="~/Assets/scripts/jquery.unobtrusive-ajax.min.js"></script>
+<script src="~/Assets/scripts/jquery.validate.min.js"></script>
+<script src="~/Assets/scripts/jquery.validate.unobtrusive.min.js"></script>*@
+
 @Html.HiddenFor(model => model.ID)
 @Html.HiddenFor(model => model.DisplayID)
 @Html.HiddenFor(model => model.CaseStatusID)
@@ -16,10 +21,11 @@
     <div class="col-md-6">
         <div class="row margin-left-50 margin-bottom-10">
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            
         </div>
 
         <div class="form-group02">
-            <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.ProgramID)</label>
+            <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.ProgramID)</label>            
             <div class="col-sm-8">
                 @(Html.Kendo().DropDownListFor(model => model.ProgramID)
                         .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
@@ -37,7 +43,7 @@
                 )
             </div>
             <div class="col-sm-8">
-                @Html.ValidationMessageFor(model => model.ProgramID, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.ProgramID, "", new { @class = "text-danger" })                
             </div>
         </div>
         <div class="form-group02">
@@ -133,6 +139,7 @@
             </div>
         </div>
 
+
         <div class="form-group02">
             <label class="col-sm-4 control-label labe-text">@Html.LabelFor(model => model.CaseNumber)</label>
             @if (Model.IsReadmit)
@@ -149,7 +156,8 @@
             }
         </div>
         <div class="form-group02" title="Date the Confidentiality and Consent to Participate form signed">
-            <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.EnrollDate)</label>
+            @*<label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.EnrollDate)</label>*@
+            <label class="col-sm-4 control-label labe-text">@Html.LabelFor(model => model.EnrollDate)</label>
             <div class="col-sm-8">
                 @Html.EditorFor(model => model.EnrollDate)
             </div>
@@ -488,6 +496,11 @@
 
 </div>
 <br class="clear" />
+
+@*@section Scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}*@
 <script>
     //$('#btnSaveCase').on("click", function () {
     //    debugger

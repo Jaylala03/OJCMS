@@ -20,5 +20,6 @@ namespace eCMS.DataLogic.Models
         public Int32 IndicatorTypeID { get; set; }
         public int AssessmentValue { set; get; }
         public string CaseMemberName { get; set; }
+        public DateTime? CreateDate { get; set; }
     }
 }

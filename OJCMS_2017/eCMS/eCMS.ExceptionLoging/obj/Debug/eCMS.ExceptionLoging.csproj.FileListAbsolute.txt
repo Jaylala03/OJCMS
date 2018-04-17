@@ -39,3 +39,13 @@ D:\OJCMS\OJCMS_2017\eCMS\eCMS.ExceptionLoging\bin\Debug\eCMS.Shared.pdb
 D:\OJCMS\OJCMS_2017\eCMS\eCMS.ExceptionLoging\obj\Debug\eCMS.ExceptionLoging.csprojResolveAssemblyReference.cache
 D:\OJCMS\OJCMS_2017\eCMS\eCMS.ExceptionLoging\obj\Debug\eCMS.ExceptionLoging.dll
 D:\OJCMS\OJCMS_2017\eCMS\eCMS.ExceptionLoging\obj\Debug\eCMS.ExceptionLoging.pdb
+G:\Jay Bhai\ojcmsMaster\OJCMS_2017\eCMS\eCMS.ExceptionLoging\bin\Debug\eCMS.ExceptionLoging.dll
+G:\Jay Bhai\ojcmsMaster\OJCMS_2017\eCMS\eCMS.ExceptionLoging\bin\Debug\eCMS.ExceptionLoging.pdb
+G:\Jay Bhai\ojcmsMaster\OJCMS_2017\eCMS\eCMS.ExceptionLoging\bin\Debug\eCMS.Shared.dll
+G:\Jay Bhai\ojcmsMaster\OJCMS_2017\eCMS\eCMS.ExceptionLoging\bin\Debug\System.Web.Mvc.dll
+G:\Jay Bhai\ojcmsMaster\OJCMS_2017\eCMS\eCMS.ExceptionLoging\bin\Debug\Newtonsoft.Json.dll
+G:\Jay Bhai\ojcmsMaster\OJCMS_2017\eCMS\eCMS.ExceptionLoging\bin\Debug\Microsoft.Web.Infrastructure.dll
+G:\Jay Bhai\ojcmsMaster\OJCMS_2017\eCMS\eCMS.ExceptionLoging\bin\Debug\eCMS.Shared.pdb
+G:\Jay Bhai\ojcmsMaster\OJCMS_2017\eCMS\eCMS.ExceptionLoging\obj\Debug\eCMS.ExceptionLoging.csprojResolveAssemblyReference.cache
+G:\Jay Bhai\ojcmsMaster\OJCMS_2017\eCMS\eCMS.ExceptionLoging\obj\Debug\eCMS.ExceptionLoging.dll
+G:\Jay Bhai\ojcmsMaster\OJCMS_2017\eCMS\eCMS.ExceptionLoging\obj\Debug\eCMS.ExceptionLoging.pdb

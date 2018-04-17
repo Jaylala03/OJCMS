@@ -53,12 +53,12 @@ namespace eCMS.BusinessLogic.Repositories
         {
             string sqlQuery = "";
 
-            sqlQuery = "SELECT CM.ID AS CaseMemberID, (CM.FirstName + ' ' + CM.LastName) AS CaseMemberName," +
-            "IT.ID AS IndicatorTypeID,ISNULL(CIA.AssessmentValue,0) AS AssessmentValue " +
+            sqlQuery = "SELECT TOP 7 CM.ID AS CaseMemberID, (CM.FirstName + ' ' + CM.LastName) AS CaseMemberName," +
+            "IT.ID AS IndicatorTypeID,ISNULL(CIA.AssessmentValue,0) AS AssessmentValue, CIA.CreateDate " +
             "FROM CaseMember AS CM " +
             "CROSS JOIN IndicatorType AS IT " +
             "LEFT JOIN CaseInitialAssessment AS CIA ON CM.ID = CIA.CaseMemberID AND IT.ID = CIA.IndicatorTypeID " +
-            "WHERE CM.CaseID = " + CaseID.ToString();
+            "WHERE CM.CaseID = " + CaseID.ToString() + " ORDER BY CIA.CreateDate DESC";
 
             List<CaseInitialAssessmentVM> dsResult = context.Database.SqlQuery<CaseInitialAssessmentVM>(sqlQuery.ToString()).ToList();
             return dsResult;
@@ -69,7 +69,8 @@ namespace eCMS.BusinessLogic.Repositories
             if (asslist.Count > 0)
             {
                 int casememberid = asslist[0].CaseMemberID;
-                context.CaseInitialAssessment.RemoveRange(context.CaseInitialAssessment.Where(c => c.CaseMemberID == casememberid));
+                //2018-04-12
+                //context.CaseInitialAssessment.RemoveRange(context.CaseInitialAssessment.Where(c => c.CaseMemberID == casememberid));
 
                 foreach (CaseInitialAssessmentVM assobj in asslist)
                 {
@@ -100,6 +101,24 @@ namespace eCMS.BusinessLogic.Repositories
         {
             return context.Case.Where(c => c.ID == CaseID).Select(c => c.CaseAssessmentReviewed).SingleOrDefault();
         }
+
+        public List<CaseInitialAssessmentVM> GetCaseAssessmentSummary(int CaseID, int CaseMemberID)
+        {
+            string sqlQuery = "";
+
+            //sqlQuery = "SELECT AssessmentValue FROM CaseInitialAssessment " +
+            //            "WHERE CaseMemberID = " + CaseMemberID + "AND CaseID = " + CaseID;
+
+            sqlQuery = "SELECT DISTINCT CM.ID AS CaseMemberID, (CM.FirstName + ' ' + CM.LastName) AS CaseMemberName, " +
+            " IT.ID AS IndicatorTypeID,ISNULL(CIA.AssessmentValue, 0) AS AssessmentValue, CIA.CreateDate " +
+            " FROM CaseMember AS CM "+
+            " CROSS JOIN IndicatorType AS IT " +
+            " LEFT JOIN CaseInitialAssessment AS CIA ON CM.ID = CIA.CaseMemberID AND IT.ID = CIA.IndicatorTypeID " +
+            " WHERE CM.ID = " + CaseMemberID + "AND CM.CaseID = " + CaseID;
+
+            List<CaseInitialAssessmentVM> dsResult = context.Database.SqlQuery<CaseInitialAssessmentVM>(sqlQuery.ToString()).ToList();
+            return dsResult;
+        }
     }
 
     public interface ICaseInitialAssessmentRepository : IBaseRepository<CaseInitialAssessment>
@@ -108,6 +127,7 @@ namespace eCMS.BusinessLogic.Repositories
         List<CaseInitialAssessmentVM> GetCaseAssessment(int CaseID);
         void AddAssessment(int CaseID, List<CaseInitialAssessmentVM> asslist);
         bool CaseAssessmentReviewed(int CaseID);
+        List<CaseInitialAssessmentVM> GetCaseAssessmentSummary(int CaseID, int CaseMemberID);
     }
 
 }
