@@ -54,7 +54,25 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
 
             caseAssessmentSummary.CaseID = CaseID;
             caseAssessmentSummary.AssesmentIndicators = caseInitialAssessmentRepository.GetAllIndicators();
-            caseAssessmentSummary.CaseInitialAssessment = caseInitialAssessmentRepository.GetCaseAssessment(CaseID);
+            //caseAssessmentSummary.CaseInitialAssessment = caseInitialAssessmentRepository.GetCaseAssessment(CaseID);
+            caseAssessmentSummary.CaseInitialAssessment = new List<CaseInitialAssessmentVM>();
+
+            var varCase = caseRepository.Find(CaseID);
+            ViewBag.DisplayID = varCase.DisplayID;
+            ViewBag.CaseID = CaseID;
+
+            return View(caseAssessmentSummary);
+
+        }
+        [HttpPost]
+        public ActionResult Index(int CaseID, int CaseMemberID)
+        {
+            CaseAssessmentSummaryVM caseAssessmentSummary = new CaseAssessmentSummaryVM();
+
+            caseAssessmentSummary.CaseID = CaseID;
+            caseAssessmentSummary.CaseMemberID = CaseMemberID;
+            caseAssessmentSummary.AssesmentIndicators = caseInitialAssessmentRepository.GetAllIndicators();
+            caseAssessmentSummary.CaseInitialAssessment = caseInitialAssessmentRepository.GetCaseAssessmentSummary(CaseID, CaseMemberID);
 
             var varCase = caseRepository.Find(CaseID);
             ViewBag.DisplayID = varCase.DisplayID;

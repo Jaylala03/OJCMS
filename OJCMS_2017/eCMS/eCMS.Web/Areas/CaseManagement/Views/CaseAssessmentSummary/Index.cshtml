@@ -70,7 +70,7 @@
     }
 </style>
 
-@Html.HiddenFor(model => model.CaseID)
+
 
 <div class="container candidate-list-main-container">
     <div class="row">
@@ -90,6 +90,9 @@
             </div>
         </div>
     </div>
+@using (Html.BeginForm(Constants.Actions.Index, Constants.Controllers.CaseAssessmentSummary, new { area = Constants.Areas.CaseManagement }, FormMethod.Post, new { id = "frmEditor", role = "form" }))
+            {
+    @Html.HiddenFor(model => model.CaseID)
     <div class="row">
         <div class="col-sm-2">
             <label class="control-label labe-text">@Html.Label("Family Member")</label>
@@ -139,131 +142,53 @@
         <div class="row" style="text-align:center;margin-bottom:10px;margin-top:10px;">
             <div class="form-group02">
                 <div class="col-sm-4">
-                    <button type="button" class="btn btn-primary" id="btnViewAssessmentSummary"> View </button>
+                    <button type="submit" class="btn btn-primary" id="btnViewAssessmentSummary"> View </button>
                 </div>
                 <div class="col-sm-4">
                     <a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.CaseSummary, new { caseID = Model.CaseID})" class="btn btn-primary"><i class="fa fa-long-arrow-left"></i> Back to Case Summary</a>
                 </div>
             </div>
         </div>
-        <div class="row" style="margin-top:10px;" id="AssessmentTable">
-            <div class="col-lg-12 col-md-11 candidate-table-bg">
-                <div class="row">
-                    @*<table id="assessment" cellpadding="2">
-                        <thead>
-                            <tr style="height:50px;padding-left:5px;">
-                                <th>Assessment Date (MM/DD/YYYY)</th>
-                                @foreach (var item in Model.AssesmentIndicators)
-                                {
-                                    <th>
-                                        @item.IndicatorName
-                                    </th>
-                                }
-                            </tr>
-                        </thead>
-                        <tbody style="background:none;">
-                            @foreach (var member in Model.CaseInitialAssessment.Select(m => new { m.CaseMemberName, m.CaseMemberID }).Distinct())
-                            {
-                                <tr>
-                                    <td>01-01-1900</td>
-                                    <td style="display:none;">@member.CaseMemberID</td>
-                                    @foreach (var item in Model.CaseInitialAssessment.Where(c => c.CaseMemberName == member.CaseMemberName).OrderBy(c => c.IndicatorTypeID))
+        @if (Model.CaseInitialAssessment != null && Model.CaseInitialAssessment.Count > 0)
+        {
+            <div class="row" style="margin-top:10px;" id="AssessmentTable">
+                <div class="col-lg-12 col-md-11 candidate-table-bg">
+                    <div class="row">
+                        <table id="assessment" cellpadding="2">
+                            <thead>
+                                <tr style="height:50px;padding-left:5px;">
+                                    <th>Assessment Date (MM/DD/YYYY)</th>
+                                    @foreach (var item in Model.AssesmentIndicators)
                                     {
-                                        <td class="clsind" data-memberid="@item.CaseMemberID" data-indicatorid="@item.IndicatorTypeID" data-assessmentvalue="@item.AssessmentValue">@(item.AssessmentValue > 0 ? item.AssessmentValue.ToString() : "")</td>
+                                        <th>
+                                            @item.IndicatorName
+                                        </th>
                                     }
                                 </tr>
-                            }
-                        </tbody>
-                    </table>*@
+                            </thead>
+                            <tbody style="background:none;">
+                                @foreach (var member in Model.CaseInitialAssessment.Select(m => new { m.CreateDate, m.AssessmentVersion }).Distinct().OrderByDescending(m => m.AssessmentVersion))
+                                {
+                                    <tr>
+                                        @*<td>01-01-1900</td>*@
+                                        <td>@Convert.ToDateTime(member.CreateDate).ToShortDateString()</td>
+                                        @foreach (var item in Model.CaseInitialAssessment.Where(c => c.AssessmentVersion == member.AssessmentVersion).OrderBy(c => c.IndicatorTypeID))
+                                        {
+                                            <td class="clsind" data-memberid="@item.CaseMemberID" data-indicatorid="@item.IndicatorTypeID" data-assessmentvalue="@item.AssessmentValue">@(item.AssessmentValue > 0 ? item.AssessmentValue.ToString() : "")</td>
+                                        }
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-        </div>
+        }
+        
     </div>
+}
 </div>
 <script type="text/javascript">
 
-    $(document).ready(function () {
-        //$("#AssessmentTable").hide();
-        $("#assessment tbody tr").css('height', '50px');
-    });
-
-    $("#btnViewAssessmentSummary").on("click", function () {
-        var caseMemberID = $("#CaseMemberID").data("kendoDropDownList"),
-            viewAsID = $("#ViewAsID").data("kendoDropDownList");
-
-        $.ajax({
-            contentType: 'application/json; charset=utf-8',
-            dataType: 'json',
-            type: 'POST',
-            url: '/CaseAssessmentSummary/GetInitialAssessmentSummary',
-            data: JSON.stringify({'CaseID': @Model.CaseID, 'CaseMemberID': caseMemberID.value() }),
-            success: function (data) {
-                var dataList = JSON.stringify(data);               
-
-                alert(dataList);
-
-                var stringyfy = JSON.parse(dataList);                
-                
-                //var row;
-                //row = "<thead><tr style=height:50px;padding-left:5px;>";
-                //$.each(stringyfy.AssesmentIndicators, function(i, item){
-                //    row = "<th>" + item.IndicatorName +"</th>";
-
-                //    row = $("#assessment").append(row);
-                //});
-                //row = "</tr></thead>";
-                //alert(row);
-                //$("#assessment").append(row);
-
-                //Create a HTML Table element.
-                var table = $("<table  id=assessment cellpadding=2 />");
-                table[0].border = "1";
- 
-                //Get the count of columns.
-                var columnCount = stringyfy.AssesmentIndicators.length;
-                
-                var columnCount123 = stringyfy.CaseInitialAssessment.length;
-
-                alert(columnCount123);
-
-                //Add the header row.
-                var row = $(table[0].insertRow(-1));
-                row.append("<th>Assessment Date (MM/DD/YYYY)</th>");
-                for (var i = 0; i < columnCount; i++) {
-                    var headerCell = $("<th />");
-                    headerCell.html(stringyfy.AssesmentIndicators[i].IndicatorName);
-                    row.append(headerCell);
-                }
- 
-                //Add the data rows.
-                for (var i = 1; i < stringyfy.CaseInitialAssessment.length; i++) {
-                    row = $(table[0].insertRow(-1));
-                    row.append("<td>2018/04/14</td>");
-                    for (var j = 0; j < columnCount123; j++) {
-                        var cell = $("<td />");
-                        cell.html(stringyfy.CaseInitialAssessment[i].AssessmentValue);
-                        row.append(cell);
-                    }
-                }
- 
-                var dvTable = $("#AssessmentTable");
-                dvTable.html("");
-                dvTable.append(table);
-
-
-                //$.each(stringyfy.CaseInitialAssessment, function(i, items){
-                //    row = "<tbody><tr>" + items.AssessmentValue +"</tr></tbody>";
-
-                //    $("#assessment").append(row);
-                //});
-                
-
-            },
-            error: function (data) {
-                alert("Error " + data);
-            }
-        });
-
-    });
-
+  
 </script>

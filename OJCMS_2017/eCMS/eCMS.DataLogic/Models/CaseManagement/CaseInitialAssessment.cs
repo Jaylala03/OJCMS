@@ -23,6 +23,7 @@ namespace eCMS.DataLogic.Models
         public Int32 IndicatorTypeID { get; set; }
 
         public int AssessmentValue { set; get; }
+        public int AssessmentVersion { set; get; }
 
         [NotMapped]
         public string CaseMemberName { get; set; }

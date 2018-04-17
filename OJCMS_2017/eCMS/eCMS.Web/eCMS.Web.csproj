@@ -2000,6 +2000,7 @@
     <Content Include="Areas\CaseManagement\Views\CaseWorker\_CreateOrEdit - Copy.cshtml" />
     <Content Include="Areas\CaseManagement\Views\CaseWorker\_Index.cshtml" />
     <Content Include="Areas\CaseManagement\Views\CaseAssessmentSummary\Index.cshtml" />
+    <Content Include="Areas\CaseManagement\Views\CaseAssessmentSummary\Index - Copy.cshtml" />
     <None Include="bin\eCMS.Web.dll.config" />
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Properties\PublishProfiles\ecms.softwareravine.com.pubxml" />
