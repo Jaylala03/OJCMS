@@ -132,6 +132,7 @@ namespace eCMS.Shared
             public const string CaseTraining = "CaseTraining";
             public const string CaseHouseholdIncome = "CaseHouseholdIncome";
             public const string AssesmentIndicators = "AssesmentIndicators";
+            public const string CaseGoalDetailTemplate = "CaseGoalDetailTemplate";
         }
 
         public static class Areas

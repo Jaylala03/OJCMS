@@ -52,7 +52,7 @@ namespace eCMS.BusinessLogic.Repositories
         public List<CaseInitialAssessmentVM> GetCaseAssessment(int CaseID)
         {
             string sqlQuery = "";
-       
+
             //sqlQuery = "SELECT CM.ID AS CaseMemberID, (CM.FirstName + ' ' + CM.LastName) AS CaseMemberName," +
             //"IT.ID AS IndicatorTypeID,ISNULL(CIA.AssessmentValue,0) AS AssessmentValue " +
             //"FROM CaseMember AS CM " +
@@ -63,23 +63,23 @@ namespace eCMS.BusinessLogic.Repositories
             sqlQuery = "SELECT CM.ID AS CaseMemberID, (CM.FirstName + ' ' + CM.LastName) AS CaseMemberName" +
                         ",ISNULL(CIA.IndicatorTypeID,IT.ID) AS IndicatorTypeID, ISNULL(CIA.AssessmentValue,0) AS AssessmentValue " +
                         "FROM CaseMember AS CM " +
-		              "CROSS JOIN IndicatorType AS IT " +
-		              "OUTER APPLY " +
-		              "( " +
-			             "SELECT TOP 1 ISNULL(CIA.AssessmentValue,0) AS AssessmentValue ,CIA.IndicatorTypeID " +
-			             "FROM CaseInitialAssessment AS CIA " +
-			             "WHERE CM.ID = CIA.CaseMemberID " +
-			             "AND IT.ID = CIA.IndicatorTypeID " +
-			             "AND CIA.CaseID = " + CaseID.ToString()  +
-			             " ORDER BY CIA.ID DESC " +
-		              ") AS CIA " +
+                      "CROSS JOIN IndicatorType AS IT " +
+                      "OUTER APPLY " +
+                      "( " +
+                         "SELECT TOP 1 ISNULL(CIA.AssessmentValue,0) AS AssessmentValue ,CIA.IndicatorTypeID " +
+                         "FROM CaseInitialAssessment AS CIA " +
+                         "WHERE CM.ID = CIA.CaseMemberID " +
+                         "AND IT.ID = CIA.IndicatorTypeID " +
+                         "AND CIA.CaseID = " + CaseID.ToString() +
+                         " ORDER BY CIA.ID DESC " +
+                      ") AS CIA " +
                         "WHERE CM.CaseID = " + CaseID.ToString();
 
             List<CaseInitialAssessmentVM> dsResult = context.Database.SqlQuery<CaseInitialAssessmentVM>(sqlQuery.ToString()).ToList();
             return dsResult;
         }
 
-        public void AddAssessment(int CaseID,List<CaseInitialAssessmentVM> asslist)
+        public void AddAssessment(int CaseID, List<CaseInitialAssessmentVM> asslist)
         {
             if (asslist.Count > 0)
             {
@@ -87,7 +87,7 @@ namespace eCMS.BusinessLogic.Repositories
                 var AssessmentVersions = context.CaseInitialAssessment
                     .Where(c => c.CaseMemberID == casememberid && c.CaseID == CaseID)
                     .Select(c => c.AssessmentVersion).ToList();
-                
+
                 int casememberassessmentversion = 1;
                 if (AssessmentVersions.Count > 0)
                     casememberassessmentversion = AssessmentVersions.Max() + 1;
@@ -128,7 +128,8 @@ namespace eCMS.BusinessLogic.Repositories
 
         public List<CaseInitialAssessmentVM> GetCaseAssessmentSummary(int CaseID, int CaseMemberID)
         {
-            string sqlQuery = "";
+            StringBuilder sqlQuery = new StringBuilder();
+
 
             //sqlQuery = "SELECT AssessmentValue FROM CaseInitialAssessment " +
             //            "WHERE CaseMemberID = " + CaseMemberID + "AND CaseID = " + CaseID;
@@ -140,13 +141,24 @@ namespace eCMS.BusinessLogic.Repositories
             //" LEFT JOIN CaseInitialAssessment AS CIA ON CM.ID = CIA.CaseMemberID AND IT.ID = CIA.IndicatorTypeID " +
             //" WHERE CM.ID = " + CaseMemberID + "AND CM.CaseID = " + CaseID;
 
-            sqlQuery = "SELECT CM.ID AS CaseMemberID, (CM.FirstName + ' ' + CM.LastName) AS CaseMemberName " +
-            ",ISNULL(CIA.IndicatorTypeID,0) AS IndicatorTypeID " +
-              ", ISNULL(CIA.AssessmentValue,0) AS AssessmentValue, CAST(CIA.CreateDate AS Date) AS CreateDate,CIA.AssessmentVersion " +
-                "FROM CaseMember AS CM " +
-              "INNER JOIN CaseInitialAssessment AS CIA ON CM.ID = CIA.CaseMemberID " +
-              "AND CIA.CaseID = " + CaseID + " AND CM.ID = " + CaseMemberID +
-              " ORDER BY CIA.AssessmentVersion DESC ";
+            //sqlQuery = "SELECT CM.ID AS CaseMemberID, (CM.FirstName + ' ' + CM.LastName) AS CaseMemberName " +
+            //",ISNULL(CIA.IndicatorTypeID,0) AS IndicatorTypeID " +
+            //  ", ISNULL(CIA.AssessmentValue,0) AS AssessmentValue, CAST(CIA.CreateDate AS Date) AS CreateDate,CIA.AssessmentVersion " +
+            //    "FROM CaseMember AS CM " +
+            //  "INNER JOIN CaseInitialAssessment AS CIA ON CM.ID = CIA.CaseMemberID " +
+            //  "AND CIA.CaseID = " + CaseID + " AND CM.ID = " + CaseMemberID +
+            //  " ORDER BY CIA.AssessmentVersion DESC ";
+
+            sqlQuery.Append("SELECT CM.ID AS CaseMemberID, (CM.FirstName + ' ' + CM.LastName) AS CaseMemberName ");
+            sqlQuery.Append(",ISNULL(CIA.IndicatorTypeID,0) AS IndicatorTypeID ");
+            sqlQuery.Append(", ISNULL(CIA.AssessmentValue,0) AS AssessmentValue, CAST(CIA.CreateDate AS Date) AS CreateDate,CIA.AssessmentVersion ");
+            sqlQuery.Append("FROM CaseMember AS CM ");
+            sqlQuery.Append("INNER JOIN CaseInitialAssessment AS CIA ON CM.ID = CIA.CaseMemberID ");
+            sqlQuery.Append("WHERE CIA.ID IN ");
+            sqlQuery.Append("(SELECT MAX(ID) AS ID ");
+            sqlQuery.Append("FROM CaseInitialAssessment where CaseId = " + CaseID + "  and CaseMemberID = " + CaseMemberID + " ");
+            sqlQuery.Append("GROUP BY IndicatorTypeID,CAST(CreateDate AS Date)) ");
+            sqlQuery.Append("ORDER BY CAST(CIA.CreateDate AS Date),IndicatorTypeID ");
 
             List<CaseInitialAssessmentVM> dsResult = context.Database.SqlQuery<CaseInitialAssessmentVM>(sqlQuery.ToString()).ToList();
             return dsResult;

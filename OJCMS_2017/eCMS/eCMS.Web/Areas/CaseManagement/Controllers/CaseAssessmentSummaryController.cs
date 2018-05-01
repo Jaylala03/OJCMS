@@ -25,6 +25,7 @@ using System.Configuration;
 using eCMS.DataLogic.ViewModels;
 using eCMS.Web.Controllers;
 using eCMS.DataLogic.Models.Lookup;
+using ChartJs.Models;
 
 namespace eCMS.Web.Areas.CaseManagement.Controllers
 {
@@ -60,7 +61,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
             var varCase = caseRepository.Find(CaseID);
             ViewBag.DisplayID = varCase.DisplayID;
             ViewBag.CaseID = CaseID;
-
+            ViewBag.ChartData = null;
             return View(caseAssessmentSummary);
 
         }
@@ -73,6 +74,50 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
             caseAssessmentSummary.CaseMemberID = CaseMemberID;
             caseAssessmentSummary.AssesmentIndicators = caseInitialAssessmentRepository.GetAllIndicators();
             caseAssessmentSummary.CaseInitialAssessment = caseInitialAssessmentRepository.GetCaseAssessmentSummary(CaseID, CaseMemberID);
+
+            var chartlabels = caseAssessmentSummary.CaseInitialAssessment
+                .Select(m => new { m.CreateDate }).Distinct().OrderBy(m=>m.CreateDate).ToArray();
+
+            Chart _chart = new Chart();
+            _chart.labels = new string[chartlabels.Length];
+
+            for (int rwcnt = 0; rwcnt < chartlabels.Length; rwcnt++)
+            {
+                _chart.labels[rwcnt] = chartlabels[rwcnt].CreateDate.Value.Date.ToShortDateString();
+            }
+
+            //_chart.labels = new string[] { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "Novemeber", "December" };
+            _chart.datasets = new List<Datasets>();
+            List<Datasets> _dataSet = new List<Datasets>();
+            int indcnt = 0;
+            var colorarray = new string[] { "rgb(255, 99, 132)",
+                         "rgb(255, 159, 64)",
+                         "rgb(255, 205, 86)",
+                         "rgb(75, 192, 192)",
+                        "rgb(54, 162, 235)",
+                         "rgb(153, 102, 255)",
+                         "rgb(201, 203, 207)"};
+
+            foreach (var item in caseAssessmentSummary.AssesmentIndicators)
+            {
+                var test = caseAssessmentSummary.CaseInitialAssessment.Where(c => c.IndicatorTypeID == item.IndicatorTypeID)
+                    .OrderBy(c => c.CreateDate).Select(m=>m.AssessmentValue).ToArray();
+
+                _dataSet.Add(new Datasets()
+                {
+                    label = item.IndicatorName,
+                    //data = new int[] { 28, 48, 40, 19, 86, 27, 90, 20, 45, 65, 34, 22 },
+                    data = test,
+                    borderColor = new string[] { "rgba(75,192,192,1)" },
+                    backgroundColor = new string[] { colorarray[indcnt++] },
+                    borderWidth = "1"
+                });
+
+                //indcnt++;
+            }
+           
+            _chart.datasets = _dataSet;
+            ViewBag.ChartData = _chart;
 
             var varCase = caseRepository.Find(CaseID);
             ViewBag.DisplayID = varCase.DisplayID;

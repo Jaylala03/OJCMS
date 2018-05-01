@@ -100,19 +100,23 @@
             {
                 message += ",Family Member Assignment";
             }
-            <div class="col-md-12" style="background:yellow;padding-left:10px;border:1px solid black;">
-                <label class="control-label labe-text">
-                @if (message.StartsWith(","))
-                { 
-                    @:The following sections are not complete : @message.Substring(1,message.Length - 1)
+            if (!string.IsNullOrEmpty(assmessage) && message.Length > 0)
+            {
+                <div class="col-md-12" style="background:yellow;padding-left:10px;border:1px solid black;">
+                    <label class="control-label labe-text">
+                        @if (message.StartsWith(","))
+                        {
+                            @:The following sections are not complete : @message.Substring(1, message.Length - 1)
                 }
-                @if (!string.IsNullOrEmpty(assmessage))
-                { 
-                    @:<br/>
-                    @assmessage
-                }
+                        @if (!string.IsNullOrEmpty(assmessage))
+                        {
+                            @:<br />
+                            @assmessage
+                        }
                     </label>
-            </div>
+                </div>
+            }
+
         }
         <div class="center-block" style="align-items:center;">
             <table class="table table-striped text-align-center" align="center" style="width:100%;">

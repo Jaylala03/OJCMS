@@ -3,6 +3,7 @@
 @using eCMS.Shared;
 @using eCMS.DataLogic.Models;
 @using eCMS.DataLogic.ViewModels
+@using Newtonsoft.Json
 @{
     ViewBag.Title = "Case Initial Assessment";
     Layout = "~/Areas/CaseManagement/Views/Shared/_LayoutCase.cshtml";
@@ -12,6 +13,11 @@
     @Styles.Render("~/assets/plugins/kendo/css")
     @Scripts.Render("~/assets/plugins/kendo/js")
 }
+<script src="~/Assets/scripts/Chart.bundle.js"></script>
+<script src="~/Assets/scripts/Chart.bundle.min.js"></script>
+<script src="~/Assets/scripts/Chart.js"></script>
+<script src="~/Assets/scripts/Chart.min.js"></script>
+<script src="~/Assets/scripts/utils.js"></script>
 <style type="text/css">
     #indicators td {
         width: 195px;
@@ -68,6 +74,12 @@
     .fulldescription {
         text-align: justify;
     }
+
+    canvas {
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
 </style>
 
 
@@ -90,16 +102,16 @@
             </div>
         </div>
     </div>
-@using (Html.BeginForm(Constants.Actions.Index, Constants.Controllers.CaseAssessmentSummary, new { area = Constants.Areas.CaseManagement }, FormMethod.Post, new { id = "frmEditor", role = "form" }))
-            {
-    @Html.HiddenFor(model => model.CaseID)
-    <div class="row">
-        <div class="col-sm-2">
-            <label class="control-label labe-text">@Html.Label("Family Member")</label>
-        </div>
-        <div class="form-group02">
+    @using (Html.BeginForm(Constants.Actions.Index, Constants.Controllers.CaseAssessmentSummary, new { area = Constants.Areas.CaseManagement }, FormMethod.Post, new { id = "frmEditor", role = "form" }))
+    {
+        @Html.HiddenFor(model => model.CaseID)
+        <div class="row">
             <div class="col-sm-2">
-                @(Html.Kendo().DropDownListFor(model => model.CaseMemberID)
+                <label class="control-label labe-text">@Html.Label("Family Member")</label>
+            </div>
+            <div class="form-group02">
+                <div class="col-sm-2">
+                    @(Html.Kendo().DropDownListFor(model => model.CaseMemberID)
                     .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
                     .DataTextField("Text")
                     .DataValueField("Value")
@@ -111,16 +123,16 @@
                         });
                     }).Enable(true)
             //.AutoBind(false)
-                )
-            </div>
+                    )
+                </div>
 
 
-            <div class="col-sm-1">
-                <label class="control-label labe-text">@Html.Label("View As")</label>
-            </div>
-            <div class="form-group02">
-                <div class="col-sm-4">
-                    @(Html.Kendo().DropDownListFor(model => model.ViewAsID)
+                <div class="col-sm-1">
+                    <label class="control-label labe-text">@Html.Label("View As")</label>
+                </div>
+                <div class="form-group02">
+                    <div class="col-sm-4">
+                        @(Html.Kendo().DropDownListFor(model => model.ViewAsID)
                     .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
           .DataTextField("Text")
           .DataValueField("Value")
@@ -135,60 +147,235 @@
               }
           })
           .HtmlAttributes(new { style = "width: 100%" })
-                    )
-                </div>
-            </div>
-        </div>
-        <div class="row" style="text-align:center;margin-bottom:10px;margin-top:10px;">
-            <div class="form-group02">
-                <div class="col-sm-4">
-                    <button type="submit" class="btn btn-primary" id="btnViewAssessmentSummary"> View </button>
-                </div>
-                <div class="col-sm-4">
-                    <a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.CaseSummary, new { caseID = Model.CaseID})" class="btn btn-primary"><i class="fa fa-long-arrow-left"></i> Back to Case Summary</a>
-                </div>
-            </div>
-        </div>
-        @if (Model.CaseInitialAssessment != null && Model.CaseInitialAssessment.Count > 0)
-        {
-            <div class="row" style="margin-top:10px;" id="AssessmentTable">
-                <div class="col-lg-12 col-md-11 candidate-table-bg">
-                    <div class="row">
-                        <table id="assessment" cellpadding="2">
-                            <thead>
-                                <tr style="height:50px;padding-left:5px;">
-                                    <th>Assessment Date (MM/DD/YYYY)</th>
-                                    @foreach (var item in Model.AssesmentIndicators)
-                                    {
-                                        <th>
-                                            @item.IndicatorName
-                                        </th>
-                                    }
-                                </tr>
-                            </thead>
-                            <tbody style="background:none;">
-                                @foreach (var member in Model.CaseInitialAssessment.Select(m => new { m.CreateDate, m.AssessmentVersion }).Distinct().OrderByDescending(m => m.AssessmentVersion))
-                                {
-                                    <tr>
-                                        @*<td>01-01-1900</td>*@
-                                        <td>@Convert.ToDateTime(member.CreateDate).ToShortDateString()</td>
-                                        @foreach (var item in Model.CaseInitialAssessment.Where(c => c.AssessmentVersion == member.AssessmentVersion).OrderBy(c => c.IndicatorTypeID))
-                                        {
-                                            <td class="clsind" data-memberid="@item.CaseMemberID" data-indicatorid="@item.IndicatorTypeID" data-assessmentvalue="@item.AssessmentValue">@(item.AssessmentValue > 0 ? item.AssessmentValue.ToString() : "")</td>
-                                        }
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
+                        )
                     </div>
                 </div>
             </div>
-        }
-        
-    </div>
-}
+            <div class="row" style="text-align:center;margin-bottom:10px;margin-top:10px;">
+                <div class="form-group02">
+                    <div class="col-sm-4">
+                        <button type="submit" class="btn btn-primary" id="btnViewAssessmentSummary"> View </button>
+                    </div>
+                    <div class="col-sm-4">
+                        <a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.CaseSummary, new { caseID = Model.CaseID})" class="btn btn-primary"><i class="fa fa-long-arrow-left"></i> Back to Case Summary</a>
+                    </div>
+                </div>
+            </div>
+            @if (Model.CaseInitialAssessment != null && Model.CaseInitialAssessment.Count > 0)
+            {
+                <div class="row" style="margin-top:10px;" id="AssessmentTable">
+                    <div class="col-lg-12 col-md-11 candidate-table-bg">
+                        <div class="row">
+                            <table id="assessment" cellpadding="2">
+                                <thead>
+                                    <tr style="height:50px;padding-left:5px;">
+                                        <th>Assessment Date (MM/DD/YYYY)</th>
+                                        @foreach (var item in Model.AssesmentIndicators)
+                                        {
+                                            <th>
+                                                @item.IndicatorName
+                                            </th>
+                                        }
+                                    </tr>
+                                </thead>
+                                <tbody style="background:none;">
+                                    @*@foreach (var member in Model.CaseInitialAssessment.Select(m => new { m.CreateDate, m.AssessmentVersion }).Distinct().OrderByDescending(m => m.AssessmentVersion))
+                                        {
+                                            <tr>
+                                                <td>@Convert.ToDateTime(member.CreateDate).ToShortDateString()</td>
+                                                @foreach (var item in Model.CaseInitialAssessment.Where(c => c.AssessmentVersion == member.AssessmentVersion).OrderBy(c => c.IndicatorTypeID))
+                                                {
+                                                    <td class="clsind" data-memberid="@item.CaseMemberID" data-indicatorid="@item.IndicatorTypeID" data-assessmentvalue="@item.AssessmentValue">@(item.AssessmentValue > 0 ? item.AssessmentValue.ToString() : "")</td>
+                                                }
+                                            </tr>
+                                        }*@
+                                    @foreach (var member in Model.CaseInitialAssessment.Select(m => new { m.CreateDate }).Distinct().OrderByDescending(m => m.CreateDate))
+                                    {
+                                        <tr>
+                                            <td>@Convert.ToDateTime(member.CreateDate).ToShortDateString()</td>
+                                            @foreach (var item in Model.CaseInitialAssessment.Where(c => c.CreateDate == member.CreateDate).OrderBy(c => c.IndicatorTypeID))
+                                            {
+                                                <td class="clsind" data-memberid="@item.CaseMemberID" data-indicatorid="@item.IndicatorTypeID" data-assessmentvalue="@item.AssessmentValue">@(item.AssessmentValue > 0 ? item.AssessmentValue.ToString() : "")</td>
+                                            }
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+
+        <div class="row" style="margin-top:10px;" id="AssessmentSummaryChart">
+            <div class="col-lg-12 col-md-11 candidate-table-bg">
+                <div class="row">
+                    <div id="DivCanvas" style="width:75%;">
+                        <canvas id="canvas"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
 </div>
 <script type="text/javascript">
+    $(document).ready(function () {
+        var memberid = $("#CaseMemberID").data("kendoDropDownList").value();
+        if(memberid > 0)
+        {
 
-  
+            var chartdata = @Html.Raw(JsonConvert.SerializeObject(ViewBag.ChartData));
+
+            var config =
+                {
+                    type: 'line',
+                    data: chartdata,
+                    //data: {
+                    //labels:
+                    //labels: ['02/01/2017', '05/01/2017', '08/01/2017', '11/01/2017'],
+                    //datasets: [{
+                    //    label: 'Health',
+                    //    borderColor: window.chartColors.blue,
+                    //    backgroundColor: window.chartColors.red,
+                    //    data: ["5","6","5","3"],
+                    //},{
+                    //    label: 'Dignity & Self Respect',
+                    //    borderColor: window.chartColors.blue,
+                    //    backgroundColor: window.chartColors.yellow,
+                    //    data: ["6","6","5","3"],
+                    //},{
+                    //    label: 'Social Support',
+                    //    borderColor: window.chartColors.blue,
+                    //    backgroundColor: window.chartColors.orange,
+                    //    data: ["5","6","5","3"],
+                    //},{
+                    //    label: 'Housing',
+                    //    borderColor: window.chartColors.blue,
+                    //    backgroundColor: window.chartColors.purple,
+                    //    data: ["3","6","5","3"],
+                    //},{
+                    //    label: 'Assets & Life Skills',
+                    //    borderColor: window.chartColors.blue,
+                    //    backgroundColor: window.chartColors.grey,
+                    //    data: ["2","6","5","3"],
+                    //},{
+                    //    label: 'Income and Livelihood',
+                    //    borderColor: window.chartColors.blue,
+                    //    backgroundColor: window.chartColors.green,
+                    //    data: ["3","6","5","3"],
+                    //},{
+                    //    label: 'Education',
+                    //    borderColor: window.chartColors.blue,
+                    //    backgroundColor: window.chartColors.blue,
+                    //    data: ["2","6","5","3"],
+                    //}]
+                    //},
+                    options: {
+                        responsive: true,
+                        title: {
+                            display: true,
+                            text: 'Stacked Area'
+                        },
+                        tooltips: {
+                            mode: 'index',
+                        },
+                        hover: {
+                            mode: 'index'
+                        },
+                        //scaleOverride : true,
+                        //scaleSteps : 8,
+                        //scaleStepWidth : 1,
+                        //scaleStartValue : 0 ,
+                        scales:
+                            {
+                                xAxes: [{
+                                    scaleLabel:
+                                        {
+                                            display: true,
+                                            labelString: 'Assessment Date'
+                                        }
+                                }],
+                                yAxes: [{
+                                    stacked: true,
+                                    scaleLabel: {
+                                        display: true,
+                                        labelString: 'Assessment Value'
+                                    }
+                                    //,
+                                    //ticks: {
+                                    //    beginAtZero: true,
+                                    //    steps: 8,
+                                    //    stepValue: 1,
+                                    //    max: 8
+                                    //}
+                                }]
+                            }
+                    }
+                };
+
+            window.onload = function() {
+                var ctx = document.getElementById('canvas').getContext('2d');
+                window.myLine = new Chart(ctx, config);
+            };
+
+            document.getElementById('randomizeData').addEventListener('click', function() {
+                config.data.datasets.forEach(function(dataset) {
+                    dataset.data = dataset.data.map(function() {
+                        return randomScalingFactor();
+                    });
+
+                });
+
+                window.myLine.update();
+            });
+
+            var colorNames = Object.keys(window.chartColors);
+            document.getElementById('addDataset').addEventListener('click', function() {
+                var colorName = colorNames[config.data.datasets.length % colorNames.length];
+                var newColor = window.chartColors[colorName];
+                var newDataset = {
+                    label: 'Dataset ' + config.data.datasets.length,
+                    borderColor: newColor,
+                    backgroundColor: newColor,
+                    data: [],
+                };
+
+                for (var index = 0; index < config.data.labels.length; ++index) {
+                    newDataset.data.push(randomScalingFactor());
+                }
+
+                config.data.datasets.push(newDataset);
+                window.myLine.update();
+            });
+
+            //document.getElementById('addData').addEventListener('click', function() {
+            //    if (config.data.datasets.length > 0) {
+            //        var month = MONTHS[config.data.labels.length % MONTHS.length];
+            //        config.data.labels.push(month);
+
+            //        config.data.datasets.forEach(function(dataset) {
+            //            dataset.data.push(randomScalingFactor());
+            //        });
+
+            //        window.myLine.update();
+            //    }
+            //});
+
+            //document.getElementById('removeDataset').addEventListener('click', function() {
+            //    config.data.datasets.splice(0, 1);
+            //    window.myLine.update();
+            //});
+
+            //document.getElementById('removeData').addEventListener('click', function() {
+            //    config.data.labels.splice(-1, 1); // remove the label first
+
+            //    config.data.datasets.forEach(function(dataset) {
+            //        dataset.data.pop();
+            //    });
+
+            //    window.myLine.update();
+            //});
+
+        }});
 </script>

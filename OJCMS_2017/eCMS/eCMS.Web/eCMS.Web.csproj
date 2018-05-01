@@ -328,6 +328,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Areas\CaseManagement\Controllers\CaseGoalDetailTemplateController.cs" />
     <Compile Include="Areas\CaseManagement\Controllers\CaseAssessmentSummaryController.cs" />
     <Compile Include="Areas\CaseManagement\Controllers\CaseInitialAssessmentController.cs" />
     <Compile Include="Areas\CaseManagement\Controllers\AssesmentIndicatorsController.cs" />
@@ -723,9 +724,14 @@
     <Content Include="Assets\plugins\fuelux\js\spinner.min.js" />
     <Content Include="Assets\plugins\jquery-ui\jquery-ui.css" />
     <Content Include="Assets\plugins\jquery-ui\jquery-ui.js" />
+    <Content Include="Assets\scripts\Chart.bundle.js" />
+    <Content Include="Assets\scripts\Chart.bundle.min.js" />
+    <Content Include="Assets\scripts\Chart.js" />
+    <Content Include="Assets\scripts\Chart.min.js" />
     <Content Include="Assets\scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Assets\scripts\jquery.validate.min.js" />
     <Content Include="Assets\scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Assets\scripts\utils.js" />
     <Content Include="Assets\styles\bootstrap.css" />
     <Content Include="Assets\styles\custom.css" />
     <Content Include="Assets\styles\style.css" />
@@ -1533,6 +1539,8 @@
     <Content Include="Assets\plugins\fancybox\jquery.mousewheel-3.0.6.pack.js" />
     <Content Include="Assets\scripts\googleapi.js" />
     <Content Include="Assets\scripts\zipcodeapi.js" />
+    <Content Include="Scripts\Chart.js" />
+    <Content Include="Scripts\Chart.min.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

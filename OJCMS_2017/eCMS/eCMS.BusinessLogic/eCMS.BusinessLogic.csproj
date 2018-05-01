@@ -118,6 +118,7 @@
     <Compile Include="Repositories\Base\IBaseLookupRepository.cs" />
     <Compile Include="Repositories\Base\IBaseRepository.cs" />
     <Compile Include="Repositories\Base\IConnectionString.cs" />
+    <Compile Include="Repositories\CaseManagement\CaseGoalDetailTemplateRepository.cs" />
     <Compile Include="Repositories\CaseManagement\CaseInitialAssessmentRepository.cs" />
     <Compile Include="Repositories\CaseManagement\CaseActionRepository.cs" />
     <Compile Include="Repositories\CaseManagement\CaseAssessmentLivingConditionRepository.cs" />

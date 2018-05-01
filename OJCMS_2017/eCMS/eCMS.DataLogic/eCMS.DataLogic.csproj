@@ -78,6 +78,8 @@
     <Compile Include="Models\Base\IEntityBaseModel.cs" />
     <Compile Include="Models\Base\EntityBaseModel.cs" />
     <Compile Include="Models\Base\IBaseModel.cs" />
+    <Compile Include="Models\CaseManagement\CaseGoalDetailTemplate.cs" />
+    <Compile Include="Models\CaseManagement\CaseGoalNew.cs" />
     <Compile Include="Models\CaseManagement\CaseInitialAssessment.cs" />
     <Compile Include="Models\CaseManagement\Case.cs" />
     <Compile Include="Models\CaseManagement\CaseAuditLog.cs" />
@@ -205,6 +207,7 @@
     <Compile Include="ViewModels\CaseListViewModel.cs" />
     <Compile Include="ViewModels\CaseSSSWorkerNoteVM.cs" />
     <Compile Include="ViewModels\CaseSummaryVM.cs" />
+    <Compile Include="ViewModels\Chart.cs" />
     <Compile Include="ViewModels\InitialAssessmentVM.cs" />
     <Compile Include="ViewModels\InitialAssessmentIndicatorsVM.cs" />
     <Compile Include="ViewModels\CaseWorkerNoteVM.cs" />
