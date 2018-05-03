@@ -38,7 +38,6 @@ G:\Jay Bhai\ojcmsMaster\OJCMS_2017\eCMS\eCMS.DataLogic\bin\Debug\eCMS.DataLogic.
 G:\Jay Bhai\ojcmsMaster\OJCMS_2017\eCMS\eCMS.DataLogic\bin\Debug\eCMS.DataLogic.dll
 G:\Jay Bhai\ojcmsMaster\OJCMS_2017\eCMS\eCMS.DataLogic\bin\Debug\eCMS.DataLogic.pdb
 G:\Jay Bhai\ojcmsMaster\OJCMS_2017\eCMS\eCMS.DataLogic\bin\Debug\eCMS.Shared.dll
-G:\Jay Bhai\ojcmsMaster\OJCMS_2017\eCMS\eCMS.DataLogic\bin\Debug\Microsoft.Web.Infrastructure.dll
 G:\Jay Bhai\ojcmsMaster\OJCMS_2017\eCMS\eCMS.DataLogic\bin\Debug\eCMS.Shared.pdb
 G:\Jay Bhai\ojcmsMaster\OJCMS_2017\eCMS\eCMS.DataLogic\obj\Debug\eCMS.DataLogic.csprojResolveAssemblyReference.cache
 G:\Jay Bhai\ojcmsMaster\OJCMS_2017\eCMS\eCMS.DataLogic\obj\Debug\eCMS.DataLogic.dll

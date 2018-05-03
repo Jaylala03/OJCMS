@@ -330,6 +330,7 @@
   <ItemGroup>
     <Compile Include="Areas\CaseManagement\Controllers\CaseGoalDetailTemplateController.cs" />
     <Compile Include="Areas\CaseManagement\Controllers\CaseAssessmentSummaryController.cs" />
+    <Compile Include="Areas\CaseManagement\Controllers\CaseGoalNewController.cs" />
     <Compile Include="Areas\CaseManagement\Controllers\CaseInitialAssessmentController.cs" />
     <Compile Include="Areas\CaseManagement\Controllers\AssesmentIndicatorsController.cs" />
     <Compile Include="Areas\CaseManagement\Controllers\CaseMemberEmergencyContactController.cs" />
@@ -2009,6 +2010,7 @@
     <Content Include="Areas\CaseManagement\Views\CaseWorker\_Index.cshtml" />
     <Content Include="Areas\CaseManagement\Views\CaseAssessmentSummary\Index.cshtml" />
     <Content Include="Areas\CaseManagement\Views\CaseAssessmentSummary\Index - Copy.cshtml" />
+    <Content Include="Areas\CaseManagement\Views\CaseGoalNew\Index.cshtml" />
     <None Include="bin\eCMS.Web.dll.config" />
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Properties\PublishProfiles\ecms.softwareravine.com.pubxml" />

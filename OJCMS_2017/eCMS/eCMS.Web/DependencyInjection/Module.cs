@@ -177,6 +177,9 @@ namespace eCMS.Web.DependencyInjection
 
             containerBuilder.Register(container => new CaseInitialAssessmentRepository(container.Resolve<RepositoryContext>())).As<ICaseInitialAssessmentRepository>();
             containerBuilder.Register(container => new CaseGoalDetailTemplateRepository(container.Resolve<RepositoryContext>())).As<ICaseGoalDetailTemplateRepository>();
+
+            containerBuilder.Register(container => new CaseGoalNewRepository(container.Resolve<RepositoryContext>())).As<ICaseGoalNewRepository>();
+
         }
     }
 }

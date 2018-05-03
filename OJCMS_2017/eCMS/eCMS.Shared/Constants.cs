@@ -119,6 +119,7 @@ namespace eCMS.Shared
             public const string CaseMemberProfile = "CaseMemberProfile";
             public const string CaseAssessment = "CaseAssessment";
             public const string CaseGoal = "CaseGoal";
+            public const string CaseGoalNew = "CaseGoalNew";
             public const string CaseSmartGoal = "CaseSmartGoal";
             public const string CaseSmartGoalProgress = "CaseSmartGoalProgress";
             public const string CaseSmartGoalServiceProvider = "CaseSmartGoalServiceProvider";

@@ -1,22 +1,31 @@
-﻿//*********************************************************
-//
+﻿//
 //    Copyright © Organized Chaos Technologies Inc. 2015 All rights reserved.
 //	  Technical Contact: Rahim Bhatia, rahim@organizedchaostech.com
 //	  http://www.organizedchaostech.com
 //
 //*********************************************************
 
+
+using eCMS.DataLogic.Models;
 using eCMS.DataLogic.Models.Lookup;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Web.Mvc;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace eCMS.DataLogic.Models
+namespace eCMS.DataLogic.ViewModels
 {
-    public class CaseGoalNew : EntityBaseModel
+    public class CaseGoalNewVM : EntityBaseModel
     {
-        public Int32 CaseID { get; set; }
+        public List<InitialAssessmentIndicatorsVM> AssesmentIndicators { get; set; }
+        public List<CaseInitialAssessmentVM> CaseInitialAssessment { get; set; }
+        public CaseHouseholdIncome CaseHouseholdIncome { get; set; }
+        [NotMapped]
+        public CaseWorkerNote CaseWorkerNote { get; set; }
+        public int CaseID { get; set; }
 
         //[NotMapped]
         [Display(Name = "Family")]
@@ -26,20 +35,21 @@ namespace eCMS.DataLogic.Models
         [Display(Name = "Family Member")]
         public bool IsFamilyMember { set; get; }
 
+        [NotMapped]
+        public string Family { set; get; }
+
         [Display(Name = "")]
         [ForeignKey("CaseMember")]
         public Int32? CaseMemberID { get; set; }
 
-        public virtual CaseMember CaseMember { get; set; }
+        public string GoalDetails { set; get; }
 
-        [NotMapped]
-        public string Family { set; get; }
+        [Display(Name = "Priority set by family:")]
+        //[ForeignKey("RiskType")]
+        public Int32 PriorityTypeID { get; set; }
 
         [Display(Name = "Education")]
         public bool Education { get; set; }
-
-        [Display(Name = "Family has reviewed and agreed with the Assessment")]
-        public bool CaseAssessmentReviewed { get; set; }
 
         [Display(Name = "Income & Livelihood")]
         public bool IncomeLivelihood { get; set; }
@@ -58,23 +68,5 @@ namespace eCMS.DataLogic.Models
 
         [Display(Name = "Health")]
         public bool Health { get; set; }
-
-        public string GoalDetails { set; get; }
-
-        [Required(ErrorMessage = "Please select priority")]
-        [Display(Name = "Priority set by family")]
-        //[ForeignKey("RiskType")]
-        public Int32 PriorityTypeID { get; set; }
-
-        [Required(ErrorMessage = "Please confirm family / family member agreement to the goal.")]
-        [Display(Name = "Family / Family member has agreed to the Goal")]
-        public bool FamilyAgreeToGoal { get; set; }
-
-        [NotMapped]
-        public string CaseMemberName { get; set; }
-
-        [NotMapped]
-        public CaseWorkerNote CaseWorkerNote { get; set; }
-
     }
 }

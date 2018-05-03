@@ -489,6 +489,7 @@ namespace eCMS.BusinessLogic.Repositories.Context
         public DbSet<AssesmentIndicators> AssesmentIndicators { get; set; }
         public DbSet<CaseInitialAssessment> CaseInitialAssessment { get; set; }
         public DbSet<CaseGoalDetailTemplate> CaseGoalDetailTemplate { get; set; }
+        public DbSet<CaseGoalNew> CaseGoalNew { get; set; }
     }
 
     public interface IDescribableEntity

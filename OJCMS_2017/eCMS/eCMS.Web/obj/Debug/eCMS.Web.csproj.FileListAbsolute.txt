@@ -71,7 +71,6 @@ G:\Jay Bhai\ojcmsMaster\OJCMS_2017\eCMS\eCMS.Web\bin\eCMS.BusinessLogic.pdb
 G:\Jay Bhai\ojcmsMaster\OJCMS_2017\eCMS\eCMS.Web\bin\eCMS.DataLogic.pdb
 G:\Jay Bhai\ojcmsMaster\OJCMS_2017\eCMS\eCMS.Web\bin\eCMS.ExceptionLoging.pdb
 G:\Jay Bhai\ojcmsMaster\OJCMS_2017\eCMS\eCMS.Web\bin\eCMS.Shared.pdb
-G:\Jay Bhai\ojcmsMaster\OJCMS_2017\eCMS\eCMS.Web\bin\Newtonsoft.Json.xml
 G:\Jay Bhai\ojcmsMaster\OJCMS_2017\eCMS\eCMS.Web\obj\Debug\eCMS.Web.csprojResolveAssemblyReference.cache
 G:\Jay Bhai\ojcmsMaster\OJCMS_2017\eCMS\eCMS.Web\obj\Debug\eCMS.Web.dll
 G:\Jay Bhai\ojcmsMaster\OJCMS_2017\eCMS\eCMS.Web\obj\Debug\eCMS.Web.pdb
