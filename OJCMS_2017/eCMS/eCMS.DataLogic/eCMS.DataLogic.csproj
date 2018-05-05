@@ -78,6 +78,7 @@
     <Compile Include="Models\Base\IEntityBaseModel.cs" />
     <Compile Include="Models\Base\EntityBaseModel.cs" />
     <Compile Include="Models\Base\IBaseModel.cs" />
+    <Compile Include="Models\CaseManagement\CaseActionNew.cs" />
     <Compile Include="Models\CaseManagement\CaseGoalDetailTemplate.cs" />
     <Compile Include="Models\CaseManagement\CaseGoalNew.cs" />
     <Compile Include="Models\CaseManagement\CaseInitialAssessment.cs" />
@@ -96,6 +97,7 @@
     <Compile Include="Models\CaseManagement\CaseMemberEthinicity.cs" />
     <Compile Include="Models\CaseManagement\CaseSSSWorkerNote.cs" />
     <Compile Include="Models\CaseManagement\CaseSummary.cs" />
+    <Compile Include="Models\CaseManagement\GoalActionWorkNote.cs" />
     <Compile Include="Models\CaseManagement\CaseWorkerNote.cs" />
     <Compile Include="Models\CaseManagement\CaseSmartGoal.cs">
       <SubType>Code</SubType>
@@ -121,7 +123,9 @@
     <Compile Include="Models\CaseManagement\CaseProgressNoteMembers.cs" />
     <Compile Include="Models\CaseManagement\Employee.cs" />
     <Compile Include="Models\CaseManagement\AssesmentIndicators.cs" />
+    <Compile Include="Models\Lookup\GoalAssigneeRole.cs" />
     <Compile Include="Models\Lookup\IndicatorType.cs" />
+    <Compile Include="Models\Lookup\GoalStatus.cs" />
     <Compile Include="Models\Lookup\WorkerNoteActivityType.cs" />
     <Compile Include="Models\Lookup\IncomeRange.cs" />
     <Compile Include="Models\Lookup\Service.cs">

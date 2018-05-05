@@ -339,6 +339,7 @@
     <Compile Include="Areas\CaseManagement\Controllers\CaseWorkerController02252018.cs" />
     <Compile Include="Areas\CaseManagement\Controllers\CaseWorkerController03032018.cs" />
     <Compile Include="Areas\CaseManagement\Controllers\CaseWorkerNoteController.cs" />
+    <Compile Include="Areas\Lookup\Controllers\GoalStatusController.cs" />
     <Compile Include="Reports\CaseDashboardNew.cs">
       <DependentUpon>CaseDashboardNew.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -734,6 +735,7 @@
     <Content Include="Assets\scripts\utils.js" />
     <Content Include="Assets\styles\bootstrap.css" />
     <Content Include="Assets\styles\custom.css" />
+    <Content Include="Assets\styles\SideMenu.css" />
     <Content Include="Assets\styles\style.css" />
     <Content Include="Assets\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Assets\images\accessdenied.jpg" />
@@ -2009,6 +2011,10 @@
     <Content Include="Areas\CaseManagement\Views\CaseWorker\_Index.cshtml" />
     <Content Include="Areas\CaseManagement\Views\CaseAssessmentSummary\Index.cshtml" />
     <Content Include="Areas\CaseManagement\Views\CaseAssessmentSummary\Index - Copy.cshtml" />
+    <Content Include="Areas\CaseManagement\Views\CaseGoalDetailTemplate\_CreateOrEdit.cshtml" />
+    <Content Include="Areas\CaseManagement\Views\CaseGoalDetailTemplate\Index.cshtml" />
+    <Content Include="Areas\Lookup\Views\GoalStatus\_CreateOrEdit.cshtml" />
+    <Content Include="Areas\Lookup\Views\GoalStatus\Index.cshtml" />
     <None Include="bin\eCMS.Web.dll.config" />
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Properties\PublishProfiles\ecms.softwareravine.com.pubxml" />

@@ -93,7 +93,7 @@ namespace eCMS.Web.Controllers
         protected IIncomeRangeRepository incomeRangeRepository;
 
         protected IIndicatorTypeRepository indicatorTypeRepository;
-        
+        protected IGoalStatusRepository goalstatusRepository;
         public BaseController(IWorkerRoleActionPermissionRepository workerroleactionpermissionRepository)
         {
             this.workerroleactionpermissionRepository = workerroleactionpermissionRepository;

@@ -8,9 +8,10 @@
     @Html.Partial(Constants.PartialViews.Alert)
 </div>
 
+<link href="~/Assets/styles/SideMenu.css" rel="stylesheet" type="text/css">
 @*<script src="~/Assets/scripts/jquery.unobtrusive-ajax.min.js"></script>
-<script src="~/Assets/scripts/jquery.validate.min.js"></script>
-<script src="~/Assets/scripts/jquery.validate.unobtrusive.min.js"></script>*@
+    <script src="~/Assets/scripts/jquery.validate.min.js"></script>
+    <script src="~/Assets/scripts/jquery.validate.unobtrusive.min.js"></script>*@
 
 @Html.HiddenFor(model => model.ID)
 @Html.HiddenFor(model => model.DisplayID)
@@ -21,11 +22,11 @@
     <div class="col-md-6">
         <div class="row margin-left-50 margin-bottom-10">
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            
+
         </div>
 
         <div class="form-group02">
-            <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.ProgramID)</label>            
+            <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.ProgramID)</label>
             <div class="col-sm-8">
                 @(Html.Kendo().DropDownListFor(model => model.ProgramID)
                         .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
@@ -43,7 +44,7 @@
                 )
             </div>
             <div class="col-sm-8">
-                @Html.ValidationMessageFor(model => model.ProgramID, "", new { @class = "text-danger" })                
+                @Html.ValidationMessageFor(model => model.ProgramID, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group02">
@@ -144,15 +145,15 @@
             <label class="col-sm-4 control-label labe-text">@Html.LabelFor(model => model.CaseNumber)</label>
             @if (Model.IsReadmit)
             {
-            <div class="col-sm-8">
-                @Html.TextBoxFor(model => model.CaseNumber, new { @class = "form-control", disabled = "disabled" })
-            </div>
+                <div class="col-sm-8">
+                    @Html.TextBoxFor(model => model.CaseNumber, new { @class = "form-control", disabled = "disabled" })
+                </div>
             }
             else
             {
-            <div class="col-sm-8">
-                @Html.EditorFor(model => model.CaseNumber)
-            </div>
+                <div class="col-sm-8">
+                    @Html.EditorFor(model => model.CaseNumber)
+                </div>
             }
         </div>
         <div class="form-group02" title="Date the Confidentiality and Consent to Participate form signed">
@@ -171,8 +172,8 @@
             <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.IntakeMethodID)</label>
             @if (Model.IntakeMethodOther.IsNotNullOrEmpty())
             {
-            <div class="col-sm-4" id="divIntakeMethod">
-                @(Html.Kendo().DropDownListFor(model => model.IntakeMethodID)
+                <div class="col-sm-4" id="divIntakeMethod">
+                    @(Html.Kendo().DropDownListFor(model => model.IntakeMethodID)
                                     .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
                                     .Events(e => e.Change("DropDownListOther_OnChange"))
                                 .DataTextField("Text")
@@ -184,19 +185,19 @@
                                         read.Action("LoadIntakeMethodsAjax", "Case");
                                     });
                                 })
-                )
-            </div>
-            @*<div class="col-sm-4" id="divIntakeMethodOther">
-                    @Html.EditorFor(model => model.IntakeMethodOther)
-                </div>*@
-            <div class="col-sm-8">
-                @Html.ValidationMessageFor(model => model.IntakeMethodID, "", new { @class = "text-danger" })
-            </div>
+                    )
+                </div>
+                @*<div class="col-sm-4" id="divIntakeMethodOther">
+                        @Html.EditorFor(model => model.IntakeMethodOther)
+                    </div>*@
+                <div class="col-sm-8">
+                    @Html.ValidationMessageFor(model => model.IntakeMethodID, "", new { @class = "text-danger" })
+                </div>
             }
             else
             {
-            <div class="col-sm-8" id="divIntakeMethod">
-                @(Html.Kendo().DropDownListFor(model => model.IntakeMethodID)
+                <div class="col-sm-8" id="divIntakeMethod">
+                    @(Html.Kendo().DropDownListFor(model => model.IntakeMethodID)
                                     .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
                                     .Events(e => e.Change("DropDownListOther_OnChange"))
                                 .DataTextField("Text")
@@ -208,11 +209,11 @@
                                         read.Action("LoadIntakeMethodsAjax", "Case");
                                     });
                                 })
-                )
-            </div>
-            <div class="col-sm-8">
-                @Html.ValidationMessageFor(model => model.IntakeMethodID, "", new { @class = "text-danger" })
-            </div>
+                    )
+                </div>
+                <div class="col-sm-8">
+                    @Html.ValidationMessageFor(model => model.IntakeMethodID, "", new { @class = "text-danger" })
+                </div>
             }
         </div>
 
@@ -421,21 +422,21 @@
             <div style="margin-top:-40px;">
                 @foreach (var a in Model.CaseHouseholdIncome.IncomeRanges)
                 {
-                <div class="form-group02">
-                    <label class="col-sm-7 control-label labe-text"></label>
-                    @if (Model.CaseHouseholdIncome.IncomeRangeID > 0)
-                    {
-                        <div class="col-sm-5">
-                            @Html.RadioButtonFor(b => b.CaseHouseholdIncome.IncomeRangeID, a.ID)  @a.Name
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="col-sm-5">
-                            @Html.RadioButtonFor(b => b.CaseHouseholdIncome.IncomeRangeID, a.ID)  @a.Name
-                        </div>
-                    }
-                </div>
+                    <div class="form-group02">
+                        <label class="col-sm-7 control-label labe-text"></label>
+                        @if (Model.CaseHouseholdIncome.IncomeRangeID > 0)
+                        {
+                            <div class="col-sm-5">
+                                @Html.RadioButtonFor(b => b.CaseHouseholdIncome.IncomeRangeID, a.ID)  @a.Name
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="col-sm-5">
+                                @Html.RadioButtonFor(b => b.CaseHouseholdIncome.IncomeRangeID, a.ID)  @a.Name
+                            </div>
+                        }
+                    </div>
                 }
             </div>
         }
@@ -449,6 +450,42 @@
         }
 
         @Html.Partial("WorkNote", Model.CaseWorkerNote, viewData)
+        @*<div class="form-group02">
+            <a href="#divTemplate" id="aTemplates">Show Templates</a>
+        </div>*@
+        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Show Templates</button>
+        <div id="myModal" class="modal fade" role="dialog" >
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content" style="height:500px;">
+                    <div class="modal-header" style="position:relative;">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Goal Templates</h4>
+                        <h6>Select one of the following templates for creating a goal:</h6>
+                    </div>
+                    <div id="main">
+                        <a id="opennav"><span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span></a>
+                        @*<h2>Sidenav Push Example</h2>
+                        <p>Click on the element below to open the side navigation menu, and push this content to the right.</p>*@
+                    </div>
+                    <div class="modal-body" style="position:absolute;">
+                        <div id="sidemenu">
+                            <div id="mySidenav" class="sidenav">
+                                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                                <a href="#">About</a>
+                                <a href="#">Services</a>
+                                <a href="#">Clients</a>
+                                <a href="#">Contact</a>
+                            </div>
+                        </div>
+                    </div>
+                    @*<div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>*@
+                </div>
+
+            </div>
+        </div>
         @*<div class="form-group02">
                 <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.CaseStatusID)</label>
                 <div class="col-sm-8">
@@ -498,10 +535,13 @@
 <br class="clear" />
 
 @*@section Scripts
-{
-    @Scripts.Render("~/bundles/jqueryval")
-}*@
+    {
+        @Scripts.Render("~/bundles/jqueryval")
+    }*@
 <script>
+    $('#aTemplates').on("click", function () {
+        $("#sidemenu").toggle();
+    });
     //$('#btnSaveCase').on("click", function () {
     //    debugger
     //    var confirmmessage = confirm("Do you want to save ?");
@@ -520,4 +560,22 @@
     //    format: 'hh:mm'
     //    });
     //});
+</script>
+<script>
+    openNav();
+    $("#opennav").hide();
+    function openNav() {
+        document.getElementById("mySidenav").style.width = "250px";
+        document.getElementById("main").style.marginLeft = "250px";
+    }
+
+    function closeNav() {
+        document.getElementById("mySidenav").style.width = "0";
+        document.getElementById("main").style.marginLeft = "0";
+        $("#opennav").show();
+    }
+    $("#myModal").on("hidden.bs.modal", function () {
+        openNav();
+        $("#opennav").hide();
+    });
 </script>

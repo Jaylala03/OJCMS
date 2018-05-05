@@ -8,7 +8,6 @@
 
 using eCMS.BusinessLogic.Helpers;
 using eCMS.DataLogic.Models;
-using eCMS.DataLogic.Models;
 using eCMS.DataLogic.Models.Lookup;
 using System;
 using System.Collections.Generic;
@@ -489,6 +488,10 @@ namespace eCMS.BusinessLogic.Repositories.Context
         public DbSet<AssesmentIndicators> AssesmentIndicators { get; set; }
         public DbSet<CaseInitialAssessment> CaseInitialAssessment { get; set; }
         public DbSet<CaseGoalDetailTemplate> CaseGoalDetailTemplate { get; set; }
+        public DbSet<GoalStatus> GoalStatus { get; set; }
+        public DbSet<GoalAssigneeRole> GoalAssigneeRole { get; set; }
+        public DbSet<CaseActionNew> CaseActionNew { get; set; }
+        public DbSet<GoalActionWorkNote> GoalActionWorkNote { get; set; }
     }
 
     public interface IDescribableEntity

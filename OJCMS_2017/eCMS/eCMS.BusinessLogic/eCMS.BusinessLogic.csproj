@@ -118,6 +118,7 @@
     <Compile Include="Repositories\Base\IBaseLookupRepository.cs" />
     <Compile Include="Repositories\Base\IBaseRepository.cs" />
     <Compile Include="Repositories\Base\IConnectionString.cs" />
+    <Compile Include="Repositories\CaseManagement\CaseActionNewRepository.cs" />
     <Compile Include="Repositories\CaseManagement\CaseGoalDetailTemplateRepository.cs" />
     <Compile Include="Repositories\CaseManagement\CaseInitialAssessmentRepository.cs" />
     <Compile Include="Repositories\CaseManagement\CaseActionRepository.cs" />
@@ -137,6 +138,7 @@
     <Compile Include="Repositories\CaseManagement\CaseMemberRepository.cs" />
     <Compile Include="Repositories\CaseManagement\CaseSSSWorkerNoteRepository.cs" />
     <Compile Include="Repositories\CaseManagement\CaseSummaryRepository.cs" />
+    <Compile Include="Repositories\CaseManagement\GoalActionWorkNoteRepository.cs" />
     <Compile Include="Repositories\CaseManagement\CaseWorkerNoteRepository.cs" />
     <Compile Include="Repositories\CaseManagement\CaseProgressNoteRepository.cs" />
     <Compile Include="Repositories\CaseManagement\CaseHouseholdIncomeRepository.cs" />
@@ -162,7 +164,9 @@
     <Compile Include="Repositories\Context\IRepositoryContextInitializer.cs" />
     <Compile Include="Repositories\Context\RepositoryContext.cs" />
     <Compile Include="Repositories\Context\RepositoryContextInitializer.cs" />
+    <Compile Include="Repositories\Lookup\GoalAssigneeRoleRepository.cs" />
     <Compile Include="Repositories\Lookup\IndicatorTypeRepository.cs" />
+    <Compile Include="Repositories\Lookup\GoalStatusRepository.cs" />
     <Compile Include="Repositories\Lookup\WorkerNoteActivityTypeRepository.cs" />
     <Compile Include="Repositories\Lookup\ActivityTypeRepository.cs" />
     <Compile Include="Repositories\Lookup\AnnualIncomeRepository.cs" />

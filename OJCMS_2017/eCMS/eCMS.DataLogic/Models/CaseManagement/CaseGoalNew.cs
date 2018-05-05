@@ -18,6 +18,12 @@ namespace eCMS.DataLogic.Models
     {
         public Int32 CaseID { get; set; }
 
+        [Required(ErrorMessage = "Please enter goal details")]
+        [Display(Name = "Goal Details")]
+        [MaxLength]
+        [System.Web.Mvc.AllowHtml]
+        public string GoalDetail { get; set; }
+
         //[NotMapped]
         [Display(Name = "Family")]
         public bool IsFamily { set; get; }
@@ -68,8 +74,16 @@ namespace eCMS.DataLogic.Models
         [Display(Name = "Family / Family member has agreed to the Goal")]
         public bool FamilyAgreeToGoal { get; set; }
 
+        [Display(Name = "Goal Status")]
+        [ForeignKey("GoalStatus")]
+        public Int32? GoalStatusID { get; set; }
+
+        public virtual GoalStatus GoalStatus { get; set; }
+
         [NotMapped]
         public string CaseMemberName { get; set; }
 
+        [NotMapped]
+        public CaseWorkerNote CaseWorkerNote { get; set; }
     }
 }
