@@ -19,7 +19,9 @@ using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Web.Mvc;
 
@@ -60,10 +62,41 @@ namespace eCMS.BusinessLogic.Repositories
             }
             Save();
         }
+
+        public IQueryable<CaseGoalNew> FindAllByCaseID(int caseID)
+        {
+            return context.CaseGoalNew.Where(item => item.CaseID == caseID);
+        }
+
+        public IQueryable<CaseGoalNew> AllIncluding(int caseId, params Expression<Func<CaseGoalNew, object>>[] includeProperties)
+        {
+            IQueryable<CaseGoalNew> query = context.CaseGoalNew;
+            if (includeProperties != null)
+            {
+                foreach (var includeProperty in includeProperties)
+                {
+                    query = query.Include(includeProperty);
+                }
+            }
+            return query.Where(item => item.CaseID == caseId);
+        }
+
+        public List<CaseGoalNew> CaseGoalNewByCaseID(int CaseID)
+        {
+            string sqlQuery = "";
+
+            sqlQuery = "SELECT * FROM CaseGoalNew WHERE CaseID = " + CaseID.ToString();
+
+            List<CaseGoalNew> dsResult = context.Database.SqlQuery<CaseGoalNew>(sqlQuery.ToString()).ToList();
+            return dsResult;
+        }
     }
 
     public interface ICaseGoalNewRepository : IBaseRepository<CaseGoalNew>
     {
         void InsertOrUpdate(CaseGoalNew casegoalnew);
+        IQueryable<CaseGoalNew> FindAllByCaseID(int caseID);
+        IQueryable<CaseGoalNew> AllIncluding(int caseId, params Expression<Func<CaseGoalNew, object>>[] includeProperties);
+        List<CaseGoalNew> CaseGoalNewByCaseID(int CaseID);
     }
 }

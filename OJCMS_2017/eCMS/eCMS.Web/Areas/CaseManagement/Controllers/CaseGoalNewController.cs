@@ -139,5 +139,92 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
 
             return View(varCaseGoalNew);
         }
+
+        /// <summary>
+        /// This action loads data to kendo grid or listview asynchronously
+        /// </summary>
+        /// <param name="dsRequest">search/sort parameters</param>
+        /// <returns>data in json</returns>
+        [WorkerAuthorize]
+        [OutputCache(Duration = 0)]
+        public ActionResult IndexAjax([DataSourceRequest] DataSourceRequest dsRequest, int caseId)
+        {
+            if (dsRequest.Filters == null)
+            {
+                dsRequest.Filters = new List<IFilterDescriptor>();
+            }
+
+            bool hasEditPermission = workerroleactionpermissionnewRepository.HasPermission(CurrentLoggedInWorkerRoleIDs, Constants.Areas.CaseManagement, Constants.Controllers.CaseMember, Constants.Actions.Edit, true);
+            bool hasDeletePermission = workerroleactionpermissionnewRepository.HasPermission(CurrentLoggedInWorkerRoleIDs, Constants.Areas.CaseManagement, Constants.Controllers.CaseMember, Constants.Actions.Delete, true);
+            bool hasReadPermission = workerroleactionpermissionnewRepository.HasPermission(CurrentLoggedInWorkerRoleIDs, Constants.Areas.CaseManagement, Constants.Controllers.CaseMember, Constants.Actions.Read, true);
+            bool IsUserAdminWorker = CurrentLoggedInWorkerRoleIDs.IndexOf(1) == -1;
+            //bool IsUserRegionalManager = workerroleRepository.IsWorkerRegionalAdmin() > 0 ? true : false;//CurrentLoggedInWorkerRoleIDs.IndexOf(SiteConfigurationReader.RegionalManagerRoleID) != -1;
+
+            //FilterDescriptor newDesc = new FilterDescriptor("CaseID", FilterOperator.IsEqualTo, caseId);
+            //dsRequest.Filters.Add(newDesc);
+
+            //var primaryWorkerID = GetPrimaryWorkerOfTheCase(caseId);
+
+            List<CaseGoalNew> caseGoalNew = caseGoalNewRepository.CaseGoalNewByCaseID(caseId);
+
+            return Json(caseGoalNew, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// This action edits an existing casemember
+        /// </summary>
+        /// <param name="id">casegoalnew id</param>
+        /// <returns>action result</returns>
+        [WorkerAuthorize]
+        public ActionResult Edit(int id, int caseId)
+        {
+            //CaseMember casemember = casememberRepository.Find(id);
+
+            CaseGoalNew casegoalnew = null;
+            if (id > 0)
+            {
+                //find an existing casemember from database
+                Case varCase = caseRepository.Find(Convert.ToInt32(caseId));
+                ViewBag.DisplayID = varCase.DisplayID;
+                ViewBag.CaseID = caseId;
+                bool hasAccess = workerroleactionpermissionnewRepository.HasPermission(Convert.ToInt32(caseId), CurrentLoggedInWorkerRoleIDs, CurrentLoggedInWorker.ID, varCase.ProgramID, varCase.RegionID, varCase.SubProgramID, varCase.JamatkhanaID, Constants.Areas.CaseManagement, Constants.Controllers.CaseMember, Constants.Actions.Edit, true);
+                if (!hasAccess)
+                {
+                    WebHelper.CurrentSession.Content.ErrorMessage = "You are not eligible to do this action";
+                    return RedirectToAction(Constants.Actions.AccessDenied, Constants.Controllers.Home, new { Area = String.Empty });
+                }
+
+                casegoalnew = caseGoalNewRepository.Find(id);
+                if (casegoalnew == null)
+                {
+                    //throw an exception if id is provided but data does not exist in database
+                    return new HttpStatusCodeResult(System.Net.HttpStatusCode.NotFound, "Case Member not found");
+                }
+                else
+                {
+                    //string Ethnicity = caseEthinicityRepository.FindEthnicity(id);
+                    //if (!string.IsNullOrEmpty(Ethnicity))
+                    //{
+                    //    casemember.CaseEthinicity = Ethnicity.Split(',');
+                    //}
+                    //else
+                    //{
+                    //    casemember.CaseEthinicity = new string[] { casemember.EthnicityID.ToString() };
+                    //}
+
+                }
+            }
+            else
+            {
+                //create a new instance if id is not provided
+                casegoalnew = new CaseGoalNew();
+                casegoalnew.CaseID = caseId.ToInteger(true);
+            }
+
+            ViewBag.ContactMediaList = contactmediaRepository.AllActiveForDropDownList;
+            casegoalnew.CaseWorkerNote = new CaseWorkerNote();
+
+            return View(casegoalnew);
+        }
     }
 }
