@@ -18,6 +18,10 @@ namespace eCMS.DataLogic.Models
     {
         public Int32 CaseID { get; set; }
 
+        [NotMapped]
+        [Display(Name = "ACTIONS")]
+        public string Actions { get; set; }
+
         [Required(ErrorMessage = "Please enter goal details")]
         [Display(Name = "Goal Details")]
         [MaxLength]

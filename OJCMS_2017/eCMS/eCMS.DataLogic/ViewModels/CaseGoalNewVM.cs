@@ -42,7 +42,11 @@ namespace eCMS.DataLogic.ViewModels
         [ForeignKey("CaseMember")]
         public Int32? CaseMemberID { get; set; }
 
-        public string GoalDetails { set; get; }
+        [Required(ErrorMessage = "Please enter goal details")]
+        [Display(Name = "Goal Details")]
+        [MaxLength]
+        [System.Web.Mvc.AllowHtml]
+        public string GoalDetail { get; set; }
 
         [Display(Name = "Priority set by family:")]
         //[ForeignKey("RiskType")]
