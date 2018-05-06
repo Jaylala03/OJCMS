@@ -563,8 +563,47 @@
                 </div>
             }
         }
+    </div<div class="container bulk-import">
+    <div class="row margin-top-10">
+        <div class="col-md-12">
+            <div class="col-md-5">
+                <div class="form-group02">
+                    <label class="control-label labe-text">Service Plan:</label>
+                </div>
+            </div>
+            <div class="col-md-7">
+                <div class="form-group02" style="text-align: right;float:right;">
+                    <a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.CaseGoalNew, new { caseID = Model.CaseID})" class="btn btn-primary"><i class="fa fa-long-arrow-right"></i>Add Goal</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            @(Html.Kendo().Grid<CaseGoalNew>()
+                .Name("GridCaseGoalNew")
+                .Columns(columns =>
+                {
+                    columns.Bound(c => c.GoalDetail).Sortable(true).Groupable(false).Filterable(false);
+                    //columns.Bound(c => c.Actions).ClientTemplate("<center><a href='/CaseManagement/CaseGoalNew/Edit/?Id=#= ID #&CaseID=#= CaseID #' style='#= HasPermissionToEdit #'  title='Edit'>Edit</a>&nbsp;</center>").Width("10%").HtmlAttributes(new { @class = "grid-actions-content" }).HeaderTemplate("<center>Actions</center>").HeaderHtmlAttributes(new { @class = "grid-actions-content" });
+                    columns.Bound(c => c.Education).Sortable(true).Groupable(false).Filterable(false);
+                    //columns.Bound(c => c.RelationshipStatusName).Sortable(true).Groupable(false).Filterable(false);
+                    //columns.Bound(c => c.MaritalStatusName).Sortable(true).Groupable(false).Filterable(false);
+                    //columns.Bound(c => c.EthnicityName).Sortable(true).Groupable(false).Filterable(false);
+                    //columns.Bound(c => c.LanguageName).Sortable(true).Groupable(false).Filterable(false);
+                    //columns.Bound(p => p.Actions).ClientTemplate("<center><a href='/CaseManagement/CaseGoalNew/Edit/?Id=#= ID #&CaseID=#= CaseID #' style='#= HasPermissionToEdit #'  title='Edit'>Edit</a>&nbsp;</center>").Width("10%").HtmlAttributes(new { @class = "grid-actions-content" }).HeaderTemplate("<center>Actions</center>").HeaderHtmlAttributes(new { @class = "grid-actions-content" });
+                })
+                .DataSource(dataSource => dataSource
+                .Ajax()
+                .Read(read => read.Action("IndexAjax", "CaseGoalNew", new { caseId = Model.CaseID }))
+                .PageSize(50)
+                )
+                .Pageable()
+                .Sortable()
+            )
+        </div>
     </div>
 </div>
+</div>
+
 <script>
     $(document).ready(function () {
             TrimDataLoad();

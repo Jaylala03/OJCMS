@@ -41,5 +41,6 @@ namespace eCMS.DataLogic.ViewModels
         public bool DoesHouseHoldIncomeExists { get; set; }
         public bool DoesInitialAssessmentExists { get; set; }
         public bool DoesFamilyMembersExists { get; set; }
+        public CaseGoalNewVM caseGoalNewVM { get; set; }
     }
 }
