@@ -184,6 +184,7 @@ namespace eCMS.Web.DependencyInjection
             containerBuilder.Register(container => new CaseActionNewRepository(container.Resolve<RepositoryContext>(), container.Resolve<IWorkerRoleActionPermissionRepository>(),
                 container.Resolve<IWorkerRoleActionPermissionNewRepository>(),container.Resolve<IWorkerToDoRepository>())).As<ICaseActionNewRepository>();
             containerBuilder.Register(container => new GoalActionWorkNoteRepository(container.Resolve<RepositoryContext>())).As<IGoalActionWorkNoteRepository>();
+            containerBuilder.Register(container => new CaseGoalNewRepository(container.Resolve<RepositoryContext>())).As<ICaseGoalNewRepository>();
         }
     }
 }

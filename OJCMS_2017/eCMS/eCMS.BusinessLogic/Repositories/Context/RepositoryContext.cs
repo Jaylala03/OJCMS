@@ -492,6 +492,7 @@ namespace eCMS.BusinessLogic.Repositories.Context
         public DbSet<GoalAssigneeRole> GoalAssigneeRole { get; set; }
         public DbSet<CaseActionNew> CaseActionNew { get; set; }
         public DbSet<GoalActionWorkNote> GoalActionWorkNote { get; set; }
+        public DbSet<CaseGoalNew> CaseGoalNew { get; set; }
     }
 
     public interface IDescribableEntity

@@ -74,3 +74,4 @@ D:\OJCMS\OJCMS_2017\eCMS\eCMS.Web\bin\eCMS.Shared.pdb
 D:\OJCMS\OJCMS_2017\eCMS\eCMS.Web\obj\Debug\eCMS.Web.csprojResolveAssemblyReference.cache
 D:\OJCMS\OJCMS_2017\eCMS\eCMS.Web\obj\Debug\eCMS.Web.dll
 D:\OJCMS\OJCMS_2017\eCMS\eCMS.Web\obj\Debug\eCMS.Web.pdb
+D:\OJCMS\OJCMS_2017\eCMS\eCMS.Web\bin\Newtonsoft.Json.xml
