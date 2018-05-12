@@ -71,4 +71,13 @@ namespace eCMS.Shared
         From60000to80000=5,
         Greaterthan80000=6,
     }
+
+    public enum GoalWorkNote
+    {
+        Inprogress = 1,
+        Stalled = 2,
+        Complete = 3,
+        Discarded = 4,
+        AddedInError = 5,
+    }
 }

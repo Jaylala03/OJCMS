@@ -52,6 +52,9 @@ namespace eCMS.DataLogic.ViewModels
         //[ForeignKey("RiskType")]
         public Int32 PriorityTypeID { get; set; }
 
+        [Display(Name = "Goal Status:")]
+        public Int32 GoalStatusID { get; set; }
+
         [Display(Name = "Education")]
         public bool Education { get; set; }
 
@@ -72,5 +75,8 @@ namespace eCMS.DataLogic.ViewModels
 
         [Display(Name = "Health")]
         public bool Health { get; set; }
+
+        [NotMapped]
+        public GoalActionWorkNote GoalActionWorkNote { get; set; }
     }
 }
