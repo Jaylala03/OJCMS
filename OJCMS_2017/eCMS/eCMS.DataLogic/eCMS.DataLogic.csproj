@@ -206,6 +206,8 @@
     <Compile Include="SeedData\LookupSeed.cs" />
     <Compile Include="SeedData\WorkerSeed.cs" />
     <Compile Include="ViewModels\CaseAssessmentSummaryVM.cs" />
+    <Compile Include="ViewModels\CaseGoalWorkNoteGridVM.cs" />
+    <Compile Include="ViewModels\CaseGoalGridVM.cs" />
     <Compile Include="ViewModels\CaseGoalNewVM.cs" />
     <Compile Include="ViewModels\CaseHouseholdIncomeVM.cs" />
     <Compile Include="ViewModels\CaseInitialAssessmentVM.cs" />

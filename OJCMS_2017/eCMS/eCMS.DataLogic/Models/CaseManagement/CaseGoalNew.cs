@@ -89,5 +89,11 @@ namespace eCMS.DataLogic.Models
 
         [NotMapped]
         public CaseWorkerNote CaseWorkerNote { get; set; }
+
+        [NotMapped]
+        public GoalActionWorkNote GoalActionWorkNote { get; set; }
+
+        [NotMapped]
+        public CaseActionNew CaseActionNew { get; set; }
     }
 }

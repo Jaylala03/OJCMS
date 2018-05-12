@@ -1,4 +1,4 @@
-﻿@model eCMS.DataLogic.ViewModels.CaseGoalNewVM
+﻿@model eCMS.DataLogic.Models.CaseGoalNew
 @using EasySoft.Helper;
 @using eCMS.Shared;
 @using eCMS.DataLogic.Models;
@@ -85,82 +85,6 @@
             </div>
         </div>
     </div>
-    @if (Model.AssesmentIndicators.Count > 0)
-            {
-        <div class="col-lg-12" id="divAssessmentChart" style="display:none;">
-            <div class="col-lg-12 col-md-11 candidate-table-bg">
-                <div class="row">
-                    <table id="indicators" cellpadding="2">
-                        <thead>
-                            <tr style="height:50px;padding-left:5px;">
-                                <th>Indicators</th>
-                                <th>1</th>
-                                <th>2</th>
-                                <th>3</th>
-                                <th>4</th>
-                                <th>5</th>
-                                <th>6</th>
-                                @*<th>Not Applicable</th>*@
-                            </tr>
-                        </thead>
-                        <tbody style="background:none;">
-                            @foreach (var item in Model.AssesmentIndicators)
-                            {
-                                <tr>
-                                    <td>@item.IndicatorName</td>
-                                    <td class="fulldescription">@(item.AssesmentIndicatorDescription1) </td>
-                                    <td class="fulldescription">@(item.AssesmentIndicatorDescription2) </td>
-                                    <td class="fulldescription">@(item.AssesmentIndicatorDescription3) </td>
-                                    <td class="fulldescription">@(item.AssesmentIndicatorDescription4) </td>
-                                    <td class="fulldescription">@(item.AssesmentIndicatorDescription5) </td>
-                                    <td class="fulldescription">@(item.AssesmentIndicatorDescription6) </td>
-                                    @*<td>&nbsp;</td>*@
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
-                <div class="row" style="text-align:center;margin-bottom:10px;margin-top:10px;display:none;" id="divSaveAssessment">
-                    <button type="button" class="btn btn-primary" id="btnSaveAssessment"><i class="fa fa-save"></i> Save </button>
-                </div>
-            </div>
-        </div>
-    }
-    @if (Model.AssesmentIndicators.Count > 0)
-            {
-        <div class="col-lg-12" style="margin-top:10px;">
-            <div class="col-lg-12 col-md-11 candidate-table-bg">
-                <div class="row">
-                    <table id="assessment" cellpadding="2">
-                        <thead>
-                            <tr style="height:50px;padding-left:5px;">
-                                <th>Family Member</th>
-                                @foreach (var item in Model.AssesmentIndicators)
-                                {
-                                    <th>
-                                        @item.IndicatorName
-                                    </th>
-                                }
-                            </tr>
-                        </thead>
-                        <tbody style="background:none;">
-                            @foreach (var member in Model.CaseInitialAssessment.Select(m => new { m.CaseMemberName, m.CaseMemberID }).Distinct())
-                            {
-                                <tr>
-                                    <td>@member.CaseMemberName</td>
-                                    <td style="display:none;">@member.CaseMemberID</td>
-                                    @foreach (var item in Model.CaseInitialAssessment.Where(c => c.CaseMemberName == member.CaseMemberName).OrderBy(c => c.IndicatorTypeID))
-                                    {
-                                        <td class="clsind" data-memberid="@item.CaseMemberID" data-indicatorid="@item.IndicatorTypeID" data-assessmentvalue="@item.AssessmentValue">@(item.AssessmentValue > 0 ? item.AssessmentValue.ToString() : "")</td>
-                                    }
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    }
 
     <div class="col-md-12">
         <div class="col-md-5">
@@ -169,19 +93,11 @@
             </div>
         </div>
     </div>
-    @if (ViewBag.MessageErr != null)
-    {
-    <div class="col-md-12">
-        <div class="col-md-5">
-            <div class="form-group02">
-                <label class="control-label labe-text danger">@ViewBag.ErrorMessage</label>
-            </div>
-        </div>
-    </div>
-    }
-    @using (Html.BeginForm(Constants.Actions.Create, Constants.Controllers.CaseGoalNew, new { area = Constants.Areas.CaseManagement }, FormMethod.Post, new { id = "frmEditor", role = "form" }))
+    @using (Html.BeginForm(Constants.Actions.Edit, Constants.Controllers.CaseGoalNew, new { area = Constants.Areas.CaseManagement }, FormMethod.Post, new { id = "frmEditor", role = "form" }))
     {
         @Html.HiddenFor(model => model.CaseID)
+        @Html.HiddenFor(model => model.ID)
+
         <div class="col-md-12">
             <div class="col-md-5">
                 <div class="form-group02">
@@ -261,7 +177,7 @@
                         <label class="control-label labe-text">@Html.Label("Goal Details:")</label>
                     </div>
                     <div class="col-sm-7">
-                        @Html.TextAreaFor(model => model.GoalDetail, new { @class = "form-control", rows = 4, cols = 50 })
+                        @Html.TextAreaFor(model => model.GoalDetail, new { rows = 4, cols = 50 })
                     </div>
                 </div>
             </div>
@@ -295,15 +211,6 @@
             <div class="col-md-12">
                 <div class="form-group02">
                     <div class="col-sm-7">
-                        @*@{
-                            string name = Html.NameFor(model => model.CaseWorkerNote).ToString();
-                            string prefix = Html.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name);
-                            ViewDataDictionary viewData = new ViewDataDictionary(Html.ViewData)
-                            {
-                                TemplateInfo = new TemplateInfo { HtmlFieldPrefix = prefix }
-                            };
-                        }
-                        @Html.Partial("WorkNote", Model.CaseWorkerNote, viewData)*@
                         <div class="form-group02">
                             <label class="col-sm-8 control-label labe-text" style="font-weight:bold;">Work Notes: (Optional)</label>
                         </div>
@@ -363,8 +270,6 @@
                                 @Html.ValidationMessageFor(m => m.GoalActionWorkNote.TimeSpentMinutes, "", new { @class = "text-danger" })
                             </div>
                         </div>
-
-
                     </div>
                 </div>
             </div>

@@ -578,18 +578,22 @@
             </div>
         </div>
         <div class="col-md-12">
-            @(Html.Kendo().Grid<CaseGoalNew>()
+            @(Html.Kendo().Grid<CaseGoalGridVM>()
                 .Name("GridCaseGoalNew")
                 .Columns(columns =>
                 {
                     columns.Bound(c => c.GoalDetail).Sortable(true).Groupable(false).Filterable(false);
-                    //columns.Bound(c => c.Actions).ClientTemplate("<center><a href='/CaseManagement/CaseGoalNew/Edit/?Id=#= ID #&CaseID=#= CaseID #' style='#= HasPermissionToEdit #'  title='Edit'>Edit</a>&nbsp;</center>").Width("10%").HtmlAttributes(new { @class = "grid-actions-content" }).HeaderTemplate("<center>Actions</center>").HeaderHtmlAttributes(new { @class = "grid-actions-content" });
-                    columns.Bound(c => c.Education).Sortable(true).Groupable(false).Filterable(false);
-                    //columns.Bound(c => c.RelationshipStatusName).Sortable(true).Groupable(false).Filterable(false);
-                    //columns.Bound(c => c.MaritalStatusName).Sortable(true).Groupable(false).Filterable(false);
-                    //columns.Bound(c => c.EthnicityName).Sortable(true).Groupable(false).Filterable(false);
-                    //columns.Bound(c => c.LanguageName).Sortable(true).Groupable(false).Filterable(false);
-                    //columns.Bound(p => p.Actions).ClientTemplate("<center><a href='/CaseManagement/CaseGoalNew/Edit/?Id=#= ID #&CaseID=#= CaseID #' style='#= HasPermissionToEdit #'  title='Edit'>Edit</a>&nbsp;</center>").Width("10%").HtmlAttributes(new { @class = "grid-actions-content" }).HeaderTemplate("<center>Actions</center>").HeaderHtmlAttributes(new { @class = "grid-actions-content" });
+                    columns.Bound(c => c.Indicators).Sortable(true).Groupable(false).Filterable(false);
+                    columns.Bound(c => c.FamilyMember).Sortable(true).Groupable(false).Filterable(false);
+                    columns.Bound(c => c.Priority).Sortable(true).Groupable(false).Filterable(false);
+                    columns.Bound(c => c.ActionsSummary).Sortable(true).Groupable(false).Filterable(false);
+                    columns.Bound(c => c.GoalStatus).Sortable(true).Groupable(false).Filterable(false);
+                    columns.Bound(c => c.CreateDate).Format("{0:yyyy-MM-dd}").Sortable(true).Groupable(false).Filterable(false);
+                    columns.Bound(c => c.LastUpdateDate).Format("{0:yyyy-MM-dd}").Sortable(true).Groupable(false).Filterable(false);
+                    columns.Bound(p => p.Actions).ClientTemplate("<center><a href='/CaseManagement/CaseGoalNew/Edit/?Id=#= CaseGoalID #&CaseID=#= CaseID #'  title='Edit'>Edit</a>&nbsp;</center>").Width("10%")
+                        .HtmlAttributes(new { @class = "grid-actions-content" })
+                        .HeaderTemplate("<center>Actions</center>")
+                        .HeaderHtmlAttributes(new { @class = "grid-actions-content" });
                 })
                 .DataSource(dataSource => dataSource
                 .Ajax()

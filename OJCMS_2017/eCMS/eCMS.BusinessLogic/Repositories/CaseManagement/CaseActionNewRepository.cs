@@ -20,6 +20,7 @@ using eCMS.Shared;
 using Kendo.Mvc.Extensions;
 using System.Text;
 using eCMS.DataLogic.ViewModels;
+using eCMS.DataLogic.Models.Lookup;
 
 namespace eCMS.BusinessLogic.Repositories
 {
@@ -153,6 +154,8 @@ namespace eCMS.BusinessLogic.Repositories
         }
 
 
+       
+
         public void Update(CaseActionNew CaseActionNew)
         {
             CaseActionNew.LastUpdateDate = DateTime.Now;
@@ -172,6 +175,23 @@ namespace eCMS.BusinessLogic.Repositories
             }
             Save();
         }
+
+        public List<CaseGoalWorkNoteGridVM> CaseGoalWorkNote(int CaseGoalID)
+        {
+            StringBuilder sqlQuery = new StringBuilder();
+
+            sqlQuery.Append("SELECT CGN.ID AS CaseGoalID, GAWN.ContactMethodID AS ContactMethodID,");
+            sqlQuery.Append("CAST(GAWN.CreateDate as date) AS CreateDate, GAWN.Note AS Note,");
+            sqlQuery.Append("CM.Description AS ContactMethod, GAWN.NoteDate AS NoteDate,");
+            sqlQuery.Append("CAST(GAWN.TimeSpentHours as varchar) + ':' + CAST(GAWN.TimeSpentMinutes as varchar) AS TimeSpent,");
+            sqlQuery.Append("CGN.GoalDetail AS GoalDetail FROM GoalActionWorkNote GAWN ");
+            sqlQuery.Append("INNER JOIN ContactMethod CM ON GAWN.ContactMethodID = CM.ID ");
+            sqlQuery.Append("INNER JOIN CaseGoalNew CGN ON GAWN.CaseGoalID = CGN.ID ");
+            sqlQuery.Append("WHERE GAWN.ID = " + CaseGoalID + "");            
+
+            List<CaseGoalWorkNoteGridVM> dsResult = context.Database.SqlQuery<CaseGoalWorkNoteGridVM>(sqlQuery.ToString()).ToList();
+            return dsResult;
+        }
     }
 
     /// <summary>
@@ -182,5 +202,6 @@ namespace eCMS.BusinessLogic.Repositories
         void InsertOrUpdate(CaseActionNew CaseActionNew);
         void Update(CaseActionNew CaseActionNew);
         DataSourceResult Search(DataSourceRequest dsRequest, int caseId, int CaseGoalId);
+        List<CaseGoalWorkNoteGridVM> CaseGoalWorkNote(int CaseGoalID);
     }
 }

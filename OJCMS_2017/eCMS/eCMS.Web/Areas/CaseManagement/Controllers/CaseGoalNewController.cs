@@ -28,20 +28,24 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
     {
         private readonly ICaseGoalNewRepository caseGoalNewRepository;
         private readonly ICaseInitialAssessmentRepository caseInitialAssessmentRepository;
-        private readonly ICaseWorkerNoteRepository caseWorkerNoteRepository;
+        //private readonly ICaseWorkerNoteRepository caseWorkerNoteRepository;
+        private readonly IGoalActionWorkNoteRepository goalActionWorkNoteRepository;
 
         public CaseGoalNewController(ICaseGoalNewRepository CaseGoalNewRepository, ICaseRepository caseRepository,
             IWorkerRoleActionPermissionNewRepository workerroleactionpermissionnewRepository, IIndicatorTypeRepository indicatorTypeRepository,
             IWorkerRoleActionPermissionRepository workerroleactionpermissionRepository
             , ICaseInitialAssessmentRepository caseInitialAssessmentRepository, ICaseMemberRepository casememberRepository,
-            ICaseWorkerNoteRepository caseWorkerNoteRepository)
+            ICaseWorkerNoteRepository caseWorkerNoteRepository, IGoalActionWorkNoteRepository goalActionWorkNoteRepository,
+            IContactMediaRepository contactmediaRepository)
             : base(workerroleactionpermissionRepository, caseRepository, workerroleactionpermissionnewRepository)
         {
             this.caseGoalNewRepository = CaseGoalNewRepository;
             this.indicatorTypeRepository = indicatorTypeRepository;
             this.caseInitialAssessmentRepository = caseInitialAssessmentRepository;
             this.casememberRepository = casememberRepository;
-            this.caseWorkerNoteRepository = caseWorkerNoteRepository;
+            //this.caseWorkerNoteRepository = caseWorkerNoteRepository;
+            this.goalActionWorkNoteRepository = goalActionWorkNoteRepository;
+            this.contactmediaRepository = contactmediaRepository;
         }
 
         // GET: CaseManagement/CaseGoalNew
@@ -94,19 +98,15 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
                     caseGoalNewRepository.InsertOrUpdate(varCaseGoalNew);
                     caseGoalNewRepository.Save();
 
-                    if (varCaseGoalNew.CaseWorkerNote.ContactMethodID > 0)
+                    if (varCaseGoalNew.GoalActionWorkNote.ContactMethodID > 0)
                     {
-                        varCaseGoalNew.CaseWorkerNote.LastUpdatedByWorkerID = CurrentLoggedInWorker.ID;
-                        varCaseGoalNew.CaseWorkerNote.CaseID = varCaseGoalNew.CaseID;
-                        //incomemodel.CaseWorkerNote.CaseStatusID = incomemodel.CaseStatusID;
-                        //incomemodel.CaseWorkerNote.ProgramID = incomemodel.ProgramID;
-                        //varCase.CaseWorkerNote.NoteDate = Convert.ToDateTime(varCase.ContactDate);
-                        varCaseGoalNew.CaseWorkerNote.IsFamily = true;
-                        varCaseGoalNew.CaseWorkerNote.IsFamilyMember = false;
-                        varCaseGoalNew.CaseWorkerNote.WorkerNoteActivityTypeID = (int)WorkerNoteActivityType.EditHouseholdIncome;
+                        varCaseGoalNew.GoalActionWorkNote.LastUpdatedByWorkerID = CurrentLoggedInWorker.ID;
+                        varCaseGoalNew.GoalActionWorkNote.CaseGoalID = varCaseGoalNew.ID;
 
-                        caseWorkerNoteRepository.InsertOrUpdate(varCaseGoalNew.CaseWorkerNote);
-                        caseWorkerNoteRepository.Save();
+                        varCaseGoalNew.GoalActionWorkNote.StatusID = (int)GoalWorkNote.Inprogress;
+
+                        goalActionWorkNoteRepository.InsertOrUpdate(varCaseGoalNew.GoalActionWorkNote);
+                        goalActionWorkNoteRepository.Save();
                     }
 
                     return RedirectToAction(Constants.Actions.Index, Constants.Controllers.CaseSummary, new { caseID = varCaseGoalNew.CaseID });
@@ -125,6 +125,9 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
                             break;
                         }
                     }
+                    varCaseGoalNew.ErrorMessage = "Record not saved";
+                    ViewBag.MessageErr = "Record not saved";
+                    return RedirectToAction(Constants.Actions.Index, Constants.Controllers.CaseGoalNew, new { caseID = varCaseGoalNew.CaseID });
                 }
             }
             catch (CustomException ex)
@@ -165,9 +168,12 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
 
             //var primaryWorkerID = GetPrimaryWorkerOfTheCase(caseId);
 
-            List<CaseGoalNew> caseGoalNew = caseGoalNewRepository.CaseGoalNewByCaseID(caseId);
+            //List<CaseGoalNew> caseGoalNew = caseGoalNewRepository.CaseGoalNewByCaseID(caseId);
+            //return Json(caseGoalNew, JsonRequestBehavior.AllowGet);
 
-            return Json(caseGoalNew, JsonRequestBehavior.AllowGet);
+            DataSourceResult result = caseGoalNewRepository.CaseGoalNewByCaseID(caseId).AsEnumerable().ToDataSourceResult(dsRequest);
+
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>
@@ -202,16 +208,6 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
                 }
                 else
                 {
-                    //string Ethnicity = caseEthinicityRepository.FindEthnicity(id);
-                    //if (!string.IsNullOrEmpty(Ethnicity))
-                    //{
-                    //    casemember.CaseEthinicity = Ethnicity.Split(',');
-                    //}
-                    //else
-                    //{
-                    //    casemember.CaseEthinicity = new string[] { casemember.EthnicityID.ToString() };
-                    //}
-
                 }
             }
             else
@@ -222,9 +218,82 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
             }
 
             ViewBag.ContactMediaList = contactmediaRepository.AllActiveForDropDownList;
-            casegoalnew.CaseWorkerNote = new CaseWorkerNote();
+            casegoalnew.GoalActionWorkNote = new GoalActionWorkNote();
 
             return View(casegoalnew);
+        }
+
+        [WorkerAuthorize]
+        [HttpPost]
+        public ActionResult Edit(CaseGoalNew varCaseGoalNew, int caseId)
+        {
+            if (varCaseGoalNew.CaseID == 0 && caseId > 0)
+            {
+                varCaseGoalNew.CaseID = caseId;
+            }
+            varCaseGoalNew.LastUpdatedByWorkerID = CurrentLoggedInWorker.ID;
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    if (varCaseGoalNew.Family == "Family")
+                    {
+                        varCaseGoalNew.IsFamily = true;
+                        varCaseGoalNew.IsFamilyMember = false;
+                    }
+                    else
+                    {
+                        varCaseGoalNew.IsFamily = false;
+                        varCaseGoalNew.IsFamilyMember = true;
+                    }
+
+                    //call the repository function to save in database
+                    caseGoalNewRepository.InsertOrUpdate(varCaseGoalNew);
+                    caseGoalNewRepository.Save();
+
+                    if (varCaseGoalNew.GoalActionWorkNote.ContactMethodID > 0)
+                    {
+                        varCaseGoalNew.GoalActionWorkNote.LastUpdatedByWorkerID = CurrentLoggedInWorker.ID;
+                        varCaseGoalNew.GoalActionWorkNote.CaseGoalID = varCaseGoalNew.ID;
+
+                        varCaseGoalNew.GoalActionWorkNote.StatusID = (int)GoalWorkNote.Inprogress;
+
+                        goalActionWorkNoteRepository.InsertOrUpdate(varCaseGoalNew.GoalActionWorkNote);
+                        goalActionWorkNoteRepository.Save();
+                    }
+
+                    return RedirectToAction(Constants.Actions.Index, Constants.Controllers.CaseSummary, new { caseID = varCaseGoalNew.CaseID });
+                }
+                else
+                {
+                    foreach (var modelStateValue in ViewData.ModelState.Values)
+                    {
+                        foreach (var error in modelStateValue.Errors)
+                        {
+                            varCaseGoalNew.ErrorMessage = error.ErrorMessage;
+                            break;
+                        }
+                        if (varCaseGoalNew.ErrorMessage.IsNotNullOrEmpty())
+                        {
+                            break;
+                        }
+                    }
+                    varCaseGoalNew.ErrorMessage = "Record not saved";
+                    ViewBag.MessageErr = "Record not saved";
+                    return RedirectToAction(Constants.Actions.Index, Constants.Controllers.CaseGoalNew, new { caseID = varCaseGoalNew.CaseID });
+                }
+            }
+            catch (CustomException ex)
+            {
+                varCaseGoalNew.ErrorMessage = ex.UserDefinedMessage;
+            }
+            catch (Exception ex)
+            {
+                ExceptionManager.Manage(ex);
+                varCaseGoalNew.ErrorMessage = Constants.Messages.UnhandelledError;
+            }
+
+            return View(varCaseGoalNew);
         }
     }
 }
