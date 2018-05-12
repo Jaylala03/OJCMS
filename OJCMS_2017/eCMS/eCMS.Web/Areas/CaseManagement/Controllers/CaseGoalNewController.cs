@@ -151,7 +151,8 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
         {
             if (dsRequest.Filters == null)
             {
-                dsRequest.Filters = new List<IFilterDescriptor>();
+                dsRequest.Filters = new List<IFilterDescriptor>(); 
+
             }
 
             bool hasEditPermission = workerroleactionpermissionnewRepository.HasPermission(CurrentLoggedInWorkerRoleIDs, Constants.Areas.CaseManagement, Constants.Controllers.CaseMember, Constants.Actions.Edit, true);
@@ -165,9 +166,9 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
 
             //var primaryWorkerID = GetPrimaryWorkerOfTheCase(caseId);
 
-            List<CaseGoalNew> caseGoalNew = caseGoalNewRepository.CaseGoalNewByCaseID(caseId);
+            DataSourceResult result = caseGoalNewRepository.CaseGoalNewByCaseID(caseId).AsEnumerable().ToDataSourceResult(dsRequest);
 
-            return Json(caseGoalNew, JsonRequestBehavior.AllowGet);
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>
@@ -225,6 +226,41 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
             casegoalnew.CaseWorkerNote = new CaseWorkerNote();
 
             return View(casegoalnew);
+        }
+
+        public ActionResult ServicePlanHistory(int caseId)
+        {
+            CaseGoalGridVM caseGoalNewVM = new CaseGoalGridVM();
+            caseGoalNewVM.CaseID = caseId;
+
+            return View(caseGoalNewVM);
+        }
+        
+        [WorkerAuthorize]
+        [OutputCache(Duration = 0)]
+        public ActionResult ServicePlanGoalHistory([DataSourceRequest] DataSourceRequest dsRequest, int caseId)
+        {
+            if (dsRequest.Filters == null)
+            {
+                dsRequest.Filters = new List<IFilterDescriptor>();
+            }
+
+            DataSourceResult result = caseGoalNewRepository.CaseGoalHistory(caseId).AsEnumerable().ToDataSourceResult(dsRequest);
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        [WorkerAuthorize]
+        [OutputCache(Duration = 0)]
+        public ActionResult ServicePlanGoalActionHistory([DataSourceRequest] DataSourceRequest dsRequest, int casegoalId)
+        {
+            if (dsRequest.Filters == null)
+            {
+                dsRequest.Filters = new List<IFilterDescriptor>();
+            }
+
+            DataSourceResult result = caseGoalNewRepository.CaseGoalActionHistory(casegoalId).AsEnumerable().ToDataSourceResult(dsRequest);
+
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
     }
 }

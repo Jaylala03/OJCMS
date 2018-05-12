@@ -92,6 +92,7 @@ namespace eCMS.Shared
             public const string CaseDashboard = "CaseDashboard";
             public const string ListOfIssues = "ListOfIssues";
             public const string ReportsCSV = "ReportsCSV";
+            public const string ServicePlanHistory = "ServicePlanHistory";
         }
 
         public static class Controllers

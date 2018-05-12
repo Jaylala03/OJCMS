@@ -7,6 +7,12 @@
 <div id="dvAjaxAlertContainer">
     @Html.Partial(Constants.PartialViews.Alert)
 </div>
+@section headsection
+{
+    @Styles.Render("~/assets/plugins/kendo/css")
+    @Scripts.Render("~/assets/plugins/kendo/js")
+}
+
 
 <link href="~/Assets/styles/SideMenu.css" rel="stylesheet" type="text/css">
 @*<script src="~/Assets/scripts/jquery.unobtrusive-ajax.min.js"></script>
@@ -451,37 +457,66 @@
 
         @Html.Partial("WorkNote", Model.CaseWorkerNote, viewData)
         @*<div class="form-group02">
-            <a href="#divTemplate" id="aTemplates">Show Templates</a>
-        </div>*@
+                <a href="#divTemplate" id="aTemplates">Show Templates</a>
+            </div>*@
         <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Show Templates</button>
-        <div id="myModal" class="modal fade" role="dialog" >
+        <div id="myModal" class="modal fade" role="dialog">
             <div class="modal-dialog">
                 <!-- Modal content-->
-                <div class="modal-content" style="height:500px;">
+                <div class="modal-content" style="height:600px;">
                     <div class="modal-header" style="position:relative;">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Goal Templates</h4>
-                        <h6>Select one of the following templates for creating a goal:</h6>
-                    </div>
-                    <div id="main">
-                        <a id="opennav"><span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span></a>
-                        @*<h2>Sidenav Push Example</h2>
-                        <p>Click on the element below to open the side navigation menu, and push this content to the right.</p>*@
-                    </div>
-                    <div class="modal-body" style="position:absolute;">
-                        <div id="sidemenu">
-                            <div id="mySidenav" class="sidenav">
-                                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-                                <a href="#">About</a>
-                                <a href="#">Services</a>
-                                <a href="#">Clients</a>
-                                <a href="#">Contact</a>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <h4 class="modal-title">Goal Templates</h4>
+                                <h6>Select one of the following templates for creating a goal:</h6>
+                            </div>
+                            <div class="col-md-4">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <a id="opennav" style="float:right;"><span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span></a>
                             </div>
                         </div>
                     </div>
-                    @*<div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>*@
+                    <div class="modal-body" style="position:absolute;padding:0px;overflow-y:hidden;">
+                        <div id="sidemenu">
+                            <div id="mySidenav" class="sidenav">
+                                <div class="col-lg-12 ">
+                                    <ul class="nav nav-stacked" id="accordion1" >
+                                        <li class="panel" > 
+                                            <a data-toggle="collapse" data-parent="#accordion1" href="#firstLink">Test12</a>
+                                            <ul id="firstLink" class="collapse">
+                                                <li>SubTest1</li>
+                                                <li>SubTest1</li>
+                                                <li>SubTest1</li>
+                                            </ul>
+                                        </li>
+                                        <li class="panel">
+                                            <a data-toggle="collapse" data-parent="#accordion1" href="#secondLink">Test2</a>
+                                            <ul id="secondLink" class="collapse">
+                                                <li>SubTest2</li>
+                                                <li>SubTest2</li>
+                                                <li>SubTest2</li>
+                                                <li>SubTest2</li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a href="#">Test1</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Test1</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-lg-8 ">
+                                </div>
+                                @*<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                                    <a href="#">About</a>
+                                    <a href="#">Services</a>
+                                    <a href="#">Clients</a>
+                                    <a href="#">Contact</a>*@
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
             </div>
@@ -505,7 +540,19 @@
                                 })
                     )
                 </div>
-            </div>*@
+            </div>*@<div class="form-group02">
+            <label class="col-sm-4 control-label labe-text"></label>
+            <div class="col-sm-8">
+            </div>
+        </div><div class="form-group02">
+            <label class="col-sm-4 control-label labe-text"></label>
+            <div class="col-sm-8">
+            </div>
+        </div><div class="form-group02">
+            <label class="col-sm-4 control-label labe-text"></label>
+            <div class="col-sm-8">
+            </div>
+        </div>
 
     </div>
 </div>
@@ -563,19 +610,35 @@
 </script>
 <script>
     openNav();
-    $("#opennav").hide();
-    function openNav() {
-        document.getElementById("mySidenav").style.width = "250px";
-        document.getElementById("main").style.marginLeft = "250px";
+    $("#opennav").show();
+    //$("#main").hide();
+    var opennavbool = true;
+    function openNav()
+    {
+        if (opennavbool) {
+            document.getElementById("mySidenav").style.width = "0";
+            opennavbool = false;
+        }
+        else {
+            document.getElementById("mySidenav").style.width = "250px";
+            opennavbool = true;
+        }
+        
+        //document.getElementById("main").style.marginLeft = "250px";
+        //$("#main").hide();
+        //$("#opennav").hide();
     }
 
     function closeNav() {
         document.getElementById("mySidenav").style.width = "0";
-        document.getElementById("main").style.marginLeft = "0";
-        $("#opennav").show();
+        //document.getElementById("main").style.marginLeft = "0";
+        //$("#opennav").show();
+        //$("#main").show();
     }
     $("#myModal").on("hidden.bs.modal", function () {
         openNav();
-        $("#opennav").hide();
+        //$("#opennav").hide();
+        //$("#main").hide();
     });
+    
 </script>

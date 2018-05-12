@@ -2017,6 +2017,7 @@
     <Content Include="Areas\Lookup\Views\GoalStatus\_CreateOrEdit.cshtml" />
     <Content Include="Areas\Lookup\Views\GoalStatus\Index.cshtml" />
     <Content Include="Areas\CaseManagement\Views\CaseGoalNew\Index.cshtml" />
+    <Content Include="Areas\CaseManagement\Views\CaseGoalNew\ServicePlanHistory.cshtml" />
     <None Include="bin\eCMS.Web.dll.config" />
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Properties\PublishProfiles\ecms.softwareravine.com.pubxml" />

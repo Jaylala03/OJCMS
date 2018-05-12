@@ -81,13 +81,77 @@ namespace eCMS.BusinessLogic.Repositories
             return query.Where(item => item.CaseID == caseId);
         }
 
-        public List<CaseGoalNew> CaseGoalNewByCaseID(int CaseID)
+        public List<CaseGoalGridVM> CaseGoalNewByCaseID(int CaseID)
         {
-            string sqlQuery = "";
+            StringBuilder sqlQuery = new StringBuilder();
 
-            sqlQuery = "SELECT * FROM CaseGoalNew WHERE CaseID = " + CaseID.ToString();
+            sqlQuery.Append("SELECT CG.CaseID,CG.ID AS CaseGoalID,(CM.FirstName+' '+CM.LastName) AS FamilyMember,");
+            sqlQuery.Append("GS.Name AS GoalStatus,CG.GoalDetail ,RT.Name AS Priority,CG.CreateDate,CG.LastUpdateDate,");
+            sqlQuery.Append("((CASE WHEN Education = 1 THEN 'Education' ELSE '' END) + ");
+            sqlQuery.Append("(CASE WHEN IncomeLivelihood = 1 THEN ',IncomeLivelihood' ELSE '' END) + ");
+            sqlQuery.Append("(CASE WHEN Assets = 1 THEN ',Assets' ELSE '' END) +  ");
+            sqlQuery.Append("(CASE WHEN Housing = 1 THEN ',Housing' ELSE '' END) + ");
+            sqlQuery.Append("(CASE WHEN SocialSupport = 1 THEN ',SocialSupport' ELSE '' END) +  ");
+            sqlQuery.Append("(CASE WHEN Dignity = 1 THEN ',Dignity' ELSE '' END) + ");
+            sqlQuery.Append("(CASE WHEN Health = 1 THEN ',Health' ELSE '' END)) AS Indicators,");
+            sqlQuery.Append("('Total:' + (SELECT CAST(ISNULL(COUNT(*),0) AS varchar) FROM CaseActionNew WHERE CaseGoalID = 1)) + ");
+            sqlQuery.Append("ISNULL(((SELECT ', ' + (GS.Name + ':' + CAST(COUNT(*) AS VARCHAR)) ");
+            sqlQuery.Append("FROM  CaseActionNew AS CAN ");
+            sqlQuery.Append("INNER JOIN CaseGoalNew AS CGN ON CAN.CaseGoalID = CGN.ID ");
+            sqlQuery.Append("INNER JOIN GoalStatus AS GS ON CAN.ActionStatusID = GS.ID ");
+            sqlQuery.Append("WHERE CGN.CaseID = " + CaseID + " GROUP BY GS.Name FOR XML PATH(''))),'') AS ActionsSummary ");
+            sqlQuery.Append("FROM CaseGoalNew AS CG ");
+            sqlQuery.Append("INNER JOIN CaseMember AS CM ON CG.CaseMemberID = CM.ID ");
+            sqlQuery.Append("INNER JOIN GoalStatus AS GS ON CG.GoalStatusID = GS.ID ");
+            sqlQuery.Append("INNER JOIN RiskType AS RT ON CG.ID = RT.ID ");
+            sqlQuery.Append("WHERE CG.CaseID = " + CaseID + " ; ");
 
-            List<CaseGoalNew> dsResult = context.Database.SqlQuery<CaseGoalNew>(sqlQuery.ToString()).ToList();
+            List<CaseGoalGridVM> dsResult = context.Database.SqlQuery<CaseGoalGridVM>(sqlQuery.ToString()).ToList();
+            return dsResult;
+        }
+
+        public List<CaseGoalServiceGridVM> CaseGoalHistory(int CaseID)
+        {
+            StringBuilder sqlQuery = new StringBuilder();
+
+            sqlQuery.Append("SELECT CG.CaseID,CG.ID AS CaseGoalID,(CM.FirstName+' '+CM.LastName) AS AssignedTo,'Family Member' AS AsigneeRole,");
+            sqlQuery.Append("GS.Name AS GoalStatus,CG.GoalDetail ,RT.Name AS Priority,CG.CreateDate,CG.LastUpdateDate,");
+            sqlQuery.Append("((CASE WHEN Education = 1 THEN 'Education' ELSE '' END) + ");
+            sqlQuery.Append("(CASE WHEN IncomeLivelihood = 1 THEN ',IncomeLivelihood' ELSE '' END) + ");
+            sqlQuery.Append("(CASE WHEN Assets = 1 THEN ',Assets' ELSE '' END) +  ");
+            sqlQuery.Append("(CASE WHEN Housing = 1 THEN ',Housing' ELSE '' END) + ");
+            sqlQuery.Append("(CASE WHEN SocialSupport = 1 THEN ',SocialSupport' ELSE '' END) +  ");
+            sqlQuery.Append("(CASE WHEN Dignity = 1 THEN ',Dignity' ELSE '' END) + ");
+            sqlQuery.Append("(CASE WHEN Health = 1 THEN ',Health' ELSE '' END)) AS Indicators ");
+            sqlQuery.Append("FROM CaseGoalNew AS CG ");
+            sqlQuery.Append("INNER JOIN CaseMember AS CM ON CG.CaseMemberID = CM.ID ");
+            sqlQuery.Append("INNER JOIN GoalStatus AS GS ON CG.GoalStatusID = GS.ID ");
+            sqlQuery.Append("INNER JOIN RiskType AS RT ON CG.ID = RT.ID ");
+            sqlQuery.Append("WHERE CG.CaseID = " + CaseID + " ; ");
+
+            List<CaseGoalServiceGridVM> dsResult = context.Database.SqlQuery<CaseGoalServiceGridVM>(sqlQuery.ToString()).ToList();
+            return dsResult;
+        }
+
+        public List<CaseGoalActionGridVM> CaseGoalActionHistory(int CaseGoalID)
+        {
+            StringBuilder sqlQuery = new StringBuilder();
+            sqlQuery.Append("SELECT CA.CaseGoalID,CA.ID , ");
+            sqlQuery.Append("CASE WHEN CA.CaseMemberID IS NOT NULL THEN (CM.FirstName+' '+CM.LastName)  ");
+            sqlQuery.Append("WHEN CA.ServiceProviderID IS NOT NULL THEN SP.Name ");
+            sqlQuery.Append("WHEN CA.WorkerID IS NOT NULL THEN 'Subject Matter Expert - ' + (SME.FirstName + ''+SME.LastName) ");
+            sqlQuery.Append("WHEN ISNULL(AssigneeOther ,'') <> '' THEN AssigneeOther END ");
+            sqlQuery.Append("AS AssigneeRole,GAR.Name AS AssignedTo, ");
+            sqlQuery.Append("GS.Name AS ActionStatus,CA.ActionDetail,CA.CreateDate,CA.LastUpdateDate ");
+            sqlQuery.Append("FROM CaseActionNew AS CA ");
+            sqlQuery.Append("INNER JOIN GoalStatus AS GS ON CA.ActionStatusID = GS.ID ");
+            sqlQuery.Append("INNER JOIN GoalAssigneeRole AS GAR ON CA.GoalAssigneeRoleID = GAR.ID ");
+            sqlQuery.Append("LEFT JOIN CaseMember AS CM ON CA.CaseMemberID = CM.ID ");
+            sqlQuery.Append("LEFT JOIN ServiceProvider AS SP ON CA.ServiceProviderID = SP.ID ");
+            sqlQuery.Append("LEFT JOIN Worker AS SME ON CA.WorkerID = SME.ID ");
+            sqlQuery.Append("WHERE CA.CaseGoalID = " + CaseGoalID + "; ");
+
+            List<CaseGoalActionGridVM> dsResult = context.Database.SqlQuery<CaseGoalActionGridVM>(sqlQuery.ToString()).ToList();
             return dsResult;
         }
     }
@@ -97,6 +161,8 @@ namespace eCMS.BusinessLogic.Repositories
         void InsertOrUpdate(CaseGoalNew casegoalnew);
         IQueryable<CaseGoalNew> FindAllByCaseID(int caseID);
         IQueryable<CaseGoalNew> AllIncluding(int caseId, params Expression<Func<CaseGoalNew, object>>[] includeProperties);
-        List<CaseGoalNew> CaseGoalNewByCaseID(int CaseID);
+        List<CaseGoalGridVM> CaseGoalNewByCaseID(int CaseID);
+        List<CaseGoalServiceGridVM> CaseGoalHistory(int CaseID);
+        List<CaseGoalActionGridVM> CaseGoalActionHistory(int CaseGoalID);
     }
 }

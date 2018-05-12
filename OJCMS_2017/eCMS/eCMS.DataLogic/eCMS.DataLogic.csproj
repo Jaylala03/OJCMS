@@ -206,12 +206,15 @@
     <Compile Include="SeedData\LookupSeed.cs" />
     <Compile Include="SeedData\WorkerSeed.cs" />
     <Compile Include="ViewModels\CaseAssessmentSummaryVM.cs" />
+    <Compile Include="ViewModels\CaseGoalActionGridVM.cs" />
+    <Compile Include="ViewModels\CaseGoalServiceGridVM.cs" />
     <Compile Include="ViewModels\CaseGoalNewVM.cs" />
     <Compile Include="ViewModels\CaseHouseholdIncomeVM.cs" />
     <Compile Include="ViewModels\CaseInitialAssessmentVM.cs" />
     <Compile Include="ViewModels\CaseListViewModel.cs" />
     <Compile Include="ViewModels\CaseSSSWorkerNoteVM.cs" />
     <Compile Include="ViewModels\CaseSummaryVM.cs" />
+    <Compile Include="ViewModels\CaseGoalGridVM.cs" />
     <Compile Include="ViewModels\Chart.cs" />
     <Compile Include="ViewModels\InitialAssessmentVM.cs" />
     <Compile Include="ViewModels\InitialAssessmentIndicatorsVM.cs" />

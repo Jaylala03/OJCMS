@@ -4,7 +4,7 @@ using System.Linq;
 using EasySoft.Helper;
 namespace eCMS.BusinessLogic.Repositories
 {
-    public class IndicatorTypeRepository : BaseLookupRepository<Gender>, IIndicatorTypeRepository
+    public class IndicatorTypeRepository : BaseLookupRepository<IndicatorType>, IIndicatorTypeRepository
     {
         public IndicatorTypeRepository(RepositoryContext context)
             :base(context)
@@ -27,7 +27,7 @@ namespace eCMS.BusinessLogic.Repositories
         }
     }
 
-    public interface IIndicatorTypeRepository : IBaseLookupRepository<Gender>
+    public interface IIndicatorTypeRepository : IBaseLookupRepository<IndicatorType>
     {
         IndicatorType Find(string name);
         IQueryable<IndicatorType> GetAll();

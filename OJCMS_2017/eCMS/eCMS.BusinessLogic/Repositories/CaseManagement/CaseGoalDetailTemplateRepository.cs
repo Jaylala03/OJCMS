@@ -9,6 +9,8 @@
 using eCMS.BusinessLogic.Repositories.Context;
 using eCMS.DataLogic.Models;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace eCMS.BusinessLogic.Repositories
 {
@@ -42,11 +44,17 @@ namespace eCMS.BusinessLogic.Repositories
                 context.Entry(template).State = System.Data.Entity.EntityState.Modified;
             }
         }
+
+        public List<CaseGoalDetailTemplate> GetByIndicatorType(int IndicatorTypeID)
+        {
+            return context.CaseGoalDetailTemplate.Where(a => !a.IsArchived && a.IndicatorTypeID == IndicatorTypeID).ToList();
+        }
     }
 
     public interface ICaseGoalDetailTemplateRepository : IBaseRepository<CaseGoalDetailTemplate>
     {
         void InsertOrUpdate(CaseGoalDetailTemplate template);
+        List<CaseGoalDetailTemplate> GetByIndicatorType(int IndicatorTypeID);
     }
 
 }
