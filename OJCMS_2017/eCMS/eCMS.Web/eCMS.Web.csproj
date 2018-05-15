@@ -331,6 +331,7 @@
     <Compile Include="Areas\CaseManagement\Controllers\CaseActionNewController.cs" />
     <Compile Include="Areas\CaseManagement\Controllers\CaseGoalDetailTemplateController.cs" />
     <Compile Include="Areas\CaseManagement\Controllers\CaseAssessmentSummaryController.cs" />
+    <Compile Include="Areas\CaseManagement\Controllers\CaseStatusHistoryController.cs" />
     <Compile Include="Areas\CaseManagement\Controllers\CaseGoalNewController.cs" />
     <Compile Include="Areas\CaseManagement\Controllers\CaseInitialAssessmentController.cs" />
     <Compile Include="Areas\CaseManagement\Controllers\AssesmentIndicatorsController.cs" />
@@ -2020,6 +2021,7 @@
     <Content Include="Areas\CaseManagement\Views\CaseGoalNew\Index.cshtml" />
     <Content Include="Areas\CaseManagement\Views\CaseGoalNew\Edit.cshtml" />
     <Content Include="Areas\CaseManagement\Views\CaseActionNew\Index.cshtml" />
+    <Content Include="Areas\CaseManagement\Views\CaseStatusHistory\Index.cshtml" />
     <None Include="bin\eCMS.Web.dll.config" />
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Properties\PublishProfiles\ecms.softwareravine.com.pubxml" />

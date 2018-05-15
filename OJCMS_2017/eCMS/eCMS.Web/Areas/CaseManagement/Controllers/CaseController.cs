@@ -29,6 +29,8 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
         private readonly ICaseRepository caseRepository;
         private readonly ICaseHouseholdIncomeRepository caseHouseholdIncomeRepository;
         private readonly ICaseWorkerNoteRepository caseWorkerNoteRepository;
+        private readonly ICaseStatusHistoryRepository caseStatusHistoryRepository;
+
         public CaseController(IWorkerRepository workerRepository,
             IProgramRepository programRepository,
             ISubProgramRepository subprogramRepository,
@@ -50,7 +52,8 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
             IWorkerRoleActionPermissionRepository workerroleactionpermissionRepository,
             IWorkerRoleActionPermissionNewRepository workerroleactionpermissionnewRepository,
             ICaseAuditLogRepository caseAuditLogRepository
-            , IIncomeRangeRepository incomeRangeRepository)
+            , IIncomeRangeRepository incomeRangeRepository,
+            ICaseStatusHistoryRepository caseStatusHistoryRepository)
             : base(workerroleactionpermissionRepository, workerroleactionpermissionnewRepository)
         {
             this.workerRepository = workerRepository;
@@ -73,6 +76,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
             this.caseworkerRepository = caseworkerRepository;
             this.caseAuditLogRepository = caseAuditLogRepository;
             this.incomeRangeRepository = incomeRangeRepository;
+            this.caseStatusHistoryRepository = caseStatusHistoryRepository;
         }
 
         /// <summary>
@@ -358,9 +362,16 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
                         }
 
                         varCase.CaseStatusID = 1;
+
                         //call the repository function to save in database
                         caseRepository.InsertOrUpdate(varCase);
                         caseRepository.Save();
+
+                        varCase.CaseStatusHistory = new CaseStatusHistory();
+                        varCase.CaseStatusHistory.CaseID = varCase.ID;
+                        varCase.CaseStatusHistory.StatusID = varCase.CaseStatusID;
+                        caseStatusHistoryRepository.InsertOrUpdate(varCase);
+                        caseStatusHistoryRepository.Save();
 
                         if (varCase.CaseHouseholdIncome.IncomeRangeID > 0)
                         {

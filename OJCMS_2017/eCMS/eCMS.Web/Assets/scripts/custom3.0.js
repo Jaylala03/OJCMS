@@ -1593,7 +1593,15 @@ function RegionDropDownList_OnChanged(e) {
     }
 }
 
-
+function CurrentStatus() {
+    var varStatusID = $("#CurrentStatusID").val();
+    if (!varStatusID) {
+        varStatusID = 0;
+    }
+    return {
+        statusid: varStatusID
+    };
+}
 
 function RoleDropDownList_OnChanged(e) {
     var ddlSubProgramID = $('#WorkerID').data("kendoDropDownList");
@@ -1675,5 +1683,6 @@ $(function () {
     //        return false;
     //    }
     //});
+   
 });
 //end of document.ready funtion
