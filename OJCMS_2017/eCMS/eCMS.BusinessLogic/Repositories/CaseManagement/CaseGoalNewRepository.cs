@@ -49,14 +49,16 @@ namespace eCMS.BusinessLogic.Repositories
             else
             {
                 //update an existing record to database
-                //set the date when this record was created
-                casegoalnew.CreateDate = casegoalnew.LastUpdateDate;
+                //var NewCaseworker = context.CaseWorker.Where(a => a.ID == caseworker.ID).FirstOrDefault();
 
-                //set the id of the worker who has created this record
-                casegoalnew.CreatedByWorkerID = casegoalnew.LastUpdatedByWorkerID;
-                //CaseWorkerNote.CreatedByWorkerID = CaseWorkerNote.CreatedByWorkerID;
-                //add a new record to database
-                context.Entry(casegoalnew).State = System.Data.Entity.EntityState.Modified;
+                //NewCaseworker.CaseID = caseworker.CaseID;
+                //NewCaseworker.WorkerID = caseworker.WorkerID;
+                //NewCaseworker.IsActive = caseworker.IsActive;
+                //NewCaseworker.AllowNotification = caseworker.AllowNotification;
+                //NewCaseworker.IsPrimary = caseworker.IsPrimary;
+                //NewCaseworker.IsArchived = caseworker.IsArchived;
+                //NewCaseworker.LastUpdateDate = DateTime.Now;
+                //context.Entry(caseworker).State = System.Data.Entity.EntityState.Modified;
             }
             Save();
         }
@@ -78,16 +80,6 @@ namespace eCMS.BusinessLogic.Repositories
             }
             return query.Where(item => item.CaseID == caseId);
         }
-
-        //public List<CaseGoalNew> CaseGoalNewByCaseID(int CaseID)
-        //{
-        //    string sqlQuery = "";
-
-        //    sqlQuery = "SELECT * FROM CaseGoalNew WHERE CaseID = " + CaseID.ToString();
-
-        //    List<CaseGoalNew> dsResult = context.Database.SqlQuery<CaseGoalNew>(sqlQuery.ToString()).ToList();
-        //    return dsResult;
-        //}
 
         public List<CaseGoalGridVM> CaseGoalNewByCaseID(int CaseID)
         {
@@ -117,6 +109,67 @@ namespace eCMS.BusinessLogic.Repositories
             List<CaseGoalGridVM> dsResult = context.Database.SqlQuery<CaseGoalGridVM>(sqlQuery.ToString()).ToList();
             return dsResult;
         }
+
+        public List<CaseGoalServiceGridVM> CaseGoalHistory(int CaseID)
+        {
+            StringBuilder sqlQuery = new StringBuilder();
+
+            sqlQuery.Append("SELECT CG.CaseID,CG.ID AS CaseGoalID,(CM.FirstName+' '+CM.LastName) AS AssignedTo,'Family Member' AS AsigneeRole,");
+            sqlQuery.Append("GS.Name AS GoalStatus,CG.GoalDetail ,RT.Name AS Priority,CG.CreateDate,CG.LastUpdateDate,");
+            sqlQuery.Append("((CASE WHEN Education = 1 THEN 'Education' ELSE '' END) + ");
+            sqlQuery.Append("(CASE WHEN IncomeLivelihood = 1 THEN ',IncomeLivelihood' ELSE '' END) + ");
+            sqlQuery.Append("(CASE WHEN Assets = 1 THEN ',Assets' ELSE '' END) +  ");
+            sqlQuery.Append("(CASE WHEN Housing = 1 THEN ',Housing' ELSE '' END) + ");
+            sqlQuery.Append("(CASE WHEN SocialSupport = 1 THEN ',SocialSupport' ELSE '' END) +  ");
+            sqlQuery.Append("(CASE WHEN Dignity = 1 THEN ',Dignity' ELSE '' END) + ");
+            sqlQuery.Append("(CASE WHEN Health = 1 THEN ',Health' ELSE '' END)) AS Indicators ");
+            sqlQuery.Append("FROM CaseGoalNew AS CG ");
+            sqlQuery.Append("INNER JOIN CaseMember AS CM ON CG.CaseMemberID = CM.ID ");
+            sqlQuery.Append("INNER JOIN GoalStatus AS GS ON CG.GoalStatusID = GS.ID ");
+            sqlQuery.Append("INNER JOIN RiskType AS RT ON CG.ID = RT.ID ");
+            sqlQuery.Append("WHERE CG.CaseID = " + CaseID + " ; ");
+
+            List<CaseGoalServiceGridVM> dsResult = context.Database.SqlQuery<CaseGoalServiceGridVM>(sqlQuery.ToString()).ToList();
+            return dsResult;
+        }
+
+
+        public CaseGoalEditVM GetCaseGoal(int CaseGoalID)
+        {
+            StringBuilder sqlQuery = new StringBuilder();
+
+            sqlQuery.Append("SELECT CG.ID,CG.GoalStatusID,CG.PriorityTypeID,CG.GoalDetail,(CM.FirstName+' '+CM.LastName) AS CaseMemberName,");
+            sqlQuery.Append("((CASE WHEN Education = 1 THEN 'Education' ELSE '' END) + ");
+            sqlQuery.Append("(CASE WHEN IncomeLivelihood = 1 THEN ',IncomeLivelihood' ELSE '' END) + ");
+            sqlQuery.Append("(CASE WHEN Assets = 1 THEN ',Assets' ELSE '' END) +  ");
+            sqlQuery.Append("(CASE WHEN Housing = 1 THEN ',Housing' ELSE '' END) + ");
+            sqlQuery.Append("(CASE WHEN SocialSupport = 1 THEN ',SocialSupport' ELSE '' END) +  ");
+            sqlQuery.Append("(CASE WHEN Dignity = 1 THEN ',Dignity' ELSE '' END) + ");
+            sqlQuery.Append("(CASE WHEN Health = 1 THEN ',Health' ELSE '' END)) AS Indicators ");
+            sqlQuery.Append("FROM CaseGoalNew AS CG ");
+            //sqlQuery.Append("INNER JOIN CaseMember AS CM ON CG.CaseMemberID = CM.ID ");
+            //sqlQuery.Append("WHERE CG.ID = " + CaseGoalID + " ; ");
+            sqlQuery.Append("INNER JOIN CaseMember AS CM ON CG.CaseID = CM.CaseID ");
+            sqlQuery.Append("WHERE CG.ID = " + CaseGoalID + " ; ");
+
+            List<CaseGoalEditVM> dsResult = context.Database.SqlQuery<CaseGoalEditVM>(sqlQuery.ToString()).ToList();
+            return dsResult.FirstOrDefault() ;
+        }
+        public bool UpdateDetails(CaseGoalEditVM casegoal)
+        {
+            var goal = context.CaseGoalNew.Find(casegoal.ID);
+            if (goal != null)
+            {
+                goal.PriorityTypeID = casegoal.PriorityTypeID;
+                goal.GoalStatusID = casegoal.GoalStatusID;
+                goal.LastUpdateDate = DateTime.Now;
+                context.Entry(goal).State = System.Data.Entity.EntityState.Modified;
+                Save();
+
+                return true;
+            }
+            return false;
+        }
     }
 
     public interface ICaseGoalNewRepository : IBaseRepository<CaseGoalNew>
@@ -124,7 +177,10 @@ namespace eCMS.BusinessLogic.Repositories
         void InsertOrUpdate(CaseGoalNew casegoalnew);
         IQueryable<CaseGoalNew> FindAllByCaseID(int caseID);
         IQueryable<CaseGoalNew> AllIncluding(int caseId, params Expression<Func<CaseGoalNew, object>>[] includeProperties);
-        //List<CaseGoalNew> CaseGoalNewByCaseID(int CaseID);
         List<CaseGoalGridVM> CaseGoalNewByCaseID(int CaseID);
+        List<CaseGoalServiceGridVM> CaseGoalHistory(int CaseID);
+
+        CaseGoalEditVM GetCaseGoal(int CaseGoalID);
+        bool UpdateDetails(CaseGoalEditVM casegoal);
     }
 }

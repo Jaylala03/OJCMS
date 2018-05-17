@@ -21,6 +21,7 @@ using Kendo.Mvc.Extensions;
 using System.Text;
 using eCMS.DataLogic.ViewModels;
 using eCMS.DataLogic.Models.Lookup;
+using System.Web.Mvc;
 
 namespace eCMS.BusinessLogic.Repositories
 {
@@ -67,6 +68,15 @@ namespace eCMS.BusinessLogic.Repositories
             {
                 CaseActionNew.WorkerID = null;
             }
+            if (!string.IsNullOrEmpty(CaseActionNew.ServiceProviderOther))
+            {
+                CaseActionNew.AssigneeOther = CaseActionNew.ServiceProviderOther;
+            }
+            if (!string.IsNullOrEmpty(CaseActionNew.SubjectMatterExpertOther))
+            {
+                CaseActionNew.AssigneeOther = CaseActionNew.SubjectMatterExpertOther;
+            }
+
             CaseActionNew.LastUpdateDate = DateTime.Now;
             if (CaseActionNew.ID == default(int))
             {
@@ -153,9 +163,6 @@ namespace eCMS.BusinessLogic.Repositories
             return dsResult;
         }
 
-
-       
-
         public void Update(CaseActionNew CaseActionNew)
         {
             CaseActionNew.LastUpdateDate = DateTime.Now;
@@ -180,7 +187,7 @@ namespace eCMS.BusinessLogic.Repositories
         {
             StringBuilder sqlQuery = new StringBuilder();
 
-            sqlQuery.Append("SELECT CGN.ID AS CaseGoalID, GAWN.ContactMethodID AS ContactMethodID,");
+            sqlQuery.Append("SELECT CGN.ID AS CaseGoalID, GAWN.ContactMethodID,");
             sqlQuery.Append("CAST(GAWN.CreateDate as date) AS CreateDate, GAWN.Note AS Note,");
             sqlQuery.Append("CM.Description AS ContactMethod, GAWN.NoteDate AS NoteDate,");
             sqlQuery.Append("CAST(GAWN.TimeSpentHours as varchar) + ':' + CAST(GAWN.TimeSpentMinutes as varchar) AS TimeSpent,");
@@ -191,6 +198,32 @@ namespace eCMS.BusinessLogic.Repositories
 
             List<CaseGoalWorkNoteGridVM> dsResult = context.Database.SqlQuery<CaseGoalWorkNoteGridVM>(sqlQuery.ToString()).ToList();
             return dsResult;
+        }
+
+        public List<CaseGoalActionGridVM> CaseGoalActionHistory(int CaseGoalID)
+        {
+            StringBuilder sqlQuery = new StringBuilder();
+            sqlQuery.Append("SELECT CA.CaseGoalID,CA.ID , ");
+            sqlQuery.Append("CASE WHEN CA.CaseMemberID IS NOT NULL THEN (CM.FirstName+' '+CM.LastName)  ");
+            sqlQuery.Append("WHEN CA.ServiceProviderID IS NOT NULL THEN SP.Name ");
+            sqlQuery.Append("WHEN CA.WorkerID IS NOT NULL THEN 'Subject Matter Expert - ' + (SME.FirstName + ''+SME.LastName) ");
+            sqlQuery.Append("WHEN ISNULL(AssigneeOther,'') <> '' THEN AssigneeOther END ");
+            sqlQuery.Append("AS AssigneeRole,GAR.Name AS AssignedTo, ");
+            sqlQuery.Append("GS.Name AS ActionStatus,CA.ActionDetail,CA.CreateDate,CA.LastUpdateDate ");
+            sqlQuery.Append("FROM CaseActionNew AS CA ");
+            sqlQuery.Append("INNER JOIN GoalStatus AS GS ON CA.ActionStatusID = GS.ID ");
+            sqlQuery.Append("INNER JOIN GoalAssigneeRole AS GAR ON CA.GoalAssigneeRoleID = GAR.ID ");
+            sqlQuery.Append("LEFT JOIN CaseMember AS CM ON CA.CaseMemberID = CM.ID ");
+            sqlQuery.Append("LEFT JOIN ServiceProvider AS SP ON CA.ServiceProviderID = SP.ID ");
+            sqlQuery.Append("LEFT JOIN Worker AS SME ON CA.WorkerID = SME.ID ");
+            sqlQuery.Append("WHERE CA.CaseGoalID = " + CaseGoalID + "; ");
+
+            List<CaseGoalActionGridVM> dsResult = context.Database.SqlQuery<CaseGoalActionGridVM>(sqlQuery.ToString()).ToList();
+            return dsResult;
+        }
+        public List<SelectListItem> GetAllActions(int CaseGoalID)
+        {
+            return context.CaseActionNew.Where(item => item.CaseGoalID == CaseGoalID).OrderBy(item => item.ID).AsEnumerable().Select(item => new SelectListItem() { Text = item.ActionDetail, Value = item.ID.ToString() }).ToList();
         }
     }
 
@@ -203,5 +236,7 @@ namespace eCMS.BusinessLogic.Repositories
         void Update(CaseActionNew CaseActionNew);
         DataSourceResult Search(DataSourceRequest dsRequest, int caseId, int CaseGoalId);
         List<CaseGoalWorkNoteGridVM> CaseGoalWorkNote(int CaseGoalID);
+        List<CaseGoalActionGridVM> CaseGoalActionHistory(int CaseGoalID);
+        List<SelectListItem> GetAllActions(int CaseGoalID);
     }
 }

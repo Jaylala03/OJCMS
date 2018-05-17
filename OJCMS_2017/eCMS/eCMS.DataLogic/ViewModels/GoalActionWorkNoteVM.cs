@@ -6,14 +6,15 @@
 //
 //*********************************************************
 
+using eCMS.DataLogic.Models;
 using eCMS.DataLogic.Models.Lookup;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace eCMS.DataLogic.Models
+namespace eCMS.DataLogic.ViewModels
 {
-    public class GoalActionWorkNote : EntityBaseModel
+    public class GoalActionWorkNoteVM : EntityBaseModel
     {
 
         //[Required(ErrorMessage = "Please enter Contact Date")]

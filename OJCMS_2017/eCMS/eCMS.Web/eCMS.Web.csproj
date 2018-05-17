@@ -1560,7 +1560,6 @@
     <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Areas\CaseManagement\Models\" />
     <Folder Include="Areas\Lookup\Models\" />
     <Folder Include="Areas\Lookup\Views\Shared\" />
@@ -1582,6 +1581,7 @@
     <Folder Include="bin\sv-SE\" />
     <Folder Include="bin\uk-UA\" />
     <Folder Include="bin\zh-CN\" />
+    <Folder Include="Service References\App_Data\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

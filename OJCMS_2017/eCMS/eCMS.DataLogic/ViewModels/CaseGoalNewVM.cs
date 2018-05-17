@@ -78,5 +78,8 @@ namespace eCMS.DataLogic.ViewModels
 
         [NotMapped]
         public GoalActionWorkNote GoalActionWorkNote { get; set; }
+
+        [NotMapped]
+        public List<CaseGoalDetailTemplate> CaseGoalDetailTemplate { get; set; }
     }
 }

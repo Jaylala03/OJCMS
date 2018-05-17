@@ -57,8 +57,18 @@ namespace eCMS.DataLogic.Models
         public virtual ServiceProvider ServiceProvider { get; set; }
 
         [NotMapped]
+        [Display(Name = "Other")]
+        public string ServiceProviderOther { set; get; }
+
+        [NotMapped]
+        [Display(Name = "Other")]
+        public string SubjectMatterExpertOther { set; get; }
+
+        [NotMapped]
         [Display(Name = "Case ID")]
         public Int32 CaseID { set; get; }
+        [NotMapped]
+        public Int32 RegionID { set; get; }
 
         [NotMapped]
         [Display(Name = "Family Case")]
@@ -79,6 +89,9 @@ namespace eCMS.DataLogic.Models
         [NotMapped]
         [Display(Name = "AssignedTo")]
         public string AssignedTo { set; get; }
+
+        [NotMapped]
+        public GoalActionWorkNote GoalActionWorkNote { get; set; }
 
         [NotMapped]
         public bool HasPermissionToCreate { get; set; }
