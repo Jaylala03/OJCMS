@@ -1,0 +1,379 @@
+﻿@model eCMS.DataLogic.ViewModels.CaseGoalEditVM
+@using EasySoft.Helper;
+@using eCMS.Shared;
+@using eCMS.DataLogic.Models;
+@using eCMS.DataLogic.ViewModels;
+@{
+    Layout = "~/Views/Shared/_LayoutInternal.cshtml";
+    ViewBag.Title = "Case Goal";
+}
+@section headsection
+{
+    @Styles.Render("~/assets/plugins/kendo/css")
+    @Scripts.Render("~/assets/plugins/kendo/js")
+}
+
+<style type="text/css">
+    #indicators td {
+        width: 195px;
+        padding: 5px;
+        border: 1px solid black;
+        text-align: center;
+        height: 33px;
+    }
+
+    #indicators th {
+        width: 220px;
+        padding: 5px;
+        border: 1px solid black;
+        text-align: center;
+        height: 33px;
+    }
+
+    #indicators td:first-child {
+        text-align: left;
+    }
+
+    #indicators th:first-child {
+        text-align: left;
+    }
+
+    #assessment td {
+        width: 195px;
+        padding: 5px;
+        border: 1px solid black;
+        text-align: center;
+        height: 33px;
+    }
+
+    #assessment th {
+        width: 220px;
+        padding: 5px;
+        border: 1px solid black;
+        text-align: center;
+        height: 33px;
+    }
+
+    #assessment td:first-child {
+        text-align: left;
+    }
+
+    #assessment th:first-child {
+        text-align: left;
+    }
+
+    #lnkEditor:hover {
+        cursor: pointer;
+    }
+
+    .fulldescription {
+        text-align: justify;
+    }
+</style>
+@using (Html.BeginForm("EditGoalDetails", "CaseActionNew", new { area = "CaseManagement", ID = Model.ID }, FormMethod.Post, new { id = "frmEditorCaseActionNew" }))
+{
+    <div id="dvAjaxAlertContainer">
+    </div>
+    <div class="container bulk-import">
+        <div class="col-md-12">
+            <div class="form-group02">
+                <div class="col-sm-2">
+                    <label class="control-label labe-text">@Html.Label("Goal for ") @Model.CaseMemberName</label>
+                </div>
+                <div class="col-sm-4">
+                    <label class="control-label labe-text">@Html.DisplayFor(model => model.GoalDetail)</label>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group02">
+                <div class="col-sm-2">
+                    <label class="control-label labe-text">@Html.Label("Indicators ")</label>
+                </div>
+                <div class="col-sm-4">
+                    @Html.DisplayFor(model => model.Indicators)
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group02">
+                <div class="col-sm-2">
+                    <label class="control-label labe-text">@Html.LabelRequiredFor(model => model.PriorityTypeID)</label>
+                </div>
+                <div class="col-sm-4">
+                    @(Html.Kendo().DropDownListFor(model => model.PriorityTypeID)
+                        .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                        .DataTextField("Text")
+                        .DataValueField("Value")
+                        .DataSource(source =>
+                        {
+                            source.Read(read =>
+                            {
+                                read.Action("LoadRiskTypeAjax", "CaseAssessment");
+                            });
+                        })
+                    )
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group02">
+                <div class="col-sm-2">
+                    <label class="control-label labe-text">@Html.LabelRequiredFor(model => model.GoalStatusID)</label>
+                </div>
+                <div class="col-sm-4">
+                    @(Html.Kendo().DropDownListFor(model => model.GoalStatusID)
+                        .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                        .DataTextField("Text")
+                        .DataValueField("Value")
+                        .DataSource(source =>
+                        {
+                            source.Read(read =>
+                            {
+                                read.Action("LoadGoalStatusAjax", "CaseActionNew");
+                            });
+                        })
+                    )
+                </div>
+            </div>
+        </div>
+        <div id="add_candidate3">
+            <button class="btn btn-primary" id="btnSaveAndRefreshGoalDetails" name="btnSaveAndRefreshCaseActionNew"><i class="fa fa-save"></i>Save</button>
+        </div>
+    </div>
+}
+<div class="container bulk-import">
+    @*<div class="container bulk-import">
+            <div class="col-lg-12 col-md-11 candidate-table-bg">
+                @(Html.Kendo().Grid<CaseGoalActionGridVM>()
+                 .Name("CaseGoalAction") // template expression, to be evaluated in the master context
+                .Columns(columns =>
+                {
+                    columns.Bound(c => c.ActionDetail).Sortable(true).Groupable(false).Filterable(false);
+                    columns.Bound(c => c.AssignedTo).Sortable(true).Groupable(false).Filterable(false);
+                    columns.Bound(c => c.AssigneeRole).Sortable(true).Groupable(false).Filterable(false);
+                    columns.Bound(c => c.ActionStatus).Sortable(true).Groupable(false).Filterable(false);
+                    columns.Bound(c => c.CreateDate).Format("{0:yyyy-MM-dd}").Sortable(true).Groupable(false).Filterable(false);
+                    columns.Bound(c => c.LastUpdateDate).Format("{0:yyyy-MM-dd}").Sortable(true).Groupable(false).Filterable(false);
+                })
+                .DataSource(dataSource => dataSource
+                    .Ajax()
+                    .PageSize(10)
+                    .Read(read => read.Action("ServicePlanGoalActionHistory", "CaseActionNew", new { casegoalId = Model.ID }))
+                )
+                .Pageable()
+                .Sortable()
+                )
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="col-md-5">
+                <div class="form-group02">
+                    <label class="control-label labe-text">Actions (Optional):</label>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="col-md-7">
+                <div class="form-group02">
+                    <div class="col-sm-5">
+                        <label class="control-label labe-text">@Html.Label("Action Details:")</label>
+                    </div>
+                    <div class="col-sm-6">
+                        @Html.TextAreaFor(model => model.CaseActionNew.ActionDetail, new { @class = "form-control", rows = 4, cols = 50 })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="col-md-7">
+                <div class="form-group02">
+                    <div class="col-sm-5">
+                        <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.CaseActionNew.GoalAssigneeRoleID)</label>
+                    </div>
+                    <div class="col-sm-6">
+                        @(Html.Kendo().DropDownListFor(model => model.CaseActionNew.GoalAssigneeRoleID)
+                            .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                            .DataTextField("Text")
+                            .DataValueField("Value")
+                            .DataSource(source =>
+                            {
+                                source.Read(read =>
+                                {
+                                    read.Action("LoadGoalAssigneeRoleAjax", "CaseActionNew");
+                                });
+                            })
+                        )
+                    </div>
+                </div>
+            </div>
+        </div>*@
+
+    <div class="col-md-12">
+        <div class="col-sm-5">
+            <label class="control-label labe-text">@Html.Label("Work Notes (Optional):")</label>
+        </div>
+        <div class="col-md-7" style="float:right;">
+            <div class="form-group02">
+                <label>
+                    <span id="addWorkNote" style="cursor:pointer;" class="btn btn-primary">Add Work Note</span>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div id="divGridWorkNote">
+        <div class="col-md-12">
+            <div class="col-sm-3">
+                <label class="control-label labe-text">@Html.Label("View Work Notes for:")</label>
+            </div>
+            <div class="col-sm-9">
+                <div class="form-group02">
+                    <div class="col-sm-3 control-label labe-text">
+                        @Html.CheckBoxFor(m => m.GoalActionWorkNote.IsGoal)
+                        @Html.LabelFor(m => m.GoalActionWorkNote.IsGoal)
+                    </div>
+                    <div class="col-sm-3 control-label labe-text">
+                        @Html.CheckBoxFor(m => m.GoalActionWorkNote.IsAction)
+                        @Html.LabelFor(m => m.GoalActionWorkNote.IsAction)
+                    </div>
+                    <div class="col-sm-3">
+                        @(Html.Kendo().DropDownListFor(model => model.GoalActionWorkNote.CaseActionID)
+                    .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                    .DataTextField("Text")
+                    .DataValueField("Value")
+                    .DataSource(source =>
+                    {
+                        source.Read(read =>
+                        {
+                            read.Action("LoadCaseGoalActionsAjax", "CaseActionNew").Data("CaseGoalSelect");
+                        });
+                    }).Enable(false).Events(e => e.Change("LoadGoalActionWorkNoteGrid"))
+                        )
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            @(Html.Kendo().Grid<GoalActionWorkNote>()
+                    .Name("GridGoalActionWorkNote")
+                    .Columns(columns =>
+                    {
+                        columns.Bound(c => c.CreateDate).Sortable(true).Groupable(false).Filterable(false);
+                        columns.Bound(c => c.Note).Sortable(true).Groupable(false).Filterable(false);
+                        columns.Bound(c => c.ContactMethod).Sortable(true).Groupable(false).Filterable(false);
+                        columns.Bound(c => c.NoteDate).Format("{0:yyyy-MM-dd}").Sortable(true).Groupable(false).Filterable(false);
+                        columns.Bound(c => c.TimeSpent).Sortable(true).Groupable(false).Filterable(false);
+                        columns.Bound(c => c.Detail).Sortable(true).Groupable(false).Filterable(false);
+                        columns.Bound(c => c.Status).Sortable(true).Groupable(false).Filterable(false);
+                        columns.Bound(c => c.LoggedBy).Sortable(true).Groupable(false).Filterable(false);
+                    })
+                    .DataSource(dataSource => dataSource
+                    .Ajax()
+                            .Read(read => read.Action("LoadWorkNotes", "CaseActionNew").Data("FilterGoalActionWorkNote"))
+                    .PageSize(50)
+                    )
+                    .Pageable()
+                    .Sortable()
+            )
+        </div>
+    </div>
+    @using (Html.BeginForm("AddWorkNote", "CaseActionNew", new { area = "CaseManagement", ID = Model.ID }, FormMethod.Post, new { id = "frmEditorGoalActionWorkNote" }))
+    {
+        @Html.HiddenFor(model => model.ID)
+        <div id="divAddWorkNote" style="display:none;">
+            <div class="col-md-12">
+                <div class="col-md-12">
+                    <div class="form-group02">
+                        <div class="col-sm-7">
+                            <div class="form-group02">
+                                <label class="col-sm-8 control-label labe-text" style="font-weight:bold;">Work Notes: (Optional)</label>
+                            </div>
+                            <div class="form-group02">
+                                <label class="col-sm-3 control-label labe-text">@Html.LabelRequiredFor(model => model.GoalActionWorkNote.Note)</label>
+                                <div class="col-sm-7">
+                                    @Html.TextAreaFor(model => model.GoalActionWorkNote.Note, new { @class = "form-control", rows = 4, cols = 50 })
+                                </div>
+                            </div>
+                            <div class="form-group02">
+                                <label class="col-sm-3 control-label labe-text">@Html.LabelRequiredFor(model => model.GoalActionWorkNote.ContactMethodID)</label>
+                                <div class="col-sm-6">
+                                    @(Html.Kendo().DropDownListFor(model => model.GoalActionWorkNote.ContactMethodID)
+                                .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                                .DataTextField("Text")
+                                .DataValueField("Value")
+                                .DataSource(source =>
+                                {
+                                    source.Read(read =>
+                                    {
+                                        read.Action("LoadContactMethodAjax", "CaseWorkerNote");
+                                    });
+                                })
+                                    )
+                                </div>
+                            </div>
+                            <div class="form-group02">
+                                <label class="col-sm-3 control-label labe-text">@Html.LabelRequiredFor(model => model.GoalActionWorkNote.NoteDate)</label>
+                                <div class="col-sm-6">
+                                    @(Html.Kendo().DatePickerFor(model => model.GoalActionWorkNote.NoteDate)
+                                .HtmlAttributes(new { style = "width: 100%", title = "datepicker" })
+                                    )
+                                </div>
+                            </div>
+                            <div class="form-group02">
+                                <label class="col-sm-3 control-label labe-text">Time Spent</label>
+                                <div class="col-sm-2">
+                                    <span>Hours</span>
+                                    @(Html.Kendo().NumericTextBoxFor<int>
+                                    (m => m.GoalActionWorkNote.TimeSpentHours)
+                                    .Min(0)
+                                    .Max(59)
+                                    .HtmlAttributes(new { title = "Hours" })
+                                    )
+                                    @Html.ValidationMessageFor(m => m.GoalActionWorkNote.TimeSpentHours, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="col-sm-2">
+                                    <span>Minutes</span>
+                                    @(Html.Kendo().NumericTextBoxFor<int>
+                                    (m => m.GoalActionWorkNote.TimeSpentMinutes)
+                                    .Min(0)
+                                    .Max(59)
+                                    .HtmlAttributes(new { title = "Minutes" })
+                                    )
+                                    @Html.ValidationMessageFor(m => m.GoalActionWorkNote.TimeSpentMinutes, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="add_candidate3">
+                <button class="btn btn-primary" id="btnSaveAndRefreshGoalActionWorkNote" name="btnSaveAndRefreshGoalActionWorkNote"><i class="fa fa-save"></i>Save</button>
+                <button class="btn btn-primary" id="btnCancelWorkNote" name="btnCancelWorkNote"><i class="fa fa-save"></i>Cancel</button>
+            </div>
+        </div>
+    }
+</div>
+<script>
+    $(document).ready(function () {
+        var dropdownlist = $("#CaseActionID").data("kendoDropDownList");
+
+        dropdownlist.enable($('#IsAction').prop('checked'));
+
+        $('#IsAction').change(function () {
+            dropdownlist.enable($('#IsAction').prop('checked'));
+        });
+        $('#IsGoal').change(function () {
+            RefreshGoalActionWorkNoteGrid();
+        });
+    });
+    $("#addWorkNote").click(function () {
+        $('#divAddWorkNote').show();
+        $('#divGridWorkNote').hide();
+    });
+    $("#btnCancelWorkNote").click(function () {
+        $('#divAddWorkNote').hide();
+        $('#divGridWorkNote').show();
+    });
+</script>

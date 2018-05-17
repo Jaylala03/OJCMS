@@ -328,6 +328,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Areas\CaseManagement\Controllers\CaseActionNewController.cs" />
     <Compile Include="Areas\CaseManagement\Controllers\CaseGoalDetailTemplateController.cs" />
     <Compile Include="Areas\CaseManagement\Controllers\CaseAssessmentSummaryController.cs" />
     <Compile Include="Areas\CaseManagement\Controllers\CaseGoalNewController.cs" />
@@ -2018,6 +2019,9 @@
     <Content Include="Areas\Lookup\Views\GoalStatus\Index.cshtml" />
     <Content Include="Areas\CaseManagement\Views\CaseGoalNew\Index.cshtml" />
     <Content Include="Areas\CaseManagement\Views\CaseGoalNew\ServicePlanHistory.cshtml" />
+    <Content Include="Areas\CaseManagement\Views\CaseGoalNew\Edit.cshtml" />
+    <Content Include="Areas\CaseManagement\Views\CaseActionNew\Create.cshtml" />
+    <Content Include="Areas\CaseManagement\Views\CaseActionNew\IndexBackup.cshtml" />
     <None Include="bin\eCMS.Web.dll.config" />
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Properties\PublishProfiles\ecms.softwareravine.com.pubxml" />

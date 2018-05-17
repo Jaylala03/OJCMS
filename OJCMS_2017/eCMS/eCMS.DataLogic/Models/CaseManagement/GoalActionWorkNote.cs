@@ -27,8 +27,9 @@ namespace eCMS.DataLogic.Models
         [Display(Name = "Time Spent")]
         public int? TimeSpentMinutes { get; set; }
 
-        //[Display(Name = "Time Spent")]
-        //public string TimeSpent { get; set; }
+        [NotMapped]
+        [Display(Name = "Time Spent")]
+        public string TimeSpent { get; set; }
 
         //[Required(ErrorMessage = "Please select contact method")]
         [Display(Name = "Contact Method")]
@@ -62,8 +63,16 @@ namespace eCMS.DataLogic.Models
         public string CaseDisplayID { set; get; }
 
         [NotMapped]
-        [Display(Name = "Status")]
+        [Display(Name = "Goal/Action detail")]
+        public string Detail { get; set; }
+
+        [NotMapped]
+        [Display(Name = "Goal/Action Status as at Date")]
         public string Status { set; get; }
+
+        [NotMapped]
+        [Display(Name = "Logged By")]
+        public string LoggedBy { set; get; }
 
         [NotMapped]
         [Display(Name = "AssignedTo")]

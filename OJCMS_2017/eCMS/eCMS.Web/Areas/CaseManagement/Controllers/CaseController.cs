@@ -29,7 +29,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
         private readonly ICaseRepository caseRepository;
         private readonly ICaseHouseholdIncomeRepository caseHouseholdIncomeRepository;
         private readonly ICaseWorkerNoteRepository caseWorkerNoteRepository;
-        private readonly ICaseGoalDetailTemplateRepository caseGoalDetailTemplateRepository;
+        
         public CaseController(IWorkerRepository workerRepository,
             IProgramRepository programRepository,
             ISubProgramRepository subprogramRepository,
@@ -51,8 +51,8 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
             IWorkerRoleActionPermissionRepository workerroleactionpermissionRepository,
             IWorkerRoleActionPermissionNewRepository workerroleactionpermissionnewRepository,
             ICaseAuditLogRepository caseAuditLogRepository
-            , IIncomeRangeRepository incomeRangeRepository, IIndicatorTypeRepository indicatorTypeRepository
-            , ICaseGoalDetailTemplateRepository caseGoalDetailTemplateRepository)
+            , IIncomeRangeRepository incomeRangeRepository
+            )
             : base(workerroleactionpermissionRepository, workerroleactionpermissionnewRepository)
         {
             this.workerRepository = workerRepository;
@@ -75,8 +75,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
             this.caseworkerRepository = caseworkerRepository;
             this.caseAuditLogRepository = caseAuditLogRepository;
             this.incomeRangeRepository = incomeRangeRepository;
-            this.indicatorTypeRepository = indicatorTypeRepository;
-            this.caseGoalDetailTemplateRepository = caseGoalDetailTemplateRepository;
+            
         }
 
         /// <summary>
@@ -844,32 +843,8 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-        [WorkerAuthorize]
-        [OutputCache(Duration = 0)]
-        public ActionResult GetAllIndicatorType([DataSourceRequest] DataSourceRequest dsRequest)
-        {
-            if (dsRequest.Filters == null)
-            {
-                dsRequest.Filters = new List<IFilterDescriptor>();
-            }
-
-            DataSourceResult result = indicatorTypeRepository.GetAll().AsEnumerable().ToDataSourceResult(dsRequest);
-
-            return Json(result, JsonRequestBehavior.AllowGet);
-        }
-        [WorkerAuthorize]
-        [OutputCache(Duration = 0)]
-        public ActionResult GetCaseGoalTemplate([DataSourceRequest] DataSourceRequest dsRequest, int indicatorTypeID)
-        {
-            if (dsRequest.Filters == null)
-            {
-                dsRequest.Filters = new List<IFilterDescriptor>();
-            }
-
-            DataSourceResult result = caseGoalDetailTemplateRepository.GetByIndicatorType(indicatorTypeID).AsEnumerable().ToDataSourceResult(dsRequest);
-
-            return Json(result, JsonRequestBehavior.AllowGet);
-        }
+       
+       
     }
 
 

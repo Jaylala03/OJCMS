@@ -30,13 +30,13 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
         private readonly ICaseInitialAssessmentRepository caseInitialAssessmentRepository;
         //private readonly ICaseWorkerNoteRepository caseWorkerNoteRepository;
         private readonly IGoalActionWorkNoteRepository goalActionWorkNoteRepository;
-
+        private readonly ICaseGoalDetailTemplateRepository caseGoalDetailTemplateRepository;
         public CaseGoalNewController(ICaseGoalNewRepository CaseGoalNewRepository, ICaseRepository caseRepository,
             IWorkerRoleActionPermissionNewRepository workerroleactionpermissionnewRepository, IIndicatorTypeRepository indicatorTypeRepository,
             IWorkerRoleActionPermissionRepository workerroleactionpermissionRepository
             , ICaseInitialAssessmentRepository caseInitialAssessmentRepository, ICaseMemberRepository casememberRepository,
             ICaseWorkerNoteRepository caseWorkerNoteRepository, IGoalActionWorkNoteRepository goalActionWorkNoteRepository,
-            IContactMediaRepository contactmediaRepository)
+            IContactMediaRepository contactmediaRepository, ICaseGoalDetailTemplateRepository caseGoalDetailTemplateRepository)
             : base(workerroleactionpermissionRepository, caseRepository, workerroleactionpermissionnewRepository)
         {
             this.caseGoalNewRepository = CaseGoalNewRepository;
@@ -46,6 +46,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
             //this.caseWorkerNoteRepository = caseWorkerNoteRepository;
             this.goalActionWorkNoteRepository = goalActionWorkNoteRepository;
             this.contactmediaRepository = contactmediaRepository;
+            this.caseGoalDetailTemplateRepository = caseGoalDetailTemplateRepository;
         }
 
         // GET: CaseManagement/CaseGoalNew
@@ -63,7 +64,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
             caseGoalNewVM.CaseWorkerNote = new CaseWorkerNote();
             caseGoalNewVM.AssesmentIndicators = caseInitialAssessmentRepository.GetAllIndicators();
             caseGoalNewVM.CaseInitialAssessment = caseInitialAssessmentRepository.GetCaseAssessment(caseID);
-
+            caseGoalNewVM.CaseGoalDetailTemplate = caseGoalDetailTemplateRepository.GetByIndicatorType();
             return View(caseGoalNewVM);
         }
 
@@ -95,6 +96,9 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
                     }
 
                     //call the repository function to save in database
+                    if(!varCaseGoalNew.GoalStatusID.HasValue)
+                        varCaseGoalNew.GoalStatusID = (int)GoalWorkNote.Inprogress;
+
                     caseGoalNewRepository.InsertOrUpdate(varCaseGoalNew);
                     caseGoalNewRepository.Save();
 
@@ -169,16 +173,10 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
 
             //var primaryWorkerID = GetPrimaryWorkerOfTheCase(caseId);
 
-<<<<<<< HEAD
-            DataSourceResult result = caseGoalNewRepository.CaseGoalNewByCaseID(caseId).AsEnumerable().ToDataSourceResult(dsRequest);
-
-=======
-            //List<CaseGoalNew> caseGoalNew = caseGoalNewRepository.CaseGoalNewByCaseID(caseId);
-            //return Json(caseGoalNew, JsonRequestBehavior.AllowGet);
 
             DataSourceResult result = caseGoalNewRepository.CaseGoalNewByCaseID(caseId).AsEnumerable().ToDataSourceResult(dsRequest);
 
->>>>>>> refs/remotes/origin/CaseGoalAction
+
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
@@ -229,7 +227,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
             return View(casegoalnew);
         }
 
-<<<<<<< HEAD
+
         public ActionResult ServicePlanHistory(int caseId)
         {
             CaseGoalGridVM caseGoalNewVM = new CaseGoalGridVM();
@@ -251,19 +249,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-        [WorkerAuthorize]
-        [OutputCache(Duration = 0)]
-        public ActionResult ServicePlanGoalActionHistory([DataSourceRequest] DataSourceRequest dsRequest, int casegoalId)
-        {
-            if (dsRequest.Filters == null)
-            {
-                dsRequest.Filters = new List<IFilterDescriptor>();
-            }
-
-            DataSourceResult result = caseGoalNewRepository.CaseGoalActionHistory(casegoalId).AsEnumerable().ToDataSourceResult(dsRequest);
-
-            return Json(result, JsonRequestBehavior.AllowGet);
-=======
+        
         [WorkerAuthorize]
         [HttpPost]
         public ActionResult Edit(CaseGoalNew varCaseGoalNew, int caseId)
@@ -335,7 +321,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
             }
 
             return View(varCaseGoalNew);
->>>>>>> refs/remotes/origin/CaseGoalAction
+
         }
     }
 }

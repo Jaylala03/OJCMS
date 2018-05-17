@@ -16,7 +16,6 @@ namespace eCMS.DataLogic.Models
 {
     public class AssesmentIndicators : EntityBaseModel
     {
-        public Int32 ID { get; set; }
 
         [Display(Name = "Indicator Type")]
         [ForeignKey("IndicatorType")]

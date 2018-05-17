@@ -194,6 +194,10 @@ namespace eCMS.BusinessLogic.Repositories
 
             return String.Join(",", result);
         }
+        public int GetSMEWorkerRoleID()
+        {
+            return context.WorkerRole.Where(w => w.Name == "SME").Select(w => w.ID).SingleOrDefault();
+        }
     }
 
     /// <summary>
@@ -212,5 +216,6 @@ namespace eCMS.BusinessLogic.Repositories
         List<int> FindAllActiveWorkerInRoleByWorkerID();
 
         string FindAllActiveProgramByWorkerID(int workerID);
+        int GetSMEWorkerRoleID();
     }
 }

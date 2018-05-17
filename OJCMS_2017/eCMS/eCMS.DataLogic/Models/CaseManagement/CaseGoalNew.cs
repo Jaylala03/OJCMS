@@ -88,6 +88,9 @@ namespace eCMS.DataLogic.Models
         public string CaseMemberName { get; set; }
 
         [NotMapped]
+        public string Indicators { get; set; }
+
+        [NotMapped]
         public CaseWorkerNote CaseWorkerNote { get; set; }
 
         [NotMapped]

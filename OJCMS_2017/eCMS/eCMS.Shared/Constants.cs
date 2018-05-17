@@ -109,6 +109,7 @@ namespace eCMS.Shared
             public const string CaseWorker = "CaseWorker";
             public const string CaseProgressNote = "CaseProgressNote";
             public const string CaseAction = "CaseAction";
+            public const string CaseActionNew = "CaseActionNew";
             public const string RegionRole = "RegionRole";
             public const string RegionSubProgram = "RegionSubProgram";
             public const string WorkerRole = "WorkerRole";

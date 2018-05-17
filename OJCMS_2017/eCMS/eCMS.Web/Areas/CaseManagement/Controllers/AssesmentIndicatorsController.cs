@@ -31,7 +31,6 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
     public class AssesmentIndicatorsController : CaseBaseController
     {
         private readonly IAssesmentIndicatorsRepository assesmentIndicatorsRepository;
-        private readonly IIndicatorTypeRepository indicatorTypeRepository;
         
         public AssesmentIndicatorsController(IAssesmentIndicatorsRepository assesmentIndicatorsRepository, ICaseRepository caseRepository,
             IWorkerRoleActionPermissionNewRepository workerroleactionpermissionnewRepository, IIndicatorTypeRepository indicatorTypeRepository, 

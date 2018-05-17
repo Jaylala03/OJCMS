@@ -599,7 +599,7 @@
                     columns.Bound(c => c.GoalStatus).Sortable(true).Groupable(false).Filterable(false);
                     columns.Bound(c => c.CreateDate).Format("{0:yyyy-MM-dd}").Sortable(true).Groupable(false).Filterable(false);
                     columns.Bound(c => c.LastUpdateDate).Format("{0:yyyy-MM-dd}").Sortable(true).Groupable(false).Filterable(false);
-                    columns.Bound(p => p.Actions).ClientTemplate("<center><a href='/CaseManagement/CaseGoalNew/Edit/?Id=#= CaseGoalID #&CaseID=#= CaseID #'  title='Edit'>Edit</a>&nbsp;</center>").Width("10%")
+                    columns.Bound(p => p.Actions).ClientTemplate("<center><a href='/CaseManagement/CaseGoalNew/Edit/?Id=#= CaseGoalID #&CaseID=#= CaseID #'  title='Edit'>Edit</a>&nbsp;<a href='/CaseManagement/CaseActionNew/Index/?caseId=#= CaseID #&caseGoalId=#= CaseGoalID #'  title='Summary'>Summary</a>&nbsp;</center>").Width("10%")
                         .HtmlAttributes(new { @class = "grid-actions-content" })
                         .HeaderTemplate("<center>Actions</center>")
                         .HeaderHtmlAttributes(new { @class = "grid-actions-content" });

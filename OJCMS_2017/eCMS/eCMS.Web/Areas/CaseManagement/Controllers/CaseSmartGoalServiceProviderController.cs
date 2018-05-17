@@ -613,8 +613,6 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
 
         public JsonResult LoadServiceProviderAjax(int serviceTypeID, int? RegionID=0)
         {
-            
-            
             return Json(serviceproviderRepository.FindAllActiveForDropDownList(serviceTypeID, RegionID), JsonRequestBehavior.AllowGet);
         }
 
@@ -663,6 +661,44 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
                 }
             }
             workerList.Add(new SelectListItem() { Text="Other", Value="0" });
+            return Json(workerList, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult LoadSubjectMatterExpertWorkersAjax()
+        {
+            int workerRoleID = workerinrolenewRepository.GetSMEWorkerRoleID();
+            List<SelectListItem> workerList = workerRepository.FindAllByRoleID(workerRoleID).ToList();
+            if (workerList == null)
+            {
+                workerList = new List<SelectListItem>();
+            }
+            else
+            {
+                foreach (SelectListItem item in workerList)
+                {
+                    int workerID = item.Value.ToInteger();
+                    //<JL:Comment:06/02/2017>
+                    //List<String> workerInRoleList = workerinroleRepository.FindAllByWorkerID(workerID).GroupBy(m => m.Program.Name).Select(m => m.Key).ToList();
+
+                    //List<String> workerInRoleList = workerinrolenewRepository.FindAllByWorkerID(workerID).GroupBy(m => m.Program.Name).Select(m => m.Key).ToList();
+
+                    //if (workerInRoleList != null)
+                    //{
+                    //    string programNames = string.Empty;
+                    //    foreach (String role in workerInRoleList)
+                    //    {
+                    //        programNames = programNames.Concate(",", role);
+                    //    }
+                    //    item.Text = item.Text + "(" + programNames + ")";
+                    //}
+
+                    //<JL:Add:06/02/2017>
+                    string programNames = string.Empty;
+                    programNames = workerinrolenewRepository.FindAllActiveProgramByWorkerID(workerID);
+                    item.Text = item.Text + "(" + programNames + ")";
+                }
+            }
+            workerList.Add(new SelectListItem() { Text = "Other", Value = "0" });
             return Json(workerList, JsonRequestBehavior.AllowGet);
         }
 

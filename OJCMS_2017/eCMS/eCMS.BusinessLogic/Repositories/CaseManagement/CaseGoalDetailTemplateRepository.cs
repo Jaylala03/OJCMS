@@ -45,16 +45,25 @@ namespace eCMS.BusinessLogic.Repositories
             }
         }
 
-        public List<CaseGoalDetailTemplate> GetByIndicatorType(int IndicatorTypeID)
+        public List<CaseGoalDetailTemplate> GetByIndicatorType()
         {
-            return context.CaseGoalDetailTemplate.Where(a => !a.IsArchived && a.IndicatorTypeID == IndicatorTypeID).ToList();
+            //return context.CaseGoalDetailTemplate.Where(a => !a.IsArchived && a.IndicatorTypeID == IndicatorTypeID).ToList();
+            return context.CaseGoalDetailTemplate.Join(context.IndicatorType, left => left.IndicatorTypeID, right => right.ID, (left, right) => new { left, right }).Where(item => !item.left.IsArchived).AsEnumerable().Select(item => new CaseGoalDetailTemplate
+            {
+                ID = item.left.ID,
+                Name = item.left.Name,
+                Description = item.left.Description,
+                IndicatorTypeID = item.left.IndicatorTypeID,
+                IndicatorTypeName = item.right.Name
+            }).ToList();
+            //return context.CaseMember.Join(context.CaseWorkerMemberAssignment, left => left.ID, right => right.CaseMemberID, (left, right) => new { left, right }).Where(item => item.left.CaseID == caseID && item.right.CaseWorker.WorkerID == workerID).AsEnumerable().Select(item => new SelectListItem { Value = item.left.ID.ToString(), Text = item.left.FirstName + " " + item.left.LastName }).ToList();
         }
     }
 
     public interface ICaseGoalDetailTemplateRepository : IBaseRepository<CaseGoalDetailTemplate>
     {
         void InsertOrUpdate(CaseGoalDetailTemplate template);
-        List<CaseGoalDetailTemplate> GetByIndicatorType(int IndicatorTypeID);
+        List<CaseGoalDetailTemplate> GetByIndicatorType();
     }
 
 }

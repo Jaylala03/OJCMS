@@ -37,21 +37,34 @@ namespace eCMS.BusinessLogic.Repositories
             return new List<SelectListItem>();
         }
 
+        //public List<SelectListItem> FindAllActiveForDropDownList(int serviceTypeID, int? RegionId = 0)
+        //{
+        //    if (serviceTypeID == 1)
+        //    {
+        //        return context.ServiceProvider.Where(item => item.IsExternal == false && item.RegionID==RegionId && item.IsActive == true ).OrderBy(item => item.Name).AsEnumerable().Select(item => new SelectListItem() { Text = item.Name, Value = item.ID.ToString() }).ToList();
+        //    }
+        //    else if (serviceTypeID == 2)
+        //    {
+        //        var serviceprovider = context.ServiceProvider.Where(item => (item.IsExternal == true && item.RegionID == RegionId && item.IsActive == true) || item.Name == "Other").OrderBy(item => item.Name).AsEnumerable().Select(item => new SelectListItem() { Text = item.Name, Value = item.ID.ToString() }).ToList();
+               
+        //        return serviceprovider;
+        //    }
+        //    return new List<SelectListItem>();
+        //}
         public List<SelectListItem> FindAllActiveForDropDownList(int serviceTypeID, int? RegionId = 0)
         {
-            if (serviceTypeID == 1)
+            if (serviceTypeID == 2)
             {
-                return context.ServiceProvider.Where(item => item.IsExternal == false && item.RegionID==RegionId && item.IsActive == true ).OrderBy(item => item.Name).AsEnumerable().Select(item => new SelectListItem() { Text = item.Name, Value = item.ID.ToString() }).ToList();
+                return context.ServiceProvider.Where(item => item.IsExternal == false && item.RegionID == RegionId && item.IsActive == true).OrderBy(item => item.Name).AsEnumerable().Select(item => new SelectListItem() { Text = item.Name, Value = item.ID.ToString() }).ToList();
             }
-            else if (serviceTypeID == 2)
+            else if (serviceTypeID == 3)
             {
                 var serviceprovider = context.ServiceProvider.Where(item => (item.IsExternal == true && item.RegionID == RegionId && item.IsActive == true) || item.Name == "Other").OrderBy(item => item.Name).AsEnumerable().Select(item => new SelectListItem() { Text = item.Name, Value = item.ID.ToString() }).ToList();
-               
+
                 return serviceprovider;
             }
             return new List<SelectListItem>();
         }
-
         public DataSourceResult FindAllByRegion(ServiceProvider searchProvider, DataSourceRequest paramDSRequest)
         {
             StringBuilder sqlQuery = new StringBuilder(@"SElect s.ID,

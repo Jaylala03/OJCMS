@@ -33,14 +33,14 @@
                 })
                 .DataSource(dataSource => dataSource
                 .Ajax()
-                        .Read(read => read.Action("ServicePlanGoalHistory", "CaseGoalNew", new { caseId = Model.CaseID }))
+                .Read(read => read.Action("ServicePlanGoalHistory", "CaseGoalNew", new { caseId = Model.CaseID }))
                 .PageSize(50)
                 )
                 .Pageable()
                 .Sortable()
                 .Scrollable()
                 .ClientDetailTemplateId("template")
-                        .HtmlAttributes(new { style = "height:500px;" })
+                .HtmlAttributes(new { style = "height:500px;" })
                 .Events(events => events.DataBound("dataBound"))
         )
     </div>
@@ -60,7 +60,7 @@
             .DataSource(dataSource => dataSource
                 .Ajax()
                 .PageSize(10)
-                .Read(read => read.Action("ServicePlanGoalActionHistory", "CaseGoalNew", new { casegoalID = "#=CaseGoalID#" }))
+                .Read(read => read.Action("ServicePlanGoalActionHistory", "CaseActionNew", new { casegoalID = "#=CaseGoalID#" }))
             )
             .Pageable()
             .Sortable()

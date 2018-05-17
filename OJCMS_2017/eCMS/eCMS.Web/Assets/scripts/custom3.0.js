@@ -338,7 +338,111 @@ $(document).ready(function () {
             alert('Please select a region first');
         }
     });
+    $('#btnSaveAndRefreshGoalActionWorkNote').live("click", function (e) {
+        debugger
+        e.preventDefault();
+        var entityName = $(this).attr('name').replace('btnSaveAndRefresh', '');
+        var gridId = '#Grid' + entityName;
+        var formID = 'frmEditor' + entityName;
+        var $form = $('#' + formID);
 
+        var url = $form.attr('action');
+        var searchString = window.location.search.substring(1);
+        if (searchString != null) {
+            if (url.indexOf('?') == -1) {
+                url = url + "?";
+                url = url + searchString;
+            }
+            else {
+                url = url + "&" + searchString;
+            }
+        }
+        if (!$form.valid || $form.valid()) {
+
+            $.post(url, $form.serializeArray(),
+            function (res) {
+                if (res.success) {
+
+                    clearForm(formID);
+                    if (res.data != null)
+                        displayMessage(res.data, 'lime', 5000);
+                    if (res.url != null && res.url != "undefined") {
+                        location.href = res.url;
+                        return;
+                    }
+                    if (gridId.indexOf("Grid") > 0) {
+                        var gridDynamic = $(gridId).data("kendoGrid");
+                        if (gridDynamic != null) {
+                            gridDynamic.dataSource.read();
+                            gridDynamic.refresh();
+                            if (gridId == '#GridCaseAction') {
+                                gridId = gridId + 'Completed';
+                                if (gridId.indexOf("Grid") > 0) {
+                                    var gridDynamic = $(gridId).data("kendoGrid");
+                                    if (gridDynamic != null) {
+                                        gridDynamic.dataSource.read();
+                                        gridDynamic.refresh();
+                                        return false;
+                                    }
+                                }
+                            }
+                            return false;
+                        }
+                    }
+                    //for refreshing two grid of same model
+                }
+                else {
+                    if (res.data != null)
+                        displayMessage(res.data, 'ruby', 10000);
+                }
+                return false;
+            });
+        }
+
+        return false;
+    });
+
+    $('#btnSaveAndRefreshGoalDetails').live("click", function (e) {
+        debugger
+        e.preventDefault();
+        var entityName = $(this).attr('name').replace('btnSaveAndRefresh', '');
+        var formID = 'frmEditor' + entityName;
+        var $form = $('#' + formID);
+
+        var url = $form.attr('action');
+        var searchString = window.location.search.substring(1);
+        if (searchString != null) {
+            if (url.indexOf('?') == -1) {
+                url = url + "?";
+                url = url + searchString;
+            }
+            else {
+                url = url + "&" + searchString;
+            }
+        }
+        if (!$form.valid || $form.valid()) {
+
+            $.post(url, $form.serializeArray(),
+            function (res) {
+                if (res.success) {
+                    if (res.data != null)
+                        displayMessage(res.data, 'lime', 5000);
+                    if (res.url != null && res.url != "undefined") {
+                        location.href = res.url;
+                        return;
+                    }
+                    //for refreshing two grid of same model
+                }
+                else {
+                    if (res.data != null)
+                        displayMessage(res.data, 'ruby', 10000);
+                }
+                return false;
+            });
+        }
+
+        return false;
+    });
     $('#btnSaveAndRefreshCaseMember').live("click", function (e) {
         e.preventDefault();
         var entityName = $(this).attr('name').replace('btnSaveAndRefresh', '');
@@ -1180,7 +1284,8 @@ function SubProgramDropDownList_OnChanged(e) {
         }
     });
 }
-function CaseSmartWorkerDropDownList_OnChanged(e) {
+function CaseSmartWorkerDropDownList_OnChanged(e)
+{
     var selectedValue = e.sender.element.val();
     $('#WorkerName').val('');
     if (selectedValue == 0) {
@@ -1360,7 +1465,12 @@ function ServiceTypeDropDownList_OnSelect(e) {
         serviceTypeID: $("#ServiceTypeID").val()
     };
 }
+function GoalAssigneeRoleDropDownList_OnSelect(e) {
 
+    return {
+        serviceTypeID: $("#GoalAssigneeRoleID").val()
+    };
+}
 function RegionAndServiceTypeDropDownList_OnSelect(e) {
 
     return {
@@ -1448,7 +1558,97 @@ function DropDownListOther_OnChange(e) {
         $('#divOtherProviderLink').hide();
     }
 }
-
+var ddlText = '';
+function DropDownListAssigneeRole_OnChange(e) {
+    var ddlName = e.sender.element[0].name;
+    debugger
+     ddlText = $("#" + ddlName).data("kendoDropDownList").value();
+    //var divOther = '#div' + ddlName.replace('ID', '') + 'Other';
+    //var divDdlContainer = '#div' + ddlName.replace('ID', '');
+    RefreshCaseActionUI(ddlText)
+}
+function RefreshCaseActionUI()
+{
+    debugger
+    if (!ddlText)
+    {
+        ddlText = $("#GoalAssigneeRoleID").data("kendoDropDownList").value();
+    }
+    $("#divCaseMember").hide();
+    $("#divServiceProvider").hide();
+    $("#divServiceProviderOther").hide();
+    $("#divSubjectMatterExpert").hide();
+    $("#divSubjectMatterExpertOther").hide();
+    $("#divAssigneeOther").hide();
+    $("#divOtherProviderLink").hide();
+    debugger
+    if (ddlText == '1') {
+        $("#divCaseMember").show();
+        $('#WorkerID').data("kendoDropDownList").value(-1);
+        $('#ServiceProviderID').data("kendoDropDownList").value(0);
+    }
+    else if (ddlText == '4') {
+        $("#divSubjectMatterExpert").show();
+        $('#ServiceProviderID').data("kendoDropDownList").value(0);
+        $('#CaseMemberID').data("kendoDropDownList").value(0);
+        debugger
+        var ddlWorkerID = $('#WorkerID').data("kendoDropDownList").value();
+        if (ddlWorkerID == '0') {
+            $("#divSubjectMatterExpertOther").show();
+        }
+        else if (ddlWorkerID == '') {
+            $('#WorkerID').data("kendoDropDownList").value(0);
+            
+            $("#divSubjectMatterExpertOther").show();
+        }
+    }
+    else if (ddlText == '5') {
+        $("#divAssigneeOther").show();
+        $("#divOtherProviderLink").show();
+        $('#ServiceProviderID').data("kendoDropDownList").value(0);
+        $('#CaseMemberID').data("kendoDropDownList").value(0);
+        $('#WorkerID').data("kendoDropDownList").value(-1);
+        
+    }
+    else if (ddlText == '2' || ddlText == '3') {
+        $("#divServiceProvider").show();
+        var ddlServiceProviderID = $('#ServiceProviderID').data("kendoDropDownList");
+        $('#CaseMemberID').data("kendoDropDownList").value(0);
+        $('#WorkerID').data("kendoDropDownList").value(-1);
+        if (ddlServiceProviderID != null)
+        {
+            ddlServiceProviderID.dataSource.read();
+            ddlServiceProviderID.refresh();
+        }
+        if (ddlServiceProviderID.value() == '56') {
+            $("#divServiceProviderOther").show();
+        }
+    }
+}
+function DropDownListServiceProvider_OnChange(e) {
+    var ddlName = e.sender.element[0].name;
+    var ddlText = $("#" + ddlName).data("kendoDropDownList").text();
+    if (ddlText.indexOf("Other") >= 0) {
+        $("#divServiceProviderOther").show();
+        $("#divOtherProviderLink").show();
+    }
+    else {
+        $("#divServiceProviderOther").hide();
+        $("#divOtherProviderLink").hide();
+    }
+}
+function SubjectMatterExpertDropDownList_OnChanged(e) {
+    var ddlName = e.sender.element[0].name;
+    var ddlText = $("#" + ddlName).data("kendoDropDownList").text();
+    if (ddlText.indexOf("Other") >= 0) {
+        $("#divSubjectMatterExpertOther").show();
+        $("#divOtherProviderLink").show();
+    }
+    else {
+        $("#divSubjectMatterExpertOther").hide();
+        $("#divOtherProviderLink").hide();
+    }
+}
 function ProgramDropDownList_OnChanged(e) {
     var ddlRegionID = $('#RegionID').data("kendoDropDownList");
     if (ddlRegionID != null) {
@@ -1609,6 +1809,43 @@ function FamilyMemberSelect(e) {
     }
     return {
         caseID: varCaseID
+    };
+}
+function CaseGoalSelect(e) {
+    var varCaseGoalID = $("#ID").val();
+    if (!varCaseGoalID) {
+        varCaseGoalID = 0;
+    }
+    return {
+        caseGoalID: varCaseGoalID
+    };
+}
+function LoadGoalActionWorkNoteGrid(e) {
+    RefreshGoalActionWorkNoteGrid();
+}
+function RefreshGoalActionWorkNoteGrid()
+{
+    var grid = $("#GridGoalActionWorkNote").data("kendoGrid");
+    grid.dataSource.read();
+}
+function FilterGoalActionWorkNote(e) {
+    var varCaseGoalID = $("#ID").val();
+    if (!varCaseGoalID) {
+        varCaseGoalID = 0;
+    }
+    
+    var caseactionid = 0;
+    var varCaseGoalActionID = $("#CaseActionID").data("kendoDropDownList");
+    if (varCaseGoalActionID) {
+        caseactionid = varCaseGoalActionID.value();
+    }
+
+    if (!$('#IsAction').prop('checked'))
+        caseactionid = 0;
+
+    return {
+        caseGoalId: varCaseGoalID,
+        caseActionId: caseactionid
     };
 }
 //function RelationStatusDropDownList_OnChanged(e) {

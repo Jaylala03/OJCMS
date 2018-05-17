@@ -1,0 +1,335 @@
+﻿@model eCMS.DataLogic.Models.CaseActionNew
+@using EasySoft.Helper;
+@using eCMS.Shared;
+@using eCMS.DataLogic.Models;
+@using eCMS.DataLogic.ViewModels;
+@{
+    Layout = "~/Views/Shared/_LayoutInternal.cshtml";
+    ViewBag.Title = "Case Goal";
+}
+
+@section headsection
+{
+    @Styles.Render("~/assets/plugins/kendo/css")
+    @Scripts.Render("~/assets/plugins/kendo/js")
+}
+
+<style type="text/css">
+    #indicators td {
+        width: 195px;
+        padding: 5px;
+        border: 1px solid black;
+        text-align: center;
+        height: 33px;
+    }
+
+    #indicators th {
+        width: 220px;
+        padding: 5px;
+        border: 1px solid black;
+        text-align: center;
+        height: 33px;
+    }
+
+    #indicators td:first-child {
+        text-align: left;
+    }
+
+    #indicators th:first-child {
+        text-align: left;
+    }
+
+    #assessment td {
+        width: 195px;
+        padding: 5px;
+        border: 1px solid black;
+        text-align: center;
+        height: 33px;
+    }
+
+    #assessment th {
+        width: 220px;
+        padding: 5px;
+        border: 1px solid black;
+        text-align: center;
+        height: 33px;
+    }
+
+    #assessment td:first-child {
+        text-align: left;
+    }
+
+    #assessment th:first-child {
+        text-align: left;
+    }
+
+    #lnkEditor:hover {
+        cursor: pointer;
+    }
+
+    .fulldescription {
+        text-align: justify;
+    }
+</style>
+@using (Html.BeginForm("Create", "CaseActionNew", new { area = "CaseManagement" }, FormMethod.Post, new { id = "frmEditorCaseActionNew" }))
+{
+    @Html.HiddenFor(model => model.CaseID)
+    @Html.HiddenFor(model => model.CreatedByWorkerID)
+    @Html.HiddenFor(model => model.CreateDate)
+    @Html.HiddenFor(model => model.ID)
+    @Html.HiddenFor(model => model.CaseGoalID)
+    @Html.HiddenFor(model => model.RegionID)
+    @Html.HiddenFor(model => model.OLDServiceProviderID)
+    @Html.HiddenFor(model => model.OLDCaseMemberID)
+    @Html.HiddenFor(model => model.OLDWorkerID)
+    @Html.HiddenFor(model => model.OLDAssigneeOther)
+    @Html.HiddenFor(model => model.OLDSubjectMatterExpertOther)
+    
+    <div class="container bulk-import">
+        <div id="dvAjaxAlertContainer">
+            @Html.Partial(Constants.PartialViews.Alert)
+        </div>
+        <div class="row margin-left-50 margin-bottom-10">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        </div>
+        <div class="col-md-12">
+            <div class="col-sm-5">
+                <label class="control-label labe-text">@Html.Label("Case Actions:")</label>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group02">
+                <div class="col-sm-3">
+                    <label class="control-label labe-text">@Html.Label("Action Details:")</label>
+                </div>
+                <div class="col-sm-4">
+                    @Html.TextAreaFor(model => model.ActionDetail, new { @class = "form-control", rows = 4, cols = 50 })
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-12">
+
+            <div class="form-group02">
+                <div class="col-sm-3">
+                    <label class="control-label labe-text">@Html.LabelRequiredFor(model => model.GoalAssigneeRoleID)</label>
+                </div>
+                <div class="col-sm-3">
+                    @(Html.Kendo().DropDownListFor(model => model.GoalAssigneeRoleID)
+                            .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                            .Events(e => e.Change("DropDownListAssigneeRole_OnChange"))
+                            .DataTextField("Text")
+                            .DataValueField("Value")
+                            .DataSource(source =>
+                            {
+                                source.Read(read =>
+                                {
+                                    read.Action("LoadGoalAssigneeRoleAjax", "CaseActionNew");
+                                });
+                            })
+                    )
+                </div>
+            </div>
+        </div>
+        <div id="divCaseMember" class="col-md-12" style="display:none">
+            <div class="form-group02">
+                <div class="col-sm-3">
+                    <label class="control-label labe-text">@Html.LabelRequiredFor(model => model.CaseMemberID)</label>
+                </div>
+                <div class="col-sm-3">
+                    @(Html.Kendo().DropDownListFor(model => model.CaseMemberID)
+                            .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                            .DataTextField("Text")
+                            .DataValueField("Value")
+                            .DataSource(source =>
+                            {
+                                source.Read(read =>
+                                {
+                                    read.Action("LoadCaseMemberListAjax", "CaseGoalNew", new { caseID = Model.CaseID });
+                                });
+                            })
+                    )
+                </div>
+
+                <div class="col-sm-6 control-label labe-text">
+                    @Html.CheckBoxFor(m => m.FamilyAgreeToAction)
+                    @Html.LabelFor(m => m.FamilyAgreeToAction)
+                </div>
+            </div>
+        </div>
+        <div id="divServiceProvider" class="col-md-12" style="display:none">
+            <div class="form-group02">
+                <div class="col-sm-3">
+                    <label class="control-label labe-text">@Html.LabelRequiredFor(model => model.ServiceProviderID)</label>
+                </div>
+                <div class="col-sm-3">
+                    @(Html.Kendo().DropDownListFor(model => model.ServiceProviderID)
+                                .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                .Events(e => e.Change("DropDownListServiceProvider_OnChange"))
+                            .DataTextField("Text")
+                            .DataValueField("Value")
+                            .DataSource(source =>
+                            {
+                                source.Read(read =>
+                                {
+                                    read.Action("LoadServiceProviderAjax", "CaseSmartGoalServiceProvider", new { RegionID = Model.RegionID }).Data("GoalAssigneeRoleDropDownList_OnSelect");
+                                });
+                            })
+                            .AutoBind(false)
+                    )
+                </div>
+                <div class="col-sm-3" id="divServiceProviderOther" style="display:none;">
+                    @Html.TextBoxFor(model => model.ServiceProviderOther, new { @class = "form-control" })
+                </div>
+
+            </div>
+        </div>
+        <div id="divSubjectMatterExpert" class="col-md-12" style="display:none">
+            <div class="form-group02">
+                <div class="col-sm-3">
+                    <label class="control-label labe-text">@Html.LabelRequiredFor(model => model.WorkerID)</label>
+                </div>
+                <div class="col-sm-3">
+                    @(Html.Kendo().DropDownListFor(model => model.WorkerID)
+                        .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                        .Events(e => e.Change("SubjectMatterExpertDropDownList_OnChanged"))
+                        .DataTextField("Text")
+                        .DataValueField("Value")
+                        .DataSource(source =>
+                        {
+                            source.Read(read =>
+                            {
+                                read.Action("LoadSubjectMatterExpertWorkersAjax", "CaseSmartGoalServiceProvider");
+                            });
+                        })
+                    )
+                </div>
+                <div class="col-sm-3" id="divSubjectMatterExpertOther" style="display:none;">
+                    @Html.TextBoxFor(model => model.SubjectMatterExpertOther, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+        <div id="divAssigneeOther" class="col-md-12" style="display:none">
+            <div class="form-group02">
+                <div class="col-sm-3">
+                    <label class="control-label labe-text">@Html.LabelRequiredFor(model => model.AssigneeOther)</label>
+                </div>
+                <div class="col-sm-3">
+                    @Html.TextBoxFor(model => model.AssigneeOther, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+
+        <div class="row" id="divOtherProviderLink" style="display:none">
+            <div class="col-sm-3">
+            </div>
+            <div class="col-sm-3">
+                <a href="http://www.211.ca/"><b>211.C A</b></a>
+            </div>
+        </div>
+        <div class="col-md-12">
+        </div>
+        <div class="col-md-12">
+            <div class="col-sm-5">
+                <label class="control-label labe-text">@Html.Label("Work Notes:")</label>
+            </div>
+        </div>
+        <div id="divAddWorkNote">
+            <div class="col-md-12">
+
+                <div class="form-group02">
+
+                    <div class="form-group02">
+                        <label class="col-sm-8 control-label labe-text" style="font-weight:bold;">Work Notes: (Optional)</label>
+                    </div>
+                    <div class="form-group02">
+                        <label class="col-sm-3 control-label labe-text">@Html.LabelRequiredFor(model => model.GoalActionWorkNote.Note)</label>
+                        <div class="col-sm-4">
+                            @Html.TextAreaFor(model => model.GoalActionWorkNote.Note, new { @class = "form-control", rows = 4, cols = 50 })
+                        </div>
+                    </div>
+                    <div class="form-group02">
+                        <label class="col-sm-3 control-label labe-text">@Html.LabelRequiredFor(model => model.GoalActionWorkNote.ContactMethodID)</label>
+                        <div class="col-sm-3">
+                            @(Html.Kendo().DropDownListFor(model => model.GoalActionWorkNote.ContactMethodID)
+                                .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+                                .DataTextField("Text")
+                                .DataValueField("Value")
+                                .DataSource(source =>
+                                {
+                                    source.Read(read =>
+                                    {
+                                        read.Action("LoadContactMethodAjax", "CaseWorkerNote");
+                                    });
+                                })
+                            )
+                        </div>
+                    </div>
+                    <div class="form-group02">
+                        <label class="col-sm-3 control-label labe-text">@Html.LabelRequiredFor(model => model.GoalActionWorkNote.NoteDate)</label>
+                        <div class="col-sm-3">
+                            @(Html.Kendo().DatePickerFor(model => model.GoalActionWorkNote.NoteDate)
+                                .HtmlAttributes(new { style = "width: 100%", title = "datepicker" })
+                            )
+                        </div>
+                    </div>
+                    <div class="form-group02">
+                        <label class="col-sm-3 control-label labe-text">Time Spent</label>
+                        <div class="col-sm-2">
+                            <span>Hours</span>
+                            @(Html.Kendo().NumericTextBoxFor<int>
+                                    (m => m.GoalActionWorkNote.TimeSpentHours)
+                                    .Min(0)
+                                    .Max(59)
+                                    .HtmlAttributes(new { title = "Hours" })
+                            )
+                            @Html.ValidationMessageFor(m => m.GoalActionWorkNote.TimeSpentHours, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-sm-2">
+                            <span>Minutes</span>
+                            @(Html.Kendo().NumericTextBoxFor<int>
+                                    (m => m.GoalActionWorkNote.TimeSpentMinutes)
+                                    .Min(0)
+                                    .Max(59)
+                                    .HtmlAttributes(new { title = "Minutes" })
+                            )
+                            @Html.ValidationMessageFor(m => m.GoalActionWorkNote.TimeSpentMinutes, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <div id="add_candidate3">
+                <button class="btn btn-primary" id="btnSaveAndRefreshCaseActionNew" name="btnSaveAndRefreshCaseActionNew"><i class="fa fa-save"></i>Save</button>
+            </div>
+        </div>
+    </div>
+}
+<script>
+    $(document).ready(function () {
+        //var dropdownlist = $("#CaseActionID").data("kendoDropDownList");
+        debugger
+        //var test = $("#GoalAssigneeRoleID").data("kendoDropDownList");
+        //alert($("#GoalAssigneeRoleID").data("kendoDropDownList").value())
+        //alert($("#GoalAssigneeRoleID").data("kendoDropDownList").text())
+        RefreshCaseActionUI();
+        //dropdownlist.enable($('#IsAction').prop('checked'));
+
+        //$('#IsAction').change(function () {
+        //    dropdownlist.enable($('#IsAction').prop('checked'));
+        //});
+        //$('#IsGoal').change(function () {
+        //    RefreshGoalActionWorkNoteGrid();
+        //});
+    });
+    //$("#addWorkNote").click(function () {
+    //    $('#divAddWorkNote').show();
+    //    $('#divGridWorkNote').hide();
+    //});
+    //$("#btnCancelWorkNote").click(function () {
+    //    $('#divAddWorkNote').hide();
+    //    $('#divGridWorkNote').show();
+    //});
+</script>

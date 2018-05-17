@@ -207,8 +207,10 @@
     <Compile Include="SeedData\WorkerSeed.cs" />
     <Compile Include="ViewModels\CaseAssessmentSummaryVM.cs" />
     <Compile Include="ViewModels\CaseGoalActionGridVM.cs" />
+    <Compile Include="ViewModels\CaseGoalEditVM.cs" />
     <Compile Include="ViewModels\CaseGoalServiceGridVM.cs" />
     <Compile Include="ViewModels\CaseGoalNewVM.cs" />
+    <Compile Include="ViewModels\CaseGoalWorkNoteGridVM.cs" />
     <Compile Include="ViewModels\CaseHouseholdIncomeVM.cs" />
     <Compile Include="ViewModels\CaseInitialAssessmentVM.cs" />
     <Compile Include="ViewModels\CaseListViewModel.cs" />
