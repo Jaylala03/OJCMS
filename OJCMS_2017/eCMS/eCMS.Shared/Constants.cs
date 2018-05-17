@@ -137,6 +137,7 @@ namespace eCMS.Shared
             public const string AssesmentIndicators = "AssesmentIndicators";
             public const string CaseGoalDetailTemplate = "CaseGoalDetailTemplate";
             public const string GoalStatus = "GoalStatus";
+            public const string CaseStatusHistory = "CaseStatusHistory";
         }
 
         public static class Areas

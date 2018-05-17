@@ -1,0 +1,185 @@
+﻿@model eCMS.DataLogic.Models.CaseStatusHistory
+@using EasySoft.Helper;
+@using eCMS.Shared;
+@using eCMS.DataLogic.Models;
+@using eCMS.DataLogic.ViewModels;
+@{
+    Layout = "~/Views/Shared/_LayoutInternal.cshtml";
+    ViewBag.Title = "Case Status Change";
+}
+@section headsection
+{
+    @Styles.Render("~/assets/plugins/kendo/css")
+    @Scripts.Render("~/assets/plugins/kendo/js")
+}
+
+<div class="container bulk-import">
+    @using (Html.BeginForm(Constants.Actions.Create, Constants.Controllers.CaseStatusHistory, new { area = Constants.Areas.CaseManagement }, FormMethod.Post, new { id = "frmEditor", role = "form" }))
+    {
+        @Html.HiddenFor(model => model.CaseID)
+        @Html.HiddenFor(model => model.CurrentStatusID)
+
+        <div class="form-group02">
+            <div class="col-sm-2">
+                <label class="col-sm-3 control-label labe-text">Current Status</label>
+            </div>
+            <div class="col-sm-10">
+                <label class="col-sm-3 control-label labe-text">@Html.DisplayFor(model => model.CaseStatus)</label>
+            </div>
+        </div>
+
+        <div class="form-group02">
+            <div class="col-sm-2">
+                <label class="col-sm-3 control-label labe-text">@Html.LabelRequiredFor(model => model.StatusID)</label>
+            </div>
+            <div class="col-sm-4">
+                @(Html.Kendo().DropDownListFor(model => model.StatusID)
+            .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+            .DataTextField("Text")
+            .DataValueField("Value")
+            .DataSource(source =>
+            {
+                source.Read(read =>
+                {
+                    read.Action("LoadCaseStatusExceptCurrentAjax", "CaseStatusHistory").Data("CurrentStatus");
+                    //read.Action("LoadCaseStatusAjax", "CaseStatusHistory");
+                });
+            }).Events(e =>
+            {
+
+                e.Change("change");
+            })
+                )
+            </div>
+        </div>
+
+        <div id="hideDiv">
+
+            <div class="form-group02">
+                <div class="col-sm-2">
+                    <label class="col-sm-3 control-label labe-text">@Html.LabelRequiredFor(model => model.ReasonID)</label>
+                </div>
+                <div class="col-sm-4">
+                    @(Html.Kendo().DropDownListFor(model => model.ReasonID)
+            .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
+            .DataTextField("Text")
+            .DataValueField("Value")
+            .DataSource(source =>
+            {
+                source.Read(read =>
+                {
+                    read.Action("LoadReasonsForDischargeAjax", "CaseStatusHistory");
+                });
+            })
+                    )
+                </div>
+            </div>
+            <div class="form-group02">
+                <div class="col-sm-2">
+                    <label class="col-sm-3 control-label labe-text">@Html.LabelRequiredFor(model => model.Justification)</label>
+                </div>
+                <div class="col-sm-4">
+                    @Html.TextAreaFor(model => model.Justification, new { @class = "form-control", rows = 4, cols = 50 })
+                </div>
+            </div>
+        </div>
+        <div id="CaseHouseHoldIncomeDiv">
+            <div class="form-group02">
+                <label class="col-sm-4 control-label labe-text" style="font-weight:bold;">Household Income: (Optional)</label>
+            </div>
+            <div class="form-group02">
+                <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.CaseHouseholdIncome.NoOfMembers)</label>
+                <div class="col-sm-2">
+                    @(Html.Kendo().NumericTextBoxFor<int>(model => model.CaseHouseholdIncome.NoOfMembers)
+.Placeholder("Enter numeric value")
+ .HtmlAttributes(new { title = "numeric" })
+                    )
+                </div>
+            </div>
+            <div class="form-group02">
+                <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.CaseHouseholdIncome.NoOfChild)</label>
+                <div class="col-sm-2">
+                    @(Html.Kendo().NumericTextBoxFor<int>(model => model.CaseHouseholdIncome.NoOfChild)
+.Placeholder("Enter numeric value")
+ .HtmlAttributes(new { title = "numeric" })
+                    )
+                </div>
+            </div>
+            <div class="form-group02">
+                <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.CaseHouseholdIncome.NoOfSeniors)</label>
+                <div class="col-sm-2">
+                    @(Html.Kendo().NumericTextBoxFor<int>(model => model.CaseHouseholdIncome.NoOfSeniors)
+.Placeholder("Enter numeric value")
+ .HtmlAttributes(new { title = "numeric" })
+                    )
+                </div>
+            </div>
+            <div class="form-group02">
+                <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.CaseHouseholdIncome.NoOfPhysicallyDisabled)</label>
+                <div class="col-sm-2">
+                    @(Html.Kendo().NumericTextBoxFor<int>(model => model.CaseHouseholdIncome.NoOfPhysicallyDisabled)
+.Placeholder("Enter numeric value")
+ .HtmlAttributes(new { title = "numeric" })
+                    )
+                </div>
+            </div>
+            <div class="form-group02">
+                <label class="col-sm-4 control-label labe-text">Household gross income range (annual):</label>
+            </div>
+            @foreach (var a in Model.CaseHouseholdIncome.IncomeRanges)
+            {
+                <div class="form-group02">
+                    <label class="col-sm-4 control-label labe-text"></label>
+                    <div class="col-sm-6">
+                        @Html.RadioButtonFor(b => b.CaseHouseholdIncome.IncomeRangeID, a.ID)  @a.Name
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                @{
+                    string name = Html.NameFor(model => model.CaseWorkerNote).ToString();
+                    string prefix = Html.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name);
+                    ViewDataDictionary viewData = new ViewDataDictionary(Html.ViewData)
+                    {
+                        TemplateInfo = new TemplateInfo { HtmlFieldPrefix = prefix }
+                    };
+                }
+                @Html.Partial("WorkNote", Model.CaseWorkerNote, viewData)
+            </div>
+        </div>
+        <div id="add_candidate3">
+            <button type="submit" class="btn btn-primary btnSaveAndRefresh" data-formid="frmEditorWorker" name="btnSave"><i class="fa fa-save"></i> Save </button>
+            <a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.CaseSummary, new { caseID = Model.CaseID})" class="btn btn-primary"><i class="fa fa-long-arrow-left"></i> Back to Case Summary</a>
+        </div>
+        <br class="clear" />
+                    }
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#hideDiv").show();
+        $("#CaseHouseHoldIncomeDiv").hide();        
+    });
+
+    function change(e) {
+        var ddlSelectedVal = $("#StatusID").data("kendoDropDownList").text();
+
+        //alert(ddlSelectedVal);
+
+        if (ddlSelectedVal == 'Added in Error') {
+            $("#hideDiv").hide();
+            
+        }
+        else {
+            $("#hideDiv").show();
+        }
+
+        if (ddlSelectedVal == 'Monitoring - Completed') {
+            $("#CaseHouseHoldIncomeDiv").show();
+        }
+        else {
+            $("#CaseHouseHoldIncomeDiv").hide();
+        }
+    };
+</script>

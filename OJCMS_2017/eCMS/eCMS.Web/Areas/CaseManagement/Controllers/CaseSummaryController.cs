@@ -21,6 +21,8 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
         private readonly ICaseSummaryRepository _casesummaryrepository;
         private readonly ICaseHouseholdIncomeRepository caseHouseholdIncomeRepository;
         private readonly ICaseInitialAssessmentRepository caseInitialAssessmentRepository;
+        private readonly ICaseStatusHistoryRepository caseStatusHistoryRepository;
+
         public CaseSummaryController(IWorkerRepository workerRepository,
            ICaseRepository caseRepository,
            IRelationshipStatusRepository relationshipstatusRepository,
@@ -38,6 +40,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
            , IWorkerRoleActionPermissionNewRepository workerroleactionpermissionnewRepository
             , ICaseHouseholdIncomeRepository caseHouseholdIncomeRepository
             , ICaseInitialAssessmentRepository caseInitialAssessmentRepository
+            , ICaseStatusHistoryRepository caseStatusHistoryRepository
           )
             : base(workerroleactionpermissionRepository, caseRepository, workerroleactionpermissionnewRepository)
         {
@@ -55,6 +58,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
             this._casesummaryrepository = caseSummaryRepository;
             this.caseHouseholdIncomeRepository = caseHouseholdIncomeRepository;
             this.caseInitialAssessmentRepository = caseInitialAssessmentRepository;
+            this.caseStatusHistoryRepository = caseStatusHistoryRepository;
         }
 
         [WorkerAuthorize]
@@ -87,7 +91,35 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
             caseSummary.AssesmentIndicators = caseInitialAssessmentRepository.GetAllIndicators();
             caseSummary.CaseInitialAssessment = caseInitialAssessmentRepository.GetCaseAssessment(caseID);
 
+            string status = caseStatusHistoryRepository.CaseStatusByCaseID(caseID);
+            caseSummary.CaseStatus = status;
+
+            
             return View(caseSummary);
+        }
+
+        /// <summary>
+        /// This action loads data to kendo grid or listview asynchronously
+        /// </summary>
+        /// <param name="dsRequest">search/sort parameters</param>
+        /// <returns>data in json</returns>
+        [WorkerAuthorize]
+        [OutputCache(Duration = 0)]
+        public ActionResult IndexAjax([DataSourceRequest] DataSourceRequest dsRequest, int caseID)
+        {
+            if (dsRequest.Filters == null)
+            {
+                dsRequest.Filters = new List<IFilterDescriptor>();
+            }
+
+            bool hasEditPermission = workerroleactionpermissionnewRepository.HasPermission(CurrentLoggedInWorkerRoleIDs, Constants.Areas.CaseManagement, Constants.Controllers.CaseMember, Constants.Actions.Edit, true);
+            bool hasDeletePermission = workerroleactionpermissionnewRepository.HasPermission(CurrentLoggedInWorkerRoleIDs, Constants.Areas.CaseManagement, Constants.Controllers.CaseMember, Constants.Actions.Delete, true);
+            bool hasReadPermission = workerroleactionpermissionnewRepository.HasPermission(CurrentLoggedInWorkerRoleIDs, Constants.Areas.CaseManagement, Constants.Controllers.CaseMember, Constants.Actions.Read, true);
+            bool IsUserAdminWorker = CurrentLoggedInWorkerRoleIDs.IndexOf(1) == -1;
+           
+            DataSourceResult result = caseStatusHistoryRepository.AllCaseStatusByCaseID(caseID).AsEnumerable().ToDataSourceResult(dsRequest);
+
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
     }
 }

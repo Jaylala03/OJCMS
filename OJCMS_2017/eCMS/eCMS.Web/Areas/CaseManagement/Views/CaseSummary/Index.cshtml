@@ -250,6 +250,62 @@
                     <td style="width:50%;">&nbsp;</td>
                 </tr>
             </table>
+
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <div class="form-group02">
+                        <label class="control-label labe-text">Status:</label>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="form-group02" style="text-align: right;float:right;">
+                        <a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.CaseStatusHistory, new { CaseId = Model.CaseID})" class="btn btn-primary"><i class="fa fa-long-arrow-right"></i>Change Status</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-5">
+                    <div class="form-group02">
+                        <label class="control-label labe-text">Current Status:</label>
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <div class="form-group02" style="text-align: left;">
+                        @Html.DisplayFor(model => model.CaseStatus)
+                    </div>
+                </div>
+            </div>
+            <div class="row margin-top-10">
+                <div class="col-md-12">
+                    <div class="col-md-5">
+                        <div class="form-group02">
+                            <label class="control-label labe-text">Status History</label>
+                        </div>
+                    </div>                    
+                </div>
+                <div class="col-md-12">
+                    @(Html.Kendo().Grid<CaseStatusHistoryVM>()
+    .Name("GridCaseStatusHistory")
+    .Columns(columns =>
+    {
+        columns.Bound(c => c.CreatedDate).Sortable(true).Groupable(false).Filterable(false);
+        columns.Bound(c => c.CaseStatus).Sortable(true).Groupable(false).Filterable(false);
+        columns.Bound(c => c.Reason).Sortable(true).Groupable(false).Filterable(false);
+        columns.Bound(c => c.Justification).Sortable(true).Groupable(false).Filterable(false);
+    })
+    .DataSource(dataSource => dataSource
+    .Ajax()
+    .Read(read => read.Action("IndexAjax", "CaseSummary", new { caseId = Model.CaseID }))
+    .PageSize(50)
+    )
+    .Pageable()
+    .Sortable()
+                    )
+                </div>
+            </div>
+
+            <br class="clear" />
+
             <div class="col-md-12">
                 <div class="col-md-6 table-bordered">
                     <div class="align-left">
@@ -293,11 +349,11 @@
                             {
                                 if (Model.CaseInitialHouseholdIncomeVM.IsLICO)
                                 {
-                                    <td>Yes</td>
+                            <td>Yes</td>
                                 }
                                 else
                                 {
-                                    <td>No</td>
+                            <td>No</td>
                                 }
                             }
 
@@ -350,11 +406,11 @@
                             {
                                 if (Model.CaseCurrentHouseholdIncomeVM.IsLICO)
                                 {
-                                    <td>Yes</td>
+                            <td>Yes</td>
                                 }
                                 else
                                 {
-                                    <td>No</td>
+                            <td>No</td>
                                 }
                             }
                         </tr>
@@ -565,6 +621,7 @@
             }
         }
     </div>
+<<<<<<< HEAD
     
 </div>
 <div class="container bulk-import">
@@ -583,11 +640,24 @@
             <div class="col-md-3">
                 <div class="form-group02" style="text-align: right;float:right;">
                     <a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.CaseGoalNew, new { caseID = Model.CaseID})" class="btn btn-primary"><i class="fa fa-long-arrow-right"></i>Add Goal</a>
+=======
+    <div class="container bulk-import">
+        <div class="row margin-top-10">
+            <div class="col-md-12">
+                <div class="col-md-5">
+                    <div class="form-group02">
+                        <label class="control-label labe-text">Service Plan:</label>
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <div class="form-group02" style="text-align: right;float:right;">
+                        <a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.CaseGoalNew, new { caseID = Model.CaseID})" class="btn btn-primary"><i class="fa fa-long-arrow-right"></i>Add Goal</a>
+                    </div>
+>>>>>>> refs/remotes/origin/CaseStatusHistory
                 </div>
             </div>
-        </div>
-        <div class="col-md-12">
-            @(Html.Kendo().Grid<CaseGoalGridVM>()
+            <div class="col-md-12">
+                @(Html.Kendo().Grid<CaseGoalGridVM>()
                 .Name("GridCaseGoalNew")
                 .Columns(columns =>
                 {
@@ -611,10 +681,15 @@
                 )
                 .Pageable()
                 .Sortable()
-            )
+                )
+            </div>
         </div>
     </div>
 </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> refs/remotes/origin/CaseStatusHistory
 <script>
     $(document).ready(function () {
         TrimDataLoad();

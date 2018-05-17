@@ -180,6 +180,9 @@ namespace eCMS.DataLogic.Models
         [NotMapped]
         public CaseWorkerNote CaseWorkerNote { get; set; }
 
+        [NotMapped]
+        public CaseStatusHistory CaseStatusHistory { get; set; }
+
 
         [NotMapped]
         [Display(Name="Family or Family Member First Name",Prompt="First Name")]

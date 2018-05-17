@@ -19,6 +19,7 @@ using Kendo.Mvc.Extensions;
 using Kendo.Mvc.UI;
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Web.Mvc;
@@ -711,6 +712,22 @@ delete from [case] where id=@caseid;";
             context.Database.ExecuteSqlCommand(sqlQuery);
 
         }
+
+        public void UpdateCaseStatus(int CaseID, int CaseStatusID, int LoggedInWorkerID)
+        {
+            var cases = context.Case.Find(CaseID);
+
+            cases.LastUpdatedByWorkerID = LoggedInWorkerID;
+            cases.LastUpdateDate = System.DateTime.Now;
+            cases.JamatkhanaName = "NA";
+            cases.CaseStatusID = CaseStatusID;
+          
+
+            //update an existing record to database
+            context.Entry(cases).State = System.Data.Entity.EntityState.Modified;
+
+            //context.SaveChanges();
+        }
     }
 
     /// <summary>
@@ -723,5 +740,7 @@ delete from [case] where id=@caseid;";
         void InsertOrUpdate(Case varCase);
         Case Readmit(Case varCase);
         DataSourceResult Search(Case searchParameters, DataSourceRequest paramDSRequest);
+
+        void UpdateCaseStatus(int CaseID, int CaseStatusID,int LoggedInWorkerID);
     }
 }

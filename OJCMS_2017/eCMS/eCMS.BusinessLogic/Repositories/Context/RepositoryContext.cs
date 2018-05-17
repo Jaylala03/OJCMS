@@ -493,6 +493,7 @@ namespace eCMS.BusinessLogic.Repositories.Context
         public DbSet<CaseActionNew> CaseActionNew { get; set; }
         public DbSet<GoalActionWorkNote> GoalActionWorkNote { get; set; }
         public DbSet<CaseGoalNew> CaseGoalNew { get; set; }
+        public DbSet<CaseStatusHistory> CaseStatusHistory { get; set; }
     }
 
     public interface IDescribableEntity

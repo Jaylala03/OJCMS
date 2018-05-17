@@ -1,12 +1,12 @@
 ----------------------------------------
-Timestamp: 5/10/2018 6:42:20 PM
-Message: 5/11/2018 12:12:20 AM
+Timestamp: 5/13/2018 6:35:20 AM
+Message: 5/13/2018 12:05:19 PM
 Exception Summary :
 Error Message :Unhandeled exception found
 Message To User :Unhandeled exception found
 System Defined Message :The controller for path '/assets/styles/bootstrap.css.map' was not found or does not implement IController.
 Machine Name :CHIRAG-PC
-Domain Name :/LM/W3SVC/2/ROOT-1-131704511831268499
+Domain Name :/LM/W3SVC/2/ROOT-1-131706668259135120
 Host Name :Chirag-PC
 OS Version :Microsoft Windows NT 6.1.7601 Service Pack 1
 Error Stack 1)
@@ -30,22 +30,22 @@ EventId: 100
 Severity: Error
 Title:
 Machine: CHIRAG-PC
-App Domain: /LM/W3SVC/2/ROOT-1-131704511831268499
-ProcessId: 7372
+App Domain: /LM/W3SVC/2/ROOT-1-131706668259135120
+ProcessId: 6844
 Process Name: C:\Program Files (x86)\IIS Express\iisexpress.exe
 Thread Name: 
-Win32 ThreadId:7964
+Win32 ThreadId:4604
 Extended Properties: 
 ----------------------------------------
 ----------------------------------------
-Timestamp: 5/10/2018 6:47:45 PM
-Message: 5/11/2018 12:17:45 AM
+Timestamp: 5/13/2018 6:36:59 AM
+Message: 5/13/2018 12:06:59 PM
 Exception Summary :
 Error Message :Unhandeled exception found
 Message To User :Unhandeled exception found
 System Defined Message :The controller for path '/assets/styles/bootstrap.css.map' was not found or does not implement IController.
 Machine Name :CHIRAG-PC
-Domain Name :/LM/W3SVC/2/ROOT-1-131704511831268499
+Domain Name :/LM/W3SVC/2/ROOT-1-131706668259135120
 Host Name :Chirag-PC
 OS Version :Microsoft Windows NT 6.1.7601 Service Pack 1
 Error Stack 1)
@@ -69,225 +69,22 @@ EventId: 100
 Severity: Error
 Title:
 Machine: CHIRAG-PC
-App Domain: /LM/W3SVC/2/ROOT-1-131704511831268499
-ProcessId: 7372
+App Domain: /LM/W3SVC/2/ROOT-1-131706668259135120
+ProcessId: 6844
 Process Name: C:\Program Files (x86)\IIS Express\iisexpress.exe
 Thread Name: 
-Win32 ThreadId:8168
+Win32 ThreadId:4772
 Extended Properties: 
 ----------------------------------------
 ----------------------------------------
-Timestamp: 5/11/2018 2:40:56 AM
-Message: 5/11/2018 8:10:56 AM
-Exception Summary :
-Error Message :Unhandeled exception found
-Message To User :Unhandeled exception found
-System Defined Message :g:\Jay Bhai\ojcmsMaster\OJCMS_2017\eCMS\eCMS.Web\Areas\CaseManagement\Views\CaseActionNew\Index.cshtml(82): error CS0411: The type arguments for method 'System.Web.Mvc.Html.LabelExtensions.LabelFor<TModel,TValue>(System.Web.Mvc.HtmlHelper<TModel>, System.Linq.Expressions.Expression<System.Func<TModel,TValue>>)' cannot be inferred from the usage. Try specifying the type arguments explicitly.
-Machine Name :CHIRAG-PC
-Domain Name :/LM/W3SVC/2/ROOT-1-131704798274418414
-Host Name :Chirag-PC
-OS Version :Microsoft Windows NT 6.1.7601 Service Pack 1
-Error Stack 1)
- 
-g:\Jay Bhai\ojcmsMaster\OJCMS_2017\eCMS\eCMS.Web\Areas\CaseManagement\Views\CaseActionNew\Index.cshtml(82): error CS0411: The type arguments for method 'System.Web.Mvc.Html.LabelExtensions.LabelFor<TModel,TValue>(System.Web.Mvc.HtmlHelper<TModel>, System.Linq.Expressions.Expression<System.Func<TModel,TValue>>)' cannot be inferred from the usage. Try specifying the type arguments explicitly.
-
-
-Call Stack
-
-   at System.Web.Compilation.AssemblyBuilder.Compile()
-   at System.Web.Compilation.BuildProvidersCompiler.PerformBuild()
-   at System.Web.Compilation.BuildManager.CompileWebFile(VirtualPath virtualPath)
-   at System.Web.Compilation.BuildManager.GetVPathBuildResultInternal(VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
-   at System.Web.Compilation.BuildManager.GetVPathBuildResultWithNoAssert(HttpContext context, VirtualPath virtualPath, Boolean noBuild, Boolean allowCrossApp, Boolean allowBuildInPrecompile, Boolean throwIfNotFound, Boolean ensureIsUpToDate)
-   at System.Web.Compilation.BuildManager.GetVirtualPathObjectFactory(VirtualPath virtualPath, HttpContext context, Boolean allowCrossApp, Boolean throwIfNotFound)
-   at System.Web.Compilation.BuildManager.GetCompiledType(VirtualPath virtualPath)
-   at System.Web.Compilation.BuildManager.GetCompiledType(String virtualPath)
-   at System.Web.Mvc.BuildManagerWrapper.System.Web.Mvc.IBuildManager.GetCompiledType(String virtualPath)
-   at System.Web.Mvc.BuildManagerCompiledView.Render(ViewContext viewContext, TextWriter writer)
-   at System.Web.Mvc.ViewResultBase.ExecuteResult(ControllerContext context)
-   at System.Web.Mvc.ControllerActionInvoker.InvokeActionResult(ControllerContext controllerContext, ActionResult actionResult)
-   at System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilterRecursive(IList`1 filters, Int32 filterIndex, ResultExecutingContext preContext, ControllerContext controllerContext, ActionResult actionResult)
-   at System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilterRecursive(IList`1 filters, Int32 filterIndex, ResultExecutingContext preContext, ControllerContext controllerContext, ActionResult actionResult)
-   at System.Web.Mvc.ControllerActionInvoker.InvokeActionResultWithFilters(ControllerContext controllerContext, IList`1 filters, ActionResult actionResult)
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<>c__DisplayClass2b.<BeginInvokeAction>b__1c()
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<BeginInvokeAction>b__1e(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeAction(IAsyncResult asyncResult)
-   at System.Web.Mvc.Controller.<BeginExecuteCore>b__1d(IAsyncResult asyncResult, ExecuteCoreState innerState)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
-   at System.Web.Mvc.Controller.EndExecuteCore(IAsyncResult asyncResult)
-   at System.Web.Mvc.Controller.<BeginExecute>b__15(IAsyncResult asyncResult, Controller controller)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
-   at System.Web.Mvc.Controller.EndExecute(IAsyncResult asyncResult)
-   at System.Web.Mvc.Controller.System.Web.Mvc.Async.IAsyncController.EndExecute(IAsyncResult asyncResult)
-   at System.Web.Mvc.MvcHandler.<BeginProcessRequest>b__5(IAsyncResult asyncResult, ProcessRequestState innerState)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
-   at System.Web.Mvc.MvcHandler.EndProcessRequest(IAsyncResult asyncResult)
-   at System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.EndProcessRequest(IAsyncResult result)
-   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
-   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
-Category: General
-Priority: 0
-EventId: 100
-Severity: Error
-Title:
-Machine: CHIRAG-PC
-App Domain: /LM/W3SVC/2/ROOT-1-131704798274418414
-ProcessId: 8576
-Process Name: C:\Program Files (x86)\IIS Express\iisexpress.exe
-Thread Name: 
-Win32 ThreadId:7656
-Extended Properties: 
-----------------------------------------
-----------------------------------------
-Timestamp: 5/12/2018 11:20:05 AM
-Message: 5/12/2018 4:50:04 PM
-Exception Summary :
-Error Message :Unhandeled exception found
-Message To User :Unhandeled exception found
-System Defined Message :The parameters dictionary contains a null entry for parameter 'caseGoalId' of non-nullable type 'System.Int32' for method 'System.Web.Mvc.ActionResult IndexAjax(Kendo.Mvc.UI.DataSourceRequest, Int32)' in 'eCMS.Web.Areas.CaseManagement.Controllers.CaseActionNewController'. An optional parameter must be a reference type, a nullable type, or be declared as an optional parameter.
-Parameter name: parameters
-Machine Name :CHIRAG-PC
-Domain Name :/LM/W3SVC/2/ROOT-1-131705975075182829
-Host Name :Chirag-PC
-OS Version :Microsoft Windows NT 6.1.7601 Service Pack 1
-Error Stack 1)
- 
-The parameters dictionary contains a null entry for parameter 'caseGoalId' of non-nullable type 'System.Int32' for method 'System.Web.Mvc.ActionResult IndexAjax(Kendo.Mvc.UI.DataSourceRequest, Int32)' in 'eCMS.Web.Areas.CaseManagement.Controllers.CaseActionNewController'. An optional parameter must be a reference type, a nullable type, or be declared as an optional parameter.
-Parameter name: parameters
-
-
-Call Stack
-
-   at System.Web.Mvc.ActionDescriptor.ExtractParameterFromDictionary(ParameterInfo parameterInfo, IDictionary`2 parameters, MethodInfo methodInfo)
-   at System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
-   at System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<BeginInvokeSynchronousActionMethod>b__39(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3d()
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass33.<BeginInvokeActionMethodWithFilters>b__32(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<>c__DisplayClass2b.<BeginInvokeAction>b__1c()
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<BeginInvokeAction>b__1e(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeAction(IAsyncResult asyncResult)
-   at System.Web.Mvc.Controller.<BeginExecuteCore>b__1d(IAsyncResult asyncResult, ExecuteCoreState innerState)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
-   at System.Web.Mvc.Controller.EndExecuteCore(IAsyncResult asyncResult)
-   at System.Web.Mvc.Controller.<BeginExecute>b__15(IAsyncResult asyncResult, Controller controller)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
-   at System.Web.Mvc.Controller.EndExecute(IAsyncResult asyncResult)
-   at System.Web.Mvc.Controller.System.Web.Mvc.Async.IAsyncController.EndExecute(IAsyncResult asyncResult)
-   at System.Web.Mvc.MvcHandler.<BeginProcessRequest>b__5(IAsyncResult asyncResult, ProcessRequestState innerState)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
-   at System.Web.Mvc.MvcHandler.EndProcessRequest(IAsyncResult asyncResult)
-   at System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.EndProcessRequest(IAsyncResult result)
-   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
-   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
-Category: General
-Priority: 0
-EventId: 100
-Severity: Error
-Title:
-Machine: CHIRAG-PC
-App Domain: /LM/W3SVC/2/ROOT-1-131705975075182829
-ProcessId: 9208
-Process Name: C:\Program Files (x86)\IIS Express\iisexpress.exe
-Thread Name: 
-Win32 ThreadId:9348
-Extended Properties: 
-----------------------------------------
-----------------------------------------
-Timestamp: 5/12/2018 11:20:48 AM
-Message: 5/12/2018 4:50:48 PM
-Exception Summary :
-Error Message :Unhandeled exception found
-Message To User :Unhandeled exception found
-System Defined Message :The parameters dictionary contains a null entry for parameter 'caseGoalId' of non-nullable type 'System.Int32' for method 'System.Web.Mvc.ActionResult IndexAjax(Kendo.Mvc.UI.DataSourceRequest, Int32)' in 'eCMS.Web.Areas.CaseManagement.Controllers.CaseActionNewController'. An optional parameter must be a reference type, a nullable type, or be declared as an optional parameter.
-Parameter name: parameters
-Machine Name :CHIRAG-PC
-Domain Name :/LM/W3SVC/2/ROOT-1-131705975075182829
-Host Name :Chirag-PC
-OS Version :Microsoft Windows NT 6.1.7601 Service Pack 1
-Error Stack 1)
- 
-The parameters dictionary contains a null entry for parameter 'caseGoalId' of non-nullable type 'System.Int32' for method 'System.Web.Mvc.ActionResult IndexAjax(Kendo.Mvc.UI.DataSourceRequest, Int32)' in 'eCMS.Web.Areas.CaseManagement.Controllers.CaseActionNewController'. An optional parameter must be a reference type, a nullable type, or be declared as an optional parameter.
-Parameter name: parameters
-
-
-Call Stack
-
-   at System.Web.Mvc.ActionDescriptor.ExtractParameterFromDictionary(ParameterInfo parameterInfo, IDictionary`2 parameters, MethodInfo methodInfo)
-   at System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
-   at System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<BeginInvokeSynchronousActionMethod>b__39(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3d()
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass33.<BeginInvokeActionMethodWithFilters>b__32(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<>c__DisplayClass2b.<BeginInvokeAction>b__1c()
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<BeginInvokeAction>b__1e(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeAction(IAsyncResult asyncResult)
-   at System.Web.Mvc.Controller.<BeginExecuteCore>b__1d(IAsyncResult asyncResult, ExecuteCoreState innerState)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
-   at System.Web.Mvc.Controller.EndExecuteCore(IAsyncResult asyncResult)
-   at System.Web.Mvc.Controller.<BeginExecute>b__15(IAsyncResult asyncResult, Controller controller)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
-   at System.Web.Mvc.Controller.EndExecute(IAsyncResult asyncResult)
-   at System.Web.Mvc.Controller.System.Web.Mvc.Async.IAsyncController.EndExecute(IAsyncResult asyncResult)
-   at System.Web.Mvc.MvcHandler.<BeginProcessRequest>b__5(IAsyncResult asyncResult, ProcessRequestState innerState)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
-   at System.Web.Mvc.MvcHandler.EndProcessRequest(IAsyncResult asyncResult)
-   at System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.EndProcessRequest(IAsyncResult result)
-   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
-   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
-Category: General
-Priority: 0
-EventId: 100
-Severity: Error
-Title:
-Machine: CHIRAG-PC
-App Domain: /LM/W3SVC/2/ROOT-1-131705975075182829
-ProcessId: 9208
-Process Name: C:\Program Files (x86)\IIS Express\iisexpress.exe
-Thread Name: 
-Win32 ThreadId:9348
-Extended Properties: 
-----------------------------------------
-----------------------------------------
-Timestamp: 5/12/2018 11:23:29 AM
-Message: 5/12/2018 4:53:29 PM
+Timestamp: 5/13/2018 6:43:49 AM
+Message: 5/13/2018 12:13:49 PM
 Exception Summary :
 Error Message :Unhandeled exception found
 Message To User :Unhandeled exception found
 System Defined Message :The controller for path '/assets/styles/bootstrap.css.map' was not found or does not implement IController.
 Machine Name :CHIRAG-PC
-Domain Name :/LM/W3SVC/2/ROOT-1-131705975075182829
+Domain Name :/LM/W3SVC/2/ROOT-1-131706668259135120
 Host Name :Chirag-PC
 OS Version :Microsoft Windows NT 6.1.7601 Service Pack 1
 Error Stack 1)
@@ -311,66 +108,37 @@ EventId: 100
 Severity: Error
 Title:
 Machine: CHIRAG-PC
-App Domain: /LM/W3SVC/2/ROOT-1-131705975075182829
-ProcessId: 9208
+App Domain: /LM/W3SVC/2/ROOT-1-131706668259135120
+ProcessId: 6844
 Process Name: C:\Program Files (x86)\IIS Express\iisexpress.exe
 Thread Name: 
-Win32 ThreadId:6924
+Win32 ThreadId:4748
 Extended Properties: 
 ----------------------------------------
 ----------------------------------------
-Timestamp: 5/12/2018 11:25:33 AM
-Message: 5/12/2018 4:55:32 PM
+Timestamp: 5/13/2018 6:50:11 AM
+Message: 5/13/2018 12:20:11 PM
 Exception Summary :
 Error Message :Unhandeled exception found
 Message To User :Unhandeled exception found
-System Defined Message :The parameters dictionary contains a null entry for parameter 'caseGoalId' of non-nullable type 'System.Int32' for method 'System.Web.Mvc.ActionResult IndexAjax(Kendo.Mvc.UI.DataSourceRequest, Int32)' in 'eCMS.Web.Areas.CaseManagement.Controllers.CaseActionNewController'. An optional parameter must be a reference type, a nullable type, or be declared as an optional parameter.
-Parameter name: parameters
+System Defined Message :The controller for path '/assets/styles/bootstrap.css.map' was not found or does not implement IController.
 Machine Name :CHIRAG-PC
-Domain Name :/LM/W3SVC/2/ROOT-1-131705978820447046
+Domain Name :/LM/W3SVC/2/ROOT-1-131706668259135120
 Host Name :Chirag-PC
 OS Version :Microsoft Windows NT 6.1.7601 Service Pack 1
 Error Stack 1)
  
-The parameters dictionary contains a null entry for parameter 'caseGoalId' of non-nullable type 'System.Int32' for method 'System.Web.Mvc.ActionResult IndexAjax(Kendo.Mvc.UI.DataSourceRequest, Int32)' in 'eCMS.Web.Areas.CaseManagement.Controllers.CaseActionNewController'. An optional parameter must be a reference type, a nullable type, or be declared as an optional parameter.
-Parameter name: parameters
+The controller for path '/assets/styles/bootstrap.css.map' was not found or does not implement IController.
 
 
 Call Stack
 
-   at System.Web.Mvc.ActionDescriptor.ExtractParameterFromDictionary(ParameterInfo parameterInfo, IDictionary`2 parameters, MethodInfo methodInfo)
-   at System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
-   at System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<BeginInvokeSynchronousActionMethod>b__39(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3d()
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass33.<BeginInvokeActionMethodWithFilters>b__32(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<>c__DisplayClass2b.<BeginInvokeAction>b__1c()
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<BeginInvokeAction>b__1e(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeAction(IAsyncResult asyncResult)
-   at System.Web.Mvc.Controller.<BeginExecuteCore>b__1d(IAsyncResult asyncResult, ExecuteCoreState innerState)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
-   at System.Web.Mvc.Controller.EndExecuteCore(IAsyncResult asyncResult)
-   at System.Web.Mvc.Controller.<BeginExecute>b__15(IAsyncResult asyncResult, Controller controller)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
-   at System.Web.Mvc.Controller.EndExecute(IAsyncResult asyncResult)
-   at System.Web.Mvc.Controller.System.Web.Mvc.Async.IAsyncController.EndExecute(IAsyncResult asyncResult)
-   at System.Web.Mvc.MvcHandler.<BeginProcessRequest>b__5(IAsyncResult asyncResult, ProcessRequestState innerState)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
-   at System.Web.Mvc.MvcHandler.EndProcessRequest(IAsyncResult asyncResult)
-   at System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.EndProcessRequest(IAsyncResult result)
+   at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.DefaultControllerFactory.CreateController(RequestContext requestContext, String controllerName)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContext httpContext, AsyncCallback callback, Object state)
+   at System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.BeginProcessRequest(HttpContext context, AsyncCallback cb, Object extraData)
    at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
    at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
 Category: General
@@ -379,66 +147,37 @@ EventId: 100
 Severity: Error
 Title:
 Machine: CHIRAG-PC
-App Domain: /LM/W3SVC/2/ROOT-1-131705978820447046
-ProcessId: 11856
+App Domain: /LM/W3SVC/2/ROOT-1-131706668259135120
+ProcessId: 6844
 Process Name: C:\Program Files (x86)\IIS Express\iisexpress.exe
 Thread Name: 
-Win32 ThreadId:11060
+Win32 ThreadId:5188
 Extended Properties: 
 ----------------------------------------
 ----------------------------------------
-Timestamp: 5/12/2018 11:27:55 AM
-Message: 5/12/2018 4:57:55 PM
+Timestamp: 5/13/2018 6:57:00 AM
+Message: 5/13/2018 12:27:00 PM
 Exception Summary :
 Error Message :Unhandeled exception found
 Message To User :Unhandeled exception found
-System Defined Message :The parameters dictionary contains a null entry for parameter 'caseGoalId' of non-nullable type 'System.Int32' for method 'System.Web.Mvc.ActionResult IndexAjax(Kendo.Mvc.UI.DataSourceRequest, Int32)' in 'eCMS.Web.Areas.CaseManagement.Controllers.CaseActionNewController'. An optional parameter must be a reference type, a nullable type, or be declared as an optional parameter.
-Parameter name: parameters
+System Defined Message :The controller for path '/assets/styles/bootstrap.css.map' was not found or does not implement IController.
 Machine Name :CHIRAG-PC
-Domain Name :/LM/W3SVC/2/ROOT-1-131705978820447046
+Domain Name :/LM/W3SVC/2/ROOT-1-131706668259135120
 Host Name :Chirag-PC
 OS Version :Microsoft Windows NT 6.1.7601 Service Pack 1
 Error Stack 1)
  
-The parameters dictionary contains a null entry for parameter 'caseGoalId' of non-nullable type 'System.Int32' for method 'System.Web.Mvc.ActionResult IndexAjax(Kendo.Mvc.UI.DataSourceRequest, Int32)' in 'eCMS.Web.Areas.CaseManagement.Controllers.CaseActionNewController'. An optional parameter must be a reference type, a nullable type, or be declared as an optional parameter.
-Parameter name: parameters
+The controller for path '/assets/styles/bootstrap.css.map' was not found or does not implement IController.
 
 
 Call Stack
 
-   at System.Web.Mvc.ActionDescriptor.ExtractParameterFromDictionary(ParameterInfo parameterInfo, IDictionary`2 parameters, MethodInfo methodInfo)
-   at System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
-   at System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<BeginInvokeSynchronousActionMethod>b__39(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3d()
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass33.<BeginInvokeActionMethodWithFilters>b__32(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<>c__DisplayClass2b.<BeginInvokeAction>b__1c()
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<BeginInvokeAction>b__1e(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeAction(IAsyncResult asyncResult)
-   at System.Web.Mvc.Controller.<BeginExecuteCore>b__1d(IAsyncResult asyncResult, ExecuteCoreState innerState)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
-   at System.Web.Mvc.Controller.EndExecuteCore(IAsyncResult asyncResult)
-   at System.Web.Mvc.Controller.<BeginExecute>b__15(IAsyncResult asyncResult, Controller controller)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
-   at System.Web.Mvc.Controller.EndExecute(IAsyncResult asyncResult)
-   at System.Web.Mvc.Controller.System.Web.Mvc.Async.IAsyncController.EndExecute(IAsyncResult asyncResult)
-   at System.Web.Mvc.MvcHandler.<BeginProcessRequest>b__5(IAsyncResult asyncResult, ProcessRequestState innerState)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
-   at System.Web.Mvc.MvcHandler.EndProcessRequest(IAsyncResult asyncResult)
-   at System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.EndProcessRequest(IAsyncResult result)
+   at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.DefaultControllerFactory.CreateController(RequestContext requestContext, String controllerName)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContext httpContext, AsyncCallback callback, Object state)
+   at System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.BeginProcessRequest(HttpContext context, AsyncCallback cb, Object extraData)
    at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
    at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
 Category: General
@@ -447,66 +186,37 @@ EventId: 100
 Severity: Error
 Title:
 Machine: CHIRAG-PC
-App Domain: /LM/W3SVC/2/ROOT-1-131705978820447046
-ProcessId: 11856
+App Domain: /LM/W3SVC/2/ROOT-1-131706668259135120
+ProcessId: 6844
 Process Name: C:\Program Files (x86)\IIS Express\iisexpress.exe
 Thread Name: 
-Win32 ThreadId:8508
+Win32 ThreadId:6452
 Extended Properties: 
 ----------------------------------------
 ----------------------------------------
-Timestamp: 5/12/2018 11:28:05 AM
-Message: 5/12/2018 4:58:05 PM
+Timestamp: 5/13/2018 6:59:32 AM
+Message: 5/13/2018 12:29:32 PM
 Exception Summary :
 Error Message :Unhandeled exception found
 Message To User :Unhandeled exception found
-System Defined Message :The parameters dictionary contains a null entry for parameter 'caseGoalId' of non-nullable type 'System.Int32' for method 'System.Web.Mvc.ActionResult IndexAjax(Kendo.Mvc.UI.DataSourceRequest, Int32)' in 'eCMS.Web.Areas.CaseManagement.Controllers.CaseActionNewController'. An optional parameter must be a reference type, a nullable type, or be declared as an optional parameter.
-Parameter name: parameters
+System Defined Message :The controller for path '/assets/styles/bootstrap.css.map' was not found or does not implement IController.
 Machine Name :CHIRAG-PC
-Domain Name :/LM/W3SVC/2/ROOT-1-131705978820447046
+Domain Name :/LM/W3SVC/2/ROOT-1-131706668259135120
 Host Name :Chirag-PC
 OS Version :Microsoft Windows NT 6.1.7601 Service Pack 1
 Error Stack 1)
  
-The parameters dictionary contains a null entry for parameter 'caseGoalId' of non-nullable type 'System.Int32' for method 'System.Web.Mvc.ActionResult IndexAjax(Kendo.Mvc.UI.DataSourceRequest, Int32)' in 'eCMS.Web.Areas.CaseManagement.Controllers.CaseActionNewController'. An optional parameter must be a reference type, a nullable type, or be declared as an optional parameter.
-Parameter name: parameters
+The controller for path '/assets/styles/bootstrap.css.map' was not found or does not implement IController.
 
 
 Call Stack
 
-   at System.Web.Mvc.ActionDescriptor.ExtractParameterFromDictionary(ParameterInfo parameterInfo, IDictionary`2 parameters, MethodInfo methodInfo)
-   at System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
-   at System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<BeginInvokeSynchronousActionMethod>b__39(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3d()
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass33.<BeginInvokeActionMethodWithFilters>b__32(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<>c__DisplayClass2b.<BeginInvokeAction>b__1c()
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<BeginInvokeAction>b__1e(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeAction(IAsyncResult asyncResult)
-   at System.Web.Mvc.Controller.<BeginExecuteCore>b__1d(IAsyncResult asyncResult, ExecuteCoreState innerState)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
-   at System.Web.Mvc.Controller.EndExecuteCore(IAsyncResult asyncResult)
-   at System.Web.Mvc.Controller.<BeginExecute>b__15(IAsyncResult asyncResult, Controller controller)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
-   at System.Web.Mvc.Controller.EndExecute(IAsyncResult asyncResult)
-   at System.Web.Mvc.Controller.System.Web.Mvc.Async.IAsyncController.EndExecute(IAsyncResult asyncResult)
-   at System.Web.Mvc.MvcHandler.<BeginProcessRequest>b__5(IAsyncResult asyncResult, ProcessRequestState innerState)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
-   at System.Web.Mvc.MvcHandler.EndProcessRequest(IAsyncResult asyncResult)
-   at System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.EndProcessRequest(IAsyncResult result)
+   at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.DefaultControllerFactory.CreateController(RequestContext requestContext, String controllerName)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContext httpContext, AsyncCallback callback, Object state)
+   at System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.BeginProcessRequest(HttpContext context, AsyncCallback cb, Object extraData)
    at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
    at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
 Category: General
@@ -515,66 +225,37 @@ EventId: 100
 Severity: Error
 Title:
 Machine: CHIRAG-PC
-App Domain: /LM/W3SVC/2/ROOT-1-131705978820447046
-ProcessId: 11856
+App Domain: /LM/W3SVC/2/ROOT-1-131706668259135120
+ProcessId: 6844
 Process Name: C:\Program Files (x86)\IIS Express\iisexpress.exe
 Thread Name: 
-Win32 ThreadId:11824
+Win32 ThreadId:6908
 Extended Properties: 
 ----------------------------------------
 ----------------------------------------
-Timestamp: 5/12/2018 11:28:46 AM
-Message: 5/12/2018 4:58:46 PM
+Timestamp: 5/13/2018 6:59:38 AM
+Message: 5/13/2018 12:29:38 PM
 Exception Summary :
 Error Message :Unhandeled exception found
 Message To User :Unhandeled exception found
-System Defined Message :The parameters dictionary contains a null entry for parameter 'caseGoalId' of non-nullable type 'System.Int32' for method 'System.Web.Mvc.ActionResult IndexAjax(Kendo.Mvc.UI.DataSourceRequest, Int32)' in 'eCMS.Web.Areas.CaseManagement.Controllers.CaseActionNewController'. An optional parameter must be a reference type, a nullable type, or be declared as an optional parameter.
-Parameter name: parameters
+System Defined Message :The controller for path '/assets/styles/bootstrap.css.map' was not found or does not implement IController.
 Machine Name :CHIRAG-PC
-Domain Name :/LM/W3SVC/2/ROOT-1-131705978820447046
+Domain Name :/LM/W3SVC/2/ROOT-1-131706668259135120
 Host Name :Chirag-PC
 OS Version :Microsoft Windows NT 6.1.7601 Service Pack 1
 Error Stack 1)
  
-The parameters dictionary contains a null entry for parameter 'caseGoalId' of non-nullable type 'System.Int32' for method 'System.Web.Mvc.ActionResult IndexAjax(Kendo.Mvc.UI.DataSourceRequest, Int32)' in 'eCMS.Web.Areas.CaseManagement.Controllers.CaseActionNewController'. An optional parameter must be a reference type, a nullable type, or be declared as an optional parameter.
-Parameter name: parameters
+The controller for path '/assets/styles/bootstrap.css.map' was not found or does not implement IController.
 
 
 Call Stack
 
-   at System.Web.Mvc.ActionDescriptor.ExtractParameterFromDictionary(ParameterInfo parameterInfo, IDictionary`2 parameters, MethodInfo methodInfo)
-   at System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
-   at System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<BeginInvokeSynchronousActionMethod>b__39(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3d()
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass33.<BeginInvokeActionMethodWithFilters>b__32(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<>c__DisplayClass2b.<BeginInvokeAction>b__1c()
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<BeginInvokeAction>b__1e(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeAction(IAsyncResult asyncResult)
-   at System.Web.Mvc.Controller.<BeginExecuteCore>b__1d(IAsyncResult asyncResult, ExecuteCoreState innerState)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
-   at System.Web.Mvc.Controller.EndExecuteCore(IAsyncResult asyncResult)
-   at System.Web.Mvc.Controller.<BeginExecute>b__15(IAsyncResult asyncResult, Controller controller)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
-   at System.Web.Mvc.Controller.EndExecute(IAsyncResult asyncResult)
-   at System.Web.Mvc.Controller.System.Web.Mvc.Async.IAsyncController.EndExecute(IAsyncResult asyncResult)
-   at System.Web.Mvc.MvcHandler.<BeginProcessRequest>b__5(IAsyncResult asyncResult, ProcessRequestState innerState)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
-   at System.Web.Mvc.MvcHandler.EndProcessRequest(IAsyncResult asyncResult)
-   at System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.EndProcessRequest(IAsyncResult result)
+   at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.DefaultControllerFactory.CreateController(RequestContext requestContext, String controllerName)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContext httpContext, AsyncCallback callback, Object state)
+   at System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.BeginProcessRequest(HttpContext context, AsyncCallback cb, Object extraData)
    at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
    at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
 Category: General
@@ -583,66 +264,37 @@ EventId: 100
 Severity: Error
 Title:
 Machine: CHIRAG-PC
-App Domain: /LM/W3SVC/2/ROOT-1-131705978820447046
-ProcessId: 11856
+App Domain: /LM/W3SVC/2/ROOT-1-131706668259135120
+ProcessId: 6844
 Process Name: C:\Program Files (x86)\IIS Express\iisexpress.exe
 Thread Name: 
-Win32 ThreadId:11092
+Win32 ThreadId:6192
 Extended Properties: 
 ----------------------------------------
 ----------------------------------------
-Timestamp: 5/12/2018 11:29:56 AM
-Message: 5/12/2018 4:59:56 PM
+Timestamp: 5/13/2018 7:00:12 AM
+Message: 5/13/2018 12:30:12 PM
 Exception Summary :
 Error Message :Unhandeled exception found
 Message To User :Unhandeled exception found
-System Defined Message :The parameters dictionary contains a null entry for parameter 'caseGoalId' of non-nullable type 'System.Int32' for method 'System.Web.Mvc.ActionResult IndexAjax(Kendo.Mvc.UI.DataSourceRequest, Int32)' in 'eCMS.Web.Areas.CaseManagement.Controllers.CaseActionNewController'. An optional parameter must be a reference type, a nullable type, or be declared as an optional parameter.
-Parameter name: parameters
+System Defined Message :The controller for path '/assets/styles/bootstrap.css.map' was not found or does not implement IController.
 Machine Name :CHIRAG-PC
-Domain Name :/LM/W3SVC/2/ROOT-1-131705978820447046
+Domain Name :/LM/W3SVC/2/ROOT-1-131706668259135120
 Host Name :Chirag-PC
 OS Version :Microsoft Windows NT 6.1.7601 Service Pack 1
 Error Stack 1)
  
-The parameters dictionary contains a null entry for parameter 'caseGoalId' of non-nullable type 'System.Int32' for method 'System.Web.Mvc.ActionResult IndexAjax(Kendo.Mvc.UI.DataSourceRequest, Int32)' in 'eCMS.Web.Areas.CaseManagement.Controllers.CaseActionNewController'. An optional parameter must be a reference type, a nullable type, or be declared as an optional parameter.
-Parameter name: parameters
+The controller for path '/assets/styles/bootstrap.css.map' was not found or does not implement IController.
 
 
 Call Stack
 
-   at System.Web.Mvc.ActionDescriptor.ExtractParameterFromDictionary(ParameterInfo parameterInfo, IDictionary`2 parameters, MethodInfo methodInfo)
-   at System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
-   at System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<BeginInvokeSynchronousActionMethod>b__39(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3d()
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass33.<BeginInvokeActionMethodWithFilters>b__32(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<>c__DisplayClass2b.<BeginInvokeAction>b__1c()
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<BeginInvokeAction>b__1e(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeAction(IAsyncResult asyncResult)
-   at System.Web.Mvc.Controller.<BeginExecuteCore>b__1d(IAsyncResult asyncResult, ExecuteCoreState innerState)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
-   at System.Web.Mvc.Controller.EndExecuteCore(IAsyncResult asyncResult)
-   at System.Web.Mvc.Controller.<BeginExecute>b__15(IAsyncResult asyncResult, Controller controller)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
-   at System.Web.Mvc.Controller.EndExecute(IAsyncResult asyncResult)
-   at System.Web.Mvc.Controller.System.Web.Mvc.Async.IAsyncController.EndExecute(IAsyncResult asyncResult)
-   at System.Web.Mvc.MvcHandler.<BeginProcessRequest>b__5(IAsyncResult asyncResult, ProcessRequestState innerState)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
-   at System.Web.Mvc.MvcHandler.EndProcessRequest(IAsyncResult asyncResult)
-   at System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.EndProcessRequest(IAsyncResult result)
+   at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.DefaultControllerFactory.CreateController(RequestContext requestContext, String controllerName)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContext httpContext, AsyncCallback callback, Object state)
+   at System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.BeginProcessRequest(HttpContext context, AsyncCallback cb, Object extraData)
    at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
    at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
 Category: General
@@ -651,66 +303,37 @@ EventId: 100
 Severity: Error
 Title:
 Machine: CHIRAG-PC
-App Domain: /LM/W3SVC/2/ROOT-1-131705978820447046
-ProcessId: 11856
+App Domain: /LM/W3SVC/2/ROOT-1-131706668259135120
+ProcessId: 6844
 Process Name: C:\Program Files (x86)\IIS Express\iisexpress.exe
 Thread Name: 
-Win32 ThreadId:6584
+Win32 ThreadId:5924
 Extended Properties: 
 ----------------------------------------
 ----------------------------------------
-Timestamp: 5/12/2018 11:30:40 AM
-Message: 5/12/2018 5:00:40 PM
+Timestamp: 5/13/2018 5:59:56 PM
+Message: 5/13/2018 11:29:56 PM
 Exception Summary :
 Error Message :Unhandeled exception found
 Message To User :Unhandeled exception found
-System Defined Message :The parameters dictionary contains a null entry for parameter 'caseGoalId' of non-nullable type 'System.Int32' for method 'System.Web.Mvc.ActionResult IndexAjax(Kendo.Mvc.UI.DataSourceRequest, Int32)' in 'eCMS.Web.Areas.CaseManagement.Controllers.CaseActionNewController'. An optional parameter must be a reference type, a nullable type, or be declared as an optional parameter.
-Parameter name: parameters
+System Defined Message :The controller for path '/assets/styles/bootstrap.css.map' was not found or does not implement IController.
 Machine Name :CHIRAG-PC
-Domain Name :/LM/W3SVC/2/ROOT-1-131705978820447046
+Domain Name :/LM/W3SVC/2/ROOT-1-131707078701146951
 Host Name :Chirag-PC
 OS Version :Microsoft Windows NT 6.1.7601 Service Pack 1
 Error Stack 1)
  
-The parameters dictionary contains a null entry for parameter 'caseGoalId' of non-nullable type 'System.Int32' for method 'System.Web.Mvc.ActionResult IndexAjax(Kendo.Mvc.UI.DataSourceRequest, Int32)' in 'eCMS.Web.Areas.CaseManagement.Controllers.CaseActionNewController'. An optional parameter must be a reference type, a nullable type, or be declared as an optional parameter.
-Parameter name: parameters
+The controller for path '/assets/styles/bootstrap.css.map' was not found or does not implement IController.
 
 
 Call Stack
 
-   at System.Web.Mvc.ActionDescriptor.ExtractParameterFromDictionary(ParameterInfo parameterInfo, IDictionary`2 parameters, MethodInfo methodInfo)
-   at System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext controllerContext, IDictionary`2 parameters)
-   at System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<BeginInvokeSynchronousActionMethod>b__39(IAsyncResult asyncResult, ActionInvocation innerInvokeState)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`2.CallEndDelegate(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethod(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3d()
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.AsyncInvocationWithFilters.<>c__DisplayClass46.<InvokeActionMethodFilterAsynchronouslyRecursive>b__3f()
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass33.<BeginInvokeActionMethodWithFilters>b__32(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeActionMethodWithFilters(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<>c__DisplayClass2b.<BeginInvokeAction>b__1c()
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<BeginInvokeAction>b__1e(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResult`1.CallEndDelegate(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
-   at System.Web.Mvc.Async.AsyncControllerActionInvoker.EndInvokeAction(IAsyncResult asyncResult)
-   at System.Web.Mvc.Controller.<BeginExecuteCore>b__1d(IAsyncResult asyncResult, ExecuteCoreState innerState)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
-   at System.Web.Mvc.Controller.EndExecuteCore(IAsyncResult asyncResult)
-   at System.Web.Mvc.Controller.<BeginExecute>b__15(IAsyncResult asyncResult, Controller controller)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
-   at System.Web.Mvc.Controller.EndExecute(IAsyncResult asyncResult)
-   at System.Web.Mvc.Controller.System.Web.Mvc.Async.IAsyncController.EndExecute(IAsyncResult asyncResult)
-   at System.Web.Mvc.MvcHandler.<BeginProcessRequest>b__5(IAsyncResult asyncResult, ProcessRequestState innerState)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncVoid`1.CallEndDelegate(IAsyncResult asyncResult)
-   at System.Web.Mvc.Async.AsyncResultWrapper.WrappedAsyncResultBase`1.End()
-   at System.Web.Mvc.MvcHandler.EndProcessRequest(IAsyncResult asyncResult)
-   at System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.EndProcessRequest(IAsyncResult result)
+   at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.DefaultControllerFactory.CreateController(RequestContext requestContext, String controllerName)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContext httpContext, AsyncCallback callback, Object state)
+   at System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.BeginProcessRequest(HttpContext context, AsyncCallback cb, Object extraData)
    at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
    at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
 Category: General
@@ -719,11 +342,511 @@ EventId: 100
 Severity: Error
 Title:
 Machine: CHIRAG-PC
-App Domain: /LM/W3SVC/2/ROOT-1-131705978820447046
-ProcessId: 11856
+App Domain: /LM/W3SVC/2/ROOT-1-131707078701146951
+ProcessId: 672
 Process Name: C:\Program Files (x86)\IIS Express\iisexpress.exe
 Thread Name: 
-Win32 ThreadId:9816
+Win32 ThreadId:3200
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 5/13/2018 6:00:59 PM
+Message: 5/13/2018 11:30:59 PM
+Exception Summary :
+Error Message :Unhandeled exception found
+Message To User :Unhandeled exception found
+System Defined Message :The controller for path '/assets/styles/bootstrap.css.map' was not found or does not implement IController.
+Machine Name :CHIRAG-PC
+Domain Name :/LM/W3SVC/2/ROOT-1-131707078701146951
+Host Name :Chirag-PC
+OS Version :Microsoft Windows NT 6.1.7601 Service Pack 1
+Error Stack 1)
+ 
+The controller for path '/assets/styles/bootstrap.css.map' was not found or does not implement IController.
+
+
+Call Stack
+
+   at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.DefaultControllerFactory.CreateController(RequestContext requestContext, String controllerName)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContext httpContext, AsyncCallback callback, Object state)
+   at System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.BeginProcessRequest(HttpContext context, AsyncCallback cb, Object extraData)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+Category: General
+Priority: 0
+EventId: 100
+Severity: Error
+Title:
+Machine: CHIRAG-PC
+App Domain: /LM/W3SVC/2/ROOT-1-131707078701146951
+ProcessId: 672
+Process Name: C:\Program Files (x86)\IIS Express\iisexpress.exe
+Thread Name: 
+Win32 ThreadId:2272
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 5/13/2018 6:04:05 PM
+Message: 5/13/2018 11:34:05 PM
+Exception Summary :
+Error Message :Unhandeled exception found
+Message To User :Unhandeled exception found
+System Defined Message :The controller for path '/assets/styles/bootstrap.css.map' was not found or does not implement IController.
+Machine Name :CHIRAG-PC
+Domain Name :/LM/W3SVC/2/ROOT-1-131707078701146951
+Host Name :Chirag-PC
+OS Version :Microsoft Windows NT 6.1.7601 Service Pack 1
+Error Stack 1)
+ 
+The controller for path '/assets/styles/bootstrap.css.map' was not found or does not implement IController.
+
+
+Call Stack
+
+   at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.DefaultControllerFactory.CreateController(RequestContext requestContext, String controllerName)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContext httpContext, AsyncCallback callback, Object state)
+   at System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.BeginProcessRequest(HttpContext context, AsyncCallback cb, Object extraData)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+Category: General
+Priority: 0
+EventId: 100
+Severity: Error
+Title:
+Machine: CHIRAG-PC
+App Domain: /LM/W3SVC/2/ROOT-1-131707078701146951
+ProcessId: 672
+Process Name: C:\Program Files (x86)\IIS Express\iisexpress.exe
+Thread Name: 
+Win32 ThreadId:2656
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 5/13/2018 6:05:48 PM
+Message: 5/13/2018 11:35:48 PM
+Exception Summary :
+Error Message :Unhandeled exception found
+Message To User :Unhandeled exception found
+System Defined Message :The controller for path '/assets/styles/bootstrap.css.map' was not found or does not implement IController.
+Machine Name :CHIRAG-PC
+Domain Name :/LM/W3SVC/2/ROOT-1-131707078701146951
+Host Name :Chirag-PC
+OS Version :Microsoft Windows NT 6.1.7601 Service Pack 1
+Error Stack 1)
+ 
+The controller for path '/assets/styles/bootstrap.css.map' was not found or does not implement IController.
+
+
+Call Stack
+
+   at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.DefaultControllerFactory.CreateController(RequestContext requestContext, String controllerName)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContext httpContext, AsyncCallback callback, Object state)
+   at System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.BeginProcessRequest(HttpContext context, AsyncCallback cb, Object extraData)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+Category: General
+Priority: 0
+EventId: 100
+Severity: Error
+Title:
+Machine: CHIRAG-PC
+App Domain: /LM/W3SVC/2/ROOT-1-131707078701146951
+ProcessId: 672
+Process Name: C:\Program Files (x86)\IIS Express\iisexpress.exe
+Thread Name: 
+Win32 ThreadId:3096
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 5/13/2018 6:07:01 PM
+Message: 5/13/2018 11:37:01 PM
+Exception Summary :
+Error Message :Unhandeled exception found
+Message To User :Unhandeled exception found
+System Defined Message :The controller for path '/assets/styles/bootstrap.css.map' was not found or does not implement IController.
+Machine Name :CHIRAG-PC
+Domain Name :/LM/W3SVC/2/ROOT-1-131707078701146951
+Host Name :Chirag-PC
+OS Version :Microsoft Windows NT 6.1.7601 Service Pack 1
+Error Stack 1)
+ 
+The controller for path '/assets/styles/bootstrap.css.map' was not found or does not implement IController.
+
+
+Call Stack
+
+   at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.DefaultControllerFactory.CreateController(RequestContext requestContext, String controllerName)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContext httpContext, AsyncCallback callback, Object state)
+   at System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.BeginProcessRequest(HttpContext context, AsyncCallback cb, Object extraData)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+Category: General
+Priority: 0
+EventId: 100
+Severity: Error
+Title:
+Machine: CHIRAG-PC
+App Domain: /LM/W3SVC/2/ROOT-1-131707078701146951
+ProcessId: 672
+Process Name: C:\Program Files (x86)\IIS Express\iisexpress.exe
+Thread Name: 
+Win32 ThreadId:4200
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 5/13/2018 6:18:42 PM
+Message: 5/13/2018 11:48:42 PM
+Exception Summary :
+Error Message :Unhandeled exception found
+Message To User :Unhandeled exception found
+System Defined Message :The controller for path '/assets/styles/bootstrap.css.map' was not found or does not implement IController.
+Machine Name :CHIRAG-PC
+Domain Name :/LM/W3SVC/2/ROOT-1-131707089016576960
+Host Name :Chirag-PC
+OS Version :Microsoft Windows NT 6.1.7601 Service Pack 1
+Error Stack 1)
+ 
+The controller for path '/assets/styles/bootstrap.css.map' was not found or does not implement IController.
+
+
+Call Stack
+
+   at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.DefaultControllerFactory.CreateController(RequestContext requestContext, String controllerName)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContext httpContext, AsyncCallback callback, Object state)
+   at System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.BeginProcessRequest(HttpContext context, AsyncCallback cb, Object extraData)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+Category: General
+Priority: 0
+EventId: 100
+Severity: Error
+Title:
+Machine: CHIRAG-PC
+App Domain: /LM/W3SVC/2/ROOT-1-131707089016576960
+ProcessId: 6136
+Process Name: C:\Program Files (x86)\IIS Express\iisexpress.exe
+Thread Name: 
+Win32 ThreadId:6412
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 5/13/2018 6:20:35 PM
+Message: 5/13/2018 11:50:35 PM
+Exception Summary :
+Error Message :Unhandeled exception found
+Message To User :Unhandeled exception found
+System Defined Message :The controller for path '/assets/styles/bootstrap.css.map' was not found or does not implement IController.
+Machine Name :CHIRAG-PC
+Domain Name :/LM/W3SVC/2/ROOT-1-131707089016576960
+Host Name :Chirag-PC
+OS Version :Microsoft Windows NT 6.1.7601 Service Pack 1
+Error Stack 1)
+ 
+The controller for path '/assets/styles/bootstrap.css.map' was not found or does not implement IController.
+
+
+Call Stack
+
+   at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.DefaultControllerFactory.CreateController(RequestContext requestContext, String controllerName)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContext httpContext, AsyncCallback callback, Object state)
+   at System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.BeginProcessRequest(HttpContext context, AsyncCallback cb, Object extraData)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+Category: General
+Priority: 0
+EventId: 100
+Severity: Error
+Title:
+Machine: CHIRAG-PC
+App Domain: /LM/W3SVC/2/ROOT-1-131707089016576960
+ProcessId: 6136
+Process Name: C:\Program Files (x86)\IIS Express\iisexpress.exe
+Thread Name: 
+Win32 ThreadId:8004
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 5/13/2018 6:21:32 PM
+Message: 5/13/2018 11:51:32 PM
+Exception Summary :
+Error Message :Unhandeled exception found
+Message To User :Unhandeled exception found
+System Defined Message :The controller for path '/assets/styles/bootstrap.css.map' was not found or does not implement IController.
+Machine Name :CHIRAG-PC
+Domain Name :/LM/W3SVC/2/ROOT-1-131707089016576960
+Host Name :Chirag-PC
+OS Version :Microsoft Windows NT 6.1.7601 Service Pack 1
+Error Stack 1)
+ 
+The controller for path '/assets/styles/bootstrap.css.map' was not found or does not implement IController.
+
+
+Call Stack
+
+   at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.DefaultControllerFactory.CreateController(RequestContext requestContext, String controllerName)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContext httpContext, AsyncCallback callback, Object state)
+   at System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.BeginProcessRequest(HttpContext context, AsyncCallback cb, Object extraData)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+Category: General
+Priority: 0
+EventId: 100
+Severity: Error
+Title:
+Machine: CHIRAG-PC
+App Domain: /LM/W3SVC/2/ROOT-1-131707089016576960
+ProcessId: 6136
+Process Name: C:\Program Files (x86)\IIS Express\iisexpress.exe
+Thread Name: 
+Win32 ThreadId:8004
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 5/14/2018 5:50:45 PM
+Message: 5/14/2018 11:20:44 PM
+Exception Summary :
+Error Message :Unhandeled exception found
+Message To User :Unhandeled exception found
+System Defined Message :Member 'IsModified' cannot be called for property 'CaseStatusID' because the entity of type 'Case' does not exist in the context. To add an entity to the context call the Add or Attach method of DbSet<Case>.
+Machine Name :CHIRAG-PC
+Domain Name :/LM/W3SVC/2/ROOT-1-131707935919099404
+Host Name :Chirag-PC
+OS Version :Microsoft Windows NT 6.1.7601 Service Pack 1
+Error Stack 1)
+ 
+Member 'IsModified' cannot be called for property 'CaseStatusID' because the entity of type 'Case' does not exist in the context. To add an entity to the context call the Add or Attach method of DbSet<Case>.
+
+
+Call Stack
+
+   at System.Data.Entity.Internal.InternalPropertyEntry.ValidateNotDetachedAndInModel(String method)
+   at System.Data.Entity.Internal.InternalPropertyEntry.set_IsModified(Boolean value)
+   at System.Data.Entity.Infrastructure.DbPropertyEntry`2.set_IsModified(Boolean value)
+   at eCMS.BusinessLogic.Repositories.CaseRepository.UpdateCaseStatus(Int32 CaseID, Int32 CaseStatusID) in G:\Jay Bhai\ojcmsMaster\OJCMS_2017\eCMS\eCMS.BusinessLogic\Repositories\CaseManagement\CaseRepository.cs:line 730
+   at eCMS.Web.Areas.CaseManagement.Controllers.CaseStatusHistoryController.Create(CaseStatusHistory varCaseStatusHistory) in G:\Jay Bhai\ojcmsMaster\OJCMS_2017\eCMS\eCMS.Web\Areas\CaseManagement\Controllers\CaseStatusHistoryController.cs:line 127
+Category: General
+Priority: 0
+EventId: 100
+Severity: Error
+Title:
+Machine: CHIRAG-PC
+App Domain: /LM/W3SVC/2/ROOT-1-131707935919099404
+ProcessId: 4988
+Process Name: C:\Program Files (x86)\IIS Express\iisexpress.exe
+Thread Name: 
+Win32 ThreadId:5580
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 5/14/2018 6:34:01 PM
+Message: 5/15/2018 12:04:01 AM
+Exception Summary :
+Error Message :Unhandeled exception found
+Message To User :Unhandeled exception found
+System Defined Message :Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.
+Machine Name :CHIRAG-PC
+Domain Name :/LM/W3SVC/2/ROOT-1-131707962106046113
+Host Name :Chirag-PC
+OS Version :Microsoft Windows NT 6.1.7601 Service Pack 1
+Error Stack 1)
+ 
+Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.
+
+
+Call Stack
+
+   at System.Data.Entity.Internal.InternalContext.SaveChanges()
+   at System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   at System.Data.Entity.DbContext.SaveChanges()
+   at eCMS.BusinessLogic.Repositories.Context.RepositoryContext.SaveChanges() in G:\Jay Bhai\ojcmsMaster\OJCMS_2017\eCMS\eCMS.BusinessLogic\Repositories\Context\RepositoryContext.cs:line 75
+   at eCMS.BusinessLogic.Repositories.BaseRepository`1.Save() in G:\Jay Bhai\ojcmsMaster\OJCMS_2017\eCMS\eCMS.BusinessLogic\Repositories\Base\BaseRepository.cs:line 96
+   at eCMS.Web.Areas.CaseManagement.Controllers.CaseStatusHistoryController.Create(CaseStatusHistory varCaseStatusHistory) in G:\Jay Bhai\ojcmsMaster\OJCMS_2017\eCMS\eCMS.Web\Areas\CaseManagement\Controllers\CaseStatusHistoryController.cs:line 128
+Category: General
+Priority: 0
+EventId: 100
+Severity: Error
+Title:
+Machine: CHIRAG-PC
+App Domain: /LM/W3SVC/2/ROOT-1-131707962106046113
+ProcessId: 6304
+Process Name: C:\Program Files (x86)\IIS Express\iisexpress.exe
+Thread Name: 
+Win32 ThreadId:6524
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 5/14/2018 6:34:08 PM
+Message: 5/15/2018 12:04:08 AM
+Exception Summary :
+Error Message :Unhandeled exception found
+Message To User :Unhandeled exception found
+System Defined Message :Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.
+Machine Name :CHIRAG-PC
+Domain Name :/LM/W3SVC/2/ROOT-1-131707962106046113
+Host Name :Chirag-PC
+OS Version :Microsoft Windows NT 6.1.7601 Service Pack 1
+Error Stack 1)
+ 
+Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.
+
+
+Call Stack
+
+   at System.Data.Entity.Internal.InternalContext.SaveChanges()
+   at System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   at System.Data.Entity.DbContext.SaveChanges()
+   at eCMS.BusinessLogic.Repositories.Context.RepositoryContext.SaveChanges() in G:\Jay Bhai\ojcmsMaster\OJCMS_2017\eCMS\eCMS.BusinessLogic\Repositories\Context\RepositoryContext.cs:line 75
+   at eCMS.BusinessLogic.Repositories.BaseRepository`1.Save() in G:\Jay Bhai\ojcmsMaster\OJCMS_2017\eCMS\eCMS.BusinessLogic\Repositories\Base\BaseRepository.cs:line 96
+   at eCMS.Web.Areas.CaseManagement.Controllers.CaseStatusHistoryController.Create(CaseStatusHistory varCaseStatusHistory) in G:\Jay Bhai\ojcmsMaster\OJCMS_2017\eCMS\eCMS.Web\Areas\CaseManagement\Controllers\CaseStatusHistoryController.cs:line 128
+Category: General
+Priority: 0
+EventId: 100
+Severity: Error
+Title:
+Machine: CHIRAG-PC
+App Domain: /LM/W3SVC/2/ROOT-1-131707962106046113
+ProcessId: 6304
+Process Name: C:\Program Files (x86)\IIS Express\iisexpress.exe
+Thread Name: 
+Win32 ThreadId:6848
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 5/14/2018 7:06:42 PM
+Message: 5/15/2018 12:36:42 AM
+Exception Summary :
+Error Message :Unhandeled exception found
+Message To User :Unhandeled exception found
+System Defined Message :The controller for path '/assets/styles/bootstrap.css.map' was not found or does not implement IController.
+Machine Name :CHIRAG-PC
+Domain Name :/LM/W3SVC/2/ROOT-1-131707974766048684
+Host Name :Chirag-PC
+OS Version :Microsoft Windows NT 6.1.7601 Service Pack 1
+Error Stack 1)
+ 
+The controller for path '/assets/styles/bootstrap.css.map' was not found or does not implement IController.
+
+
+Call Stack
+
+   at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.DefaultControllerFactory.CreateController(RequestContext requestContext, String controllerName)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContext httpContext, AsyncCallback callback, Object state)
+   at System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.BeginProcessRequest(HttpContext context, AsyncCallback cb, Object extraData)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+Category: General
+Priority: 0
+EventId: 100
+Severity: Error
+Title:
+Machine: CHIRAG-PC
+App Domain: /LM/W3SVC/2/ROOT-1-131707974766048684
+ProcessId: 8140
+Process Name: C:\Program Files (x86)\IIS Express\iisexpress.exe
+Thread Name: 
+Win32 ThreadId:2056
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 5/14/2018 7:07:21 PM
+Message: 5/15/2018 12:37:21 AM
+Exception Summary :
+Error Message :Unhandeled exception found
+Message To User :Unhandeled exception found
+System Defined Message :The controller for path '/assets/styles/bootstrap.css.map' was not found or does not implement IController.
+Machine Name :CHIRAG-PC
+Domain Name :/LM/W3SVC/2/ROOT-1-131707974766048684
+Host Name :Chirag-PC
+OS Version :Microsoft Windows NT 6.1.7601 Service Pack 1
+Error Stack 1)
+ 
+The controller for path '/assets/styles/bootstrap.css.map' was not found or does not implement IController.
+
+
+Call Stack
+
+   at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.DefaultControllerFactory.CreateController(RequestContext requestContext, String controllerName)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContext httpContext, AsyncCallback callback, Object state)
+   at System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.BeginProcessRequest(HttpContext context, AsyncCallback cb, Object extraData)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+Category: General
+Priority: 0
+EventId: 100
+Severity: Error
+Title:
+Machine: CHIRAG-PC
+App Domain: /LM/W3SVC/2/ROOT-1-131707974766048684
+ProcessId: 8140
+Process Name: C:\Program Files (x86)\IIS Express\iisexpress.exe
+Thread Name: 
+Win32 ThreadId:6044
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 5/14/2018 7:07:46 PM
+Message: 5/15/2018 12:37:46 AM
+Exception Summary :
+Error Message :Unhandeled exception found
+Message To User :Unhandeled exception found
+System Defined Message :The controller for path '/assets/styles/bootstrap.css.map' was not found or does not implement IController.
+Machine Name :CHIRAG-PC
+Domain Name :/LM/W3SVC/2/ROOT-1-131707974766048684
+Host Name :Chirag-PC
+OS Version :Microsoft Windows NT 6.1.7601 Service Pack 1
+Error Stack 1)
+ 
+The controller for path '/assets/styles/bootstrap.css.map' was not found or does not implement IController.
+
+
+Call Stack
+
+   at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.DefaultControllerFactory.CreateController(RequestContext requestContext, String controllerName)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContext httpContext, AsyncCallback callback, Object state)
+   at System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.BeginProcessRequest(HttpContext context, AsyncCallback cb, Object extraData)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+Category: General
+Priority: 0
+EventId: 100
+Severity: Error
+Title:
+Machine: CHIRAG-PC
+App Domain: /LM/W3SVC/2/ROOT-1-131707974766048684
+ProcessId: 8140
+Process Name: C:\Program Files (x86)\IIS Express\iisexpress.exe
+Thread Name: 
+Win32 ThreadId:2992
 Extended Properties: 
 ----------------------------------------
 ----------------------------------------
