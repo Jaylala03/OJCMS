@@ -44,5 +44,11 @@ namespace eCMS.DataLogic.ViewModels
 
         public CaseActionNew CaseActionNew { get; set; }
 
+        [NotMapped]
+        public int CaseID { get; set; }
+
+        [NotMapped]
+        public int CaseGoalID { get; set; }
+
     }
 }

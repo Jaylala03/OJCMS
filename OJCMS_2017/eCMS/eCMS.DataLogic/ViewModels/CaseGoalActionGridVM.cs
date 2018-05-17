@@ -13,6 +13,7 @@ namespace eCMS.DataLogic.ViewModels
     {
         public int ID { get; set; }
         public int CaseGoalID { get; set; }
+        public int CaseID { get; set; }
 
         [Display(Name = "Assigned To")]
         public string AssignedTo { get; set; }
@@ -31,6 +32,9 @@ namespace eCMS.DataLogic.ViewModels
 
         [Display(Name = "Last Updated")]
         public DateTime LastUpdateDate { get; set; }
+
+        [Display(Name = "ACTIONS")]
+        public string Actions { get; set; }
 
     }
 }

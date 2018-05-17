@@ -116,7 +116,7 @@
     {
         var dropdownlist = $("#CaseMemberID").data("kendoDropDownList");
 
-        if ($('#Family').prop('checked'))
+        if ($('input[name=Family]:checked').val() == 'FamilyMember') 
         {
             dropdownlist.enable(true);
         }

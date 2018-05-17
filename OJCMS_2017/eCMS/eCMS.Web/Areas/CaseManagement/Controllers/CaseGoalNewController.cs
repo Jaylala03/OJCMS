@@ -99,6 +99,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
                     if(!varCaseGoalNew.GoalStatusID.HasValue)
                         varCaseGoalNew.GoalStatusID = (int)GoalWorkNote.Inprogress;
 
+                   
                     caseGoalNewRepository.InsertOrUpdate(varCaseGoalNew);
                     caseGoalNewRepository.Save();
 
@@ -108,7 +109,8 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
                         varCaseGoalNew.GoalActionWorkNote.CaseGoalID = varCaseGoalNew.ID;
 
                         varCaseGoalNew.GoalActionWorkNote.StatusID = (int)GoalWorkNote.Inprogress;
-
+                        varCaseGoalNew.GoalActionWorkNote.IsGoal = true;
+                        varCaseGoalNew.GoalActionWorkNote.IsAction = false;
                         goalActionWorkNoteRepository.InsertOrUpdate(varCaseGoalNew.GoalActionWorkNote);
                         goalActionWorkNoteRepository.Save();
                     }
@@ -205,6 +207,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
                 }
 
                 casegoalnew = caseGoalNewRepository.Find(id);
+                
                 if (casegoalnew == null)
                 {
                     //throw an exception if id is provided but data does not exist in database
@@ -212,6 +215,14 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
                 }
                 else
                 {
+                    if (casegoalnew.IsFamily == true && casegoalnew.IsFamilyMember == false)
+                    {
+                        casegoalnew.Family = "Family";
+                    }
+                    else
+                    {
+                        casegoalnew.Family = "FamilyMember";
+                    }
                 }
             }
             else
@@ -222,6 +233,9 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
             }
 
             ViewBag.ContactMediaList = contactmediaRepository.AllActiveForDropDownList;
+            casegoalnew.AssesmentIndicators = caseInitialAssessmentRepository.GetAllIndicators();
+            casegoalnew.CaseInitialAssessment = caseInitialAssessmentRepository.GetCaseAssessment(caseId);
+            casegoalnew.CaseGoalDetailTemplate = caseGoalDetailTemplateRepository.GetByIndicatorType();
             casegoalnew.GoalActionWorkNote = new GoalActionWorkNote();
 
             return View(casegoalnew);
@@ -284,7 +298,8 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
                         varCaseGoalNew.GoalActionWorkNote.CaseGoalID = varCaseGoalNew.ID;
 
                         varCaseGoalNew.GoalActionWorkNote.StatusID = (int)GoalWorkNote.Inprogress;
-
+                        varCaseGoalNew.GoalActionWorkNote.IsGoal = true;
+                        varCaseGoalNew.GoalActionWorkNote.IsAction = false;
                         goalActionWorkNoteRepository.InsertOrUpdate(varCaseGoalNew.GoalActionWorkNote);
                         goalActionWorkNoteRepository.Save();
                     }

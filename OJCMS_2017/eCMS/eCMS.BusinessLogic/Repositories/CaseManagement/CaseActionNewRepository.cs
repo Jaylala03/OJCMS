@@ -112,17 +112,15 @@ namespace eCMS.BusinessLogic.Repositories
                 CaseActionNew.WorkerID = null;
             }
 
-
             if (!string.IsNullOrEmpty(CaseActionNew.ServiceProviderOther))
             {
                 CaseActionNew.AssigneeOther = CaseActionNew.ServiceProviderOther;
             }
 
-            if (!string.IsNullOrEmpty(CaseActionNew.SubjectMatterExpertOther))
-            {
-                CaseActionNew.AssigneeOther = CaseActionNew.SubjectMatterExpertOther;
-            }
-
+            //if (!string.IsNullOrEmpty(CaseActionNew.SubjectMatterExpertOther))
+            //{
+            //    CaseActionNew.AssigneeOther = CaseActionNew.SubjectMatterExpertOther;
+            //}
 
             CaseActionNew.LastUpdateDate = DateTime.Now;
             if (CaseActionNew.ID == default(int))
@@ -252,12 +250,14 @@ namespace eCMS.BusinessLogic.Repositories
         public List<CaseGoalActionGridVM> CaseGoalActionHistory(int CaseGoalID)
         {
             StringBuilder sqlQuery = new StringBuilder();
-            sqlQuery.Append("SELECT CA.CaseGoalID,CA.ID , ");
+            sqlQuery.Append("SELECT CA.CaseID,CA.CaseGoalID,CA.ID , ");
             sqlQuery.Append("CASE WHEN CA.CaseMemberID IS NOT NULL THEN (CM.FirstName+' '+CM.LastName)  ");
-            sqlQuery.Append("WHEN CA.ServiceProviderID IS NOT NULL THEN SP.Name ");
-            sqlQuery.Append("WHEN CA.WorkerID IS NOT NULL THEN 'Subject Matter Expert - ' + (SME.FirstName + ''+SME.LastName) ");
-            sqlQuery.Append("WHEN ISNULL(AssigneeOther,'') <> '' THEN AssigneeOther END ");
-            sqlQuery.Append("AS AssigneeRole,GAR.Name AS AssignedTo, ");
+            sqlQuery.Append("WHEN [CA].[ServiceProviderID] IS NOT NULL AND SP.Name <> 'Other' THEN SP.Name ");
+            sqlQuery.Append("WHEN [CA].[ServiceProviderID] IS NOT NULL AND SP.Name = 'Other' THEN SP.Name + '-' + CA.AssigneeOther ");
+            sqlQuery.Append("WHEN [CA].[WorkerID] > 0 THEN [SME].[FirstName] + ' ' + [SME].[LastName] ");
+            sqlQuery.Append("WHEN [CA].[WorkerID] IS NULL AND ISNULL(CA.SubjectMatterExpertOther,'') <> '' THEN 'Subject Matter Expert - ' + CA.SubjectMatterExpertOther ");
+            sqlQuery.Append("ELSE ISNULL(AssigneeOther,'') END ");
+            sqlQuery.Append("AS [AssignedTo],GAR.Name AS AssigneeRole, ");
             sqlQuery.Append("GS.Name AS ActionStatus,CA.ActionDetail,CA.CreateDate,CA.LastUpdateDate ");
             sqlQuery.Append("FROM CaseActionNew AS CA ");
             sqlQuery.Append("INNER JOIN GoalStatus AS GS ON CA.ActionStatusID = GS.ID ");

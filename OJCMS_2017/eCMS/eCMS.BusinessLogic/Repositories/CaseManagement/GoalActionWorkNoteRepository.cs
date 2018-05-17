@@ -63,7 +63,7 @@ namespace eCMS.BusinessLogic.Repositories
 
         }
 
-        public DataSourceResult Search(DataSourceRequest dsRequest, int GoalID, int ActionID)
+        public DataSourceResult Search(DataSourceRequest dsRequest, bool isGoalOnly, int GoalID, int ActionID)
         {
             if (dsRequest.Filters == null)
             {
@@ -72,21 +72,26 @@ namespace eCMS.BusinessLogic.Repositories
 
             string sqlQuery = "";
 
-            sqlQuery = "SELECT CWN.ID,CWN.CreateDate AS DateLogged, CWN.Note AS Notes, " +
+            sqlQuery = "SELECT CWN.ID,CWN.CreateDate AS DateLogged, CWN.Note, " +
             "CM.Name AS ContactMethod, CWN.NoteDate ,  " +
             "CAST(CWN.TimeSpentHours AS varchar) + ' hrs ' + (CASE WHEN CWN.TimeSpentMinutes > 0 THEN(CAST(CWN.TimeSpentMinutes AS varchar) + 'mins') else '' END) AS TimeSpent,  " +
-            "ISNULL(CG.GoalDetail,CA.ActionDetail) AS Detail," +
+            "CASE WHEN ISNULL(CWN.CaseActionID,0) > 0 THEN ISNULL(CA.ActionDetail,'') ELSE ISNULL(CG.GoalDetail,'') END AS Detail," +
             "GS.Name AS Status, W.FirstName + ' ' + W.LastName AS LoggedBy  " +
             "FROM GoalActionWorkNote AS CWN  " +
             "INNER JOIN ContactMethod AS CM ON CM.ID = CWN.ContactMethodID  " +
             "INNER JOIN Worker AS W ON W.ID = CWN.CreatedByWorkerID  " +
             "LEFT JOIN GoalStatus AS GS ON CWN.StatusID = GS.ID " +
-            "LEFT JOIN CaseGoalNew AS CG ON CWN.CaseGoalID = CWN.ID  " +
-            "LEFT JOIN CaseActionNew AS CA ON CWN.CaseActionID = CA.ID  ";
-            if(GoalID > 0)
-                sqlQuery += "WHERE CWN.CaseGoalID = " + GoalID;
+            "LEFT JOIN CaseGoalNew AS CG ON CWN.CaseGoalID = CG.ID  " +
+            "LEFT JOIN CaseActionNew AS CA ON CWN.CaseActionID = CA.ID  WHERE 1=1 ";
+            if (GoalID > 0)
+            {
+                if (isGoalOnly)
+                    sqlQuery += "AND CWN.CaseGoalID = " + GoalID + " AND CWN.IsGoal = 1";
+                else
+                    sqlQuery += "AND CWN.CaseGoalID = " + GoalID;
+            }
             if(ActionID > 0)
-                sqlQuery += "WHERE CWN.CaseActionID = " + ActionID;
+                sqlQuery += "AND CWN.CaseActionID = " + ActionID + " AND CWN.IsAction = 1";
 
             DataSourceResult dsResult = context.Database.SqlQuery<GoalActionWorkNoteVM>(sqlQuery.ToString()).AsEnumerable().ToDataSourceResult(dsRequest);
             return dsResult;
@@ -100,6 +105,6 @@ namespace eCMS.BusinessLogic.Repositories
     public interface IGoalActionWorkNoteRepository : IBaseRepository<GoalActionWorkNote>
     {
         void InsertOrUpdate(GoalActionWorkNote GoalActionWorkNote);
-        DataSourceResult Search(DataSourceRequest dsRequest,int GoalID, int ActionID);
+        DataSourceResult Search(DataSourceRequest dsRequest,bool isGoalOnly, int GoalID, int ActionID);
     }
 }

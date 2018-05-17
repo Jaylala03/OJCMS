@@ -5,7 +5,7 @@
 @using eCMS.DataLogic.ViewModels;
 @{
     Layout = "~/Views/Shared/_LayoutInternal.cshtml";
-    ViewBag.Title = "Case Goal";
+    ViewBag.Title = "Case Action";
 }
 
 @section headsection
@@ -302,6 +302,7 @@
 
             </div>
             <div id="add_candidate3">
+                <a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.CaseActionNew, new { caseId = Model.CaseID, caseGoalId = Model.CaseGoalID, })" class="btn btn-primary"><i class="fa fa-long-arrow-left"></i> Back to Goal Summary</a>
                 <button class="btn btn-primary" id="btnSaveAndRefreshCaseActionNew" name="btnSaveAndRefreshCaseActionNew"><i class="fa fa-save"></i>Save</button>
             </div>
         </div>

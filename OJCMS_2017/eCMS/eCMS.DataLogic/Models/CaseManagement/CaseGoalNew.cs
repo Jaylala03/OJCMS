@@ -7,7 +7,9 @@
 //*********************************************************
 
 using eCMS.DataLogic.Models.Lookup;
+using eCMS.DataLogic.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Web.Mvc;
@@ -98,5 +100,12 @@ namespace eCMS.DataLogic.Models
 
         [NotMapped]
         public CaseActionNew CaseActionNew { get; set; }
+
+        [NotMapped]
+        public List<CaseGoalDetailTemplate> CaseGoalDetailTemplate { get; set; }
+        [NotMapped]
+        public List<InitialAssessmentIndicatorsVM> AssesmentIndicators { get; set; }
+        [NotMapped]
+        public List<CaseInitialAssessmentVM> CaseInitialAssessment { get; set; }
     }
 }

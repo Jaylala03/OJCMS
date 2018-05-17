@@ -185,22 +185,22 @@
     {
         @Html.HiddenFor(model => model.CaseID)
         <div class="col-md-12">
-            <div class="col-md-5">
-                <div class="form-group02">
-                    <div class="col-sm-3">
-                        <span>
-                            @Html.RadioButtonFor(model => model.Family, "Family")
-                        </span>
-                        <label class="control-label labe-text">@Html.LabelFor(model => model.IsFamily)</label>
-                    </div>
-                    <div class="col-sm-5">
-                        <span>
-                            @Html.RadioButtonFor(model => model.Family, "FamilyMember")
-                        </span>
-                        <label class="control-label labe-text">@Html.LabelFor(model => model.IsFamilyMember)</label>
-                    </div>
-                    <div class="col-sm-4">
-                        @(Html.Kendo().DropDownListFor(model => model.CaseMemberID)
+
+            <div class="form-group02">
+                <div class="col-sm-3">
+                    <span>
+                        @Html.RadioButtonFor(model => model.Family, "Family")
+                    </span>
+                    <label class="control-label labe-text">@Html.LabelFor(model => model.IsFamily)</label>
+                </div>
+                <div class="col-sm-5">
+                    <span>
+                        @Html.RadioButtonFor(model => model.Family, "FamilyMember")
+                    </span>
+                    <label class="control-label labe-text">@Html.LabelFor(model => model.IsFamilyMember)</label>
+                </div>
+                <div class="col-sm-4">
+                    @(Html.Kendo().DropDownListFor(model => model.CaseMemberID)
                     .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
                     .DataTextField("Text")
                     .DataValueField("Value")
@@ -211,75 +211,73 @@
                             read.Action("LoadCaseMemberListAjax", "CaseGoalNew", new { caseID = Model.CaseID });
                         });
                     }).Enable(false)
-                        )
-                    </div>
+                    )
                 </div>
-
             </div>
+
+
         </div>
 
         <div class="col-md-12">
-            <div class="col-md-5">
-                <div class="form-group02">
-                    <div class="col-sm-3">
-                        <label class="control-label labe-text">@Html.Label("Indicators:")</label>
-                    </div>
-                    <div class="col-sm-9">
-                        @*@if (Model.AssesmentIndicators.Count > 0)
-                            {
-                            foreach (var g in Model.AssesmentIndicators)
-                            {
-                            var checkBoxId = "chk" + g.IndicatorTypeID;
-                            <input type="checkbox" id="@checkBoxId" class="chkclass" value="@g.IndicatorTypeID" />
-                            <label>@g.IndicatorName</label>
-                            }
-                            }*@
-                        <label> @Html.CheckBoxFor(m => m.Education)Educaion</label>
-                        <label>
-                            @Html.CheckBoxFor(m => m.IncomeLivelihood)Income & Livelihood
-                        </label>
-                        <label>
-                            @Html.CheckBoxFor(m => m.Assets)Assets & Life Skills
-                        </label>
-                        <label>
-                            @Html.CheckBoxFor(m => m.Housing)Housing
-                        </label>
-                        <label>
-                            @Html.CheckBoxFor(m => m.SocialSupport)Social Support
-                        </label>
-                        <label>
-                            @Html.CheckBoxFor(m => m.Dignity)Dignity & Self Respect
-                        </label>
-                        <label>@Html.CheckBoxFor(m => m.Health)Health</label>
-                    </div>
+            <div class="form-group02">
+                <div class="col-sm-3">
+                    <label class="control-label labe-text">@Html.Label("Indicators:")</label>
+                </div>
+                <div class="col-sm-6">
+                    @*@if (Model.AssesmentIndicators.Count > 0)
+                        {
+                        foreach (var g in Model.AssesmentIndicators)
+                        {
+                        var checkBoxId = "chk" + g.IndicatorTypeID;
+                        <input type="checkbox" id="@checkBoxId" class="chkclass" value="@g.IndicatorTypeID" />
+                        <label>@g.IndicatorName</label>
+                        }
+                        }*@
+                    <label> @Html.CheckBoxFor(m => m.Education)Educaion</label>
+                    <label>
+                        @Html.CheckBoxFor(m => m.IncomeLivelihood)Income & Livelihood
+                    </label>
+                    <label>
+                        @Html.CheckBoxFor(m => m.Assets)Assets & Life Skills
+                    </label>
+                    <label>
+                        @Html.CheckBoxFor(m => m.Housing)Housing
+                    </label>
+                    <label>
+                        @Html.CheckBoxFor(m => m.SocialSupport)Social Support
+                    </label>
+                    <label>
+                        @Html.CheckBoxFor(m => m.Dignity)Dignity & Self Respect
+                    </label>
+                    <label>@Html.CheckBoxFor(m => m.Health)Health</label>
                 </div>
             </div>
+
         </div>
 
         <div class="col-md-12">
-            <div class="col-md-10">
-                <div class="form-group02">
-                    <div class="col-sm-2">
-                        <label class="control-label labe-text">@Html.Label("Goal Details:")</label>
-                    </div>
-                    <div class="col-sm-5">
-                        @Html.TextAreaFor(model => model.GoalDetail, new { @class = "form-control", rows = 4, cols = 50 })
-                    </div>
-                    <div class="col-sm-4">
-                        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Show Templates</button>
-                    </div>
+            <div class="form-group02">
+                <div class="col-sm-2">
+                    <label class="control-label labe-text">@Html.Label("Goal Details:")</label>
+                </div>
+                <div class="col-sm-5">
+                    @Html.TextAreaFor(model => model.GoalDetail, new { @class = "form-control", rows = 4, cols = 50 })
+                </div>
+                <div class="col-sm-4">
+                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Show Templates</button>
                 </div>
             </div>
+
         </div>
 
         <div class="col-md-12">
-            <div class="col-md-10">
-                <div class="form-group02">
-                    <div class="col-sm-3">
-                        <label class="control-label labe-text">@Html.LabelRequiredFor(model => model.PriorityTypeID)</label>
-                    </div>
-                    <div class="col-sm-5">
-                        @(Html.Kendo().DropDownListFor(model => model.PriorityTypeID)
+
+            <div class="form-group02">
+                <div class="col-sm-3">
+                    <label class="control-label labe-text">@Html.LabelRequiredFor(model => model.PriorityTypeID)</label>
+                </div>
+                <div class="col-sm-5">
+                    @(Html.Kendo().DropDownListFor(model => model.PriorityTypeID)
                     .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
                     .DataTextField("Text")
                     .DataValueField("Value")
@@ -290,39 +288,39 @@
                             read.Action("LoadRiskTypeAjax", "CaseAssessment");
                         });
                     })
-                        )
-                    </div>
+                    )
                 </div>
             </div>
+
         </div>
 
         <div class="col-md-12">
-            <div class="col-md-12">
-                <div class="form-group02">
-                    <div class="col-sm-7">
-                        @*@{
-                            string name = Html.NameFor(model => model.CaseWorkerNote).ToString();
-                            string prefix = Html.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name);
-                            ViewDataDictionary viewData = new ViewDataDictionary(Html.ViewData)
-                            {
-                            TemplateInfo = new TemplateInfo { HtmlFieldPrefix = prefix }
-                            };
-                            }
-                            @Html.Partial("WorkNote", Model.CaseWorkerNote, viewData)*@
-                        <div class="form-group02">
-                            <label class="col-sm-8 control-label labe-text" style="font-weight:bold;">Work Notes: (Optional)</label>
-                        </div>
-                        <div class="form-group02">
-                            <label class="col-sm-3 control-label labe-text">@Html.LabelRequiredFor(model => model.GoalActionWorkNote.Note)</label>
-                            <div class="col-sm-7">
-                                @Html.TextAreaFor(model => model.GoalActionWorkNote.Note, new { @class = "form-control", rows = 4, cols = 50 })
-                            </div>
 
+            <div class="form-group02">
+                <div class="col-sm-7">
+                    @*@{
+                        string name = Html.NameFor(model => model.CaseWorkerNote).ToString();
+                        string prefix = Html.ViewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(name);
+                        ViewDataDictionary viewData = new ViewDataDictionary(Html.ViewData)
+                        {
+                        TemplateInfo = new TemplateInfo { HtmlFieldPrefix = prefix }
+                        };
+                        }
+                        @Html.Partial("WorkNote", Model.CaseWorkerNote, viewData)*@
+                    <div class="form-group02">
+                        <label class="col-sm-8 control-label labe-text" style="font-weight:bold;">Work Notes: (Optional)</label>
+                    </div>
+                    <div class="form-group02">
+                        <label class="col-sm-3 control-label labe-text">@Html.LabelRequiredFor(model => model.GoalActionWorkNote.Note)</label>
+                        <div class="col-sm-7">
+                            @Html.TextAreaFor(model => model.GoalActionWorkNote.Note, new { @class = "form-control", rows = 4, cols = 50 })
                         </div>
-                        <div class="form-group02">
-                            <label class="col-sm-3 control-label labe-text">@Html.LabelRequiredFor(model => model.GoalActionWorkNote.ContactMethodID)</label>
-                            <div class="col-sm-6">
-                                @(Html.Kendo().DropDownListFor(model => model.GoalActionWorkNote.ContactMethodID)
+
+                    </div>
+                    <div class="form-group02">
+                        <label class="col-sm-3 control-label labe-text">@Html.LabelRequiredFor(model => model.GoalActionWorkNote.ContactMethodID)</label>
+                        <div class="col-sm-6">
+                            @(Html.Kendo().DropDownListFor(model => model.GoalActionWorkNote.ContactMethodID)
                             .OptionLabel(Constants.UIConstants.DropDownListDefaulLabel)
                             .DataTextField("Text")
                             .DataValueField("Value")
@@ -333,48 +331,46 @@
                                     read.Action("LoadContactMethodAjax", "CaseWorkerNote");
                                 });
                             })
-                                )
-                            </div>
+                            )
                         </div>
-                        <div class="form-group02">
-                            <label class="col-sm-3 control-label labe-text">@Html.LabelRequiredFor(model => model.GoalActionWorkNote.NoteDate)</label>
-                            <div class="col-sm-6">
-                                @*@Html.EditorFor(model => model.NoteDate, new { id = "Case.CaseWorkerNote_NoteDate", name = "Case.CaseWorkerNote_NoteDate" })*@
-                                @(Html.Kendo().DatePickerFor(model => model.GoalActionWorkNote.NoteDate)
+                    </div>
+                    <div class="form-group02">
+                        <label class="col-sm-3 control-label labe-text">@Html.LabelRequiredFor(model => model.GoalActionWorkNote.NoteDate)</label>
+                        <div class="col-sm-6">
+                            @*@Html.EditorFor(model => model.NoteDate, new { id = "Case.CaseWorkerNote_NoteDate", name = "Case.CaseWorkerNote_NoteDate" })*@
+                            @(Html.Kendo().DatePickerFor(model => model.GoalActionWorkNote.NoteDate)
                             .HtmlAttributes(new { style = "width: 100%", title = "datepicker" })
-                                )
-                            </div>
+                            )
                         </div>
-                        <div class="form-group02">
-                            <label class="col-sm-3 control-label labe-text">Time Spent</label>
-                            <div class="col-sm-2">
-                                @*@Html.EditorFor(m => m.CaseWorkerNote.TimeSpentHours, null, new { @class = "form-control" })*@
-                                <span>Hours</span>
-                                @(Html.Kendo().NumericTextBoxFor<int>
+                    </div>
+                    <div class="form-group02">
+                        <label class="col-sm-3 control-label labe-text">Time Spent</label>
+                        <div class="col-sm-2">
+                            @*@Html.EditorFor(m => m.CaseWorkerNote.TimeSpentHours, null, new { @class = "form-control" })*@
+                            <span>Hours</span>
+                            @(Html.Kendo().NumericTextBoxFor<int>
                                 (m => m.GoalActionWorkNote.TimeSpentHours)
                                 .Min(0)
                                 .Max(59)
                                 .HtmlAttributes(new { title = "Hours" })
-                                )
-                                @Html.ValidationMessageFor(m => m.GoalActionWorkNote.TimeSpentHours, "", new { @class = "text-danger" })
-                            </div>
-                            <div class="col-sm-2">
-                                @*@Html.EditorFor(m => m.CaseWorkerNote.TimeSpentMinutes, null, new { @class = "form-control" })*@
-                                <span>Minutes</span>
-                                @(Html.Kendo().NumericTextBoxFor<int>
+                            )
+                            @Html.ValidationMessageFor(m => m.GoalActionWorkNote.TimeSpentHours, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-sm-2">
+                            @*@Html.EditorFor(m => m.CaseWorkerNote.TimeSpentMinutes, null, new { @class = "form-control" })*@
+                            <span>Minutes</span>
+                            @(Html.Kendo().NumericTextBoxFor<int>
                                 (m => m.GoalActionWorkNote.TimeSpentMinutes)
                                 .Min(0)
                                 .Max(59)
                                 .HtmlAttributes(new { title = "Minutes" })
-                                )
-                                @Html.ValidationMessageFor(m => m.GoalActionWorkNote.TimeSpentMinutes, "", new { @class = "text-danger" })
-                            </div>
+                            )
+                            @Html.ValidationMessageFor(m => m.GoalActionWorkNote.TimeSpentMinutes, "", new { @class = "text-danger" })
                         </div>
-
-
                     </div>
                 </div>
             </div>
+
         </div>
 
         <div id="add_candidate3">
@@ -439,8 +435,7 @@
 
 <script>
     $(document).ready(function () {
-        $('ul.collapse li').click(function (e)
-        {
+        $('ul.collapse li').click(function (e) {
             //alert($(this)[0].title);
             $("#desc").text($(this)[0].title);
         });
@@ -520,7 +515,6 @@
     var opennavbool = false;
     openNav();
     $("#opennav").show();
-    //$("#main").hide();
     function openNav() {
         if (opennavbool) {
             document.getElementById("mySidenav").style.width = "0";
@@ -544,15 +538,9 @@
 
     function closeNav() {
         document.getElementById("mySidenav").style.width = "0";
-        //document.getElementById("main").style.marginLeft = "0";
-        //$("#opennav").show();
-        //$("#main").show();
     }
     $("#myModal").on("hidden.bs.modal", function () {
         opennavbool = false;
         openNav();
-        //openNav();
-        //$("#opennav").hide();
-        //$("#main").hide();
     });
 </script>

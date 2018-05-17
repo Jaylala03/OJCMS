@@ -339,7 +339,7 @@ $(document).ready(function () {
         }
     });
     $('#btnSaveAndRefreshGoalActionWorkNote').live("click", function (e) {
-        debugger
+        
         e.preventDefault();
         var entityName = $(this).attr('name').replace('btnSaveAndRefresh', '');
         var gridId = '#Grid' + entityName;
@@ -402,8 +402,32 @@ $(document).ready(function () {
         return false;
     });
 
-    $('#btnSaveAndRefreshGoalDetails').live("click", function (e) {
-        debugger
+    $('#btnSaveAndRefreshGoalDetails').live("click", function (e)
+    {
+        var contactMethodId = '';
+        var varContactMethodID = $("#GoalActionWorkNote_ContactMethodID").data("kendoDropDownList");
+        if (varContactMethodID) {
+            contactMethodId = varContactMethodID.value();
+        }
+        
+        var caseActionID = '';
+        var varcaseActionID = $("#GoalActionWorkNote_CaseActionID").data("kendoDropDownList");
+        if (varcaseActionID) {
+            caseActionID = varcaseActionID.value();
+        }
+        if (contactMethodId !== '' && !$("#GoalActionWorkNote_IsGoal").prop('checked') && !$("#GoalActionWorkNote_IsAction").prop('checked'))
+        {
+            alert("Please select action or goal for work note.");
+            e.preventDefault();
+            return false;
+        }
+        if (contactMethodId !== '' && caseActionID == '' && $("#GoalActionWorkNote_IsAction").prop('checked'))
+        {
+            alert("Please select action or goal for work note.");
+            e.preventDefault();
+            return false;
+        }
+        
         e.preventDefault();
         var entityName = $(this).attr('name').replace('btnSaveAndRefresh', '');
         var formID = 'frmEditor' + entityName;
@@ -425,6 +449,10 @@ $(document).ready(function () {
             $.post(url, $form.serializeArray(),
             function (res) {
                 if (res.success) {
+                    $("#GoalActionWorkNote_IsGoal").prop('checked', false);
+                    $("#GoalActionWorkNote_IsAction").prop('checked', false);
+                    varcaseActionID.value(0);
+
                     if (res.data != null)
                         displayMessage(res.data, 'lime', 5000);
                     if (res.url != null && res.url != "undefined") {
@@ -432,6 +460,14 @@ $(document).ready(function () {
                         return;
                     }
                     //for refreshing two grid of same model
+                    var gridId = '#GridGoalActionWorkNote' ;
+                    if (gridId.indexOf("Grid") > 0) {
+                        var gridDynamic = $(gridId).data("kendoGrid");
+                        if (gridDynamic != null) {
+                            gridDynamic.dataSource.read();
+                            gridDynamic.refresh();
+                        }
+                    }
                 }
                 else {
                     if (res.data != null)
@@ -488,7 +524,6 @@ $(document).ready(function () {
 
     $('#btnSaveAndRefresh').live("click", function (e)
     {
-        debugger
         e.preventDefault();
         var entityName = $(this).attr('name').replace('btnSaveAndRefresh', '');
         var gridId = '#Grid' + entityName;
@@ -1561,7 +1596,7 @@ function DropDownListOther_OnChange(e) {
 var ddlText = '';
 function DropDownListAssigneeRole_OnChange(e) {
     var ddlName = e.sender.element[0].name;
-    debugger
+    
      ddlText = $("#" + ddlName).data("kendoDropDownList").value();
     //var divOther = '#div' + ddlName.replace('ID', '') + 'Other';
     //var divDdlContainer = '#div' + ddlName.replace('ID', '');
@@ -1569,7 +1604,7 @@ function DropDownListAssigneeRole_OnChange(e) {
 }
 function RefreshCaseActionUI()
 {
-    debugger
+    
     if (!ddlText)
     {
         ddlText = $("#GoalAssigneeRoleID").data("kendoDropDownList").value();
@@ -1581,10 +1616,10 @@ function RefreshCaseActionUI()
     $("#divSubjectMatterExpertOther").hide();
     $("#divAssigneeOther").hide();
     $("#divOtherProviderLink").hide();
-    debugger
+    
     if (ddlText == '1') {
         $("#divCaseMember").show();
-<<<<<<< HEAD
+
         $('#WorkerID').data("kendoDropDownList").value(-1);
         $('#ServiceProviderID').data("kendoDropDownList").value(0);
     }
@@ -1592,7 +1627,7 @@ function RefreshCaseActionUI()
         $("#divSubjectMatterExpert").show();
         $('#ServiceProviderID').data("kendoDropDownList").value(0);
         $('#CaseMemberID').data("kendoDropDownList").value(0);
-        debugger
+        
         var ddlWorkerID = $('#WorkerID').data("kendoDropDownList").value();
         if (ddlWorkerID == '0') {
             $("#divSubjectMatterExpertOther").show();
@@ -1624,23 +1659,7 @@ function RefreshCaseActionUI()
         if (ddlServiceProviderID.value() == '56') {
             $("#divServiceProviderOther").show();
         }
-=======
-    }
-    else if (ddlText.indexOf("Subject") == '4') {
-        $("#divSubjectMatterExpert").show();
-    }
-    else if (ddlText.indexOf("Other") == '5') {
-        $("#divAssigneeOther").show();
-        $("#divOtherProviderLink").show();
-    }
-    else if (ddlText.indexOf("Community") == '2' || ddlText.indexOf("Board") == '3') {
-        $("#divServiceProvider").show();
-        var ddlServiceProviderID = $('#ServiceProviderID').data("kendoDropDownList");
-        if (ddlServiceProviderID != null) {
-            ddlServiceProviderID.dataSource.read();
-            ddlServiceProviderID.refresh();
-        }
->>>>>>> refs/remotes/origin/CaseGoalChanges
+
     }
 }
 function DropDownListServiceProvider_OnChange(e) {
@@ -1765,7 +1784,7 @@ function MultipleRegionDDL_OnSelect(e) {
 }
 
 function MultiRegionAndProgramDDL_OnSelect(e) {
-    debugger
+    
     var dataprogram = [];
     dataprogram = $('#ProgramID').val();
     var programids = "";
@@ -1847,21 +1866,25 @@ function RefreshGoalActionWorkNoteGrid()
     grid.dataSource.read();
 }
 function FilterGoalActionWorkNote(e) {
-    var varCaseGoalID = $("#ID").val();
+    var varCaseGoalID = $("#CaseGoalID").val();
     if (!varCaseGoalID) {
         varCaseGoalID = 0;
     }
-    
     var caseactionid = 0;
-    var varCaseGoalActionID = $("#CaseActionID").data("kendoDropDownList");
+    var varCaseGoalActionID = $("#GoalActionWorkNote_CaseActionID").data("kendoDropDownList");
     if (varCaseGoalActionID) {
         caseactionid = varCaseGoalActionID.value();
     }
-
-    if (!$('#IsAction').prop('checked'))
+    if (!$('#GoalActionWorkNote_IsAction').prop('checked'))
         caseactionid = 0;
 
+    var IsGoalOnly = false;
+
+    if ($('#GoalActionWorkNote_IsGoal').prop('checked'))
+        IsGoalOnly = true;
+
     return {
+        isGoalOnly:IsGoalOnly,
         caseGoalId: varCaseGoalID,
         caseActionId: caseactionid
     };

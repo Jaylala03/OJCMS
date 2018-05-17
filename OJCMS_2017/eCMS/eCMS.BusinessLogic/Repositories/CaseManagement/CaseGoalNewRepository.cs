@@ -58,7 +58,7 @@ namespace eCMS.BusinessLogic.Repositories
                 //NewCaseworker.IsPrimary = caseworker.IsPrimary;
                 //NewCaseworker.IsArchived = caseworker.IsArchived;
                 //NewCaseworker.LastUpdateDate = DateTime.Now;
-                //context.Entry(caseworker).State = System.Data.Entity.EntityState.Modified;
+                context.Entry(casegoalnew).State = System.Data.Entity.EntityState.Modified;
             }
             Save();
         }
@@ -93,17 +93,31 @@ namespace eCMS.BusinessLogic.Repositories
             sqlQuery.Append("(CASE WHEN Housing = 1 THEN ',Housing' ELSE '' END) + ");
             sqlQuery.Append("(CASE WHEN SocialSupport = 1 THEN ',SocialSupport' ELSE '' END) +  ");
             sqlQuery.Append("(CASE WHEN Dignity = 1 THEN ',Dignity' ELSE '' END) + ");
-            sqlQuery.Append("(CASE WHEN Health = 1 THEN ',Health' ELSE '' END)) AS Indicators,");
-            sqlQuery.Append("('Total:' + (SELECT CAST(ISNULL(COUNT(*),0) AS varchar) FROM CaseActionNew WHERE CaseGoalID = 1)) + ");
-            sqlQuery.Append("ISNULL(((SELECT ', ' + (GS.Name + ':' + CAST(COUNT(*) AS VARCHAR)) ");
-            sqlQuery.Append("FROM  CaseActionNew AS CAN ");
-            sqlQuery.Append("INNER JOIN CaseGoalNew AS CGN ON CAN.CaseGoalID = CGN.ID ");
-            sqlQuery.Append("INNER JOIN GoalStatus AS GS ON CAN.ActionStatusID = GS.ID ");
-            sqlQuery.Append("WHERE CGN.CaseID = " + CaseID + " GROUP BY GS.Name FOR XML PATH(''))),'') AS ActionsSummary ");
+            sqlQuery.Append("(CASE WHEN Health = 1 THEN ',Health' ELSE '' END)) AS Indicators,AM.ActionsSummary ");
             sqlQuery.Append("FROM CaseGoalNew AS CG ");
             sqlQuery.Append("INNER JOIN CaseMember AS CM ON CG.CaseMemberID = CM.ID ");
             sqlQuery.Append("INNER JOIN GoalStatus AS GS ON CG.GoalStatusID = GS.ID ");
-            sqlQuery.Append("INNER JOIN RiskType AS RT ON CG.ID = RT.ID ");
+            sqlQuery.Append("INNER JOIN RiskType AS RT ON CG.PriorityTypeID = RT.ID ");
+            sqlQuery.Append("OUTER APPLY( SELECT ");
+            sqlQuery.Append("( ");
+            sqlQuery.Append("'Total:'+ ");
+            sqlQuery.Append("( ");
+            sqlQuery.Append("SELECT CAST(ISNULL(COUNT(CAN.ID), 0) AS VARCHAR) ");
+            sqlQuery.Append("FROM CaseActionNew AS CAN ");
+            sqlQuery.Append("WHERE CAN.CaseGoalID = CG.ID ");
+            sqlQuery.Append(") ");
+            sqlQuery.Append("+ ");
+            sqlQuery.Append("ISNULL( ");
+            sqlQuery.Append("( ");
+            sqlQuery.Append("( ");
+            sqlQuery.Append("SELECT ', '+(GS.Name+':'+CAST(COUNT(*) AS VARCHAR)) ");
+            sqlQuery.Append("FROM CaseActionNew AS CAN ");
+            sqlQuery.Append("INNER JOIN GoalStatus AS GS ON CAN.ActionStatusID = GS.ID ");
+            sqlQuery.Append("WHERE CAN.CaseGoalID = CG.ID ");
+            sqlQuery.Append("GROUP BY GS.Name ");
+            sqlQuery.Append("FOR XML PATH('') ");
+            sqlQuery.Append(") ");
+            sqlQuery.Append("), '')) AS ActionsSummary  ) AS AM ");
             sqlQuery.Append("WHERE CG.CaseID = " + CaseID + " ; ");
 
             List<CaseGoalGridVM> dsResult = context.Database.SqlQuery<CaseGoalGridVM>(sqlQuery.ToString()).ToList();
@@ -153,7 +167,7 @@ namespace eCMS.BusinessLogic.Repositories
             sqlQuery.Append("WHERE CG.ID = " + CaseGoalID + " ; ");
 
             List<CaseGoalEditVM> dsResult = context.Database.SqlQuery<CaseGoalEditVM>(sqlQuery.ToString()).ToList();
-            return dsResult.FirstOrDefault() ;
+            return dsResult.FirstOrDefault();
         }
         public bool UpdateDetails(CaseGoalEditVM casegoal)
         {

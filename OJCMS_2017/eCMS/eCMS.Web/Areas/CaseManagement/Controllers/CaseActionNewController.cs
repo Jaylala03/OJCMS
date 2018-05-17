@@ -57,9 +57,12 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
         // GET: CaseManagement/CaseActionNew
         public ActionResult Index([DataSourceRequest(Prefix = "Grid")] DataSourceRequest dsRequest, int caseId, int caseGoalId)
         {
-            CaseGoalEditVM casegoalnew = null;
+            CaseGoalEditVM casegoalnew = new CaseGoalEditVM();
             if (caseGoalId > 0)
             {
+                casegoalnew.CaseID = caseId;
+                casegoalnew.CaseGoalID = caseGoalId;
+
                 //find an existing casemember from database
                 Case varCase = caseRepository.Find(Convert.ToInt32(caseId));
                 ViewBag.DisplayID = varCase.DisplayID;
@@ -80,6 +83,8 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
                 }
                 else
                 {
+                    casegoalnew.CaseID = caseId;
+                    casegoalnew.CaseGoalID = caseGoalId;
                 }
             }
             else
@@ -92,7 +97,9 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
 
             ViewBag.ContactMediaList = contactmediaRepository.AllActiveForDropDownList;
             casegoalnew.GoalActionWorkNote = new GoalActionWorkNote();
-
+            casegoalnew.CaseActionNew = new CaseActionNew();
+            casegoalnew.CaseActionNew.CaseID = caseId;
+            casegoalnew.CaseActionNew.CaseGoalID = caseGoalId;
             return View(casegoalnew);
         }
 
@@ -211,7 +218,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
                             goalActionWorkNoteRepository.Save();
                         }
 
-                        return RedirectToAction(Constants.Actions.Create, Constants.Controllers.CaseActionNew, new { caseId = varCaseGoalNew.CaseID, caseGoalId = varCaseGoalNew.CaseGoalID });
+                        return RedirectToAction(Constants.Actions.Index, Constants.Controllers.CaseActionNew, new { caseId = varCaseGoalNew.CaseID, caseGoalId = varCaseGoalNew.CaseGoalID });
                     }
                     
 
@@ -319,7 +326,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
         /// <returns>data in json</returns>
         [WorkerAuthorize]
         [OutputCache(Duration = 0)]
-        public ActionResult LoadWorkNotes([DataSourceRequest] DataSourceRequest dsRequest, int caseGoalId, int caseActionId)
+        public ActionResult LoadWorkNotes([DataSourceRequest] DataSourceRequest dsRequest, bool isGoalOnly, int caseGoalId, int caseActionId)
         {
             if (dsRequest.Filters == null)
             {
@@ -340,7 +347,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
             //List<CaseGoalNew> caseGoalNew = caseGoalNewRepository.CaseGoalNewByCaseID(caseId);
             //return Json(caseGoalNew, JsonRequestBehavior.AllowGet);
 
-            DataSourceResult result = goalActionWorkNoteRepository.Search(dsRequest, caseGoalId, caseActionId);
+            DataSourceResult result = goalActionWorkNoteRepository.Search(dsRequest, isGoalOnly,caseGoalId, caseActionId);
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
@@ -377,6 +384,28 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
                 try
                 {
                     bool isupdated = caseGoalNewRepository.UpdateDetails(casegoal);
+                    if (casegoal.GoalActionWorkNote.ContactMethodID > 0)
+                    {
+                        //if (casegoal.GoalActionWorkNote.IsGoal == true)
+                        //{
+                        //    //var Ids = Request.Url.Segments.Last();
+
+                        //    //GoalActionWorkNote.CaseGoalID = Convert.ToInt32(Ids);      
+                        //    GoalActionWorkNote.CaseActionID = GoalActionWorkNote.CaseActionID;
+                        //}
+
+                        //if (GoalActionWorkNote.IsAction == true)
+                        //{
+                        //    GoalActionWorkNote.CaseActionID = GoalActionWorkNote.CaseActionID;
+                        //}
+                        casegoal.GoalActionWorkNote.CaseGoalID = casegoal.CaseGoalID;
+                        casegoal.GoalActionWorkNote.LastUpdatedByWorkerID = CurrentLoggedInWorker.ID;
+                        casegoal.GoalActionWorkNote.StatusID = (int)GoalWorkNote.Inprogress;
+                        goalActionWorkNoteRepository.InsertOrUpdate(casegoal.GoalActionWorkNote);
+                        goalActionWorkNoteRepository.Save();
+                        //GoalActionWorkNote.SuccessMessage = "Goal details updated successfully.";
+                    }
+
                     if (isupdated)
                         casegoal.SuccessMessage = "Goal details updated successfully.";
                     else
@@ -441,9 +470,10 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
                     {
                         if (GoalActionWorkNote.IsGoal == true)
                         {
-                            var Ids = Request.Url.Segments.Last();
+                            //var Ids = Request.Url.Segments.Last();
 
-                            GoalActionWorkNote.CaseGoalID = Convert.ToInt32(Ids);                             
+                            //GoalActionWorkNote.CaseGoalID = Convert.ToInt32(Ids);      
+                            GoalActionWorkNote.CaseActionID = GoalActionWorkNote.CaseActionID;
                         }
 
                         if (GoalActionWorkNote.IsAction == true)

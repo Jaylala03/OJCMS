@@ -14,7 +14,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace eCMS.DataLogic.ViewModels
 {
-    public class GoalActionWorkNoteVM : EntityBaseModel
+    [NotMapped]
+    public class GoalActionWorkNoteVM 
     {
 
         //[Required(ErrorMessage = "Please enter Contact Date")]
@@ -23,26 +24,29 @@ namespace eCMS.DataLogic.ViewModels
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? NoteDate { get; set; }
 
+        //[Required(ErrorMessage = "Please enter Contact Date")]
+        [Display(Name = "Date Logged")]
+        //[DataType(DataType.DateTime)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime? DateLogged { get; set; }
+
         [Display(Name = "Time Spent")]
         public int? TimeSpentHours { get; set; }
         [Display(Name = "Time Spent")]
         public int? TimeSpentMinutes { get; set; }
 
-        [NotMapped]
         [Display(Name = "Time Spent")]
         public string TimeSpent { get; set; }
 
         //[Required(ErrorMessage = "Please select contact method")]
         [Display(Name = "Contact Method")]
-        [ForeignKey("ContactMethod")]
         public Int32? ContactMethodID { get; set; }
 
         //[Required(ErrorMessage = "Please enter description")]
         [Display(Name = "Notes:")]
-        [MaxLength]
         public String Note { get; set; }
 
-        public virtual ContactMethod ContactMethod { get; set; }
+        public String ContactMethod  { get; set; }
 
         //[NotMapped]
         [Display(Name = "Goal")]
@@ -59,27 +63,21 @@ namespace eCMS.DataLogic.ViewModels
         //[NotMapped]
         public Int32 StatusID { get; set; }
 
-        [NotMapped]
         [Display(Name = "Family Case")]
         public string CaseDisplayID { set; get; }
 
-        [NotMapped]
         [Display(Name = "Goal/Action detail")]
         public string Detail { get; set; }
 
-        [NotMapped]
         [Display(Name = "Goal/Action Status as at Date")]
         public string Status { set; get; }
 
-        [NotMapped]
         [Display(Name = "Logged By")]
         public string LoggedBy { set; get; }
 
-        [NotMapped]
         [Display(Name = "AssignedTo")]
         public string AssignedTo { set; get; }
 
-        [NotMapped]
         public string HasPermissionToEdit { get; set; }
         [NotMapped]
         public string HasPermissionToDelete { get; set; }
