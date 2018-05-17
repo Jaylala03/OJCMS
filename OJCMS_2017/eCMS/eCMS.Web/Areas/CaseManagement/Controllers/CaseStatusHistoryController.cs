@@ -119,7 +119,9 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
                         varCaseStatusHistory.CaseWorkerNote.LastUpdatedByWorkerID = CurrentLoggedInWorker.ID;
 
                         varCaseStatusHistory.CaseWorkerNote.CaseID = varCaseStatusHistory.CaseID;
-
+                        varCaseStatusHistory.CaseWorkerNote.CaseStatusID = varCaseStatusHistory.StatusID;
+                        varCaseStatusHistory.CaseWorkerNote.WorkerNoteActivityTypeID = (int)WorkerNoteActivityType.EditCase;
+                        varCaseStatusHistory.CaseWorkerNote.IsFamily = true;
                         caseWorkerNoteRepository.InsertOrUpdate(varCaseStatusHistory.CaseWorkerNote);
                         caseWorkerNoteRepository.Save();
                     }

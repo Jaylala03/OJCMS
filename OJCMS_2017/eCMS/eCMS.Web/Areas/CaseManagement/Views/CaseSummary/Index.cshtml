@@ -250,41 +250,45 @@
                     <td style="width:50%;">&nbsp;</td>
                 </tr>
             </table>
-
-            <div class="col-md-12">
-                <div class="col-md-4">
-                    <div class="form-group02">
-                        <label class="control-label labe-text">Status:</label>
-                    </div>
-                </div>
-                <div class="col-md-8">
-                    <div class="form-group02" style="text-align: right;float:right;">
-                        <a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.CaseStatusHistory, new { CaseId = Model.CaseID})" class="btn btn-primary"><i class="fa fa-long-arrow-right"></i>Change Status</a>
-                    </div>
+            
+        </div>
+    </div>
+</div>
+<div class="container bulk-import">
+    <div class="row col-md-12" style="padding-top:10px;">
+        <div class="col-md-4">
+            <div class="form-group02">
+                <label class="control-label labe-text">Status:</label>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="form-group02" style="text-align: right;float:right;">
+                <a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.CaseStatusHistory, new { CaseId = Model.CaseID})" class="btn btn-primary"><i class="fa fa-long-arrow-right"></i>Change Status</a>
+            </div>
+        </div>
+    </div>
+    <div class="row col-md-12">
+        <div class="col-md-2">
+            <div class="form-group02">
+                <label class="control-label labe-text">Current Status:</label>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group02">
+                @Html.DisplayFor(model => model.CaseStatus)
+            </div>
+        </div>
+    </div>
+    <div class="row margin-top-10">
+        <div class="col-md-12">
+            <div class="col-md-5">
+                <div class="form-group02">
+                    <label class="control-label labe-text">Status History</label>
                 </div>
             </div>
-            <div class="col-md-12">
-                <div class="col-md-5">
-                    <div class="form-group02">
-                        <label class="control-label labe-text">Current Status:</label>
-                    </div>
-                </div>
-                <div class="col-md-7">
-                    <div class="form-group02" style="text-align: left;">
-                        @Html.DisplayFor(model => model.CaseStatus)
-                    </div>
-                </div>
-            </div>
-            <div class="row margin-top-10">
-                <div class="col-md-12">
-                    <div class="col-md-5">
-                        <div class="form-group02">
-                            <label class="control-label labe-text">Status History</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    @(Html.Kendo().Grid<CaseStatusHistoryVM>()
+        </div>
+        <div class="col-md-12">
+            @(Html.Kendo().Grid<CaseStatusHistoryVM>()
     .Name("GridCaseStatusHistory")
     .Columns(columns =>
     {
@@ -300,126 +304,125 @@
     )
     .Pageable()
     .Sortable()
-                    )
-                </div>
-            </div>
-
-            <br class="clear" />
-
-            <div class="col-md-12">
-                <div class="col-md-6 table-bordered">
-                    <div class="align-left">
-                        <label class="control-label labe-text">household Income:</label>
-                    </div>
-                    <table class="col-md-12">
-                        <thead>
-                            <tr>
-                                <th colspan="2">
-                                    <label class="control-label labe-text">Initial household Income:</label>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tr>
-                            <td><label class="control-label labe-text">Number of members in the household:</label></td>
-                            <td>@Html.DisplayFor(model => model.CaseInitialHouseholdIncomeVM.NoOfMembers)</td>
-                        </tr>
-                        <tr>
-                            <td><label class="control-label labe-text">Number of children in the household:</label></td>
-                            <td>@Html.DisplayFor(model => model.CaseInitialHouseholdIncomeVM.NoOfChild)</td>
-                        </tr>
-                        <tr>
-                            <td><label class="control-label labe-text">Number of seniors (+65) in the household:</label></td>
-                            <td>@Html.DisplayFor(model => model.CaseInitialHouseholdIncomeVM.NoOfSeniors)</td>
-                        </tr>
-                        <tr>
-                            <td><label class="control-label labe-text">Number of physically disabled members in the household:&nbsp;</label></td>
-                            <td>@Html.DisplayFor(model => model.CaseInitialHouseholdIncomeVM.NoOfPhysicallyDisabled)</td>
-                        </tr>
-                        <tr>
-                            <td><label class="control-label labe-text">Household gross income range (annual):</label></td>
-                            <td>@Html.DisplayFor(model => model.CaseInitialHouseholdIncomeVM.IncomeRanges)</td>
-                        </tr>
-                        <tr>
-                            <td><label class="control-label labe-text">Date Entered:</label></td>
-                            <td>@Html.DisplayFor(model => model.CaseInitialHouseholdIncomeVM.CreatedDate)</td>
-                        </tr>
-                        <tr>
-                            <td><label class="control-label labe-text">Is LICO:</label></td>
-                            @if (Model.CaseInitialHouseholdIncomeVM != null)
-                            {
-                                if (Model.CaseInitialHouseholdIncomeVM.IsLICO)
-                                {
-                                    <td>Yes</td>
-                                }
-                                else
-                                {
-                                    <td>No</td>
-                                }
-                            }
-
-                        </tr>
-                    </table>
-
-                </div>
-                <div class="col-md-6 table-bordered">
-                    <div class="align-right">
-                        <label class="control-label labe-text" style="text-align:right;float:right;">
-                            @Html.ActionLink("Update Household Income", Constants.Actions.Edit, Constants.Controllers.CaseHouseholdIncome, new { CaseID = Model.CaseID, IncomeID = Model.CurrentHouseholdIncomeID }, null)
-                        </label>
-                    </div>
-                    <br /><br />
-                    <table class="col-md-12">
-                        <thead>
-                            <tr>
-                                <th colspan="2">
-                                    <label class="control-label labe-text">Current household Income:</label>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tr>
-                            <td><label class="control-label labe-text">Number of members in the household:</label></td>
-                            <td>@Html.DisplayFor(model => model.CaseCurrentHouseholdIncomeVM.NoOfMembers)</td>
-                        </tr>
-                        <tr>
-                            <td><label class="control-label labe-text">Number of children in the household:</label></td>
-                            <td>@Html.DisplayFor(model => model.CaseCurrentHouseholdIncomeVM.NoOfChild)</td>
-                        </tr>
-                        <tr>
-                            <td><label class="control-label labe-text">Number of seniors (+65) in the household:</label></td>
-                            <td>@Html.DisplayFor(model => model.CaseCurrentHouseholdIncomeVM.NoOfSeniors)</td>
-                        </tr>
-                        <tr>
-                            <td><label class="control-label labe-text">Number of physically disabled members in the household:&nbsp;</label></td>
-                            <td>@Html.DisplayFor(model => model.CaseCurrentHouseholdIncomeVM.NoOfPhysicallyDisabled)</td>
-                        </tr>
-                        <tr>
-                            <td><label class="control-label labe-text">Household gross income range (annual):</label></td>
-                            <td>@Html.DisplayFor(model => model.CaseCurrentHouseholdIncomeVM.IncomeRanges)</td>
-                        </tr>
-                        <tr>
-                            <td><label class="control-label labe-text">Date Entered:</label></td>
-                            <td>@Html.DisplayFor(model => model.CaseCurrentHouseholdIncomeVM.CreatedDate)</td>
-                        </tr>
-                        <tr>
-                            <td><label class="control-label labe-text">Is LICO:</label></td>
-                            @if (Model.CaseCurrentHouseholdIncomeVM != null)
-                            {
-                                if (Model.CaseCurrentHouseholdIncomeVM.IsLICO)
-                                {
-                                    <td>Yes</td>
-                                }
-                                else
-                                {
-                                    <td>No</td>
-                                }
-                            }
-                        </tr>
-                    </table>
-                </div>
-            </div>
+            )
         </div>
     </div>
 </div>
+
+<div class="container bulk-import">
+    <div class="col-md-12">
+        <div class="col-md-6 table-bordered">
+            <div class="align-left">
+                <label class="control-label labe-text">Household Income:</label>
+            </div>
+            <table class="col-md-12">
+                <thead>
+                    <tr>
+                        <th colspan="2">
+                            <label class="control-label labe-text">Initial household Income:</label>
+                        </th>
+                    </tr>
+                </thead>
+                <tr>
+                    <td><label class="control-label labe-text">Number of members in the household:</label></td>
+                    <td>@Html.DisplayFor(model => model.CaseInitialHouseholdIncomeVM.NoOfMembers)</td>
+                </tr>
+                <tr>
+                    <td><label class="control-label labe-text">Number of children in the household:</label></td>
+                    <td>@Html.DisplayFor(model => model.CaseInitialHouseholdIncomeVM.NoOfChild)</td>
+                </tr>
+                <tr>
+                    <td><label class="control-label labe-text">Number of seniors (+65) in the household:</label></td>
+                    <td>@Html.DisplayFor(model => model.CaseInitialHouseholdIncomeVM.NoOfSeniors)</td>
+                </tr>
+                <tr>
+                    <td><label class="control-label labe-text">Number of physically disabled members in the household:&nbsp;</label></td>
+                    <td>@Html.DisplayFor(model => model.CaseInitialHouseholdIncomeVM.NoOfPhysicallyDisabled)</td>
+                </tr>
+                <tr>
+                    <td><label class="control-label labe-text">Household gross income range (annual):</label></td>
+                    <td>@Html.DisplayFor(model => model.CaseInitialHouseholdIncomeVM.IncomeRanges)</td>
+                </tr>
+                <tr>
+                    <td><label class="control-label labe-text">Date Entered:</label></td>
+                    <td>@Html.DisplayFor(model => model.CaseInitialHouseholdIncomeVM.CreatedDate)</td>
+                </tr>
+                <tr>
+                    <td><label class="control-label labe-text">Is LICO:</label></td>
+                    @if (Model.CaseInitialHouseholdIncomeVM != null)
+                    {
+                        if (Model.CaseInitialHouseholdIncomeVM.IsLICO)
+                        {
+                            <td>Yes</td>
+                        }
+                        else
+                        {
+                            <td>No</td>
+                        }
+                    }
+
+                </tr>
+            </table>
+
+        </div>
+        <div class="col-md-6 "> @*table-bordered*@
+            <div class="align-right">
+                <label class="control-label labe-text" style="text-align:right;float:right;">
+                    @Html.ActionLink("Update Household Income", Constants.Actions.Edit, Constants.Controllers.CaseHouseholdIncome, new { CaseID = Model.CaseID, IncomeID = Model.CurrentHouseholdIncomeID }, null)
+                </label>
+            </div>
+            <br /><br />
+            <table class="col-md-12">
+                <thead>
+                    <tr>
+                        <th colspan="2">
+                            <label class="control-label labe-text">Current household Income:</label>
+                        </th>
+                    </tr>
+                </thead>
+                <tr>
+                    <td><label class="control-label labe-text">Number of members in the household:</label></td>
+                    <td>@Html.DisplayFor(model => model.CaseCurrentHouseholdIncomeVM.NoOfMembers)</td>
+                </tr>
+                <tr>
+                    <td><label class="control-label labe-text">Number of children in the household:</label></td>
+                    <td>@Html.DisplayFor(model => model.CaseCurrentHouseholdIncomeVM.NoOfChild)</td>
+                </tr>
+                <tr>
+                    <td><label class="control-label labe-text">Number of seniors (+65) in the household:</label></td>
+                    <td>@Html.DisplayFor(model => model.CaseCurrentHouseholdIncomeVM.NoOfSeniors)</td>
+                </tr>
+                <tr>
+                    <td><label class="control-label labe-text">Number of physically disabled members in the household:&nbsp;</label></td>
+                    <td>@Html.DisplayFor(model => model.CaseCurrentHouseholdIncomeVM.NoOfPhysicallyDisabled)</td>
+                </tr>
+                <tr>
+                    <td><label class="control-label labe-text">Household gross income range (annual):</label></td>
+                    <td>@Html.DisplayFor(model => model.CaseCurrentHouseholdIncomeVM.IncomeRanges)</td>
+                </tr>
+                <tr>
+                    <td><label class="control-label labe-text">Date Entered:</label></td>
+                    <td>@Html.DisplayFor(model => model.CaseCurrentHouseholdIncomeVM.CreatedDate)</td>
+                </tr>
+                <tr>
+                    <td><label class="control-label labe-text">Is LICO:</label></td>
+                    @if (Model.CaseCurrentHouseholdIncomeVM != null)
+                    {
+                        if (Model.CaseCurrentHouseholdIncomeVM.IsLICO)
+                        {
+                            <td>Yes</td>
+                        }
+                        else
+                        {
+                            <td>No</td>
+                        }
+                    }
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
 <div class="container bulk-import">
     <!-- begin: mainpage -->
     <div class="row margin-top-10">
@@ -485,137 +488,137 @@
     <div class="row margin-top-10">
         @if (!Model.DoesInitialAssessmentExists)
         {
-        <div class="col-md-12">
-            <div class="col-md-5">
-                <div class="form-group02">
-                    <label class="control-label labe-text">Assessment:</label>
+            <div class="col-md-12">
+                <div class="col-md-5">
+                    <div class="form-group02">
+                        <label class="control-label labe-text">Assessment:</label>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-7" style="float:right;">
-                <div class="form-group02">
-                    <div class="col-sm-5 col-sm-offset-7" style="text-align: right;">
-                        <a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.CaseInitialAssessment, new { caseID = Model.CaseID})" class="btn btn-primary"><i class="fa fa-long-arrow-right"></i>Create Assessment</a>
+                <div class="col-md-7" style="float:right;">
+                    <div class="form-group02">
+                        <div class="col-sm-5 col-sm-offset-7" style="text-align: right;">
+                            <a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.CaseInitialAssessment, new { caseID = Model.CaseID})" class="btn btn-primary"><i class="fa fa-long-arrow-right"></i>Create Assessment</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="col-md-12" style="background:yellow;padding-left:10px;border:1px solid black;">
-            <label class="control-label labe-text">Initial Assessment have to happen within one month of inake.</label>
-        </div>
+            <div class="col-md-12" style="background:yellow;padding-left:10px;border:1px solid black;">
+                <label class="control-label labe-text">Initial Assessment have to happen within one month of inake.</label>
+            </div>
         }
         else
         {
-        <div class="col-md-12">
-            <div class="col-md-5">
-                <div class="form-group02">
-                    <label class="control-label labe-text">Assessment as on (MM/DD/yyyy) @System.DateTime.Now.ToString("MM/dd/yyyy")</label>
+            <div class="col-md-12">
+                <div class="col-md-5">
+                    <div class="form-group02">
+                        <label class="control-label labe-text">Assessment as on (MM/DD/yyyy) @System.DateTime.Now.ToString("MM/dd/yyyy")</label>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-7" >
-                <div class="form-group02" style="float:right;text-align:right;">
+                <div class="col-md-7">
+                    <div class="form-group02" style="float:right;text-align:right;">
                         <a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.CaseAssessmentSummary, new { caseID = Model.CaseID})" class="btn btn-primary"><i class="fa fa-long-arrow-right"></i>View Assessment Summary</a>
                         <span id="showAssessmentChart" style="cursor:pointer;" class="btn btn-primary">Show Assessment Chart</span>
                         <a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.CaseInitialAssessment, new { caseID = Model.CaseID})" class="btn btn-primary"><i class="fa fa-long-arrow-right"></i>Create Assessment</a>
-                </div>
-            </div>
-            @*<div class="col-md-5" style="float:right;">
-                    <div class="form-group02">
-                        <div class="col-sm-5 col-sm-offset-7" style="text-align: right;">
-
-                        </div>
                     </div>
-                </div>*@
-        </div>
+                </div>
+                @*<div class="col-md-5" style="float:right;">
+                        <div class="form-group02">
+                            <div class="col-sm-5 col-sm-offset-7" style="text-align: right;">
+
+                            </div>
+                        </div>
+                    </div>*@
+            </div>
             if (Model.AssesmentIndicators.Count > 0)
             {
-        <div class="col-lg-12" id="divAssessmentChart" style="display:none;">
-            <div class="col-lg-12 col-md-11 candidate-table-bg">
-                <div class="row">
-                    <table id="indicators" cellpadding="2">
-                        <thead>
-                            <tr style="height:50px;padding-left:5px;">
-                                <th>Indicators</th>
-                                <th>1</th>
-                                <th>2</th>
-                                <th>3</th>
-                                <th>4</th>
-                                <th>5</th>
-                                <th>6</th>
-                                @*<th>Not Applicable</th>*@
-                            </tr>
-                        </thead>
-                        <tbody style="background:none;">
-                            @foreach (var item in Model.AssesmentIndicators)
-                                    {
-                                    @*<tr>
-                                            <td>@item.IndicatorName</td>
-                                            <td>@Html.RadioButton("rd" + item.IndicatorTypeID + "", 1, false, new { @id = item.IndicatorTypeID, @class = "rdind" })</td>
-                                            <td>@Html.RadioButton("rd" + item.IndicatorTypeID + "", 2, false, new { @id = item.IndicatorTypeID, @class = "rdind" })</td>
-                                            <td>@Html.RadioButton("rd" + item.IndicatorTypeID + "", 3, false, new { @id = item.IndicatorTypeID, @class = "rdind" })</td>
-                                            <td>@Html.RadioButton("rd" + item.IndicatorTypeID + "", 4, false, new { @id = item.IndicatorTypeID, @class = "rdind" })</td>
-                                            <td>@Html.RadioButton("rd" + item.IndicatorTypeID + "", 5, false, new { @id = item.IndicatorTypeID, @class = "rdind" })</td>
-                                            <td>@Html.RadioButton("rd" + item.IndicatorTypeID + "", 6, false, new { @id = item.IndicatorTypeID, @class = "rdind" })</td>
-                                            <td>@Html.RadioButton("rd" + item.IndicatorTypeID + "", 0, false, new { @id = item.IndicatorTypeID, @class = "rdind" })</td>
-                                        </tr>*@
-                                    <tr>
-                                        <td>@item.IndicatorName</td>
-                                        <td class="fulldescription">@(item.AssesmentIndicatorDescription1) </td>
-                                        <td class="fulldescription">@(item.AssesmentIndicatorDescription2) </td>
-                                        <td class="fulldescription">@(item.AssesmentIndicatorDescription3) </td>
-                                        <td class="fulldescription">@(item.AssesmentIndicatorDescription4) </td>
-                                        <td class="fulldescription">@(item.AssesmentIndicatorDescription5) </td>
-                                        <td class="fulldescription">@(item.AssesmentIndicatorDescription6) </td>
-                                        @*<td>&nbsp;</td>*@
+                <div class="col-lg-12" id="divAssessmentChart" style="display:none;">
+                    <div class="col-lg-12 col-md-11 candidate-table-bg">
+                        <div class="row">
+                            <table id="indicators" cellpadding="2">
+                                <thead>
+                                    <tr style="height:50px;padding-left:5px;">
+                                        <th>Indicators</th>
+                                        <th>1</th>
+                                        <th>2</th>
+                                        <th>3</th>
+                                        <th>4</th>
+                                        <th>5</th>
+                                        <th>6</th>
+                                        @*<th>Not Applicable</th>*@
                                     </tr>
+                                </thead>
+                                <tbody style="background:none;">
+                                    @foreach (var item in Model.AssesmentIndicators)
+                                    {
+                                        @*<tr>
+                                                <td>@item.IndicatorName</td>
+                                                <td>@Html.RadioButton("rd" + item.IndicatorTypeID + "", 1, false, new { @id = item.IndicatorTypeID, @class = "rdind" })</td>
+                                                <td>@Html.RadioButton("rd" + item.IndicatorTypeID + "", 2, false, new { @id = item.IndicatorTypeID, @class = "rdind" })</td>
+                                                <td>@Html.RadioButton("rd" + item.IndicatorTypeID + "", 3, false, new { @id = item.IndicatorTypeID, @class = "rdind" })</td>
+                                                <td>@Html.RadioButton("rd" + item.IndicatorTypeID + "", 4, false, new { @id = item.IndicatorTypeID, @class = "rdind" })</td>
+                                                <td>@Html.RadioButton("rd" + item.IndicatorTypeID + "", 5, false, new { @id = item.IndicatorTypeID, @class = "rdind" })</td>
+                                                <td>@Html.RadioButton("rd" + item.IndicatorTypeID + "", 6, false, new { @id = item.IndicatorTypeID, @class = "rdind" })</td>
+                                                <td>@Html.RadioButton("rd" + item.IndicatorTypeID + "", 0, false, new { @id = item.IndicatorTypeID, @class = "rdind" })</td>
+                                            </tr>*@
+                                        <tr>
+                                            <td>@item.IndicatorName</td>
+                                            <td class="fulldescription">@(item.AssesmentIndicatorDescription1) </td>
+                                            <td class="fulldescription">@(item.AssesmentIndicatorDescription2) </td>
+                                            <td class="fulldescription">@(item.AssesmentIndicatorDescription3) </td>
+                                            <td class="fulldescription">@(item.AssesmentIndicatorDescription4) </td>
+                                            <td class="fulldescription">@(item.AssesmentIndicatorDescription5) </td>
+                                            <td class="fulldescription">@(item.AssesmentIndicatorDescription6) </td>
+                                            @*<td>&nbsp;</td>*@
+                                        </tr>
                                     }
-                        </tbody>
-                    </table>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row" style="text-align:center;margin-bottom:10px;margin-top:10px;display:none;" id="divSaveAssessment">
+                            <button type="button" class="btn btn-primary" id="btnSaveAssessment"><i class="fa fa-save"></i> Save </button>
+                        </div>
+                    </div>
                 </div>
-                <div class="row" style="text-align:center;margin-bottom:10px;margin-top:10px;display:none;" id="divSaveAssessment">
-                    <button type="button" class="btn btn-primary" id="btnSaveAssessment"><i class="fa fa-save"></i> Save </button>
-                </div>
-            </div>
-        </div>
             }
             if (Model.AssesmentIndicators.Count > 0)
             {
-        <div class="col-lg-12" style="margin-top:10px;">
-            <div class="col-lg-12 col-md-11 candidate-table-bg">
-                <div class="row">
-                    <table id="assessment" cellpadding="2">
-                        <thead>
-                            <tr style="height:50px;padding-left:5px;">
-                                <th>Family Member</th>
-                                @foreach (var item in Model.AssesmentIndicators)
+                <div class="col-lg-12" style="margin-top:10px;">
+                    <div class="col-lg-12 col-md-11 candidate-table-bg">
+                        <div class="row">
+                            <table id="assessment" cellpadding="2">
+                                <thead>
+                                    <tr style="height:50px;padding-left:5px;">
+                                        <th>Family Member</th>
+                                        @foreach (var item in Model.AssesmentIndicators)
                                         {
-                                        <th>
-                                            @item.IndicatorName
-                                        </th>
+                                            <th>
+                                                @item.IndicatorName
+                                            </th>
                                         }
-                                @*<th>&nbsp;</th>*@
-                            </tr>
-                        </thead>
-                        <tbody style="background:none;">
-                            @foreach (var member in Model.CaseInitialAssessment.Select(m => new { m.CaseMemberName, m.CaseMemberID }).Distinct())
-                                    {
-                                    <tr>
-                                        <td>@member.CaseMemberName</td>
-                                        <td style="display:none;">@member.CaseMemberID</td>
-                                        @foreach (var item in Model.CaseInitialAssessment.Where(c => c.CaseMemberName == member.CaseMemberName).OrderBy(c => c.IndicatorTypeID))
-                                            {
-                                            <td class="clsind" data-memberid="@item.CaseMemberID" data-indicatorid="@item.IndicatorTypeID" data-assessmentvalue="@item.AssessmentValue">@(item.AssessmentValue > 0 ? item.AssessmentValue.ToString() : "")</td>
-                                            }
-                                        @*<td>
-                                                <a id="lnkEditor" class="lnkEditor" data-membername="@member.CaseMemberName" title="Edit">Edit</a>
-                                            </td>*@
+                                        @*<th>&nbsp;</th>*@
                                     </tr>
+                                </thead>
+                                <tbody style="background:none;">
+                                    @foreach (var member in Model.CaseInitialAssessment.Select(m => new { m.CaseMemberName, m.CaseMemberID }).Distinct())
+                                    {
+                                        <tr>
+                                            <td>@member.CaseMemberName</td>
+                                            <td style="display:none;">@member.CaseMemberID</td>
+                                            @foreach (var item in Model.CaseInitialAssessment.Where(c => c.CaseMemberName == member.CaseMemberName).OrderBy(c => c.IndicatorTypeID))
+                                            {
+                                                <td class="clsind" data-memberid="@item.CaseMemberID" data-indicatorid="@item.IndicatorTypeID" data-assessmentvalue="@item.AssessmentValue">@(item.AssessmentValue > 0 ? item.AssessmentValue.ToString() : "")</td>
+                                            }
+                                            @*<td>
+                                                    <a id="lnkEditor" class="lnkEditor" data-membername="@member.CaseMemberName" title="Edit">Edit</a>
+                                                </td>*@
+                                        </tr>
                                     }
-                        </tbody>
-                    </table>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
             }
         }
     </div>
@@ -659,7 +662,7 @@
                 .PageSize(50)
                 )
                 .Pageable()
-                //.Scrollable()
+                    //.Scrollable()
                 .Sortable()
             )
         </div>

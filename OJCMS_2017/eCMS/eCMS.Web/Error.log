@@ -9076,3 +9076,159 @@ Thread Name:
 Win32 ThreadId:10656
 Extended Properties: 
 ----------------------------------------
+----------------------------------------
+Timestamp: 05/17/2018 9:08:21 PM
+Message: 05/18/2018 2:38:20 AM
+Exception Summary :
+Error Message :Unhandeled exception found
+Message To User :Unhandeled exception found
+System Defined Message :The controller for path '/assets/styles/bootstrap.css.map' was not found or does not implement IController.
+Machine Name :ADMIN-PC
+Domain Name :/LM/W3SVC/66/ROOT-1-131710648240241098
+Host Name :Admin-PC
+OS Version :Microsoft Windows NT 6.1.7601 Service Pack 1
+Error Stack 1)
+ 
+The controller for path '/assets/styles/bootstrap.css.map' was not found or does not implement IController.
+
+
+Call Stack
+
+   at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.DefaultControllerFactory.CreateController(RequestContext requestContext, String controllerName)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContext httpContext, AsyncCallback callback, Object state)
+   at System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.BeginProcessRequest(HttpContext context, AsyncCallback cb, Object extraData)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+Category: General
+Priority: 0
+EventId: 100
+Severity: Error
+Title:
+Machine: ADMIN-PC
+App Domain: /LM/W3SVC/66/ROOT-1-131710648240241098
+ProcessId: 10680
+Process Name: C:\Program Files (x86)\IIS Express\iisexpress.exe
+Thread Name: 
+Win32 ThreadId:12632
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 05/17/2018 9:09:04 PM
+Message: 05/18/2018 2:39:04 AM
+Exception Summary :
+Error Message :Unhandeled exception found
+Message To User :Unhandeled exception found
+System Defined Message :The controller for path '/assets/styles/bootstrap.css.map' was not found or does not implement IController.
+Machine Name :ADMIN-PC
+Domain Name :/LM/W3SVC/66/ROOT-1-131710648240241098
+Host Name :Admin-PC
+OS Version :Microsoft Windows NT 6.1.7601 Service Pack 1
+Error Stack 1)
+ 
+The controller for path '/assets/styles/bootstrap.css.map' was not found or does not implement IController.
+
+
+Call Stack
+
+   at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.DefaultControllerFactory.CreateController(RequestContext requestContext, String controllerName)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContext httpContext, AsyncCallback callback, Object state)
+   at System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.BeginProcessRequest(HttpContext context, AsyncCallback cb, Object extraData)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+Category: General
+Priority: 0
+EventId: 100
+Severity: Error
+Title:
+Machine: ADMIN-PC
+App Domain: /LM/W3SVC/66/ROOT-1-131710648240241098
+ProcessId: 10680
+Process Name: C:\Program Files (x86)\IIS Express\iisexpress.exe
+Thread Name: 
+Win32 ThreadId:13236
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 05/17/2018 9:09:17 PM
+Message: 05/18/2018 2:39:17 AM
+Exception Summary :
+Error Message :Unhandeled exception found
+Message To User :Unhandeled exception found
+System Defined Message :The controller for path '/assets/styles/bootstrap.css.map' was not found or does not implement IController.
+Machine Name :ADMIN-PC
+Domain Name :/LM/W3SVC/66/ROOT-1-131710648240241098
+Host Name :Admin-PC
+OS Version :Microsoft Windows NT 6.1.7601 Service Pack 1
+Error Stack 1)
+ 
+The controller for path '/assets/styles/bootstrap.css.map' was not found or does not implement IController.
+
+
+Call Stack
+
+   at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.DefaultControllerFactory.CreateController(RequestContext requestContext, String controllerName)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContext httpContext, AsyncCallback callback, Object state)
+   at System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.BeginProcessRequest(HttpContext context, AsyncCallback cb, Object extraData)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+Category: General
+Priority: 0
+EventId: 100
+Severity: Error
+Title:
+Machine: ADMIN-PC
+App Domain: /LM/W3SVC/66/ROOT-1-131710648240241098
+ProcessId: 10680
+Process Name: C:\Program Files (x86)\IIS Express\iisexpress.exe
+Thread Name: 
+Win32 ThreadId:10304
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 05/17/2018 9:25:32 PM
+Message: 05/18/2018 2:55:32 AM
+Exception Summary :
+Error Message :Unhandeled exception found
+Message To User :Unhandeled exception found
+System Defined Message :The controller for path '/assets/styles/bootstrap.css.map' was not found or does not implement IController.
+Machine Name :ADMIN-PC
+Domain Name :/LM/W3SVC/66/ROOT-1-131710654801476379
+Host Name :Admin-PC
+OS Version :Microsoft Windows NT 6.1.7601 Service Pack 1
+Error Stack 1)
+ 
+The controller for path '/assets/styles/bootstrap.css.map' was not found or does not implement IController.
+
+
+Call Stack
+
+   at System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   at System.Web.Mvc.DefaultControllerFactory.CreateController(RequestContext requestContext, String controllerName)
+   at System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   at System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContext httpContext, AsyncCallback callback, Object state)
+   at System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.BeginProcessRequest(HttpContext context, AsyncCallback cb, Object extraData)
+   at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+Category: General
+Priority: 0
+EventId: 100
+Severity: Error
+Title:
+Machine: ADMIN-PC
+App Domain: /LM/W3SVC/66/ROOT-1-131710654801476379
+ProcessId: 9572
+Process Name: C:\Program Files (x86)\IIS Express\iisexpress.exe
+Thread Name: 
+Win32 ThreadId:11468
+Extended Properties: 
+----------------------------------------
