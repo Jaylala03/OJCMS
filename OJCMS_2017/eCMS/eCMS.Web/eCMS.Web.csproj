@@ -2024,6 +2024,7 @@
     <Content Include="Areas\CaseManagement\Views\CaseActionNew\Create.cshtml" />
     <Content Include="Areas\CaseManagement\Views\CaseActionNew\IndexBackup.cshtml" />
     <Content Include="Areas\CaseManagement\Views\CaseStatusHistory\Index.cshtml" />
+    <Content Include="Areas\CaseManagement\Views\CaseActionNew\Index.cshtml" />
     <None Include="bin\eCMS.Web.dll.config" />
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Properties\PublishProfiles\ecms.softwareravine.com.pubxml" />

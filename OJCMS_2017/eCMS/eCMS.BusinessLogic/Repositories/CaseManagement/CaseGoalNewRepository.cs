@@ -147,13 +147,9 @@ namespace eCMS.BusinessLogic.Repositories
             sqlQuery.Append("(CASE WHEN Dignity = 1 THEN ',Dignity' ELSE '' END) + ");
             sqlQuery.Append("(CASE WHEN Health = 1 THEN ',Health' ELSE '' END)) AS Indicators ");
             sqlQuery.Append("FROM CaseGoalNew AS CG ");
-<<<<<<< HEAD
-            sqlQuery.Append("INNER JOIN CaseMember AS CM ON CG.CaseMemberID = CM.ID ");
-=======
             //sqlQuery.Append("INNER JOIN CaseMember AS CM ON CG.CaseMemberID = CM.ID ");
             //sqlQuery.Append("WHERE CG.ID = " + CaseGoalID + " ; ");
             sqlQuery.Append("INNER JOIN CaseMember AS CM ON CG.CaseID = CM.CaseID ");
->>>>>>> refs/remotes/origin/CaseGoalChanges
             sqlQuery.Append("WHERE CG.ID = " + CaseGoalID + " ; ");
 
             List<CaseGoalEditVM> dsResult = context.Database.SqlQuery<CaseGoalEditVM>(sqlQuery.ToString()).ToList();

@@ -100,11 +100,9 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
         // GET: CaseManagement/CaseActionNew
         public ActionResult Create(int caseId, int caseGoalId)
         {
-<<<<<<< HEAD
+
             CaseActionNew caseactionnew = new CaseActionNew();
-=======
-            CaseActionNew caseactionnew = null;
->>>>>>> refs/remotes/origin/CaseGoalChanges
+
             if (caseGoalId > 0)
             {
                 //find an existing casemember from database
@@ -154,7 +152,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
             varCaseGoalNew.LastUpdatedByWorkerID = CurrentLoggedInWorker.ID;
             try
             {
-<<<<<<< HEAD
+
                 bool isvalid = true;
                 if (ModelState.IsValid)
                 {
@@ -216,26 +214,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
                         return RedirectToAction(Constants.Actions.Create, Constants.Controllers.CaseActionNew, new { caseId = varCaseGoalNew.CaseID, caseGoalId = varCaseGoalNew.CaseGoalID });
                     }
                     
-=======
-                if (ModelState.IsValid)
-                {
-                    //call the repository function to save in database
-                    caseactionnewRepository.InsertOrUpdate(varCaseGoalNew);
-                    caseactionnewRepository.Save();
 
-                    if (varCaseGoalNew.GoalActionWorkNote.ContactMethodID > 0)
-                    {
-                        varCaseGoalNew.GoalActionWorkNote.LastUpdatedByWorkerID = CurrentLoggedInWorker.ID;
-                        varCaseGoalNew.GoalActionWorkNote.CaseGoalID = varCaseGoalNew.ID;
-
-                        varCaseGoalNew.GoalActionWorkNote.StatusID = (int)GoalWorkNote.Inprogress;
-
-                        goalActionWorkNoteRepository.InsertOrUpdate(varCaseGoalNew.GoalActionWorkNote);
-                        goalActionWorkNoteRepository.Save();
-                    }
-
-                    return RedirectToAction(Constants.Actions.Index, Constants.Controllers.CaseAction, new { caseId = varCaseGoalNew.CaseID, caseGoalId = varCaseGoalNew.CaseGoalID });
->>>>>>> refs/remotes/origin/CaseGoalChanges
                 }
                 else
                 {
@@ -251,19 +230,14 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
                             break;
                         }
                     }
-<<<<<<< HEAD
+
                     //return RedirectToAction(Constants.Actions.Create, Constants.Controllers.CaseActionNew, new { caseId = varCaseGoalNew.CaseID, caseGoalId = varCaseGoalNew.CaseGoalID });
                     //varCaseGoalNew.ErrorMessage = "Record not saved";
                     //ViewBag.MessageErr = "Record not saved";
                     //return RedirectToAction(Constants.Actions.Index, Constants.Controllers.CaseGoalNew, new { caseID = varCaseGoalNew.CaseID });
                 }
 
-=======
-                    varCaseGoalNew.ErrorMessage = "Record not saved";
-                    ViewBag.MessageErr = "Record not saved";
-                    return RedirectToAction(Constants.Actions.Index, Constants.Controllers.CaseGoalNew, new { caseID = varCaseGoalNew.CaseID });
-                }
->>>>>>> refs/remotes/origin/CaseGoalChanges
+
             }
             catch (CustomException ex)
             {
@@ -279,7 +253,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
 
         }
 
-<<<<<<< HEAD
+
         [WorkerAuthorize]
         // GET: CaseManagement/CaseActionNew
         public ActionResult Edit(int caseId, int caseGoalId,int caseActionId)
@@ -337,8 +311,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
             return View("Create",caseactionnew);
         }
 
-=======
->>>>>>> refs/remotes/origin/CaseGoalChanges
+
         /// <summary>
         /// This action loads data to kendo grid or listview asynchronously
         /// </summary>
@@ -448,32 +421,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
                 return Json(new { success = true, data = this.RenderPartialViewToString(Constants.PartialViews.Alert, casegoal) });
             }
         }
-<<<<<<< HEAD
 
-        public JsonResult LoadCaseGoalActionsAjax(int caseGoalID)
-        {
-            return Json(caseactionnewRepository.GetAllActions(caseGoalID), JsonRequestBehavior.AllowGet);
-        }
-
-        [WorkerAuthorize]
-        [HttpPost]
-        public ActionResult SaveAjax(GoalActionWorkNote GoalActionWorkNote)
-        {
-            //validate data
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    if (GoalActionWorkNote.ContactMethodID > 0)
-                    {
-                        GoalActionWorkNote.LastUpdatedByWorkerID = CurrentLoggedInWorker.ID;
-                        GoalActionWorkNote.StatusID = (int)GoalWorkNote.Inprogress;
-                        goalActionWorkNoteRepository.InsertOrUpdate(GoalActionWorkNote);
-                        goalActionWorkNoteRepository.Save();
-                        GoalActionWorkNote.SuccessMessage = "Goal details updated successfully.";
-                    }
-
-=======
 
         public JsonResult LoadCaseGoalActionsAjax(int caseGoalID)
         {
@@ -510,7 +458,6 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
                         GoalActionWorkNote.SuccessMessage = "Goal details updated successfully.";
                     }
 
->>>>>>> refs/remotes/origin/CaseGoalChanges
                 }
                 catch (DbUpdateException ex)
                 {

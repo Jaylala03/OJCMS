@@ -111,34 +111,18 @@ namespace eCMS.BusinessLogic.Repositories
             {
                 CaseActionNew.WorkerID = null;
             }
-<<<<<<< HEAD
 
-            //if (CaseActionNew.ServiceProviderID == 0)
-            //{
-            //    CaseActionNew.ServiceProviderID = null;
-            //}
-            //if (CaseActionNew.WorkerID == 0)
-            //{
-            //    CaseActionNew.WorkerID = null;
-            //}
 
-=======
->>>>>>> refs/remotes/origin/CaseGoalChanges
             if (!string.IsNullOrEmpty(CaseActionNew.ServiceProviderOther))
             {
                 CaseActionNew.AssigneeOther = CaseActionNew.ServiceProviderOther;
             }
-<<<<<<< HEAD
-            //if (!string.IsNullOrEmpty(CaseActionNew.SubjectMatterExpertOther))
-            //{
-            //    CaseActionNew.AssigneeOther = CaseActionNew.SubjectMatterExpertOther;
-            //}
-=======
+
             if (!string.IsNullOrEmpty(CaseActionNew.SubjectMatterExpertOther))
             {
                 CaseActionNew.AssigneeOther = CaseActionNew.SubjectMatterExpertOther;
             }
->>>>>>> refs/remotes/origin/CaseGoalChanges
+
 
             CaseActionNew.LastUpdateDate = DateTime.Now;
             if (CaseActionNew.ID == default(int))
