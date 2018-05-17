@@ -1584,6 +1584,7 @@ function RefreshCaseActionUI()
     debugger
     if (ddlText == '1') {
         $("#divCaseMember").show();
+<<<<<<< HEAD
         $('#WorkerID').data("kendoDropDownList").value(-1);
         $('#ServiceProviderID').data("kendoDropDownList").value(0);
     }
@@ -1623,6 +1624,23 @@ function RefreshCaseActionUI()
         if (ddlServiceProviderID.value() == '56') {
             $("#divServiceProviderOther").show();
         }
+=======
+    }
+    else if (ddlText.indexOf("Subject") == '4') {
+        $("#divSubjectMatterExpert").show();
+    }
+    else if (ddlText.indexOf("Other") == '5') {
+        $("#divAssigneeOther").show();
+        $("#divOtherProviderLink").show();
+    }
+    else if (ddlText.indexOf("Community") == '2' || ddlText.indexOf("Board") == '3') {
+        $("#divServiceProvider").show();
+        var ddlServiceProviderID = $('#ServiceProviderID').data("kendoDropDownList");
+        if (ddlServiceProviderID != null) {
+            ddlServiceProviderID.dataSource.read();
+            ddlServiceProviderID.refresh();
+        }
+>>>>>>> refs/remotes/origin/CaseGoalChanges
     }
 }
 function DropDownListServiceProvider_OnChange(e) {
@@ -1793,15 +1811,7 @@ function RegionDropDownList_OnChanged(e) {
     }
 }
 
-function CurrentStatus() {
-    var varStatusID = $("#CurrentStatusID").val();
-    if (!varStatusID) {
-        varStatusID = 0;
-    }
-    return {
-        statusid: varStatusID
-    };
-}
+
 
 function RoleDropDownList_OnChanged(e) {
     var ddlSubProgramID = $('#WorkerID').data("kendoDropDownList");
@@ -1920,6 +1930,5 @@ $(function () {
     //        return false;
     //    }
     //});
-   
 });
 //end of document.ready funtion

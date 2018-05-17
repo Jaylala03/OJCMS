@@ -210,6 +210,11 @@
     <Compile Include="ViewModels\CaseGoalActionGridVM.cs" />
     <Compile Include="ViewModels\CaseGoalEditVM.cs" />
     <Compile Include="ViewModels\CaseGoalServiceGridVM.cs" />
+<<<<<<< HEAD
+=======
+    <Compile Include="ViewModels\CaseGoalWorkNoteGridVM.cs" />
+    <Compile Include="ViewModels\CaseGoalGridVM.cs" />
+>>>>>>> refs/remotes/origin/CaseGoalChanges
     <Compile Include="ViewModels\CaseGoalNewVM.cs" />
     <Compile Include="ViewModels\CaseGoalWorkNoteGridVM.cs" />
     <Compile Include="ViewModels\CaseHouseholdIncomeVM.cs" />
@@ -220,6 +225,7 @@
     <Compile Include="ViewModels\CaseSummaryVM.cs" />
     <Compile Include="ViewModels\CaseGoalGridVM.cs" />
     <Compile Include="ViewModels\Chart.cs" />
+    <Compile Include="ViewModels\GoalActionWorkNoteVM.cs" />
     <Compile Include="ViewModels\InitialAssessmentVM.cs" />
     <Compile Include="ViewModels\InitialAssessmentIndicatorsVM.cs" />
     <Compile Include="ViewModels\CaseWorkerNoteVM.cs" />

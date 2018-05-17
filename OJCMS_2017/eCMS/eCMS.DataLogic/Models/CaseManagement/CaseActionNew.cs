@@ -77,14 +77,21 @@ namespace eCMS.DataLogic.Models
         [Display(Name = "Other")]
         public string ServiceProviderOther { set; get; }
 
+<<<<<<< HEAD
         //[NotMapped]
+=======
+        [NotMapped]
+>>>>>>> refs/remotes/origin/CaseGoalChanges
         [Display(Name = "Other")]
         public string SubjectMatterExpertOther { set; get; }
 
         [NotMapped]
+<<<<<<< HEAD
         public string OLDSubjectMatterExpertOther { set; get; }
 
         [NotMapped]
+=======
+>>>>>>> refs/remotes/origin/CaseGoalChanges
         [Display(Name = "Case ID")]
         public Int32 CaseID { set; get; }
         [NotMapped]

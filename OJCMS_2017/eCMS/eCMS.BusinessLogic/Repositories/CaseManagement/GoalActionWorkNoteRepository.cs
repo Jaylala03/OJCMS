@@ -73,7 +73,7 @@ namespace eCMS.BusinessLogic.Repositories
             string sqlQuery = "";
 
             sqlQuery = "SELECT CWN.ID,CWN.CreateDate AS DateLogged, CWN.Note AS Notes, " +
-            "CM.Name AS ContactMethod, CWN.NoteDate AS ContactDate,  " +
+            "CM.Name AS ContactMethod, CWN.NoteDate ,  " +
             "CAST(CWN.TimeSpentHours AS varchar) + ' hrs ' + (CASE WHEN CWN.TimeSpentMinutes > 0 THEN(CAST(CWN.TimeSpentMinutes AS varchar) + 'mins') else '' END) AS TimeSpent,  " +
             "ISNULL(CG.GoalDetail,CA.ActionDetail) AS Detail," +
             "GS.Name AS Status, W.FirstName + ' ' + W.LastName AS LoggedBy  " +
@@ -88,7 +88,7 @@ namespace eCMS.BusinessLogic.Repositories
             if(ActionID > 0)
                 sqlQuery += "WHERE CWN.CaseActionID = " + ActionID;
 
-            DataSourceResult dsResult = context.Database.SqlQuery<GoalActionWorkNote>(sqlQuery.ToString()).AsEnumerable().ToDataSourceResult(dsRequest);
+            DataSourceResult dsResult = context.Database.SqlQuery<GoalActionWorkNoteVM>(sqlQuery.ToString()).AsEnumerable().ToDataSourceResult(dsRequest);
             return dsResult;
 
         }
