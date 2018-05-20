@@ -156,6 +156,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
         [HttpPost]
         public ActionResult Create(CaseActionNew varCaseGoalNew)
         {
+            int sortOrder = 0, count = 0;
             varCaseGoalNew.LastUpdatedByWorkerID = CurrentLoggedInWorker.ID;
             try
             {
@@ -201,6 +202,16 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
                     {
                         if(!varCaseGoalNew.ActionStatusID.HasValue)
                             varCaseGoalNew.ActionStatusID = (int)GoalWorkNote.Inprogress;
+
+
+                        count = caseactionnewRepository.CaseGoalActionNewCountByCaseID(varCaseGoalNew.CaseID);
+
+                        if (count >= 0)
+                        {
+                            sortOrder = count + 1;
+                        }
+
+                        varCaseGoalNew.SortOrder = sortOrder;
 
                         caseactionnewRepository.InsertOrUpdate(varCaseGoalNew);
                         caseactionnewRepository.Save();
@@ -527,6 +538,26 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
             {
                 return Json(new { success = true, data = this.RenderPartialViewToString(Constants.PartialViews.Alert, GoalActionWorkNote) });
             }
+        }
+
+        [WorkerAuthorize]
+        [HttpPost]
+        public ActionResult UpdateMoveUpSortOrder(int CaseActionID, int SortOrder)
+        {
+            caseactionnewRepository.UpdateMoveUpSortOrder(CaseActionID, SortOrder);
+            caseactionnewRepository.Save();
+
+            return Json("Sort Order Changed", JsonRequestBehavior.AllowGet);
+        }
+
+        [WorkerAuthorize]
+        [HttpPost]
+        public ActionResult UpdateMoveDownSortOrder(int CaseActionID, int SortOrder)
+        {
+            caseactionnewRepository.UpdateMoveDownSortOrder(CaseActionID, SortOrder);
+            caseactionnewRepository.Save();
+
+            return Json("Sort Order Changed", JsonRequestBehavior.AllowGet);
         }
     }
 }

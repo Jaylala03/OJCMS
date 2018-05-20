@@ -85,7 +85,7 @@ namespace eCMS.BusinessLogic.Repositories
         {
             StringBuilder sqlQuery = new StringBuilder();
 
-            sqlQuery.Append("SELECT CG.CaseID,CG.ID AS CaseGoalID,(CM.FirstName+' '+CM.LastName) AS FamilyMember,");
+            sqlQuery.Append("SELECT CG.SortOrder, CG.CaseID,CG.ID AS CaseGoalID,(CM.FirstName+' '+CM.LastName) AS FamilyMember,");
             sqlQuery.Append("GS.Name AS GoalStatus,CG.GoalDetail ,RT.Name AS Priority,CG.CreateDate,CG.LastUpdateDate,");
             sqlQuery.Append("((CASE WHEN Education = 1 THEN 'Education' ELSE '' END) + ");
             sqlQuery.Append("(CASE WHEN IncomeLivelihood = 1 THEN ',IncomeLivelihood' ELSE '' END) + ");
@@ -184,6 +184,39 @@ namespace eCMS.BusinessLogic.Repositories
             }
             return false;
         }
+
+        public int CaseGoalNewCountByCaseID(int CaseID)
+        {
+            var varCaseGoalNew = context.CaseGoalNew.Where(w => w.CaseID == CaseID);
+
+            int varCaseGoalNewCount = varCaseGoalNew.Count();
+
+            return varCaseGoalNewCount;
+        }
+
+        public void UpdateMoveUpSortOrder(int CaseGoalID, int SortOrder)
+        {
+            var goal = context.CaseGoalNew.Find(CaseGoalID);
+            if (goal != null)
+            {
+                goal.SortOrder = SortOrder + 1;
+                goal.LastUpdateDate = DateTime.Now;
+                context.Entry(goal).State = System.Data.Entity.EntityState.Modified;
+                Save();                
+            }
+        }
+
+        public void UpdateMoveDownSortOrder(int CaseGoalID, int SortOrder)
+        {
+            var goal = context.CaseGoalNew.Find(CaseGoalID);
+            if (goal != null)
+            {
+                goal.SortOrder = SortOrder - 1;
+                goal.LastUpdateDate = DateTime.Now;
+                context.Entry(goal).State = System.Data.Entity.EntityState.Modified;
+                Save();
+            }
+        }
     }
 
     public interface ICaseGoalNewRepository : IBaseRepository<CaseGoalNew>
@@ -193,8 +226,10 @@ namespace eCMS.BusinessLogic.Repositories
         IQueryable<CaseGoalNew> AllIncluding(int caseId, params Expression<Func<CaseGoalNew, object>>[] includeProperties);
         List<CaseGoalGridVM> CaseGoalNewByCaseID(int CaseID);
         List<CaseGoalServiceGridVM> CaseGoalHistory(int CaseID);
-
         CaseGoalEditVM GetCaseGoal(int CaseGoalID);
         bool UpdateDetails(CaseGoalEditVM casegoal);
+        int CaseGoalNewCountByCaseID(int CaseID);
+        void UpdateMoveUpSortOrder(int CaseGoalID, int SortOrder);
+        void UpdateMoveDownSortOrder(int CaseGoalID, int SortOrder);
     }
 }

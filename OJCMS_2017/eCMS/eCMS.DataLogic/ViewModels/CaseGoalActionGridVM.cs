@@ -14,6 +14,7 @@ namespace eCMS.DataLogic.ViewModels
         public int ID { get; set; }
         public int CaseGoalID { get; set; }
         public int CaseID { get; set; }
+        public int SortOrder { get; set; }
 
         [Display(Name = "Assigned To")]
         public string AssignedTo { get; set; }

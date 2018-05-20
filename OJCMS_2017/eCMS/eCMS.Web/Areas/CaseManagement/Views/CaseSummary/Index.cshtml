@@ -250,7 +250,7 @@
                     <td style="width:50%;">&nbsp;</td>
                 </tr>
             </table>
-            
+
         </div>
     </div>
 </div>
@@ -365,7 +365,8 @@
             </table>
 
         </div>
-        <div class="col-md-6 "> @*table-bordered*@
+        <div class="col-md-6 ">
+            @*table-bordered*@
             <div class="align-right">
                 <label class="control-label labe-text" style="text-align:right;float:right;">
                     @Html.ActionLink("Update Household Income", Constants.Actions.Edit, Constants.Controllers.CaseHouseholdIncome, new { CaseID = Model.CaseID, IncomeID = Model.CurrentHouseholdIncomeID }, null)
@@ -651,7 +652,7 @@
                     columns.Bound(c => c.GoalStatus).Sortable(true).Groupable(false).Filterable(false);
                     columns.Bound(c => c.CreateDate).Format("{0:yyyy-MM-dd}").Sortable(true).Groupable(false).Filterable(false);
                     columns.Bound(c => c.LastUpdateDate).Format("{0:yyyy-MM-dd}").Sortable(true).Groupable(false).Filterable(false);
-                    columns.Bound(p => p.Actions).ClientTemplate("<center><a href='/CaseManagement/CaseGoalNew/Edit/?Id=#= CaseGoalID #&CaseID=#= CaseID #'  title='Edit'>Edit</a>&nbsp;<a href='/CaseManagement/CaseActionNew/Index/?caseId=#= CaseID #&caseGoalId=#= CaseGoalID #'  title='Summary'>Summary</a>&nbsp;</center>").Width("10%")
+                    columns.Bound(p => p.Actions).ClientTemplate("<center><a href='/CaseManagement/CaseGoalNew/Edit/?Id=#= CaseGoalID #&CaseID=#= CaseID #'  title='Edit'>Edit</a>&nbsp;<a href='/CaseManagement/CaseActionNew/Index/?caseId=#= CaseID #&caseGoalId=#= CaseGoalID #'  title='Summary'>Summary</a>&nbsp;<br /><button type='button' id='moveup' value='Move Up' onclick='moveupfunc(#= CaseGoalID #, #= SortOrder #)'<br />&nbsp;<button type='button' id='movedown' value='Move Down' onclick='movedownfunc(#= CaseGoalID #, #= SortOrder #)'</center>").Width("10%")
                         .HtmlAttributes(new { @class = "grid-actions-content" })
                         .HeaderTemplate("<center>Actions</center>")
                         .HeaderHtmlAttributes(new { @class = "grid-actions-content" });
@@ -662,7 +663,7 @@
                 .PageSize(50)
                 )
                 .Pageable()
-                    //.Scrollable()
+                //.Scrollable()
                 .Sortable()
             )
         </div>
@@ -716,6 +717,46 @@
             $(this).parent().prev().toggle();
             $(this).prev().toggle();
             return false;
+        });
+    }
+
+    function moveupfunc(ID, SortOrder) {
+        alert(ID);
+        alert(SortOrder);
+
+        $.ajax({
+            type: "POST",
+            url: "/CaseManagement/CaseGoalNew/UpdateMoveUpSortOrder",
+            data: "{'CaseGoalID': '" + ID + "','SortOrder': '" + SortOrder + "'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            async: true,
+            success: function (msg) {
+                alert(msg);
+            },
+            error: function (msg) {
+                alert(msg.responseText);
+            }
+        });
+    }
+
+    function movedownfunc(ID, SortOrder) {
+        alert(ID);
+        alert(SortOrder);
+
+        $.ajax({
+            type: "POST",
+            url: "/CaseManagement/CaseGoalNew/UpdateMoveDownSortOrder",
+            data: "{'CaseGoalID': '" + ID + "','SortOrder': '" + SortOrder + "'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            async: true,
+            success: function (msg) {
+                alert(msg);
+            },
+            error: function (msg) {
+                alert(msg.responseText);
+            }
         });
     }
 </script>
