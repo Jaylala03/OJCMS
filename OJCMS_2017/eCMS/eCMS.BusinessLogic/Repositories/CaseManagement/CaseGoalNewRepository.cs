@@ -194,6 +194,15 @@ namespace eCMS.BusinessLogic.Repositories
             return varCaseGoalNewCount;
         }
 
+        public int CaseGoalNewCompleteByCaseID(int CaseID)
+        {
+            var varCaseGoalNewCompleted = context.CaseGoalNew.Where(w => w.CaseID == CaseID && w.GoalStatusID == 3);
+
+            int varCaseGoalNewCompletedCount = varCaseGoalNewCompleted.Count();
+
+            return varCaseGoalNewCompletedCount;
+        }
+
         public void UpdateMoveUpSortOrder(int CaseGoalID, int SortOrder)
         {
             var goal = context.CaseGoalNew.Find(CaseGoalID);
@@ -231,5 +240,6 @@ namespace eCMS.BusinessLogic.Repositories
         int CaseGoalNewCountByCaseID(int CaseID);
         void UpdateMoveUpSortOrder(int CaseGoalID, int SortOrder);
         void UpdateMoveDownSortOrder(int CaseGoalID, int SortOrder);
+        int CaseGoalNewCompleteByCaseID(int CaseID);
     }
 }

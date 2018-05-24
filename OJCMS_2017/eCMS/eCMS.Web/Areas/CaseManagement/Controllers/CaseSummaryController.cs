@@ -22,6 +22,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
         private readonly ICaseHouseholdIncomeRepository caseHouseholdIncomeRepository;
         private readonly ICaseInitialAssessmentRepository caseInitialAssessmentRepository;
         private readonly ICaseStatusHistoryRepository caseStatusHistoryRepository;
+        private readonly ICaseGoalNewRepository caseGoalNewRepository;
 
         public CaseSummaryController(IWorkerRepository workerRepository,
            ICaseRepository caseRepository,
@@ -41,6 +42,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
             , ICaseHouseholdIncomeRepository caseHouseholdIncomeRepository
             , ICaseInitialAssessmentRepository caseInitialAssessmentRepository
             , ICaseStatusHistoryRepository caseStatusHistoryRepository
+            , ICaseGoalNewRepository caseGoalNewRepository
           )
             : base(workerroleactionpermissionRepository, caseRepository, workerroleactionpermissionnewRepository)
         {
@@ -59,6 +61,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
             this.caseHouseholdIncomeRepository = caseHouseholdIncomeRepository;
             this.caseInitialAssessmentRepository = caseInitialAssessmentRepository;
             this.caseStatusHistoryRepository = caseStatusHistoryRepository;
+            this.caseGoalNewRepository = caseGoalNewRepository;
         }
 
         [WorkerAuthorize]
@@ -94,6 +97,12 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
             string status = caseStatusHistoryRepository.CaseStatusByCaseID(caseID);
             caseSummary.CaseStatus = status;
 
+            caseSummary.caseGoalNewVM = new CaseGoalNewVM();
+            int TotalGoal = caseGoalNewRepository.CaseGoalNewCountByCaseID(caseID);
+            caseSummary.caseGoalNewVM.TotalGoal = TotalGoal;
+
+            int GoalCompleted = caseGoalNewRepository.CaseGoalNewCompleteByCaseID(caseID);
+            caseSummary.caseGoalNewVM.GoalCompleted = GoalCompleted;
             
             return View(caseSummary);
         }

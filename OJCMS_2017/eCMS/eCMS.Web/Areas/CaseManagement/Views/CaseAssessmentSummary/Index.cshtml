@@ -146,6 +146,11 @@
                   Value = "2"
               }
           })
+          //.Events(e =>
+          //  {
+          //      //e.Select("onSelect");
+          //      e.Change("onChange");
+          //  })
           .HtmlAttributes(new { style = "width: 100%" })
                         )
                     </div>
@@ -161,7 +166,9 @@
                     </div>
                 </div>
             </div>
-            @if (Model.CaseInitialAssessment != null && Model.CaseInitialAssessment.Count > 0)
+            @if (ViewBag.DisplayChart == "DisplayTable")
+            {
+            if (Model.CaseInitialAssessment != null && Model.CaseInitialAssessment.Count > 0)
             {
                 <div class="row" style="margin-top:10px;" id="AssessmentTable">
                     <div class="col-lg-12 col-md-11 candidate-table-bg">
@@ -205,9 +212,11 @@
                     </div>
                 </div>
             }
-
+            }
         </div>
 
+        if (ViewBag.DisplayChart == "DisplayChart")
+        {
         <div class="row" style="margin-top:10px;" id="AssessmentSummaryChart">
             <div class="col-lg-12 col-md-11 candidate-table-bg">
                 <div class="row">
@@ -217,10 +226,12 @@
                 </div>
             </div>
         </div>
-    }
+            }
+        }
 </div>
 <script type="text/javascript">
     $(document).ready(function () {
+
         var memberid = $("#CaseMemberID").data("kendoDropDownList").value();
         if(memberid > 0)
         {
@@ -378,4 +389,37 @@
             //});
 
         }});
+
+    //$('#btnViewAssessmentSummary').on("click",function() {
+    //    var tcVal = $("#ViewAsID").data("kendoDropDownList").value();
+
+    //    if(tcVal == 1)
+    //    {
+    //        alert('In Table');
+
+    //        $.ajax({
+    //            type: "POST",
+    //            url: "/CaseManagement/CaseAssessmentSummary/Index",
+    //            data: "{'CaseID': '" + CaseID + "','CaseMemberID': '" + CaseMemberID + "', 'TCVal': '"+tcVal+"'}",
+    //            contentType: "application/json; charset=utf-8",
+    //            dataType: "json",
+    //            async: true,
+    //            success: function (msg) {
+    //                alert(msg);
+    //            },
+    //            error: function (msg) {
+    //                alert(msg.responseText);
+    //            }
+    //        });
+
+    //        $("#AssessmentTable").show();
+    //        $("#AssessmentSummaryChart").hide();
+    //    }
+    //    else
+    //    {
+    //        alert('In Chart');
+    //        $("#AssessmentSummaryChart").show();
+    //        $("#AssessmentTable").hide();
+    //    }
+    //});
 </script>
