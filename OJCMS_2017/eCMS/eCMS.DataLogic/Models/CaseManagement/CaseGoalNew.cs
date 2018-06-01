@@ -20,6 +20,8 @@ namespace eCMS.DataLogic.Models
     {
         public Int32 CaseID { get; set; }
 
+        public Int32 SortOrder { get; set; }
+
         [NotMapped]
         [Display(Name = "ACTIONS")]
         public string Actions { get; set; }

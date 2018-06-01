@@ -81,5 +81,12 @@ namespace eCMS.DataLogic.ViewModels
 
         [NotMapped]
         public List<CaseGoalDetailTemplate> CaseGoalDetailTemplate { get; set; }
+
+        [NotMapped]
+        public int TotalGoal { get; set; }
+
+        [NotMapped]
+        public int GoalCompleted { get; set; }
+
     }
 }

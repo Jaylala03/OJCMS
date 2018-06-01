@@ -45,6 +45,11 @@
         )
     </div>
 </div>
+<div class="col-md-12" style="padding-top:10px;">
+    <div class="form-group02" style="text-align:center;">
+        <a href="@Url.Action(Constants.Actions.Index, Constants.Controllers.CaseSummary, new { caseID = Model.CaseID})" class="btn btn-primary"><i class="fa fa-long-arrow-left"></i> Back to Case Summary</a>
+    </div>
+</div>
 <script id="template" type="text/kendo-tmpl">
     @(Html.Kendo().Grid<CaseGoalActionGridVM>()
                     .Name("grid_#=CaseGoalID#") // template expression, to be evaluated in the master context

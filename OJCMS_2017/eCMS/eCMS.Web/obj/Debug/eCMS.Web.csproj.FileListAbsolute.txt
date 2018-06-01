@@ -59,7 +59,6 @@ G:\Jay Bhai\ojcmsMaster\OJCMS_2017\eCMS\eCMS.Web\bin\eCMS.Shared.pdb
 G:\Jay Bhai\ojcmsMaster\OJCMS_2017\eCMS\eCMS.Web\obj\Debug\eCMS.Web.csprojResolveAssemblyReference.cache
 G:\Jay Bhai\ojcmsMaster\OJCMS_2017\eCMS\eCMS.Web\obj\Debug\eCMS.Web.dll
 G:\Jay Bhai\ojcmsMaster\OJCMS_2017\eCMS\eCMS.Web\obj\Debug\eCMS.Web.pdb
-G:\Jay Bhai\ojcmsMaster\OJCMS_2017\eCMS\eCMS.Web\bin\Newtonsoft.Json.xml
 D:\OJCMS\OJCMS_2017\eCMS\eCMS.Web\bin\eCMS.Web.dll.config
 D:\OJCMS\OJCMS_2017\eCMS\eCMS.Web\bin\eCMS.Web.dll
 D:\OJCMS\OJCMS_2017\eCMS\eCMS.Web\bin\eCMS.Web.pdb

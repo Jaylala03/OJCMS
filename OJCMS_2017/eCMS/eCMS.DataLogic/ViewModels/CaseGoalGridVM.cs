@@ -12,6 +12,7 @@ namespace eCMS.DataLogic.ViewModels
     public class CaseGoalGridVM
     {
         public int CaseID { get; set; }
+        public int SortOrder { get; set; }
         public int CaseGoalID { get; set; }
 
         [Display(Name = "Family / Family Member")]

@@ -250,7 +250,7 @@ namespace eCMS.BusinessLogic.Repositories
         public List<CaseGoalActionGridVM> CaseGoalActionHistory(int CaseGoalID)
         {
             StringBuilder sqlQuery = new StringBuilder();
-            sqlQuery.Append("SELECT CA.CaseID,CA.CaseGoalID,CA.ID , ");
+            sqlQuery.Append("SELECT CA.SortOrder, CA.CaseID,CA.CaseGoalID,CA.ID , ");
             sqlQuery.Append("CASE WHEN CA.CaseMemberID IS NOT NULL THEN (CM.FirstName+' '+CM.LastName)  ");
             sqlQuery.Append("WHEN [CA].[ServiceProviderID] IS NOT NULL AND SP.Name <> 'Other' THEN SP.Name ");
             sqlQuery.Append("WHEN [CA].[ServiceProviderID] IS NOT NULL AND SP.Name = 'Other' THEN SP.Name + '-' + CA.AssigneeOther ");
@@ -274,6 +274,39 @@ namespace eCMS.BusinessLogic.Repositories
         {
             return context.CaseActionNew.Where(item => item.CaseGoalID == CaseGoalID).OrderBy(item => item.ID).AsEnumerable().Select(item => new SelectListItem() { Text = item.ActionDetail, Value = item.ID.ToString() }).ToList();
         }
+
+        public int CaseGoalActionNewCountByCaseID(int CaseID)
+        {
+            var varCaseActionNew = context.CaseActionNew.Where(w => w.CaseID == CaseID);
+
+            int varCaseActionNewCount = varCaseActionNew.Count();
+
+            return varCaseActionNewCount;
+        }
+
+        public void UpdateMoveUpSortOrder(int CaseActionID, int SortOrder)
+        {
+            var actionNew = context.CaseActionNew.Find(CaseActionID);
+            if (actionNew != null)
+            {
+                actionNew.SortOrder = SortOrder + 1;
+                actionNew.LastUpdateDate = DateTime.Now;
+                context.Entry(actionNew).State = System.Data.Entity.EntityState.Modified;
+                Save();
+            }
+        }
+
+        public void UpdateMoveDownSortOrder(int CaseActionID, int SortOrder)
+        {
+            var actionNew = context.CaseActionNew.Find(CaseActionID);
+            if (actionNew != null)
+            {
+                actionNew.SortOrder = SortOrder - 1;
+                actionNew.LastUpdateDate = DateTime.Now;
+                context.Entry(actionNew).State = System.Data.Entity.EntityState.Modified;
+                Save();
+            }
+        }
     }
 
     /// <summary>
@@ -287,5 +320,8 @@ namespace eCMS.BusinessLogic.Repositories
         List<CaseGoalWorkNoteGridVM> CaseGoalWorkNote(int CaseGoalID);
         List<CaseGoalActionGridVM> CaseGoalActionHistory(int CaseGoalID);
         List<SelectListItem> GetAllActions(int CaseGoalID);
+        int CaseGoalActionNewCountByCaseID(int CaseID);
+        void UpdateMoveUpSortOrder(int CaseActionID, int SortOrder);
+        void UpdateMoveDownSortOrder(int CaseActionID, int SortOrder);
     }
 }

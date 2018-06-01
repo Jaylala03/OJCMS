@@ -86,6 +86,9 @@ namespace eCMS.DataLogic.Models
 
         [Display(Name = "Case ID")]
         public Int32 CaseID { set; get; }
+
+        public Int32 SortOrder { set; get; }
+
         [NotMapped]
         public Int32 RegionID { set; get; }
 

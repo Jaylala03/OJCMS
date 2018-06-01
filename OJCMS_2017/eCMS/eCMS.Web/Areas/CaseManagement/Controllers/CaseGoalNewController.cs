@@ -78,6 +78,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
         [HttpPost]
         public ActionResult Create(CaseGoalNew varCaseGoalNew)
         {
+            int sortOrder = 0, count = 0;
             try
             {
                 varCaseGoalNew.LastUpdatedByWorkerID = CurrentLoggedInWorker.ID;
@@ -99,7 +100,16 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
                     if(!varCaseGoalNew.GoalStatusID.HasValue)
                         varCaseGoalNew.GoalStatusID = (int)GoalWorkNote.Inprogress;
 
-                   
+
+                    count = caseGoalNewRepository.CaseGoalNewCountByCaseID(varCaseGoalNew.CaseID);
+
+                    if (count >= 0)
+                    {
+                        sortOrder = count + 1;
+                    }
+
+                    varCaseGoalNew.SortOrder = sortOrder;
+
                     caseGoalNewRepository.InsertOrUpdate(varCaseGoalNew);
                     caseGoalNewRepository.Save();
 
@@ -325,7 +335,7 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
                     return RedirectToAction(Constants.Actions.Index, Constants.Controllers.CaseGoalNew, new { caseID = varCaseGoalNew.CaseID });
                 }
             }
-            catch (CustomException ex)
+            catch (CustomException ex) 
             {
                 varCaseGoalNew.ErrorMessage = ex.UserDefinedMessage;
             }
@@ -336,7 +346,26 @@ namespace eCMS.Web.Areas.CaseManagement.Controllers
             }
 
             return View(varCaseGoalNew);
+        }
 
+        [WorkerAuthorize]
+        [HttpPost]
+        public ActionResult UpdateMoveUpSortOrder(int CaseGoalID, int SortOrder)
+        {
+            caseGoalNewRepository.UpdateMoveUpSortOrder(CaseGoalID, SortOrder);
+            caseGoalNewRepository.Save();
+
+            return Json("Sort Order Changed", JsonRequestBehavior.AllowGet);
+        }
+
+        [WorkerAuthorize]
+        [HttpPost]
+        public ActionResult UpdateMoveDownSortOrder(int CaseGoalID, int SortOrder)
+        {
+            caseGoalNewRepository.UpdateMoveDownSortOrder(CaseGoalID, SortOrder);
+            caseGoalNewRepository.Save();
+
+            return Json("Sort Order Changed", JsonRequestBehavior.AllowGet);
         }
     }
 }

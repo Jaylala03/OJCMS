@@ -165,7 +165,7 @@
                     columns.Bound(c => c.ActionStatus).Sortable(true).Groupable(false).Filterable(false);
                     columns.Bound(c => c.CreateDate).Format("{0:yyyy-MM-dd}").Sortable(true).Groupable(false).Filterable(false);
                     columns.Bound(c => c.LastUpdateDate).Format("{0:yyyy-MM-dd}").Sortable(true).Groupable(false).Filterable(false);
-                    columns.Bound(p => p.Actions).ClientTemplate("<center><a href='/CaseManagement/CaseActionNew/Edit/?caseId=#= CaseID #&caseGoalId=#= CaseGoalID #&caseActionId=#= ID #'  title='Edit'>Edit</a>&nbsp;</center>").Width("10%")
+                    columns.Bound(p => p.Actions).ClientTemplate("<center><a href='/CaseManagement/CaseActionNew/Edit/?caseId=#= CaseID #&caseGoalId=#= CaseGoalID #&caseActionId=#= ID #'  title='Edit'>Edit</a>&nbsp;<br /><button type='button' id='moveup' value='Move Up' onclick='moveupfunc(#= ID #, #= SortOrder #)'<br />&nbsp;<button type='button' id='movedown' value='Move Down' onclick='movedownfunc(#= ID #, #= SortOrder #)'</center>").Width("10%")
                        .HtmlAttributes(new { @class = "grid-actions-content" })
                        .HeaderTemplate("<center>Actions</center>")
                        .HeaderHtmlAttributes(new { @class = "grid-actions-content" });
@@ -384,4 +384,44 @@
         isAddworkNote = false;
         return false;
     });
+
+    function moveupfunc(ID, SortOrder) {
+        alert(ID);
+        alert(SortOrder);
+
+        $.ajax({
+            type: "POST",
+            url: "/CaseManagement/CaseActionNew/UpdateMoveUpSortOrder",
+            data: "{'CaseActionID': '" + ID + "','SortOrder': '" + SortOrder + "'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            async: true,
+            success: function (msg) {
+                alert(msg);
+            },
+            error: function (msg) {
+                alert(msg.responseText);
+            }
+        });
+    }
+
+    function movedownfunc(ID, SortOrder) {
+        alert(ID);
+        alert(SortOrder);
+
+        $.ajax({
+            type: "POST",
+            url: "/CaseManagement/CaseActionNew/UpdateMoveDownSortOrder",
+            data: "{'CaseActionID': '" + ID + "','SortOrder': '" + SortOrder + "'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            async: true,
+            success: function (msg) {
+                alert(msg);
+            },
+            error: function (msg) {
+                alert(msg.responseText);
+            }
+        });
+    }
 </script>
