@@ -166,7 +166,10 @@
             @*<label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.EnrollDate)</label>*@
             <label class="col-sm-4 control-label labe-text">@Html.LabelFor(model => model.EnrollDate)</label>
             <div class="col-sm-8">
-                @Html.EditorFor(model => model.EnrollDate)
+                @*@Html.EditorFor(model => model.EnrollDate)*@
+                @(Html.Kendo().DatePickerFor(model => model.EnrollDate)
+                          .HtmlAttributes(new { style = "width: 100%", title = "datepicker" })
+                )
             </div>
             <div class="col-sm-8">
                 @Html.ValidationMessageFor(model => model.EnrollDate, "", new { @class = "text-danger" })
@@ -381,7 +384,8 @@
                 <div class="col-sm-4">
                     @(Html.Kendo().NumericTextBoxFor<int>(model => model.CaseHouseholdIncome.NoOfMembers)
                                 .Placeholder("Enter numeric value")
-                                .Min(1)
+                                .Format("#")
+                                .Min(0)
                                 .Max(100)
                                  .HtmlAttributes(new { title = "numeric" })
                     )
@@ -392,7 +396,8 @@
                 <div class="col-sm-4">
                     @(Html.Kendo().NumericTextBoxFor<int>(model => model.CaseHouseholdIncome.NoOfChild)
                                 .Placeholder("Enter numeric value")
-                             .Min(1)
+                            .Format("#")
+                             .Min(0)
                             .Max(100)
                                  .HtmlAttributes(new { title = "numeric" })
                     )
@@ -403,7 +408,8 @@
                 <div class="col-sm-4">
                     @(Html.Kendo().NumericTextBoxFor<int>(model => model.CaseHouseholdIncome.NoOfSeniors)
                                 .Placeholder("Enter numeric value")
-                             .Min(1)
+                            .Format("#")
+                             .Min(0)
                             .Max(100)
                                  .HtmlAttributes(new { title = "numeric" })
                     )
@@ -414,7 +420,8 @@
                 <div class="col-sm-4">
                     @(Html.Kendo().NumericTextBoxFor<int>(model => model.CaseHouseholdIncome.NoOfPhysicallyDisabled)
                                 .Placeholder("Enter numeric value")
-                             .Min(1)
+                            .Format("#")
+                             .Min(0)
                             .Max(100)
                                  .HtmlAttributes(new { title = "numeric" })
                     )

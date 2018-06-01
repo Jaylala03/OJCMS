@@ -271,6 +271,7 @@
                             <span>Hours</span>
                             @(Html.Kendo().NumericTextBoxFor<int>
                                     (m => m.GoalActionWorkNote.TimeSpentHours)
+                .Format("#")
                                     .Min(0)
                                     .Max(59)
                                     .HtmlAttributes(new { title = "Hours" })
@@ -281,6 +282,7 @@
                             <span>Minutes</span>
                             @(Html.Kendo().NumericTextBoxFor<int>
                                     (m => m.GoalActionWorkNote.TimeSpentMinutes)
+                .Format("#")
                                     .Min(0)
                                     .Max(59)
                                     .HtmlAttributes(new { title = "Minutes" })

@@ -33,6 +33,7 @@
                         <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.NoOfMembers)</label>
                         <div class="col-sm-2">
                             @(Html.Kendo().NumericTextBoxFor<int>(model => model.NoOfMembers)
+        .Format("#")
             .Placeholder("Enter numeric value")
              .HtmlAttributes(new { title = "numeric" })
                             )
@@ -42,6 +43,7 @@
                         <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.NoOfChild)</label>
                         <div class="col-sm-2">
                             @(Html.Kendo().NumericTextBoxFor<int>(model => model.NoOfChild)
+        .Format("#")
             .Placeholder("Enter numeric value")
              .HtmlAttributes(new { title = "numeric" })
                             )
@@ -51,6 +53,7 @@
                         <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.NoOfSeniors)</label>
                         <div class="col-sm-2">
                             @(Html.Kendo().NumericTextBoxFor<int>(model => model.NoOfSeniors)
+        .Format("#")
             .Placeholder("Enter numeric value")
              .HtmlAttributes(new { title = "numeric" })
                             )
@@ -60,6 +63,7 @@
                         <label class="col-sm-4 control-label labe-text">@Html.LabelRequiredFor(model => model.NoOfPhysicallyDisabled)</label>
                         <div class="col-sm-2">
                             @(Html.Kendo().NumericTextBoxFor<int>(model => model.NoOfPhysicallyDisabled)
+        .Format("#")
             .Placeholder("Enter numeric value")
              .HtmlAttributes(new { title = "numeric" })
                             )

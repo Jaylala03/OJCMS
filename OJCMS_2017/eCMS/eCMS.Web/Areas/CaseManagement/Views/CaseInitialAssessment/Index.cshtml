@@ -208,6 +208,7 @@
                     <div class="col-sm-2">
                         @(Html.Kendo().NumericTextBoxFor<int>(model => model.CaseHouseholdIncome.NoOfMembers)
                                 .Placeholder("Enter numeric value")
+                    .Format("#")
                                 .HtmlAttributes(new { title = "numeric" })
                         )
                     </div>
@@ -217,6 +218,7 @@
                     <div class="col-sm-2">
                         @(Html.Kendo().NumericTextBoxFor<int>(model => model.CaseHouseholdIncome.NoOfChild)
                                 .Placeholder("Enter numeric value")
+                    .Format("#")
                                  .HtmlAttributes(new { title = "numeric" })
                         )
                     </div>
@@ -226,6 +228,7 @@
                     <div class="col-sm-2">
                         @(Html.Kendo().NumericTextBoxFor<int>(model => model.CaseHouseholdIncome.NoOfSeniors)
                                 .Placeholder("Enter numeric value")
+                    .Format("#")
                                  .HtmlAttributes(new { title = "numeric" })
                         )
                     </div>
@@ -235,6 +238,7 @@
                     <div class="col-sm-2">
                         @(Html.Kendo().NumericTextBoxFor<int>(model => model.CaseHouseholdIncome.NoOfPhysicallyDisabled)
                                 .Placeholder("Enter numeric value")
+                    .Format("#")
                                  .HtmlAttributes(new { title = "numeric" })
                         )
                     </div>

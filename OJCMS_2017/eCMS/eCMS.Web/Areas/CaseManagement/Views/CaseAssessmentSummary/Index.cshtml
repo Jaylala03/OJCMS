@@ -319,35 +319,35 @@
                 window.myLine = new Chart(ctx, config);
             };
 
-            document.getElementById('randomizeData').addEventListener('click', function() {
-                config.data.datasets.forEach(function(dataset) {
-                    dataset.data = dataset.data.map(function() {
-                        return randomScalingFactor();
-                    });
+            //document.getElementById('randomizeData').addEventListener('click', function() {
+            //    config.data.datasets.forEach(function(dataset) {
+            //        dataset.data = dataset.data.map(function() {
+            //            return randomScalingFactor();
+            //        });
 
-                });
+            //    });
 
-                window.myLine.update();
-            });
+            //    window.myLine.update();
+            //});
 
             var colorNames = Object.keys(window.chartColors);
-            document.getElementById('addDataset').addEventListener('click', function() {
-                var colorName = colorNames[config.data.datasets.length % colorNames.length];
-                var newColor = window.chartColors[colorName];
-                var newDataset = {
-                    label: 'Dataset ' + config.data.datasets.length,
-                    borderColor: newColor,
-                    backgroundColor: newColor,
-                    data: [],
-                };
+            //document.getElementById('addDataset').addEventListener('click', function() {
+            //    var colorName = colorNames[config.data.datasets.length % colorNames.length];
+            //    var newColor = window.chartColors[colorName];
+            //    var newDataset = {
+            //        label: 'Dataset ' + config.data.datasets.length,
+            //        borderColor: newColor,
+            //        backgroundColor: newColor,
+            //        data: [],
+            //    };
 
-                for (var index = 0; index < config.data.labels.length; ++index) {
-                    newDataset.data.push(randomScalingFactor());
-                }
+            //    for (var index = 0; index < config.data.labels.length; ++index) {
+            //        newDataset.data.push(randomScalingFactor());
+            //    }
 
-                config.data.datasets.push(newDataset);
-                window.myLine.update();
-            });
+            //    config.data.datasets.push(newDataset);
+            //    window.myLine.update();
+            //});
 
             //document.getElementById('addData').addEventListener('click', function() {
             //    if (config.data.datasets.length > 0) {

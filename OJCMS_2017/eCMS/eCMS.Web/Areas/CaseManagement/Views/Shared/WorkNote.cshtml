@@ -51,6 +51,7 @@
                 @*@Html.EditorFor(m => m.CaseWorkerNote.TimeSpentHours, null, new { @class = "form-control" })*@
                 <span>Hours</span>
                 @(Html.Kendo().NumericTextBoxFor<int>(m => m.TimeSpentHours)
+                        .Format("#")
                                             .Min(0)
                                             .Max(59)
                                             .HtmlAttributes(new { title = "Hours" })
@@ -61,6 +62,7 @@
                 @*@Html.EditorFor(m => m.CaseWorkerNote.TimeSpentMinutes, null, new { @class = "form-control" })*@
                 <span>Minutes</span>
                 @(Html.Kendo().NumericTextBoxFor<int>(m => m.TimeSpentMinutes)
+                        .Format("#")
                                             .Min(0)
                                             .Max(59)
                                             .HtmlAttributes(new { title = "Minutes" })
